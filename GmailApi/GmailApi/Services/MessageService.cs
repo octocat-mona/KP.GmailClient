@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ConsoleApplication1.Models;
+using GmailApi.Builders;
+using GmailApi.DTO;
+using GmailApi.Models;
 
-namespace ConsoleApplication1
+namespace GmailApi.Services
 {
     public class MessageService//TODO: interface
     {

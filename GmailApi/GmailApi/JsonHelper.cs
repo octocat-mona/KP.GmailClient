@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 
-namespace ConsoleApplication1
+namespace GmailApi
 {
     internal class JsonHelper
     {

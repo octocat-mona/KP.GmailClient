@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace ConsoleApplication1.Models
+namespace GmailApi.Models
 {
     public enum MimeType
     {

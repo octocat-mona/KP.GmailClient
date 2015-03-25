@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Configuration;
-using ConsoleApplication1;
+using GmailApi;
+using GmailApi.Models;
+using GmailApi.Services;
 
 namespace Test
 {

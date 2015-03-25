@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace ConsoleApplication1
+namespace GmailApi.Services
 {
     public class Profile
     {

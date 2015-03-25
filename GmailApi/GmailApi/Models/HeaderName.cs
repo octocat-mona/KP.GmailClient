@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace ConsoleApplication1
+namespace GmailApi.Models
 {
     /// <summary>
     /// Header according to the RFC 2822 Internet Message Format standard.

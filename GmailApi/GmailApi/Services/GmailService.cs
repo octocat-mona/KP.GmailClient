@@ -1,6 +1,6 @@
-﻿using ConsoleApplication1.Services;
+﻿using GmailApi.Builders;
 
-namespace ConsoleApplication1
+namespace GmailApi.Services
 {
     public class GmailService
     {

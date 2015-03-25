@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace ConsoleApplication1
+namespace GmailApi.Models
 {
     public class Oauth2Token
     {

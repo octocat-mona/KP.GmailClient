@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using GmailApi.DTO;
+using GmailApi.Models;
 
-namespace ConsoleApplication1
+namespace GmailApi.Builders
 {
     public class MessageQueryStringBuilder : QueryStringBuilder
     {

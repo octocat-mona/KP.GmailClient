@@ -1,4 +1,4 @@
-﻿namespace ConsoleApplication1.Services
+﻿namespace GmailApi.Services
 {
     public class ThreadService
     {

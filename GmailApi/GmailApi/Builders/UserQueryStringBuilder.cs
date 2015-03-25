@@ -1,4 +1,4 @@
-﻿namespace ConsoleApplication1
+﻿namespace GmailApi.Builders
 {
     public class UserQueryStringBuilder : QueryStringBuilder
     {

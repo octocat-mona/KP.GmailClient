@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace ConsoleApplication1
+namespace GmailApi
 {
     public static class Extensions
     {

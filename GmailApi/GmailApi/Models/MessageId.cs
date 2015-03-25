@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace ConsoleApplication1
+namespace GmailApi.Models
 {
     public class MessageId//TODO: GmailMessageBase instead?
     {

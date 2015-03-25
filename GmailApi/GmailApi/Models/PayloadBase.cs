@@ -1,8 +1,7 @@
 using System.Collections.Generic;
-using ConsoleApplication1.Models;
 using Newtonsoft.Json;
 
-namespace ConsoleApplication1
+namespace GmailApi.Models
 {
     public class PayloadBase
     {

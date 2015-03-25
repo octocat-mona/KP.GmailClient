@@ -1,4 +1,4 @@
-﻿namespace ConsoleApplication1
+﻿namespace GmailApi.Models
 {
     public enum MessageFormat
     {

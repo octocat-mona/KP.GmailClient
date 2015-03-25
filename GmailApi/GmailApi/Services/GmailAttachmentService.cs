@@ -1,6 +1,6 @@
 using System;
 
-namespace ConsoleApplication1
+namespace GmailApi.Services
 {
     public class GmailAttachmentService
     {

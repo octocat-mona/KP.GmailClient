@@ -1,6 +1,6 @@
 using System;
 
-namespace ConsoleApplication1
+namespace GmailApi
 {
     [AttributeUsage(AttributeTargets.Field, AllowMultiple = false)]
     public class StringValueAttribute : Attribute

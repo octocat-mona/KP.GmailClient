@@ -4,9 +4,10 @@ using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web;
+using GmailApi.Models;
 using Newtonsoft.Json;
 
-namespace ConsoleApplication1
+namespace GmailApi
 {
     public class TokenManager// TODO: interface
     {

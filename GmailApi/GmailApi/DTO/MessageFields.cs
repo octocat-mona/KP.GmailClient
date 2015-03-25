@@ -1,6 +1,6 @@
 using System;
 
-namespace ConsoleApplication1
+namespace GmailApi.DTO
 {
     [Flags]
     public enum MessageFields

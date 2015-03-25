@@ -1,4 +1,6 @@
-﻿namespace ConsoleApplication1.Services
+﻿using GmailApi.Builders;
+
+namespace GmailApi.Services
 {
     public class LabelService
     {
