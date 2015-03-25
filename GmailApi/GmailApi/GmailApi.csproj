@@ -60,7 +60,6 @@
     <Compile Include="Models\Label.cs" />
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\MessageFormat.cs" />
-    <Compile Include="Models\MessageId.cs" />
     <Compile Include="Models\MessageList.cs" />
     <Compile Include="Models\MimeType.cs" />
     <Compile Include="Models\Oauth2Token.cs" />
@@ -73,6 +72,7 @@
     <Compile Include="Services\GmailAttachmentService.cs" />
     <Compile Include="Services\GmailService.cs" />
     <Compile Include="Services\HistoryService.cs" />
+    <Compile Include="Services\LabelQueryStringBuilder.cs" />
     <Compile Include="Services\LabelService.cs" />
     <Compile Include="Services\MessageService.cs" />
     <Compile Include="Services\Profile.cs" />

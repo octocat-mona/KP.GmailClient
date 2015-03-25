@@ -28,6 +28,8 @@ namespace Test
                 var client = new GmailClient("https://www.googleapis.com/gmail/v1/users/", emailAddress, tokenManager);
                 var service = new GmailService(client);
 
+                var listMessageIds = service.Messages.ListMessageIds();
+                var labels = service.Labels.List();
                 var inboxMessages = service.Messages.ListMessages(Label.Inbox);
                 var labelCountInbox = service.Messages.Count();
                 var labelCountSent = service.Messages.Count(Label.Sent);

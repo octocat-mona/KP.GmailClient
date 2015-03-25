@@ -82,6 +82,6 @@ namespace GmailApi.DTO
         /// <summary>
         /// All the label fields
         /// </summary>
-        Labels = Id | LabelListVisibility | MessageListVisibility | MessagesTotal | MessagesUnread | Name | ThreadsTotal | ThreadsUnread | Type
+        All = Id | LabelListVisibility | MessageListVisibility | MessagesTotal | MessagesUnread | Name | ThreadsTotal | ThreadsUnread | Type
     }
 }
