@@ -9,13 +9,12 @@ namespace GmailApi.Models
     {
         public Message()
         {
-            Id = string.Empty;
             ThreadId = string.Empty;
             Snippet = string.Empty;
             LabelIds = new List<string>(0);
         }
 
-        [JsonProperty("id")]
+        [JsonProperty("id", Required = Required.Always)]
         public string Id { get; set; }
 
         /// <summary>
@@ -58,8 +57,8 @@ namespace GmailApi.Models
             get
             {
                 return Payload.Headers
-                    .First(h => string.Equals("From", h.Name, StringComparison.OrdinalIgnoreCase))
-                    .Value;
+                    .Except(Payload.XHeaders)
+                    .First(h => h.ImfHeader == HeaderName.From).Value;
             }
         }
 
@@ -68,8 +67,8 @@ namespace GmailApi.Models
             get
             {
                 return Payload.Headers
-                    .First(h => string.Equals("To", h.Name, StringComparison.OrdinalIgnoreCase))
-                    .Value;
+                    .Except(Payload.XHeaders)
+                    .First(h => h.ImfHeader == HeaderName.To).Value;
             }
         }
 

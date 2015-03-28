@@ -76,13 +76,13 @@ namespace GmailApi
 
         private static T ParseResponse<T>(Task<HttpResponseMessage> res)
         {
-            var content = GetResponse(res);
+            string content = GetResponse(res);
             return JsonConvert.DeserializeObject<T>(content);
         }
 
         private static T ParseResponse<T>(Task<HttpResponseMessage> res, ParseOptions parseOptions)
         {
-            var content = GetResponse(res);
+            string content = GetResponse(res);
 
             var jo = JObject.Parse(content);
             return jo.SelectToken(parseOptions.Path, true).ToObject<T>();

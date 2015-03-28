@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 
 namespace GmailApi.Models
@@ -50,6 +51,14 @@ namespace GmailApi.Models
         /// </summary>
         [JsonProperty("headers")]
         public List<Header> Headers { get; set; }
+
+        /// <summary>
+        /// Get the extension ('X-') headers
+        /// </summary>
+        public IEnumerable<Header> XHeaders
+        {
+            get { return Headers.Where(h => h.IsExtensionHeader); }
+        }
 
         /// <summary>
         /// The message part body for this part, which may be empty for container MIME message parts.

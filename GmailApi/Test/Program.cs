@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 using GmailApi;
 using GmailApi.Models;
 using GmailApi.Services;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace Test
 {
@@ -28,11 +32,8 @@ namespace Test
                 var client = new GmailClient("https://www.googleapis.com/gmail/v1/users/", emailAddress, tokenManager);
                 var service = new GmailService(client);
 
-                var listMessageIds = service.Messages.ListMessageIds();
+                var messages = service.Messages.ListMessages(Label.Inbox);
                 var labels = service.Labels.List();
-                var inboxMessages = service.Messages.ListMessages(Label.Inbox);
-                var labelCountInbox = service.Messages.Count();
-                var labelCountSent = service.Messages.Count(Label.Sent);
             }
             catch (Exception ex)
             {

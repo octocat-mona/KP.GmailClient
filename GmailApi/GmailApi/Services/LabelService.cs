@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using GmailApi.DTO;
 using GmailApi.Models;
 
@@ -17,13 +19,23 @@ namespace GmailApi.Services
         /// Lists all labels in the user's mailbox.
         /// </summary>
         /// <returns></returns>
-        public Label List()
+        public List<Label> List()
         {
             string queryString = new LabelQueryStringBuilder()
                 .SetFields(LabelFields.All)
                 .Build();
 
-            return _client.Get<Label>(queryString);
+            return _client.Get<List<Label>>(queryString, new ParseOptions { Path = "labels" });
+        }
+
+        /// <summary>
+        /// Lists all labels in the user's mailbox of the given type.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Label> List(LabelType type)
+        {
+            return List()
+                .Where(l => l.Type == type);
         }
 
         public void Create()

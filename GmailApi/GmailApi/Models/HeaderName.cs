@@ -1,83 +1,107 @@
+using System.Runtime.Serialization;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace GmailApi.Models
 {
     /// <summary>
-    /// Header according to the RFC 2822 Internet Message Format standard.
+    /// Header according to the RFC 2822, RFC 2369, RFC 2919 Internet Message Format standard.
     /// </summary>
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum HeaderName
     {
-        [JsonProperty("")]
         Unknown,
-
-        [JsonProperty("from")]
+        Subject,
+        Comments,
+        References,
         From,
-
-        [JsonProperty("trace")]
+        To,
+        Cc,
+        Bcc,
+        Keywords,
         Trace,
+        ResentMsgId,
+        Received,
+        Sender,
+        Date,
+        Precedence,
 
-        [JsonProperty("resent-date")]
+        [EnumMember(Value = "Resent-date")]
         ResentDate,
 
-        [JsonProperty("keywords")]
-        Keywords,
-
-        [JsonProperty("optional-field")]
+        [EnumMember(Value = "Optional-field")]
         OptionalField,
 
-        [JsonProperty("sender")]
-        Sender,
-
-        [JsonProperty("reply-to")]
+        [EnumMember(Value = "Reply-to")]
         ReplyTo,
 
-        [JsonProperty("subject")]
-        Subject,
-
-        [JsonProperty("comments")]
-        Comments,
-
-        [JsonProperty("references")]
-        References,
-
-        [JsonProperty("to")]
-        To,
-
-        [JsonProperty("cc")]
-        Cc,
-
-        [JsonProperty("in-reply-to")]
+        [EnumMember(Value = "In-reply-to")]
         InReplyTo,
 
-        [JsonProperty("bcc")]
-        Bcc,
-
-        [JsonProperty("message-id")]
+        [EnumMember(Value = "Message-id")]
         MessageId,
 
-        [JsonProperty("resent-from")]
+        [EnumMember(Value = "Resent-from")]
         ResentFrom,
 
-        [JsonProperty("resent-sender")]
+        [EnumMember(Value = "Resent-sender")]
         ResentSender,
 
-        [JsonProperty("resent-to")]
+        [EnumMember(Value = "Resent-to")]
         ResentTo,
 
-        [JsonProperty("resent-cc")]
+        [EnumMember(Value = "Resent-cc")]
         ResentCc,
 
-        [JsonProperty("resent-bcc")]
+        [EnumMember(Value = "Resent-bcc")]
         ResentBcc,
 
-        [JsonProperty("resentMsgId")]
-        ResentMsgId,
-
-        [JsonProperty("orig-date")]
+        [EnumMember(Value = "Orig-date")]
         OrigDate,
 
-        //TODO: NOT a spec item?
-        [JsonProperty("Delivered-To")]
-        DeliveredTo
+        [EnumMember(Value = "Delivered-to")]
+        DeliveredTo,
+
+        [EnumMember(Value = "Return-Path")]
+        ReturnPath,
+
+        [EnumMember(Value = "Received-SPF")]
+        ReceivedSpf,
+
+        [EnumMember(Value = "Authentication-Results")]
+        AuthenticationResults,
+
+        [EnumMember(Value = "Mime-Version")]
+        MimeVersion,
+
+        [EnumMember(Value = "Content-Type")]
+        ContentType,
+
+        [EnumMember(Value = "Content-Transfer-Encoding")]
+        ContentTransferEncoding,
+
+        [EnumMember(Value = "Auto-Submitted")]
+        AutoSubmitted,
+
+        [EnumMember(Value = "DKIM-Signature")]
+        DkimSignature,
+
+        //RFC 2369:
+        [EnumMember(Value = "List-Help")]
+        ListHelp,
+        [EnumMember(Value = "List-Subscribe")]
+        ListSubscribe,
+        [EnumMember(Value = "List-Unsubscribe")]
+        ListUnsubscribe,
+        //End
+
+        //RFC 2919
+        [EnumMember(Value = "List-ID")]
+        ListId,
+
+        [EnumMember(Value = "List-Archive")]
+        ListArchive,
+        [EnumMember(Value = "List-Post")]
+        ListPost,
     }
 }

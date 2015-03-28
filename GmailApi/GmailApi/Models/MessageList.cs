@@ -28,5 +28,10 @@ namespace GmailApi.Models
         /// </summary>
         [JsonProperty("resultSizeEstimate")]
         public uint ResultSizeEstimate { get; set; }
+
+        public override string ToString()
+        {
+            return string.Concat("# Messages: ",Messages.Count,", NextPageToken: ",NextPageToken,", ");
+        }
     }
 }

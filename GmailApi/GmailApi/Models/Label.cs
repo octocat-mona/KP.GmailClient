@@ -22,10 +22,10 @@ namespace GmailApi.Models
             public const string Forums = "CATEGORY_FORUMS";
         }
 
-        [JsonProperty("id")]
+        [JsonProperty("id", Required = Required.Always)]
         public string Id { get; set; }
 
-        [JsonProperty("name")]
+        [JsonProperty("name", Required = Required.Always)]
         public string Name { get; set; }
 
         [JsonProperty("messageListVisibility")]
@@ -35,7 +35,7 @@ namespace GmailApi.Models
         public string LabelListVisibility { get; set; }
 
         [JsonProperty("type")]
-        public string Type { get; set; }//TODO: enum
+        public LabelType Type { get; set; }
 
         [JsonProperty("messagesTotal")]
         public int MessagesTotal { get; set; }
@@ -48,5 +48,10 @@ namespace GmailApi.Models
 
         [JsonProperty("threadsUnread")]
         public int ThreadsUnread { get; set; }
+
+        public override string ToString()
+        {
+            return string.Concat("ID: ", Id, ", Name: ", Name, ", Type: ", Type, ", Total messages: ", MessagesTotal, ", Unread messages: ", MessagesUnread);
+        }
     }
 }
