@@ -11,12 +11,12 @@ namespace GmailApi.Services
     {
         private readonly GmailClient _client;
 
-        public GmailAttachmentService Attachments { get; set; }
+        public AttachmentService Attachments { get; set; }
 
         public MessageService(GmailClient client)
         {
             _client = client;
-            Attachments = new GmailAttachmentService(client);
+            Attachments = new AttachmentService(client);
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace GmailApi.Services
         public Message Get(string id)
         {
             string queryString = new MessageQueryStringBuilder()
-               .SetRequestAction(RequestAction.Get, id)
+               .SetRequestAction(MessageRequestAction.Get, id)
                .Build();
 
             return _client.Get<Message>(queryString);
@@ -115,7 +115,7 @@ namespace GmailApi.Services
         public Message Trash(string id)
         {
             string queryString = new MessageQueryStringBuilder()
-                .SetRequestAction(RequestAction.Trash, id)
+                .SetRequestAction(MessageRequestAction.Trash, id)
                 .Build();
 
             return _client.Post<Message>(queryString);

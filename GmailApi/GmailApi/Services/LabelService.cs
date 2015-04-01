@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using GmailApi.Builders;
 using GmailApi.DTO;
 using GmailApi.Models;
 
@@ -13,6 +14,16 @@ namespace GmailApi.Services
         public LabelService(GmailClient client)
         {
             _client = client;
+        }
+
+        /// <summary>
+        /// Gets the specified label.
+        /// </summary>
+        /// <param name="id">The ID of the label to retrieve.</param>
+        /// <returns></returns>
+        public Label Get(string id)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -32,33 +43,49 @@ namespace GmailApi.Services
         /// Lists all labels in the user's mailbox of the given type.
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Label> List(LabelType type)
+        public List<Label> List(LabelType type)
         {
             return List()
-                .Where(l => l.Type == type);
-        }
-
-        public void Create()
-        {
-            throw new NotImplementedException();
+                .Where(l => l.Type == type)
+                .ToList();
         }
 
         /// <summary>
-        /// The ID of the label to delete.
+        /// Creates a new label.
         /// </summary>
-        /// <param name="id"></param>
+        public Label Create(CreateLabelInput labelInput)
+        {
+            string queryString = new LabelQueryStringBuilder()
+                .Build();
+
+            return _client.Post<Label>(queryString, labelInput);
+        }
+
+        /// <summary>
+        /// NOTE: Immediately and permanently deletes the specified label and removes it from any messages and threads that it is applied to.
+        /// </summary>
+        /// <param name="id">The ID of the label to delete.</param>
         public void Delete(string id)
         {
             throw new NotImplementedException();
         }
 
         /// <summary>
-        /// The ID of the label to update.
+        /// Updates the specified label.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">The ID of the label to update.</param>
         public void Update(string id)
         {
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Updates the specified label. This method supports patch semantics.
+        /// </summary>
+        /// <param name="id">The ID of the label to update.</param>
+        public void Patch(string id)
+        {
+
         }
     }
 }

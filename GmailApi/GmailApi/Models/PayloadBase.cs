@@ -26,19 +26,6 @@ namespace GmailApi.Models
         [JsonProperty("mimeType")]
         public string MimeType { get; set; }
 
-        public MimeType GetMimeType()
-        {
-            switch (MimeType)
-            {
-                case "text/plain":
-                    return Models.MimeType.TextPlain;
-                case "text/html":
-                    return Models.MimeType.TextHtml;
-                default:
-                    return Models.MimeType.Unknown;
-            }
-        }
-
         /// <summary>
         /// The filename of the attachment. Only present if this message part represents an attachment.
         /// </summary>
@@ -53,6 +40,29 @@ namespace GmailApi.Models
         public List<Header> Headers { get; set; }
 
         /// <summary>
+        /// The message part body for this part, which may be empty for container MIME message parts.
+        /// </summary>
+        [JsonProperty("body")]
+        public Attachment Body { get; set; }
+
+        /// <summary>
+        /// Get the MIME type of this payload
+        /// </summary>
+        /// <returns>The MIME type or Unknown</returns>
+        public MimeType GetMimeType()
+        {
+            switch (MimeType)
+            {
+                case "text/plain":
+                    return Models.MimeType.TextPlain;
+                case "text/html":
+                    return Models.MimeType.TextHtml;
+                default:
+                    return Models.MimeType.Unknown;
+            }
+        }
+
+        /// <summary>
         /// Get the extension ('X-') headers
         /// </summary>
         public IEnumerable<Header> XHeaders
@@ -60,11 +70,21 @@ namespace GmailApi.Models
             get { return Headers.Where(h => h.IsExtensionHeader); }
         }
 
-        /// <summary>
-        /// The message part body for this part, which may be empty for container MIME message parts.
-        /// </summary>
-        [JsonProperty("body")]
-        public Attachment Body { get; set; }
+        public Header GetHeader(HeaderName headerName)
+        {
+            return Headers
+                .Except(XHeaders)
+                .FirstOrDefault(h => h.ImfHeader == headerName);
+        }
+
+        public string GetHeaderValue(HeaderName headerName)
+        {
+            Header header = GetHeader(headerName);
+
+            return header == null
+                ? string.Empty
+                : header.Value;
+        }
 
         public override string ToString()
         {

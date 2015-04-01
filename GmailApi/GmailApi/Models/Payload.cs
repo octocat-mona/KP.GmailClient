@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 
 namespace GmailApi.Models
@@ -16,6 +17,21 @@ namespace GmailApi.Models
         /// </summary>
         [JsonProperty("parts")]
         public List<PayloadBase> Parts { get; set; }
+
+        /// <summary>
+        /// Get the body from a part of a given MIME type
+        /// </summary>
+        /// <param name="mimeType"></param>
+        /// <returns></returns>
+        public string GetBodyData(MimeType mimeType)
+        {
+            var part = Parts
+                .FirstOrDefault(p => p.GetMimeType() == mimeType);
+
+            return part == null || part.Body == null
+                ? string.Empty
+                : part.Body.Data;
+        }
 
         public override string ToString()
         {

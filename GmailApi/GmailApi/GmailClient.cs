@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 
 namespace GmailApi
@@ -21,6 +24,12 @@ namespace GmailApi
         {
             _baseAddress = new Uri(string.Concat(baseUrl.PadRight(1, '/'), userId, "/"));
             _tokenManager = tokenManager;
+
+            // Set default (de)serializing for enums
+            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+            {
+                Converters = { new StringEnumConverter { CamelCaseText = true } }
+            };
         }
 
         public T Get<T>(string queryString)
@@ -39,11 +48,11 @@ namespace GmailApi
             return ParseResponse<T>(res, options);
         }
 
-        public T Post<T>(string queryString, string content = null)
+        public T Post<T>(string queryString, object content = null)
         {
             var httpContent = content == null
                 ? null
-                : new StringContent(content);
+                : new StringContent(JsonConvert.SerializeObject(content), Encoding.UTF8, "application/json");
 
             var res = GetClient()
                 .PostAsync(queryString, httpContent);
@@ -96,7 +105,7 @@ namespace GmailApi
             if (!resMessage.IsSuccessStatusCode)
             {
                 throw new Exception(string.Concat(resMessage.ReasonPhrase, ":", content));
-                //var err = JsonConvert.DeserializeObject<Response>(content);
+                //var err = JsonConvert.DeserializeObject<ErrorResponse>(content);
             }
 
             return content;

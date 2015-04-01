@@ -29,10 +29,10 @@ namespace GmailApi.Models
         public string Name { get; set; }
 
         [JsonProperty("messageListVisibility")]
-        public string MessageListVisibility { get; set; }
+        public MessageListVisibility MessageListVisibility { get; set; }
 
         [JsonProperty("labelListVisibility")]
-        public string LabelListVisibility { get; set; }
+        public LabelListVisibility LabelListVisibility { get; set; }
 
         [JsonProperty("type")]
         public LabelType Type { get; set; }

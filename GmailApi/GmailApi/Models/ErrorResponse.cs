@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace GmailApi.Models
 {
-    public class Response//TODO: convert to exception? -> check Json convert
+    public class ErrorResponse//TODO: convert to exception? -> check Json convert
     {
         //TODO: json attr?
         public List<Error> Errors { get; set; }
@@ -15,3 +15,31 @@ namespace GmailApi.Models
         public string Message { get; set; }
     }
 }
+
+/*
+Bad Request:{
+
+ "error": {
+
+  "errors": [
+
+   {
+
+    "domain": "global",
+
+    "reason": "parseError",
+
+    "message": "Parse Error"
+
+   }
+
+  ],
+
+  "code": 400,
+
+  "message": "Parse Error"
+
+ }
+
+}
+*/

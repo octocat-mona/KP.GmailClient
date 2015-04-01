@@ -9,8 +9,6 @@ namespace GmailApi.Builders
 {
     public class MessageQueryStringBuilder : QueryStringBuilder
     {
-        //private readonly Dictionary<string, List<string>> _dictionary = new Dictionary<string, List<string>>();
-        //private string _path = "messages";
         private Action _fieldsAction;
 
         public MessageQueryStringBuilder()
@@ -19,34 +17,53 @@ namespace GmailApi.Builders
         }
 
         /// <summary>
-        /// Required for every action except List and Insert
+        /// Set action which doesn't require an ID
+        /// </summary>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        public MessageQueryStringBuilder SetRequestAction(MessageRequestAction action)
+        {
+            switch (action)
+            {
+                case MessageRequestAction.Import:
+                    Path += "/import";
+                    break;
+                case MessageRequestAction.List:
+                case MessageRequestAction.Insert:
+                    break;
+                default:
+                    throw new Exception("Action '" + action + "' requires an ID");
+            }
+
+            return this;
+        }
+
+        /// <summary>
+        /// Set action which requires an ID
         /// </summary>
         /// <param name="action"></param>
         /// <param name="id">Id of the message</param>
         /// <returns></returns>
-        public MessageQueryStringBuilder SetRequestAction(RequestAction action, string id = null)
+        public MessageQueryStringBuilder SetRequestAction(MessageRequestAction action, string id)
         {
             switch (action)
             {
                 //List, Insert: no extra path
-                case RequestAction.Delete:
-                case RequestAction.Get:
+                case MessageRequestAction.Delete:
+                case MessageRequestAction.Get:
                     Path += "/" + id;
                     break;
-                case RequestAction.Modify:
+                case MessageRequestAction.Modify:
                     Path += "/" + id + "/modify";
                     break;
-                case RequestAction.Send:
+                case MessageRequestAction.Send:
                     Path += "/send";
                     break;
-                case RequestAction.Trash:
+                case MessageRequestAction.Trash:
                     Path += "/" + id + "/trash";
                     break;
-                case RequestAction.Untrash:
+                case MessageRequestAction.Untrash:
                     Path += "/" + id + "/untrash";
-                    break;
-                case RequestAction.Import:
-                    Path += "/import";
                     break;
             }
 
@@ -63,7 +80,7 @@ namespace GmailApi.Builders
 
                 if (fields.HasFlag(MessageFields.Messages))
                 {
-                    sb.Append("messages");//TODO: dependent on RequestAction.. (eg. get vs list)
+                    sb.Append("messages");//TODO: dependent on MessageRequestAction.. (eg. get vs list)
                 }
                 else
                 {

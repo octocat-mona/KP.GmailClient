@@ -1,4 +1,5 @@
 ﻿using GmailApi.Builders;
+using GmailApi.Models;
 
 namespace GmailApi.Services
 {

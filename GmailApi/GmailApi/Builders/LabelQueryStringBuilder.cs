@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using GmailApi.Builders;
 using GmailApi.DTO;
 
-namespace GmailApi.Services
+namespace GmailApi.Builders
 {
     public class LabelQueryStringBuilder : QueryStringBuilder
     {
@@ -32,6 +31,22 @@ namespace GmailApi.Services
 
                 Dictionary["fields"] = new List<string>(new[] { fieldsValue });
             };
+
+            return this;
+        }
+
+        public LabelQueryStringBuilder SetRequestAction(LabelRequestAction action, string id)
+        {
+            switch (action)
+            {
+                //default: Create, List
+                case LabelRequestAction.Patch:
+                case LabelRequestAction.Get:
+                case LabelRequestAction.Delete:
+                case LabelRequestAction.Update:
+                    Path += "/" + id;
+                    break;
+            }
 
             return this;
         }

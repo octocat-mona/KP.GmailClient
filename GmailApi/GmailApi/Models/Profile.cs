@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace GmailApi.Services
+namespace GmailApi.Models
 {
     public class Profile
     {

@@ -1,13 +1,10 @@
 using System.Runtime.Serialization;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 
 namespace GmailApi.Models
 {
     /// <summary>
     /// Header according to the RFC 2822, RFC 2369, RFC 2919 Internet Message Format standard.
     /// </summary>
-    [JsonConverter(typeof(StringEnumConverter))]
     public enum HeaderName
     {
         Unknown,
@@ -89,8 +86,10 @@ namespace GmailApi.Models
         //RFC 2369:
         [EnumMember(Value = "List-Help")]
         ListHelp,
+
         [EnumMember(Value = "List-Subscribe")]
         ListSubscribe,
+
         [EnumMember(Value = "List-Unsubscribe")]
         ListUnsubscribe,
         //End
@@ -101,6 +100,7 @@ namespace GmailApi.Models
 
         [EnumMember(Value = "List-Archive")]
         ListArchive,
+
         [EnumMember(Value = "List-Post")]
         ListPost,
     }

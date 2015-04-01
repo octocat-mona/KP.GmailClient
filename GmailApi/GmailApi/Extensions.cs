@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 
 namespace GmailApi
 {
@@ -46,6 +47,19 @@ namespace GmailApi
                 .Where(f => (f & Convert.ToInt32(e)) == f)
                 .Cast<T>()
                 .ToArray();
+        }
+
+        /// <summary>
+        /// Decodes an URL Base64 encoded string
+        /// See http://tools.ietf.org/html/rfc4648#section-5: 'Base 64 Encoding with URL and Filename Safe Alphabet'
+        /// </summary>
+        /// <param name="base64"></param>
+        /// <returns></returns>
+        public static string DecodeBase64UrlString(this string base64)
+        {
+            string safeBase64 = base64.Replace('-', '+').Replace('_', '/');
+            byte[] bytes = Convert.FromBase64String(safeBase64);
+            return Encoding.UTF8.GetString(bytes);
         }
     }
 }

@@ -4,7 +4,7 @@ namespace GmailApi.Models
 {
     public enum MimeType
     {
-        [JsonProperty("")]
+        [JsonProperty]
         Unknown,
 
         [JsonProperty("text/plain")]

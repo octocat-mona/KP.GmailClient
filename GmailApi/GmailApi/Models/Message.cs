@@ -11,6 +11,7 @@ namespace GmailApi.Models
         {
             ThreadId = string.Empty;
             Snippet = string.Empty;
+            RawBase64Url = string.Empty;
             LabelIds = new List<string>(0);
         }
 
@@ -52,38 +53,49 @@ namespace GmailApi.Models
         [JsonProperty("payload")]
         public Payload Payload { get; set; }
 
-        public string From
-        {
-            get
-            {
-                return Payload.Headers
-                    .Except(Payload.XHeaders)
-                    .First(h => h.ImfHeader == HeaderName.From).Value;
-            }
-        }
-
-        public string To
-        {
-            get
-            {
-                return Payload.Headers
-                    .Except(Payload.XHeaders)
-                    .First(h => h.ImfHeader == HeaderName.To).Value;
-            }
-        }
-
         /// <summary>
         /// Estimated size in bytes of the message.
         /// </summary>
         [JsonProperty("sizeEstimate")]
         public int SizeEstimate { get; set; }
 
+        [JsonProperty("raw")]
+        internal string RawBase64Url { get; set; }
+
         /// <summary>
         /// The entire email message in an RFC 2822 formatted and base64url encoded string.
         /// Returned in messages.get and drafts.get responses when the format=RAW parameter is supplied.
         /// </summary>
-        [JsonProperty("raw")]
-        public byte[] Raw { get; set; }
+        public string Raw
+        {
+            get { return RawBase64Url.DecodeBase64UrlString(); }
+        }
+
+        public string From
+        {
+            get { return Payload.GetHeaderValue(HeaderName.From); }
+        }
+
+        public string To
+        {
+            get { return Payload.GetHeaderValue(HeaderName.To); }
+        }
+
+        /// <summary>
+        /// Get the body of the message in HTML
+        /// </summary>
+        public string Html
+        {
+            get { return Payload.GetBodyData(MimeType.TextHtml); }
+        }
+
+        /// <summary>
+        /// Get the body of the message as plain text
+        /// </summary>
+        public string PlainText
+        {
+            get { return Payload.GetBodyData(MimeType.TextPlain); }
+        }
 
         public override string ToString()
         {
