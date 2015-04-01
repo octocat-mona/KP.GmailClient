@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
@@ -22,6 +23,7 @@ namespace GmailApi
         /// <param name="tokenManager"></param>
         public GmailClient(string baseUrl, string userId, TokenManager tokenManager)
         {
+            userId = HttpUtility.UrlEncode(userId);
             _baseAddress = new Uri(string.Concat(baseUrl.PadRight(1, '/'), userId, "/"));
             _tokenManager = tokenManager;
 
@@ -111,22 +113,4 @@ namespace GmailApi
             return content;
         }
     }
-
-    /*
-{
-   "error":{
-      "errors":[
-         {
-            "domain":"global",
-            "reason":"invalidParameter",
-            "message":"Invalid field selection MessageId",
-            "locationType":"parameter",
-            "location":"fields"
-         }
-      ],
-      "code":400,
-      "message":"Invalid field selection MessageId"
-   }
-}
-*/
 }

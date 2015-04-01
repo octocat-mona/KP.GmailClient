@@ -1,6 +1,6 @@
 using System;
 
-namespace GmailApi.DTO
+namespace GmailApi.Models
 {
     [Flags]
     public enum LabelFields

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using Newtonsoft.Json;
 
 namespace GmailApi.Models
@@ -68,7 +69,11 @@ namespace GmailApi.Models
         /// </summary>
         public string Raw
         {
-            get { return RawBase64Url.DecodeBase64UrlString(); }
+            get
+            {
+                string s = HttpUtility.UrlDecode(RawBase64Url);
+                return RawBase64Url.DecodeBase64UrlString();
+            }
         }
 
         public string From

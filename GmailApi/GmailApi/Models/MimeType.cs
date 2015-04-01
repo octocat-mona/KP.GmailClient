@@ -1,16 +1,19 @@
-using Newtonsoft.Json;
+using System.Runtime.Serialization;
 
 namespace GmailApi.Models
 {
     public enum MimeType
     {
-        [JsonProperty]
+        [EnumMember]
         Unknown,
 
-        [JsonProperty("text/plain")]
+        [EnumMember(Value = "text/plain")]
         TextPlain,
 
-        [JsonProperty("text/html")]
-        TextHtml
+        [EnumMember(Value = "text/html")]
+        TextHtml,
+
+        [EnumMember(Value = "application/javascript")]
+        ApplicationJavascript
     }
 }

@@ -42,4 +42,20 @@ Bad Request:{
  }
 
 }
+
+{
+   "error":{
+      "errors":[
+         {
+            "domain":"global",
+            "reason":"invalidParameter",
+            "message":"Invalid field selection MessageId",
+            "locationType":"parameter",
+            "location":"fields"
+         }
+      ],
+      "code":400,
+      "message":"Invalid field selection MessageId"
+   }
+}
 */

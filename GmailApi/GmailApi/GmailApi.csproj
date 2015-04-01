@@ -54,7 +54,7 @@
     <Compile Include="Models\CreateLabelInput.cs" />
     <Compile Include="Models\LabelFields.cs" />
     <Compile Include="Models\LabelListVisibility.cs" />
-    <Compile Include="Models\MessageFields.cs" />
+    <Compile Include="DTO\MessageFields.cs" />
     <Compile Include="DTO\MessageRequestAction.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="GmailClient.cs" />

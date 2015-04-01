@@ -51,14 +51,14 @@ namespace GmailApi.Services
         /// Lists the message IDs from messages in the specified label and filtered with the specified query.
         /// </summary>
         /// <param name="query"></param>
-        /// <param name="labelIds"></param>
+        /// <param name="labelId"></param>
         /// <returns></returns>
-        public MessageList ListMessageIds(string query, string[] labelIds)
+        public MessageList ListMessageIds(string query, string labelId)
         {
             string queryString = new MessageQueryStringBuilder()
                 .SetFields(MessageFields.Id)
                 .SetQuery(query)
-                .SetLabelIds(labelIds)
+                .SetLabelIds(labelId)
                 .Build();
 
             return _client.Get<MessageList>(queryString);
