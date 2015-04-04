@@ -39,12 +39,7 @@ namespace GmailApi.Services
         /// <returns></returns>
         public MessageList ListMessageIds(string labelId)
         {
-            string queryString = new MessageQueryStringBuilder()
-                .SetFields(MessageFields.Id | MessageFields.ResultSizeEstimate | MessageFields.NextPageToken)
-                .SetLabelIds(labelId)
-                .Build();
-
-            return _client.Get<MessageList>(queryString);
+            return ListMessageIds(labelId, null);
         }
 
         /// <summary>
@@ -71,7 +66,18 @@ namespace GmailApi.Services
         /// <returns></returns>
         public IEnumerable<Message> ListMessages(string labelId)
         {
-            var messageList = ListMessageIds(labelId);
+            return ListMessages(null, labelId);
+        }
+
+        /// <summary>
+        /// Lists the messages in the specified label.
+        /// </summary>
+        /// <param name="query"></param>
+        /// <param name="labelId"></param>
+        /// <returns></returns>
+        public IEnumerable<Message> ListMessages(string query, string labelId)
+        {
+            var messageList = ListMessageIds(query, labelId);
 
             return messageList.Messages.Select(id => Get(id.Id));
         }

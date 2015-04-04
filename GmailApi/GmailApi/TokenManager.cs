@@ -11,10 +11,12 @@ namespace GmailApi
 {
     public class TokenManager// TODO: interface
     {
+        public const string AuthorizationServerUrl = "https://www.googleapis.com/oauth2/v3/token";// "https://accounts.google.com/o/oauth2/token";
+
         private readonly string _clientId;
         private readonly string _clientSecret;
-        private Oauth2Token _token;
         private readonly string _tokenFile;
+        private Oauth2Token _token;
 
         public TokenManager(string clientId, string clientSecret)
         {
@@ -45,7 +47,7 @@ namespace GmailApi
 
             var client = new HttpClient();
 
-            const string url = "https://www.googleapis.com/oauth2/v3/token";// "https://accounts.google.com/o/oauth2/token";
+            const string url = AuthorizationServerUrl;
             string content = string.Concat(
                 "refresh_token=", HttpUtility.UrlEncode(_token.RefreshToken),
                 "&client_id=", HttpUtility.UrlEncode(_clientId),
@@ -97,12 +99,9 @@ namespace GmailApi
         [Obsolete("For testing only")]
         public Oauth2Token GetToken(string authorizationCode)
         {
-            var client = new HttpClient();
-            client.DefaultRequestHeaders.Clear();
-
-            const string url = "https://accounts.google.com/o/oauth2/token"; //"https://www.googleapis.com/oauth2/v3/token";
+            const string url = AuthorizationServerUrl;
             string content = string.Concat(
-                "code=", HttpUtility.UrlEncode(authorizationCode),//TODO: need encode?
+                "code=", HttpUtility.UrlEncode(authorizationCode),
                 "&client_id=", HttpUtility.UrlEncode(_clientId),
                 "&client_secret=", HttpUtility.UrlEncode(_clientSecret),
                 "&redirect_uri=", HttpUtility.UrlEncode("http://localhost"),
@@ -112,6 +111,7 @@ namespace GmailApi
             var stringContent = new StringContent(content);
             stringContent.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
 
+            var client = new HttpClient();
             var result = client.PostAsync(url, stringContent).Result;
             string json = result.Content.ReadAsStringAsync().Result;
 
@@ -123,15 +123,15 @@ namespace GmailApi
         [Obsolete("For testing only")]
         public string GetAuthorizationCode()
         {
-            HttpClient client = new HttpClient();
             string url = string.Concat("https://accounts.google.com/o/oauth2/auth",
-                "?client_id=", HttpUtility.UrlEncode("27086385191-1pdu38p7s56d3j47c23pcublrjpnsu2q.apps.googleusercontent.com"),
+                "?client_id=", HttpUtility.UrlEncode(_clientId),
                 "&redirect_uri=", HttpUtility.UrlEncode("http://localhost"),
                 "&response_type=", HttpUtility.UrlEncode("code"),
                 "&scope=", HttpUtility.UrlEncode("https://www.googleapis.com/auth/gmail.modify https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/gmail.compose"),
                 "&access_type=", HttpUtility.UrlEncode("offline")
                 );
 
+            HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Clear();
             var res = client.GetAsync(url).Result;
             string content = res.Content.ReadAsStringAsync().Result;
@@ -183,6 +183,11 @@ namespace GmailApi
                     _token = token;
                 }
             }
+        }
+
+        public bool HasTokenConfigured()
+        {
+            return new FileInfo(_tokenFile).Exists;
         }
     }
 }

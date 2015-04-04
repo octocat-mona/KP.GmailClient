@@ -154,7 +154,9 @@ namespace GmailApi.Builders
 
         public MessageQueryStringBuilder SetQuery(string query)//TODO: query builder?
         {
-            Dictionary["q"] = new List<string>(new[] { query });
+            if (!string.IsNullOrWhiteSpace(query))// Ignore when not set
+                Dictionary["q"] = new List<string>(new[] { query });
+
             return this;
         }
 

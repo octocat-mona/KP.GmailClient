@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -70,8 +69,10 @@ namespace GmailApi
 
         public T Delete<T>(string queryString)
         {
-            throw new NotImplementedException();
-            //return default(T);
+            var res = GetClient()
+                .DeleteAsync(queryString);
+
+            return ParseResponse<T>(res);
         }
 
         private HttpClient GetClient()
@@ -106,8 +107,10 @@ namespace GmailApi
 
             if (!resMessage.IsSuccessStatusCode)
             {
-                throw new Exception(string.Concat(resMessage.ReasonPhrase, ":", content));
-                //var err = JsonConvert.DeserializeObject<ErrorResponse>(content);
+                resMessage.EnsureSuccessStatusCode();
+                
+                //Exception ex = StatusErrorFactory.Create(content);
+                //throw ex;
             }
 
             return content;

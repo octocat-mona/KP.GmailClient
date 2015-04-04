@@ -3,9 +3,9 @@ using Newtonsoft.Json;
 
 namespace GmailApi.Models
 {
-    public class ErrorResponse//TODO: convert to exception? -> check Json convert
+    public class ErrorResponse
     {
-        //TODO: json attr?
+        [JsonProperty("errors")]
         public List<Error> Errors { get; set; }
 
         [JsonProperty("code")]

@@ -181,4 +181,6 @@ UpgradeLog*.htm
 
 # Microsoft Fakes
 FakesAssemblies/
-/GmailApi/Test/App.config
+
+# Rest
+GmailApi/Test/App.config

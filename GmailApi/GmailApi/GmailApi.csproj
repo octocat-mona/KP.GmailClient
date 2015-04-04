@@ -51,6 +51,7 @@
     <Compile Include="Builders\AttachmentQueryStringBuilder.cs" />
     <Compile Include="Builders\UserQueryStringBuilder.cs" />
     <Compile Include="DTO\LabelRequestAction.cs" />
+    <Compile Include="GmailException.cs" />
     <Compile Include="Models\CreateLabelInput.cs" />
     <Compile Include="Models\LabelFields.cs" />
     <Compile Include="Models\LabelListVisibility.cs" />
@@ -58,7 +59,6 @@
     <Compile Include="DTO\MessageRequestAction.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="GmailClient.cs" />
-    <Compile Include="JsonHelper.cs" />
     <Compile Include="Models\Attachment.cs" />
     <Compile Include="Models\Error.cs" />
     <Compile Include="Models\Header.cs" />
@@ -85,6 +85,7 @@
     <Compile Include="Services\MessageService.cs" />
     <Compile Include="Models\Profile.cs" />
     <Compile Include="Services\ThreadService.cs" />
+    <Compile Include="StatusErrorFactory.cs" />
     <Compile Include="StringValueAttribute.cs" />
     <Compile Include="TokenManager.cs" />
   </ItemGroup>

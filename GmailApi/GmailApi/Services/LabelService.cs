@@ -23,7 +23,11 @@ namespace GmailApi.Services
         /// <returns></returns>
         public Label Get(string id)
         {
-            throw new NotImplementedException();
+            string queryString = new LabelQueryStringBuilder()
+                .SetRequestAction(LabelRequestAction.Get, id)
+                .Build();
+
+            return _client.Get<Label>(queryString);
         }
 
         /// <summary>
@@ -67,7 +71,11 @@ namespace GmailApi.Services
         /// <param name="id">The ID of the label to delete.</param>
         public void Delete(string id)
         {
-            throw new NotImplementedException();
+            string queryString = new LabelQueryStringBuilder()
+                .SetRequestAction(LabelRequestAction.Delete, id)
+                .Build();
+
+            _client.Delete<object>(queryString);
         }
 
         /// <summary>
