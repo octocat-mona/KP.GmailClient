@@ -183,4 +183,5 @@ UpgradeLog*.htm
 FakesAssemblies/
 
 # Rest
-GmailApi/Test/App.config
+/GmailApi/UnitTests/App.config
+/GmailApi/Test/App.config
