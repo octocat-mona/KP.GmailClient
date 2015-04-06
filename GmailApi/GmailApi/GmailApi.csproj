@@ -76,6 +76,8 @@
     <Compile Include="Models\ErrorResponse.cs" />
     <Compile Include="ParseOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceExtensions\LabelServiceExtensions.cs" />
+    <Compile Include="ServiceExtensions\MessageServiceExtensions.cs" />
     <Compile Include="Services\DraftService.cs" />
     <Compile Include="Services\AttachmentService.cs" />
     <Compile Include="Services\GmailService.cs" />
@@ -91,6 +93,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ModelExtensions\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

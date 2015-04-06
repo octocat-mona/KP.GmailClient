@@ -44,17 +44,6 @@ namespace GmailApi.Services
         }
 
         /// <summary>
-        /// Lists all labels in the user's mailbox of the given type.
-        /// </summary>
-        /// <returns></returns>
-        public List<Label> List(LabelType type)
-        {
-            return List()
-                .Where(l => l.Type == type)
-                .ToList();
-        }
-
-        /// <summary>
         /// Creates a new label.
         /// </summary>
         public Label Create(CreateLabelInput labelInput)

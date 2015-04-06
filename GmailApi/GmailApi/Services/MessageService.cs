@@ -20,26 +20,18 @@ namespace GmailApi.Services
         }
 
         /// <summary>
-        /// Lists the message IDs of the user's inbox
-        /// </summary>
-        /// <returns></returns>
-        public MessageList ListMessageIds()
-        {
-            string queryString = new MessageQueryStringBuilder()
-               .SetFields(MessageFields.Id | MessageFields.ResultSizeEstimate | MessageFields.NextPageToken)
-               .Build();
-
-            return _client.Get<MessageList>(queryString);
-        }
-
-        /// <summary>
         /// Lists the message IDs from messages in the specified label.
         /// </summary>
         /// <param name="labelId"></param>
         /// <returns></returns>
-        public MessageList ListMessageIds(string labelId)
+        public MessageList ListIds(string labelId)
         {
-            return ListMessageIds(labelId, null);
+            string queryString = new MessageQueryStringBuilder()
+                .SetFields(MessageFields.Id | MessageFields.ResultSizeEstimate | MessageFields.NextPageToken)
+                .SetLabelIds(labelId)
+                .Build();
+
+            return _client.Get<MessageList>(queryString);
         }
 
         /// <summary>
@@ -48,10 +40,10 @@ namespace GmailApi.Services
         /// <param name="query"></param>
         /// <param name="labelId"></param>
         /// <returns></returns>
-        public MessageList ListMessageIds(string query, string labelId)
+        public MessageList ListIds(string query, string labelId)
         {
             string queryString = new MessageQueryStringBuilder()
-                .SetFields(MessageFields.Id)
+                .SetFields(MessageFields.Id | MessageFields.ResultSizeEstimate | MessageFields.NextPageToken)
                 .SetQuery(query)
                 .SetLabelIds(labelId)
                 .Build();
@@ -62,24 +54,14 @@ namespace GmailApi.Services
         /// <summary>
         /// Lists the messages in the specified label.
         /// </summary>
-        /// <param name="labelId"></param>
-        /// <returns></returns>
-        public IEnumerable<Message> ListMessages(string labelId)
-        {
-            return ListMessages(null, labelId);
-        }
-
-        /// <summary>
-        /// Lists the messages in the specified label.
-        /// </summary>
         /// <param name="query"></param>
         /// <param name="labelId"></param>
         /// <returns></returns>
-        public IEnumerable<Message> ListMessages(string query, string labelId)
+        public IEnumerable<Message> List(string query, string labelId)
         {
-            var messageList = ListMessageIds(query, labelId);
+            var messageList = ListIds(query, labelId);
 
-            return messageList.Messages.Select(id => Get(id.Id));
+            return messageList.Messages.Select(id => Get(id.Id));// TODO: do one batch request
         }
 
         /// <summary>
@@ -125,25 +107,6 @@ namespace GmailApi.Services
                 .Build();
 
             return _client.Post<Message>(queryString);
-        }
-
-        /// <summary>
-        /// Get the number of estimated messages in the user's inbox.
-        /// </summary>
-        /// <returns></returns>
-        public uint Count()
-        {
-            return Count(Label.Inbox);
-        }
-
-        /// <summary>
-        /// Get the number of estimated messages of the specified label.
-        /// </summary>
-        /// <param name="labelId"></param>
-        /// <returns></returns>
-        public uint Count(string labelId)
-        {
-            return ListMessageIds(labelId).ResultSizeEstimate;
         }
     }
 }

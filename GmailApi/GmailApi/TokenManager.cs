@@ -16,21 +16,20 @@ namespace GmailApi
         private readonly string _clientId;
         private readonly string _clientSecret;
         private readonly string _tokenFile;
+        private readonly object _lockObject;
         private Oauth2Token _token;
 
         public TokenManager(string clientId, string clientSecret)
         {
             if (string.IsNullOrWhiteSpace(clientId))
                 throw new ArgumentNullException("clientId");
-            if (string.IsNullOrWhiteSpace(clientSecret))
-                throw new ArgumentNullException("clientSecret");
 
             _clientId = clientId;
             _clientSecret = clientSecret;
+            _lockObject = new { ClientId = _clientId };// Do not lock on string
 
-            string clientIdSecret = string.Concat(clientId, clientSecret).GetValidFilename();
             string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            _tokenFile = Path.Combine(appData, "GmailService\\", clientIdSecret + ".json");
+            _tokenFile = Path.Combine(appData, "GmailService\\", clientId.GetValidFilename() + ".json");
         }
 
         /// <summary>
@@ -39,32 +38,34 @@ namespace GmailApi
         /// <returns>An AccessToken</returns>
         public string GetToken()
         {
-            LoadToken();
+            lock (_lockObject)
+            {
+                LoadToken();
 
-            // Check if token is still valid
-            if (DateTime.UtcNow < _token.ExpirationDate)
+                // Check if token is still valid
+                if (DateTime.UtcNow < _token.ExpirationDate)
+                    return _token.AccessToken;
+
+                const string url = AuthorizationServerUrl;
+                string content = string.Concat(
+                    "refresh_token=", HttpUtility.UrlEncode(_token.RefreshToken),
+                    "&client_id=", HttpUtility.UrlEncode(_clientId),
+                    "&client_secret=", HttpUtility.UrlEncode(_clientSecret),
+                    "&grant_type=", HttpUtility.UrlEncode("refresh_token")
+                    );
+
+                var stringContent = new StringContent(content);
+                stringContent.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
+
+                var client = new HttpClient();
+                var result = client.PostAsync(url, stringContent).Result;
+                string json = result.Content.ReadAsStringAsync().Result;
+
+                result.EnsureSuccessStatusCode();
+
+                SaveToken(json);
                 return _token.AccessToken;
-
-            var client = new HttpClient();
-
-            const string url = AuthorizationServerUrl;
-            string content = string.Concat(
-                "refresh_token=", HttpUtility.UrlEncode(_token.RefreshToken),
-                "&client_id=", HttpUtility.UrlEncode(_clientId),
-                "&client_secret=", HttpUtility.UrlEncode(_clientSecret),
-                "&grant_type=", HttpUtility.UrlEncode("refresh_token")
-                );
-
-            var stringContent = new StringContent(content);
-            stringContent.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
-
-            var result = client.PostAsync(url, stringContent).Result;
-            string json = result.Content.ReadAsStringAsync().Result;
-
-            result.EnsureSuccessStatusCode();
-
-            SaveToken(json);
-            return _token.AccessToken;
+            }
         }
 
         private void LoadToken()
