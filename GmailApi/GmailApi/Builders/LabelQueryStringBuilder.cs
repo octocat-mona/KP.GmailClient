@@ -38,6 +38,9 @@ namespace GmailApi.Builders
 
         public LabelQueryStringBuilder SetRequestAction(LabelRequestAction action, string id)
         {
+            if (string.IsNullOrWhiteSpace(id))
+                throw new ArgumentException("ID is required", "id");
+
             switch (action)
             {
                 //default: Create, List

@@ -40,6 +40,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
+    <Reference Include="System.Net.Http" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -50,8 +51,11 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="IntegrationTests\UnitTest1.cs" />
+    <Compile Include="IntegrationTests\LabelServiceTests\LabelGetTests.cs" />
+    <Compile Include="IntegrationTests\SettingsManager.cs" />
+    <Compile Include="IntegrationTests\SmokeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitTests\LabelServiceTests\LabelGetTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
