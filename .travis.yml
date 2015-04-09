@@ -4,5 +4,6 @@ install:
   - nuget restore GmailApi/GmailApi.sln
   - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
 script:
+  - travis env list
   - xbuild /p:Configuration=Release GmailApi/GmailApi.sln
   - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe GmailApi/UnitTests/bin/Release/UnitTests.dll
