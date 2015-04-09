@@ -67,11 +67,7 @@ namespace GmailApi.Models
         /// </summary>
         public string Raw
         {
-            get
-            {
-                string s = HttpUtility.UrlDecode(RawBase64Url);
-                return RawBase64Url.DecodeBase64UrlString();
-            }
+            get { return RawBase64Url.DecodeBase64UrlString(); }
         }
 
         public string From
