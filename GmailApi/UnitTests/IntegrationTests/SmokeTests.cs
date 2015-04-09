@@ -16,7 +16,7 @@ namespace UnitTests.IntegrationTests
             _emailAddress = SettingsManager.GetEmailAddress();
         }
 
-        [Test]
+        //[Test]
         public void HasSettingsConfigured()
         {
             // Assert
@@ -25,7 +25,7 @@ namespace UnitTests.IntegrationTests
             Assert.IsNotNullOrEmpty(_emailAddress, "Email not configured in config");
         }
 
-        [Test]
+        //[Test]
         public void HasTokenConfigured()
         {
             // Arrange
