@@ -12,7 +12,7 @@ namespace UnitTests.IntegrationTests
 
         static SettingsManager()
         {
-            EnvironmentVariables = Environment.GetEnvironmentVariables(EnvironmentVariableTarget.User)
+            EnvironmentVariables = Environment.GetEnvironmentVariables()
                 .OfType<DictionaryEntry>()
                 .ToDictionary(k => (string)k.Key, v => (string)v.Value);
         }
