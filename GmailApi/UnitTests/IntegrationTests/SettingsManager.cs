@@ -1,9 +1,22 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
 
 namespace UnitTests.IntegrationTests
 {
     public class SettingsManager
     {
+        private static readonly IDictionary<string, string> EnvironmentVariables;
+
+        static SettingsManager()
+        {
+            EnvironmentVariables = Environment.GetEnvironmentVariables(EnvironmentVariableTarget.User)
+                .OfType<DictionaryEntry>()
+                .ToDictionary(k => (string)k.Key, v => (string)v.Value);
+        }
+
         public static string GetClientId()
         {
             return GetSetting("ClientId");
@@ -21,7 +34,10 @@ namespace UnitTests.IntegrationTests
 
         private static string GetSetting(string key)
         {
-            return ConfigurationManager.AppSettings[key];
+            // Env variables are used on Travis
+            return EnvironmentVariables.ContainsKey(key)
+                ? EnvironmentVariables[key]
+                : ConfigurationManager.AppSettings[key];
         }
     }
 }

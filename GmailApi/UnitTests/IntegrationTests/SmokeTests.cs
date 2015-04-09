@@ -16,7 +16,7 @@ namespace UnitTests.IntegrationTests
             _emailAddress = SettingsManager.GetEmailAddress();
         }
 
-        //[Test]
+        [Test]
         public void HasSettingsConfigured()
         {
             // Assert
