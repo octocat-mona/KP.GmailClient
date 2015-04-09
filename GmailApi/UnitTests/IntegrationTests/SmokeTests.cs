@@ -1,4 +1,5 @@
-﻿using GmailApi;
+﻿using System;
+using GmailApi;
 using NUnit.Framework;
 
 namespace UnitTests.IntegrationTests
@@ -17,12 +18,20 @@ namespace UnitTests.IntegrationTests
         }
 
         [Test]
+        public void TestTravisEnvVariable()
+        {
+            string clientId = Environment.GetEnvironmentVariable("ClientId");
+
+            Assert.IsNotNullOrEmpty(clientId, "CliendId not set as environment variable");
+        }
+
+        //[Test]
         public void HasSettingsConfigured()
         {
             // Assert
-            Assert.IsNotNullOrEmpty(_clientId, "CliendId not configured in config");
-            Assert.IsNotNullOrEmpty(_clientSecret, "CliendSecret not configured in config");
-            Assert.IsNotNullOrEmpty(_emailAddress, "Email not configured in config");
+            Assert.IsNotNullOrEmpty(_clientId, "CliendId not set");
+            Assert.IsNotNullOrEmpty(_clientSecret, "CliendSecret not set");
+            Assert.IsNotNullOrEmpty(_emailAddress, "Email not set");
         }
 
         //[Test]
