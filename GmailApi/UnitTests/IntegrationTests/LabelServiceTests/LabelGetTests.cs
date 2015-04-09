@@ -1,7 +1,5 @@
-﻿using System;
-using GmailApi;
+﻿using GmailApi;
 using GmailApi.Services;
-using NUnit.Framework;
 
 namespace UnitTests.IntegrationTests.LabelServiceTests
 {
