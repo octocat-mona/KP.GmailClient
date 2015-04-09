@@ -1,2 +1,2 @@
-language: csharp
-solution: GmailApi.sln
+language :csharp
+solution :GmailApi.sln
