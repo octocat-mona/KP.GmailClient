@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using GmailApi;
-using GmailApi.Models;
+using GmailApi.ServiceExtensions;
 using GmailApi.Services;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 
 namespace Test
 {
@@ -29,10 +26,10 @@ namespace Test
                 //tokenManager.Setup(oauth2Token.RefreshToken, false);
 
                 // Setup 
-                var client = new GmailClient("https://www.googleapis.com/gmail/v1/users/", emailAddress, tokenManager);
+                var client = new GmailClient(emailAddress, tokenManager);
                 var service = new GmailService(client);
 
-                var messages = service.Messages.ListMessages(Label.Inbox);
+                var messages = service.Messages.ListMessages().ToList();
                 var labels = service.Labels.List();
             }
             catch (Exception ex)

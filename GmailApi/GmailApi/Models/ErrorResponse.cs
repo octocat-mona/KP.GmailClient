@@ -5,57 +5,24 @@ namespace GmailApi.Models
 {
     public class ErrorResponse
     {
-        [JsonProperty("errors")]
-        public List<Error> Errors { get; set; }
+        public ErrorResponse()
+        {
+            Message = string.Empty;
+            Errors = new List<Error>(0);
+        }
 
-        [JsonProperty("code")]
+        [JsonProperty("code", Required = Required.Always)]
         public int Code { get; set; }
 
         [JsonProperty("message")]
         public string Message { get; set; }
+
+        [JsonProperty("errors")]
+        public List<Error> Errors { get; set; }
+
+        public override string ToString()
+        {
+            return string.Concat(Code, ": ", Message, ". ", Errors.Count, " errors.");
+        }
     }
 }
-
-/*
-Bad Request:{
-
- "error": {
-
-  "errors": [
-
-   {
-
-    "domain": "global",
-
-    "reason": "parseError",
-
-    "message": "Parse Error"
-
-   }
-
-  ],
-
-  "code": 400,
-
-  "message": "Parse Error"
-
- }
-
-}
-
-{
-   "error":{
-      "errors":[
-         {
-            "domain":"global",
-            "reason":"invalidParameter",
-            "message":"Invalid field selection MessageId",
-            "locationType":"parameter",
-            "location":"fields"
-         }
-      ],
-      "code":400,
-      "message":"Invalid field selection MessageId"
-   }
-}
-*/

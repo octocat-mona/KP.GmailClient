@@ -1,6 +1,6 @@
 using System;
 
-namespace GmailApi.Models
+namespace GmailApi.DTO
 {
     [Flags]
     public enum MessageFields

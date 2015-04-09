@@ -87,7 +87,7 @@
     <Compile Include="Services\MessageService.cs" />
     <Compile Include="Models\Profile.cs" />
     <Compile Include="Services\ThreadService.cs" />
-    <Compile Include="StatusErrorFactory.cs" />
+    <Compile Include="ErrorResponseParser.cs" />
     <Compile Include="StringValueAttribute.cs" />
     <Compile Include="TokenManager.cs" />
   </ItemGroup>

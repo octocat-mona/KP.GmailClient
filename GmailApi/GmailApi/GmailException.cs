@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Net;
 using GmailApi.Models;
 
@@ -6,21 +7,39 @@ namespace GmailApi
 {
     internal class GmailException : Exception
     {
-        public ErrorResponse Error { get; set; }
         public HttpStatusCode StatusCode { get; private set; }
+        public List<Error> Errors { get; set; }
 
         public GmailException(ErrorResponse errorResponse, Exception innerException)
-            : base(errorResponse.Message, innerException)
+            : base(ConstructMessage(errorResponse), innerException)
         {
             StatusCode = (HttpStatusCode)errorResponse.Code;
-            Error = errorResponse;
+            Errors = errorResponse.Errors;
         }
 
         public GmailException(ErrorResponse errorResponse)
-            : base(errorResponse.Message)
+            : this(errorResponse, null)
         {
-            StatusCode = (HttpStatusCode)errorResponse.Code;
-            Error = errorResponse;
+        }
+
+        public GmailException(HttpStatusCode statusCode, string message, Exception innerException)
+            : base(ConstructMessage(statusCode, message), innerException)
+        {
+        }
+
+        public GmailException(HttpStatusCode statusCode, string message)
+            : this(statusCode, message, null)
+        {
+        }
+
+        private static string ConstructMessage(ErrorResponse errorResponse)
+        {
+            return string.Concat(errorResponse.Code, ": ", errorResponse.Message);
+        }
+
+        private static string ConstructMessage(HttpStatusCode statusCode, string message)
+        {
+            return string.Concat(statusCode, ":", message);
         }
     }
 }

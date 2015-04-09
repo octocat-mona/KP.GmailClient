@@ -105,15 +105,15 @@ namespace GmailApi
 
         private static string GetResponse(Task<HttpResponseMessage> res)
         {
-            var resMessage = res.Result;
-            string content = res.Result.Content.ReadAsStringAsync().Result;
+            var response = res.Result;
+            string content = response.Content.ReadAsStringAsync().Result;
 
-            if (!resMessage.IsSuccessStatusCode)
+            if (!response.IsSuccessStatusCode)
             {
-                resMessage.EnsureSuccessStatusCode();
+                //resMessage.EnsureSuccessStatusCode();
 
-                //Exception ex = StatusErrorFactory.Create(content);
-                //throw ex;
+                Exception ex = ErrorResponseParser.Parse(response.StatusCode, content);
+                throw ex;
             }
 
             return content;
