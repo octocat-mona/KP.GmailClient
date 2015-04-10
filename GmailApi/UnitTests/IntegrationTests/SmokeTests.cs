@@ -20,9 +20,19 @@ namespace UnitTests.IntegrationTests
         [Test]
         public void TestTravisEnvVariable()
         {
-            string clientId = Environment.GetEnvironmentVariable("ClientId");
+            string testKey = Environment.GetEnvironmentVariable("TestKey");
+            Console.WriteLine(string.Concat("testkey is '", testKey, "'"));
 
-            Assert.IsNotNullOrEmpty(clientId, "CliendId not set as environment variable");
+            testKey = Environment.GetEnvironmentVariable("TestKey", EnvironmentVariableTarget.Machine);
+            Console.WriteLine(string.Concat("testkey2 is '", testKey, "'"));
+
+            testKey = Environment.GetEnvironmentVariable("TestKey", EnvironmentVariableTarget.User);
+            Console.WriteLine(string.Concat("testkey3 is '", testKey, "'"));
+
+            testKey = Environment.GetEnvironmentVariable("TestKey", EnvironmentVariableTarget.Process);
+            Console.WriteLine(string.Concat("testkey4 is '", testKey, "'"));
+
+            Assert.IsNotNullOrEmpty(testKey, "testkey not set as environment variable");
         }
 
         //[Test]
