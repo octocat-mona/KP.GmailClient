@@ -110,8 +110,6 @@ namespace GmailApi
 
             if (!response.IsSuccessStatusCode)
             {
-                //resMessage.EnsureSuccessStatusCode();
-
                 Exception ex = ErrorResponseParser.Parse(response.StatusCode, content);
                 throw ex;
             }

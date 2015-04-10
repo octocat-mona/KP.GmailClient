@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using GmailApi;
 using GmailApi.Models;
 using GmailApi.Services;
@@ -24,6 +25,16 @@ namespace UnitTests.IntegrationTests.LabelServiceTests
 
             // Assert
             Assert.NotNull(label);
+        }
+
+        [Fact]
+        public void CanList()
+        {
+            // Act
+            List<Label> labels = _service.List();
+
+            // Assert
+            Assert.NotNull(labels);
         }
 
         [Fact]
