@@ -1,8 +1,8 @@
 language: csharp
-solution: GmailApi.sln
+solution: Gmail-Api/GmailApi.sln
 install:
-  - nuget restore GmailApi.sln
+  - nuget restore Gmail-Api/GmailApi.sln
   - nuget install xunit.runners -Version 1.9.2 -OutputDirectory testrunner
 script:
-  - xbuild /p:Configuration=Release GmailApi.sln
+  - xbuild /p:Configuration=Release Gmail-Api/GmailApi.sln
   - mono ./testrunner/xunit.runners.1.9.2/tools/xunit.console.clr4.exe ./UnitTests/bin/Release/UnitTests.dll
