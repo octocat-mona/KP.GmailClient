@@ -1,19 +1,39 @@
-﻿using GmailApi;
+﻿using System;
+using GmailApi;
+using GmailApi.Models;
 using GmailApi.Services;
+using Xunit;
 
 namespace UnitTests.IntegrationTests.LabelServiceTests
 {
-    class LabelGetTests
+    public class LabelGetTests
     {
-        private readonly LabelService _labels;
+        private readonly LabelService _service;
 
         public LabelGetTests()
         {
-            var tokenManager = new TokenManager(SettingsManager.GetClientId(), SettingsManager.GetClientSecret());
-            var gmailClient = new GmailClient(SettingsManager.GetEmailAddress(), tokenManager);
-
-            _labels = new LabelService(gmailClient);
+            GmailClient client = SettingsManager.GetGmailClient();
+            _service = new LabelService(client);
         }
 
+        [Fact]
+        public void CanGet()
+        {
+            // Act
+            Label label = _service.Get(Label.Inbox);
+
+            // Assert
+            Assert.NotNull(label);
+        }
+
+        [Fact]
+        public void NonExistingLabel_ThrowsException()
+        {
+            // Act
+            Action action = () => _service.Get(Guid.NewGuid().ToString("N"));
+
+            // Assert
+            Assert.Throws<GmailException>(action);
+        }
     }
 }

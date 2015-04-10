@@ -1,6 +1,5 @@
-﻿using System;
-using GmailApi;
-using NUnit.Framework;
+﻿using Shouldly;
+using Xunit;
 
 namespace UnitTests.IntegrationTests
 {
@@ -9,34 +8,24 @@ namespace UnitTests.IntegrationTests
         private readonly string _clientId;
         private readonly string _clientSecret;
         private readonly string _emailAddress;
+        private readonly string _refreshToken;
 
         public SmokeTests()
         {
             _clientId = SettingsManager.GetClientId();
             _clientSecret = SettingsManager.GetClientSecret();
             _emailAddress = SettingsManager.GetEmailAddress();
+            _refreshToken = SettingsManager.GetRefreshToken();
         }
 
-        [Test]
+        [Fact]
         public void HasSettingsConfigured()
         {
             // Assert
-            Assert.IsNotNullOrEmpty(_clientId, "CliendId not set");
-            Assert.IsNotNullOrEmpty(_clientSecret, "CliendSecret not set");
-            Assert.IsNotNullOrEmpty(_emailAddress, "Email not set");
-        }
-
-        //[Test]
-        public void HasTokenConfigured()
-        {
-            // Arrange
-            var tokenManager = new TokenManager(_clientId, _clientSecret);
-
-            // Act
-            bool hasTokenConfigured = tokenManager.HasTokenConfigured();
-
-            // Assert
-            Assert.IsTrue(hasTokenConfigured);
+            _clientId.ShouldNotBeNullOrEmpty();
+            _clientSecret.ShouldNotBeNullOrEmpty();
+            _emailAddress.ShouldNotBeNullOrEmpty();
+            _refreshToken.ShouldNotBeNullOrEmpty();
         }
     }
 }

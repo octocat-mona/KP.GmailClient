@@ -5,7 +5,7 @@ using GmailApi.Models;
 
 namespace GmailApi
 {
-    internal class GmailException : Exception
+    public class GmailException : Exception
     {
         public HttpStatusCode StatusCode { get; private set; }
         public List<Error> Errors { get; set; }

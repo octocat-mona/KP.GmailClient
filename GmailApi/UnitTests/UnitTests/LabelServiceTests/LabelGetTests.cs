@@ -1,20 +1,22 @@
 ﻿using System;
 using GmailApi.Builders;
 using GmailApi.DTO;
-using NUnit.Framework;
+using Xunit;
 
 namespace UnitTests.UnitTests.LabelServiceTests
 {
-    class LabelGetTests
+    public class LabelGetTests
     {
-        [ExpectedException(typeof(ArgumentException))]
-        [Test]
+        [Fact]
         public void EmptyLabel_ThrowsError()
         {
             // Act
-            new LabelQueryStringBuilder()
+            Action action = () => new LabelQueryStringBuilder()
                 .SetRequestAction(LabelRequestAction.Get, string.Empty)
                 .Build();
+
+            // Assert
+            Assert.Throws<ArgumentException>(action);
         }
     }
 }
