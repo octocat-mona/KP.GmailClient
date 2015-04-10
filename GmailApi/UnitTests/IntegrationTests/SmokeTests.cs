@@ -18,15 +18,6 @@ namespace UnitTests.IntegrationTests
         }
 
         [Test]
-        public void TestTravisEnvVariable()
-        {
-            string testKey = Environment.GetEnvironmentVariable("TestKey");
-            Console.WriteLine(string.Concat("testkey is '", testKey, "'"));
-
-            Assert.IsNotNullOrEmpty(testKey, "testkey not set as environment variable");
-        }
-
-        //[Test]
         public void HasSettingsConfigured()
         {
             // Assert
