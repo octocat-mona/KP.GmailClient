@@ -16,7 +16,7 @@ namespace UnitTests.UnitTests.LabelServiceTests
                 .Build();
 
             // Assert
-            Assert.Throws<ArgumentException>(action);
+            Assert.Throws<ArgumentException>(new Assert.ThrowsDelegate(action));
         }
     }
 }

@@ -33,7 +33,7 @@ namespace UnitTests.IntegrationTests.LabelServiceTests
             Action action = () => _service.Get(Guid.NewGuid().ToString("N"));
 
             // Assert
-            Assert.Throws<GmailException>(action);
+            Assert.Throws<GmailException>(new Assert.ThrowsDelegate(action));
         }
     }
 }
