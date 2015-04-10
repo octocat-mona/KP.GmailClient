@@ -23,15 +23,6 @@ namespace UnitTests.IntegrationTests
             string testKey = Environment.GetEnvironmentVariable("TestKey");
             Console.WriteLine(string.Concat("testkey is '", testKey, "'"));
 
-            testKey = Environment.GetEnvironmentVariable("TestKey", EnvironmentVariableTarget.Machine);
-            Console.WriteLine(string.Concat("testkey2 is '", testKey, "'"));
-
-            testKey = Environment.GetEnvironmentVariable("TestKey", EnvironmentVariableTarget.User);
-            Console.WriteLine(string.Concat("testkey3 is '", testKey, "'"));
-
-            testKey = Environment.GetEnvironmentVariable("TestKey", EnvironmentVariableTarget.Process);
-            Console.WriteLine(string.Concat("testkey4 is '", testKey, "'"));
-
             Assert.IsNotNullOrEmpty(testKey, "testkey not set as environment variable");
         }
 

@@ -1,20 +1,20 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
 
 namespace UnitTests.IntegrationTests
 {
     public class SettingsManager
     {
-        private static readonly IDictionary<string, string> EnvironmentVariables;
+        //private static readonly IDictionary<string, string> EnvironmentVariables;
+        private static readonly bool UseConfig;
 
         static SettingsManager()
         {
-            EnvironmentVariables = Environment.GetEnvironmentVariables()
+            bool.TryParse(ConfigurationManager.AppSettings["UseConfig"], out UseConfig);
+
+            /*EnvironmentVariables = Environment.GetEnvironmentVariables()
                 .OfType<DictionaryEntry>()
-                .ToDictionary(k => (string)k.Key, v => (string)v.Value);
+                .ToDictionary(k => (string)k.Key, v => (string)v.Value);*/
         }
 
         public static string GetClientId()
@@ -34,10 +34,14 @@ namespace UnitTests.IntegrationTests
 
         private static string GetSetting(string key)
         {
-            // Env variables are used on Travis
-            return EnvironmentVariables.ContainsKey(key)
+            // Environment variables are used on Travis
+            return UseConfig
+                ? ConfigurationManager.AppSettings[key]
+                : Environment.GetEnvironmentVariable(key);
+
+            /*return EnvironmentVariables.ContainsKey(key)
                 ? EnvironmentVariables[key]
-                : ConfigurationManager.AppSettings[key];
+                : ConfigurationManager.AppSettings[key];*/
         }
     }
 }
