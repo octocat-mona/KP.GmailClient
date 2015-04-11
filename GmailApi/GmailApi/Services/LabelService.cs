@@ -82,10 +82,14 @@ namespace GmailApi.Services
         /// <summary>
         /// Updates the specified label. This method supports patch semantics.
         /// </summary>
-        /// <param name="id">The ID of the label to update.</param>
-        public void Patch(string id)
+        /// <param name="label"></param>
+        public Label Patch(Label label)
         {
-            throw new NotImplementedException();
+            string queryString = new LabelQueryStringBuilder()
+                .SetRequestAction(LabelRequestAction.Update, label.Id)
+                .Build();
+
+            return _client.Patch<Label>(queryString, label);
         }
     }
 }

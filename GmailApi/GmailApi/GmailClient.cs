@@ -15,6 +15,12 @@ namespace GmailApi
     public class GmailClient //TODO: interface
     {
         public const string ApiBaseUrl = "https://www.googleapis.com/gmail/v1/users/";
+        private const string HttpGet = "GET";
+        private const string HttpPost = "POST";
+        private const string HttpPut = "PUT";
+        private const string HttpPatch = "PATCH";
+        private const string HttpDelete = "DELETE";
+
         private readonly TokenManager _tokenManager;
         private readonly Uri _baseAddress;
 
@@ -38,46 +44,44 @@ namespace GmailApi
 
         public T Get<T>(string queryString)
         {
-            var res = GetClient()
-                .GetAsync(queryString);
+            string response = GetResponse(HttpGet, queryString);
 
-            return ParseResponse<T>(res);
+            return JsonConvert.DeserializeObject<T>(response);
         }
 
         public T Get<T>(string queryString, ParseOptions options)
         {
-            var res = GetClient()
-                .GetAsync(queryString);
+            string response = GetResponse(HttpGet, queryString);
 
-            return ParseResponse<T>(res, options);
+            var jo = JObject.Parse(response);
+            return jo.SelectToken(options.Path, true).ToObject<T>();
         }
 
         public T Post<T>(string queryString, object content = null)
         {
-            HttpContent httpContent = GetHttpContent<T>(content);
+            string response = GetResponse(HttpPost, queryString, content);
 
-            var res = GetClient()
-                .PostAsync(queryString, httpContent);
-
-            return ParseResponse<T>(res);
+            return JsonConvert.DeserializeObject<T>(response);
         }
 
         public T Put<T>(string queryString, object content = null)
         {
-            HttpContent httpContent = GetHttpContent<T>(content);
+            string response = GetResponse(HttpPut, queryString, content);
 
-            var res = GetClient()
-                .PutAsync(queryString, httpContent);
+            return JsonConvert.DeserializeObject<T>(response);
+        }
+        public T Patch<T>(string queryString, object content = null)
+        {
+            string response = GetResponse(HttpPatch, queryString, content);
 
-            return ParseResponse<T>(res);
+            return JsonConvert.DeserializeObject<T>(response);
         }
 
         public T Delete<T>(string queryString)
         {
-            var res = GetClient()
-                .DeleteAsync(queryString);
+            string response = GetResponse(HttpDelete, queryString);
 
-            return ParseResponse<T>(res);
+            return JsonConvert.DeserializeObject<T>(response);
         }
 
         private HttpClient GetClient()
@@ -91,40 +95,29 @@ namespace GmailApi
             return client;
         }
 
-        private static HttpContent GetHttpContent<T>(object content)
+        private string GetResponse(string httpMethod, string queryString, object content = null)
         {
-            var httpContent = content == null
-                ? null
-                : new StringContent(JsonConvert.SerializeObject(content), Encoding.UTF8, "application/json");
-            return httpContent;
-        }
+            HttpContent httpContent = content == null
+               ? null
+               : new StringContent(JsonConvert.SerializeObject(content), Encoding.UTF8, "application/json");
 
-        private static T ParseResponse<T>(Task<HttpResponseMessage> res)
-        {
-            string content = GetResponse(res);
-            return JsonConvert.DeserializeObject<T>(content);
-        }
+            var request = new HttpRequestMessage(new HttpMethod(httpMethod), queryString)
+            {
+                Content = httpContent
+            };
 
-        private static T ParseResponse<T>(Task<HttpResponseMessage> res, ParseOptions parseOptions)
-        {
-            string content = GetResponse(res);
+            HttpClient client = GetClient();
+            HttpResponseMessage response = client.SendAsync(request).Result;
 
-            var jo = JObject.Parse(content);
-            return jo.SelectToken(parseOptions.Path, true).ToObject<T>();
-        }
-
-        private static string GetResponse(Task<HttpResponseMessage> res)
-        {
-            var response = res.Result;
-            string content = response.Content.ReadAsStringAsync().Result;
+            string contentString = response.Content.ReadAsStringAsync().Result;
 
             if (!response.IsSuccessStatusCode)
             {
-                Exception ex = ErrorResponseParser.Parse(response.StatusCode, content);
+                Exception ex = ErrorResponseParser.Parse(response.StatusCode, contentString);
                 throw ex;
             }
 
-            return content;
+            return contentString;
         }
     }
 }

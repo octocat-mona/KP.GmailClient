@@ -27,12 +27,15 @@ namespace UnitTests.IntegrationTests.LabelServiceTests
             var random = new Random();
             Label createdLabel = _service.Create(new CreateLabelInput(TestLabel + random.Next()));
             _labels.Add(createdLabel);
+            string newName = TestLabel + random.Next();
 
             // Act
-            Label label = _service.Update(new UpdateLabelInput(createdLabel.Id) { Name = TestLabel + random.Next() });
+            Label label = _service.Update(new UpdateLabelInput(createdLabel.Id) { Name = newName });
 
             // Assert
             Assert.NotNull(label);
+            Assert.Equal(createdLabel.Id, label.Id);
+            Assert.Equal(newName, label.Name);
         }
 
         public void Dispose()
