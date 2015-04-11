@@ -69,10 +69,14 @@ namespace GmailApi.Services
         /// <summary>
         /// Updates the specified label.
         /// </summary>
-        /// <param name="id">The ID of the label to update.</param>
-        public void Update(string id)
+        /// <param name="labelInput"></param>
+        public Label Update(UpdateLabelInput labelInput)
         {
-            throw new NotImplementedException();
+            string queryString = new LabelQueryStringBuilder()
+                .SetRequestAction(LabelRequestAction.Update, labelInput.Id)
+                .Build();
+
+            return _client.Put<Label>(queryString, labelInput);
         }
 
         /// <summary>
@@ -81,7 +85,7 @@ namespace GmailApi.Services
         /// <param name="id">The ID of the label to update.</param>
         public void Patch(string id)
         {
-
+            throw new NotImplementedException();
         }
     }
 }

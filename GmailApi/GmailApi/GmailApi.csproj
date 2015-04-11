@@ -88,6 +88,7 @@
     <Compile Include="Models\Profile.cs" />
     <Compile Include="Services\ThreadService.cs" />
     <Compile Include="ErrorResponseParser.cs" />
+    <Compile Include="Models\UpdateLabelInput.cs" />
     <Compile Include="StringValueAttribute.cs" />
     <Compile Include="TokenManager.cs" />
   </ItemGroup>

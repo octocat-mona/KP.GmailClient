@@ -54,9 +54,7 @@ namespace GmailApi
 
         public T Post<T>(string queryString, object content = null)
         {
-            var httpContent = content == null
-                ? null
-                : new StringContent(JsonConvert.SerializeObject(content), Encoding.UTF8, "application/json");
+            HttpContent httpContent = GetHttpContent<T>(content);
 
             var res = GetClient()
                 .PostAsync(queryString, httpContent);
@@ -64,10 +62,14 @@ namespace GmailApi
             return ParseResponse<T>(res);
         }
 
-        public T Put<T>(string queryString)
+        public T Put<T>(string queryString, object content = null)
         {
-            throw new NotImplementedException();
-            //return default(T);
+            HttpContent httpContent = GetHttpContent<T>(content);
+
+            var res = GetClient()
+                .PutAsync(queryString, httpContent);
+
+            return ParseResponse<T>(res);
         }
 
         public T Delete<T>(string queryString)
@@ -87,6 +89,14 @@ namespace GmailApi
             client.DefaultRequestHeaders.Add("Accept", "application/json");
 
             return client;
+        }
+
+        private static HttpContent GetHttpContent<T>(object content)
+        {
+            var httpContent = content == null
+                ? null
+                : new StringContent(JsonConvert.SerializeObject(content), Encoding.UTF8, "application/json");
+            return httpContent;
         }
 
         private static T ParseResponse<T>(Task<HttpResponseMessage> res)

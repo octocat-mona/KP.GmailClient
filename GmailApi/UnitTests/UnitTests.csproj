@@ -58,6 +58,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="IntegrationTests\LabelServiceTests\LabelUpdateTests.cs" />
     <Compile Include="IntegrationTests\LabelServiceTests\LabelGetTests.cs" />
     <Compile Include="IntegrationTests\SettingsManager.cs" />
     <Compile Include="IntegrationTests\SmokeTests.cs" />

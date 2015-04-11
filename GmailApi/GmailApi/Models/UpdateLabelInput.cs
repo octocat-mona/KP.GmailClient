@@ -2,25 +2,23 @@
 
 namespace GmailApi.Models
 {
-    public class CreateLabelInput
+    public class UpdateLabelInput
     {
-        public CreateLabelInput(string name)
+        public UpdateLabelInput(string id)
         {
-            Name = name;
+            Id = id;
         }
 
+        [JsonProperty("id", Required = Required.Always)]
+        public string Id { get; private set; }
+
         [JsonProperty("name", Required = Required.Always)]
-        public string Name { get; private set; }
+        public string Name { get; set; }
 
         [JsonProperty("messageListVisibility")]
         public MessageListVisibility MessageListVisibility { get; set; }
 
         [JsonProperty("labelListVisibility")]
         public LabelListVisibility LabelListVisibility { get; set; }
-
-        public override string ToString()
-        {
-            return string.Concat("Name: ", Name, ", MessageListVisibility: ", MessageListVisibility, ", LabelListVisibility: ", LabelListVisibility);
-        }
     }
 }
