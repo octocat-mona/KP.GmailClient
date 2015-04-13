@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\ThreadFields.cs" />
     <Compile Include="DTO\RequestAction.cs" />
     <Compile Include="DTO\ThreadRequestAction.cs" />
     <Compile Include="DTO\ThreadFormat.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Models\LabelType.cs" />
     <Compile Include="Models\Message.cs" />
     <Compile Include="DTO\MessageFormat.cs" />
+    <Compile Include="Models\ThreadList .cs" />
     <Compile Include="Models\MessageList.cs" />
     <Compile Include="Models\MessageListVisibility.cs" />
     <Compile Include="Models\MimeType.cs" />
@@ -78,6 +80,7 @@
     <Compile Include="Models\Payload.cs" />
     <Compile Include="Models\PayloadBase.cs" />
     <Compile Include="Models\ErrorResponse.cs" />
+    <Compile Include="Models\Thread.cs" />
     <Compile Include="ParseOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceExtensions\LabelServiceExtensions.cs" />

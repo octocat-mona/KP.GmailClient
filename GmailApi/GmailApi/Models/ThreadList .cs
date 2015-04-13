@@ -3,19 +3,19 @@ using Newtonsoft.Json;
 
 namespace GmailApi.Models
 {
-    public class MessageList
+    public class ThreadList
     {
-        public MessageList()
+        public ThreadList()
         {
-            Messages = new List<Message>(0);
+            Threads = new List<Thread>(0);
             NextPageToken = string.Empty;
         }
 
         /// <summary>
-        /// List with messages, with only the ID and/or ThreadID set.
+        /// List with threads.
         /// </summary>
-        [JsonProperty("messages")]
-        public List<Message> Messages { get; set; }
+        [JsonProperty("threads")]
+        public List<Thread> Threads { get; set; }
 
         /// <summary>
         /// Token to retrieve the next page of results in the list.
@@ -31,7 +31,7 @@ namespace GmailApi.Models
 
         public override string ToString()
         {
-            return string.Concat("# Messages: ", Messages.Count, ", NextPageToken: ", NextPageToken, ", SizeEstimate: ", ResultSizeEstimate);
+            return string.Concat("# Messages: ", Threads.Count, ", NextPageToken: ", NextPageToken, ", SizeEstimate: ", ResultSizeEstimate);
         }
     }
 }

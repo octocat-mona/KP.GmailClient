@@ -38,7 +38,7 @@ namespace GmailApi.ServiceExtensions
         }
 
         /// <summary>
-        /// Lists the messages in the specified label.
+        /// Lists the messages of the user's inbox
         /// </summary>
         /// <param name="service"></param>
         /// <returns></returns>

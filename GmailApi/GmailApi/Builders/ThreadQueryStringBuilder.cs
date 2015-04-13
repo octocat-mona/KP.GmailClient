@@ -32,6 +32,13 @@ namespace GmailApi.Builders
             return this;
         }
 
+        public ThreadQueryStringBuilder SetFields(ThreadFields fields)
+        {
+            throw new NotImplementedException();//TODO:
+
+            return this;
+        }
+
         /// <summary>
         /// Set action which requires an ID
         /// </summary>
