@@ -1,6 +1,6 @@
 ﻿namespace GmailApi.Builders
 {
-    public class AttachmentQueryStringBuilder : QueryStringBuilder
+    internal class AttachmentQueryStringBuilder : QueryStringBuilder
     {
         public AttachmentQueryStringBuilder(string messageid, string id)
         {

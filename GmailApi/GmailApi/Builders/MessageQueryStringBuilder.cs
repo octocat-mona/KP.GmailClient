@@ -6,7 +6,7 @@ using GmailApi.DTO;
 
 namespace GmailApi.Builders
 {
-    public class MessageQueryStringBuilder : QueryStringBuilder
+    internal class MessageQueryStringBuilder : QueryStringBuilder
     {
         private Action _fieldsAction;
 
@@ -18,21 +18,11 @@ namespace GmailApi.Builders
         /// <summary>
         /// Set action which doesn't require an ID
         /// </summary>
-        /// <param name="action"></param>
-        /// <returns></returns>
+        /// <param name="action">The action to set</param>
+        /// <returns>This builder</returns>
         public MessageQueryStringBuilder SetRequestAction(MessageRequestAction action)
         {
-            switch (action)
-            {
-                case MessageRequestAction.Import:
-                    Path += "/import";
-                    break;
-                case MessageRequestAction.List:
-                case MessageRequestAction.Insert:
-                    break;
-                default:
-                    throw new Exception("Action '" + action + "' requires an ID");
-            }
+            base.SetRequestAction(action);
 
             return this;
         }
@@ -40,31 +30,12 @@ namespace GmailApi.Builders
         /// <summary>
         /// Set action which requires an ID
         /// </summary>
-        /// <param name="action"></param>
+        /// <param name="action">The action to set</param>
         /// <param name="id">Id of the message</param>
-        /// <returns></returns>
+        /// <returns>This builder</returns>
         public MessageQueryStringBuilder SetRequestAction(MessageRequestAction action, string id)
         {
-            switch (action)
-            {
-                //List, Insert: no extra path
-                case MessageRequestAction.Delete:
-                case MessageRequestAction.Get:
-                    Path += "/" + id;
-                    break;
-                case MessageRequestAction.Modify:
-                    Path += "/" + id + "/modify";
-                    break;
-                case MessageRequestAction.Send:
-                    Path += "/send";
-                    break;
-                case MessageRequestAction.Trash:
-                    Path += "/" + id + "/trash";
-                    break;
-                case MessageRequestAction.Untrash:
-                    Path += "/" + id + "/untrash";
-                    break;
-            }
+            base.SetRequestAction(action, id);
 
             return this;
         }

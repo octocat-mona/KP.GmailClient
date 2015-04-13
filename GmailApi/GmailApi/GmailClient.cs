@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -111,13 +110,11 @@ namespace GmailApi
 
             string contentString = response.Content.ReadAsStringAsync().Result;
 
-            if (!response.IsSuccessStatusCode)
-            {
-                Exception ex = ErrorResponseParser.Parse(response.StatusCode, contentString);
-                throw ex;
-            }
+            if (response.IsSuccessStatusCode)
+                return contentString;
 
-            return contentString;
+            GmailException ex = ErrorResponseParser.Parse(response.StatusCode, contentString);
+            throw ex;
         }
     }
 }

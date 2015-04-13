@@ -1,6 +1,6 @@
 ﻿namespace GmailApi.Builders
 {
-    public class UserQueryStringBuilder : QueryStringBuilder
+    internal class UserQueryStringBuilder : QueryStringBuilder
     {
         public UserQueryStringBuilder()
         {

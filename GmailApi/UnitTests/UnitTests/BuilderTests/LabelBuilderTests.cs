@@ -1,11 +1,12 @@
 ﻿using System;
 using GmailApi.Builders;
 using GmailApi.DTO;
+using Shouldly;
 using Xunit;
 
-namespace UnitTests.UnitTests.LabelServiceTests
+namespace UnitTests.UnitTests.BuilderTests
 {
-    public class LabelGetTests
+    public class LabelBuilderTests
     {
         [Fact]
         public void EmptyLabel_ThrowsError()
@@ -16,7 +17,7 @@ namespace UnitTests.UnitTests.LabelServiceTests
                 .Build();
 
             // Assert
-            Assert.Throws<ArgumentException>(new Assert.ThrowsDelegate(action));
+            Should.Throw<ArgumentException>(action);
         }
     }
 }

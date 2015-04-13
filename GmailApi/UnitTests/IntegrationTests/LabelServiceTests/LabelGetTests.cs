@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using GmailApi;
 using GmailApi.Models;
 using GmailApi.Services;
+using Shouldly;
 using Xunit;
 
 namespace UnitTests.IntegrationTests.LabelServiceTests
@@ -44,7 +45,7 @@ namespace UnitTests.IntegrationTests.LabelServiceTests
             Action action = () => _service.Get(Guid.NewGuid().ToString("N"));
 
             // Assert
-            Assert.Throws<GmailException>(new Assert.ThrowsDelegate(action));
+            Should.Throw<GmailException>(action);
         }
     }
 }

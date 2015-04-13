@@ -6,7 +6,7 @@ using GmailApi.Models;
 
 namespace GmailApi.Builders
 {
-    public class LabelQueryStringBuilder : QueryStringBuilder
+    internal class LabelQueryStringBuilder : QueryStringBuilder
     {
         private Action _fieldsAction;
 
@@ -36,21 +36,27 @@ namespace GmailApi.Builders
             return this;
         }
 
+        /// <summary>
+        /// Set action which doesn't require an ID
+        /// </summary>
+        /// <param name="action">The action to set</param>
+        /// <returns>This builder</returns>
+        public LabelQueryStringBuilder SetRequestAction(LabelRequestAction action)
+        {
+            base.SetRequestAction(action);
+
+            return this;
+        }
+
+        /// <summary>
+        /// Set action which requires an ID
+        /// </summary>
+        /// <param name="action">The action to set</param>
+        /// <param name="id">Id of the message</param>
+        /// <returns>This builder</returns>
         public LabelQueryStringBuilder SetRequestAction(LabelRequestAction action, string id)
         {
-            if (string.IsNullOrWhiteSpace(id))
-                throw new ArgumentException("ID is required", "id");
-
-            switch (action)
-            {
-                //default: Create, List
-                case LabelRequestAction.Patch:
-                case LabelRequestAction.Get:
-                case LabelRequestAction.Delete:
-                case LabelRequestAction.Update:
-                    Path += "/" + id;
-                    break;
-            }
+            base.SetRequestAction(action, id);
 
             return this;
         }

@@ -46,6 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\RequestAction.cs" />
+    <Compile Include="DTO\ThreadRequestAction.cs" />
+    <Compile Include="DTO\ThreadFormat.cs" />
+    <Compile Include="Builders\ThreadQueryStringBuilder.cs" />
     <Compile Include="Builders\MessageQueryStringBuilder.cs" />
     <Compile Include="Builders\QueryStringBuilder.cs" />
     <Compile Include="Builders\AttachmentQueryStringBuilder.cs" />
