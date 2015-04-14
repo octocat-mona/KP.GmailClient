@@ -1,4 +1,9 @@
-﻿namespace GmailApi.Services
+﻿using System;
+using GmailApi.Builders;
+using GmailApi.DTO;
+using GmailApi.Models;
+
+namespace GmailApi.Services
 {
     public class DraftService
     {
@@ -7,6 +12,63 @@
         public DraftService(GmailClient client)
         {
             _client = client;
+        }
+
+        /// <summary>
+        /// Creates a new draft with the DRAFT label.
+        /// </summary>
+        public void Create()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Immediately and permanently deletes the specified draft. Does not simply trash it.
+        /// </summary>
+        public void Delete()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Gets the specified draft.
+        /// </summary>
+        /// <param name="id">The ID of the draft to retrieve.</param>
+        public Draft Get(string id)
+        {
+            string queryString = new DraftQueryStringBuilder()
+                .SetRequestAction(DraftRequestAction.Get, id)
+                .Build();
+
+            return _client.Get<Draft>(queryString);
+        }
+
+        /// <summary>
+        /// Lists the drafts ID's in the user's mailbox.
+        /// </summary>
+        public DraftList ListIds()
+        {
+            string queryString = new DraftQueryStringBuilder()
+                .SetRequestAction(DraftRequestAction.List)
+                .Build();
+
+            return _client.Get<DraftList>(queryString);
+        }
+
+        /// <summary>
+        /// Replaces a draft's content.
+        /// </summary>
+        public void Update()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Sends the specified, existing draft to the recipients in the To, Cc, and Bcc headers.
+        /// </summary>
+        public void Send()
+        {
+            throw new NotImplementedException();
         }
     }
 }

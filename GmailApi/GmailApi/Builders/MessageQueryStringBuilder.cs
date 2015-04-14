@@ -107,8 +107,7 @@ namespace GmailApi.Builders
 
         public MessageQueryStringBuilder SetFormat(MessageFormat format)
         {
-            if (format != MessageFormat.Full)// Full is default
-                Dictionary["format"] = new List<string>(new[] { format.ToString() });
+            base.SetFormat(format);
 
             return this;
         }

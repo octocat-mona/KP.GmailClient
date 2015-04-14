@@ -26,7 +26,7 @@ namespace UnitTests.IntegrationTests.ThreadServiceTests
         public void CanGet()
         {
             // Arrange
-            Message message = _messageService.ListMessages(Label.Sent).First();
+            Message message = _messageService.List(Label.Sent).First();
             string threadId = message.ThreadId;
 
             // Act

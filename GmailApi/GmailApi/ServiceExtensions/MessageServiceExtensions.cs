@@ -32,7 +32,7 @@ namespace GmailApi.ServiceExtensions
         /// <param name="service"></param>
         /// <param name="labelId"></param>
         /// <returns></returns>
-        public static IEnumerable<Message> ListMessages(this MessageService service, string labelId)
+        public static IEnumerable<Message> List(this MessageService service, string labelId)
         {
             return service.List(null, labelId);
         }
@@ -42,16 +42,16 @@ namespace GmailApi.ServiceExtensions
         /// </summary>
         /// <param name="service"></param>
         /// <returns></returns>
-        public static IEnumerable<Message> ListMessages(this MessageService service)
+        public static IEnumerable<Message> List(this MessageService service)
         {
-            return ListMessages(service, Label.Inbox);
+            return List(service, Label.Inbox);
         }
 
         /// <summary>
         /// Lists the message IDs of the user's inbox
         /// </summary>
         /// <returns></returns>
-        public static MessageList ListMessageIds(this MessageService service)
+        public static MessageList ListIds(this MessageService service)
         {
             return service.ListIds(Label.Inbox);
         }

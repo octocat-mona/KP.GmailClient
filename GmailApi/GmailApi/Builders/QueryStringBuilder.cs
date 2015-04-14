@@ -29,7 +29,7 @@ namespace GmailApi.Builders
             if (string.IsNullOrWhiteSpace(id))
                 throw new ArgumentException("ID is required", "id");
 
-            RequestAction requestAction = ParseEnumValue(action);
+            RequestAction requestAction = ParseEnumValue<RequestAction>(action);
             switch (requestAction)
             {
                 case RequestAction.Patch:
@@ -64,7 +64,7 @@ namespace GmailApi.Builders
         /// <returns></returns>
         protected void SetRequestAction(Enum action)
         {
-            RequestAction requestAction = ParseEnumValue(action);
+            RequestAction requestAction = ParseEnumValue<RequestAction>(action);
             switch (requestAction)
             {
                 case RequestAction.Send:
@@ -90,14 +90,23 @@ namespace GmailApi.Builders
             }
         }
 
-        private static RequestAction ParseEnumValue(Enum action)
+        public void SetFormat(Enum format)
+        {
+            // Validate the passed argument
+            Format f = ParseEnumValue<Format>(format);
+
+            if (f != Format.Full)// Full is default
+                Dictionary["format"] = new List<string>(new[] { f.ToString() });
+        }
+
+        private static T ParseEnumValue<T>(Enum action) where T : struct, IConvertible // = enum
         {
             string value = action.ToString();
 
-            if (!Enum.IsDefined(typeof(RequestAction), value))
-                throw new InvalidEnumArgumentException(string.Concat("'", value, "' not valid"), Convert.ToInt32(action), typeof(Action));
+            if (!Enum.IsDefined(typeof(T), value))
+                throw new InvalidEnumArgumentException(string.Concat("'", value, "' not valid"), Convert.ToInt32(action), action.GetType());
 
-            return (RequestAction)Enum.Parse(typeof(RequestAction), value);
+            return (T)Enum.Parse(typeof(T), value);
         }
 
         public virtual string Build()

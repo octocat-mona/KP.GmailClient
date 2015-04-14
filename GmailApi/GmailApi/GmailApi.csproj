@@ -46,8 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Builders\DraftQueryStringBuilder.cs" />
+    <Compile Include="DTO\Format.cs" />
+    <Compile Include="DTO\DraftRequestAction.cs" />
     <Compile Include="DTO\ThreadFields.cs" />
     <Compile Include="DTO\RequestAction.cs" />
+    <Compile Include="DTO\DraftFormat.cs" />
     <Compile Include="DTO\ThreadRequestAction.cs" />
     <Compile Include="DTO\ThreadFormat.cs" />
     <Compile Include="Builders\ThreadQueryStringBuilder.cs" />
@@ -58,6 +62,7 @@
     <Compile Include="DTO\LabelRequestAction.cs" />
     <Compile Include="GmailException.cs" />
     <Compile Include="Models\CreateLabelInput.cs" />
+    <Compile Include="Models\Draft.cs" />
     <Compile Include="Models\LabelFields.cs" />
     <Compile Include="Models\LabelListVisibility.cs" />
     <Compile Include="DTO\MessageFields.cs" />
@@ -72,6 +77,7 @@
     <Compile Include="Models\LabelType.cs" />
     <Compile Include="Models\Message.cs" />
     <Compile Include="DTO\MessageFormat.cs" />
+    <Compile Include="Models\DraftList.cs" />
     <Compile Include="Models\ThreadList .cs" />
     <Compile Include="Models\MessageList.cs" />
     <Compile Include="Models\MessageListVisibility.cs" />
@@ -83,6 +89,7 @@
     <Compile Include="Models\Thread.cs" />
     <Compile Include="ParseOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceExtensions\DraftServiceExtensions.cs" />
     <Compile Include="ServiceExtensions\LabelServiceExtensions.cs" />
     <Compile Include="ServiceExtensions\MessageServiceExtensions.cs" />
     <Compile Include="Services\DraftService.cs" />

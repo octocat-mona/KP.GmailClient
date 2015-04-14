@@ -14,8 +14,7 @@ namespace GmailApi.Builders
 
         public ThreadQueryStringBuilder SetFormat(ThreadFormat format)
         {
-            if (format != ThreadFormat.Full) // Full is default
-                Dictionary["format"] = new List<string>(new[] { format.ToString() });
+            base.SetFormat(format);
 
             return this;
         }
