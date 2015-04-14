@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Web;
+using FluentAssertions;
 using GmailApi.Builders;
 using GmailApi.DTO;
-using Shouldly;
 using Xunit;
 
 namespace UnitTests.UnitTests.BuilderTests
@@ -21,7 +21,7 @@ namespace UnitTests.UnitTests.BuilderTests
                 .Build();
 
             // Assert
-            queryString.ShouldNotBeNullOrEmpty();
+            queryString.Should().NotBeNullOrWhiteSpace();
         }
 
         [Fact]
@@ -39,7 +39,7 @@ namespace UnitTests.UnitTests.BuilderTests
             string value = collection["format"];
 
             // Assert
-            value.ShouldBe(ThreadFormat.Metadata.ToString(), Case.Insensitive);
+            value.Should().BeEquivalentTo(ThreadFormat.Metadata.ToString());
         }
 
         [Fact]
@@ -51,7 +51,7 @@ namespace UnitTests.UnitTests.BuilderTests
                 .Build();
 
             // Assert
-            Should.Throw<ArgumentException>(action);
+            action.ShouldThrow<ArgumentException>();
         }
 
         [Fact]
@@ -63,7 +63,7 @@ namespace UnitTests.UnitTests.BuilderTests
                 .Build();
 
             // Assert
-            Should.Throw<InvalidEnumArgumentException>(action);
+            action.ShouldThrow<InvalidEnumArgumentException>();
         }
     }
 }

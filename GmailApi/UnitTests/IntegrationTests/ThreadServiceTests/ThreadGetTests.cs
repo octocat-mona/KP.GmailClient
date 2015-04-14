@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using FluentAssertions;
 using GmailApi;
 using GmailApi.Models;
 using GmailApi.ServiceExtensions;
 using GmailApi.Services;
-using Shouldly;
 using Xunit;
 
 namespace UnitTests.IntegrationTests.ThreadServiceTests
@@ -34,8 +33,9 @@ namespace UnitTests.IntegrationTests.ThreadServiceTests
             Thread thread = _service.Get(threadId);
 
             // Assert
-            Assert.NotNull(thread);
-            thread.Id.ShouldNotBeNullOrEmpty();
+            thread.Should().NotBeNull();
+
+            thread.Id.Should().NotBeNullOrWhiteSpace();
             //thread.Snippet.ShouldNotBeNullOrEmpty();
         }
 
@@ -56,7 +56,7 @@ namespace UnitTests.IntegrationTests.ThreadServiceTests
             Action action = () => _service.Get(Guid.NewGuid().ToString("N"));
 
             // Assert
-            Should.Throw<GmailException>(action);
+            action.ShouldThrow<GmailException>();
         }
     }
 }

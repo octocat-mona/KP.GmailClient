@@ -1,4 +1,4 @@
-﻿using Shouldly;
+﻿using FluentAssertions;
 using Xunit;
 
 namespace UnitTests.IntegrationTests
@@ -22,10 +22,10 @@ namespace UnitTests.IntegrationTests
         public void HasSettingsConfigured()
         {
             // Assert
-            _clientId.ShouldNotBeNullOrEmpty();
-            _clientSecret.ShouldNotBeNullOrEmpty();
-            _emailAddress.ShouldNotBeNullOrEmpty();
-            _refreshToken.ShouldNotBeNullOrEmpty();
+            _clientId.Should().NotBeNullOrWhiteSpace();
+            _clientSecret.Should().NotBeNullOrWhiteSpace();
+            _emailAddress.Should().NotBeNullOrWhiteSpace();
+            _refreshToken.Should().NotBeNullOrWhiteSpace();
         }
     }
 }

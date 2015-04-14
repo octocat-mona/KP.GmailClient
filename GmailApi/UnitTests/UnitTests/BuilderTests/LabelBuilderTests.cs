@@ -1,7 +1,7 @@
 ﻿using System;
+using FluentAssertions;
 using GmailApi.Builders;
 using GmailApi.DTO;
-using Shouldly;
 using Xunit;
 
 namespace UnitTests.UnitTests.BuilderTests
@@ -17,7 +17,7 @@ namespace UnitTests.UnitTests.BuilderTests
                 .Build();
 
             // Assert
-            Should.Throw<ArgumentException>(action);
+            action.ShouldThrow<ArgumentException>();
         }
     }
 }
