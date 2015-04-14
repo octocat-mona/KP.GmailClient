@@ -24,7 +24,7 @@ namespace GmailApi.Builders
 
                 var labelFields = fields.GetFlagEnumValues()
                     .Select(f => f.GetAttribute<StringValueAttribute, LabelFields>())
-                     .Where(att => att != null)
+                    .Where(att => att != null)
                     .Select(att => att.Text)
                     .ToList();
 
