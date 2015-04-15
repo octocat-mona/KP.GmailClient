@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using GmailApi.Models;
 using GmailApi.Services;
 
@@ -24,6 +25,20 @@ namespace GmailApi.ServiceExtensions
         public static uint Count(this MessageService service)
         {
             return Count(service, Label.Inbox);
+        }
+
+        /// <summary>
+        /// Lists the messages in the specified label.
+        /// </summary>
+        /// <param name="service"></param>
+        /// <param name="query"></param>
+        /// <param name="labelId"></param>
+        /// <returns></returns>
+        public static IEnumerable<Message> List(this MessageService service, string query, string labelId)
+        {
+            var messageList = service.ListIds(query, labelId);
+
+            return messageList.Messages.Select(id => service.Get(id.Id));// TODO: do one batch request?
         }
 
         /// <summary>

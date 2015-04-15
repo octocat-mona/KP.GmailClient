@@ -52,19 +52,6 @@ namespace GmailApi.Services
         }
 
         /// <summary>
-        /// Lists the messages in the specified label.
-        /// </summary>
-        /// <param name="query"></param>
-        /// <param name="labelId"></param>
-        /// <returns></returns>
-        public IEnumerable<Message> List(string query, string labelId)
-        {
-            var messageList = ListIds(query, labelId);
-
-            return messageList.Messages.Select(id => Get(id.Id));// TODO: do one batch request
-        }
-
-        /// <summary>
         /// Gets the specified message
         /// </summary>
         /// <param name="id"></param>

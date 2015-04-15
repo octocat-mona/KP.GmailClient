@@ -5,11 +5,13 @@ namespace GmailApi.Models
 {
     public class Message
     {
+        private string _raw;
+
         public Message()
         {
             ThreadId = string.Empty;
             Snippet = string.Empty;
-            RawBase64Url = string.Empty;
+            _raw = string.Empty;
             LabelIds = new List<string>(0);
         }
 
@@ -57,16 +59,15 @@ namespace GmailApi.Models
         [JsonProperty("sizeEstimate")]
         public int SizeEstimate { get; set; }
 
-        [JsonProperty("raw")]
-        internal string RawBase64Url { get; set; }
-
         /// <summary>
-        /// The entire email message in an RFC 2822 formatted and base64url encoded string.
+        /// The entire email message.
         /// Returned in messages.get and drafts.get responses when the format=RAW parameter is supplied.
         /// </summary>
+        [JsonProperty("raw")]
         public string Raw
         {
-            get { return RawBase64Url.DecodeBase64UrlString(); }
+            get { return _raw.FromBase64UrlString(); }
+            set { _raw = value; }
         }
 
         public string From

@@ -7,10 +7,12 @@ namespace GmailApi.Models
     /// </summary>
     public class Attachment
     {
+        private string _data;
+
         public Attachment()
         {
             AttachmentId = string.Empty;
-            DataBase64Url = string.Empty;
+            _data = string.Empty;
         }
 
         /// <summary>
@@ -27,18 +29,14 @@ namespace GmailApi.Models
         public int Size { get; set; }
 
         /// <summary>
-        /// <see cref="Data"/>
-        /// </summary>
-        [JsonProperty("data")]
-        internal string DataBase64Url { get; set; }
-
-        /// <summary>
         /// The body data of a MIME message part. May be empty for MIME container types that have no message body or when the body data is sent as a separate attachment.
         /// An attachment ID is present if the body data is contained in a separate attachment.
         /// </summary>
+        [JsonProperty("data")]
         public string Data
         {
-            get { return DataBase64Url.DecodeBase64UrlString(); }
+            get { return _data.FromBase64UrlString(); }
+            set { _data = value; }
         }
 
         public override string ToString()

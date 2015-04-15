@@ -50,13 +50,31 @@ namespace GmailApi
         }
 
         /// <summary>
+        /// Encodes to an URL Base64 encoded string
+        /// See http://tools.ietf.org/html/rfc4648#section-5: 'Base 64 Encoding with URL and Filename Safe Alphabet'
+        /// </summary>
+        /// <param name="plainText"></param>
+        /// <returns></returns>
+        public static string ToBase64UrlString(this string plainText)
+        {
+            if (string.IsNullOrEmpty(plainText))
+                return plainText;
+
+            string base64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(plainText));
+            return base64.Replace('+', '-').Replace('/', '_');
+        }
+
+        /// <summary>
         /// Decodes an URL Base64 encoded string
         /// See http://tools.ietf.org/html/rfc4648#section-5: 'Base 64 Encoding with URL and Filename Safe Alphabet'
         /// </summary>
         /// <param name="base64"></param>
         /// <returns></returns>
-        public static string DecodeBase64UrlString(this string base64)
+        public static string FromBase64UrlString(this string base64)
         {
+            if (string.IsNullOrEmpty(base64))
+                return base64;
+
             string safeBase64 = base64.Replace('-', '+').Replace('_', '/');
             byte[] bytes = Convert.FromBase64String(safeBase64);
             return Encoding.UTF8.GetString(bytes);
