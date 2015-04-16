@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using GmailApi;
 using GmailApi.Models;
 using GmailApi.Services;
@@ -12,12 +10,16 @@ namespace UnitTests.IntegrationTests.LabelServiceTests
     {
         private const string TestLabel = "Testing/";
         private readonly LabelService _service;
-        private readonly List<Label> _labels = new List<Label>();
+        private readonly ServiceItemHelper<Label, CreateLabelInput> _helper;
 
         public LabelUpdateTests()
         {
             GmailClient client = SettingsManager.GetGmailClient();
             _service = new LabelService(client);
+
+            Action<Label> deleteAction = label => _service.Delete(label.Id);
+            Func<CreateLabelInput, Label> createAction = input => _service.Create(input);
+            _helper = new ServiceItemHelper<Label, CreateLabelInput>(createAction, deleteAction);
         }
 
         [Fact]
@@ -25,8 +27,7 @@ namespace UnitTests.IntegrationTests.LabelServiceTests
         {
             // Arrange
             var random = new Random();
-            Label createdLabel = _service.Create(new CreateLabelInput(TestLabel + random.Next()));
-            _labels.Add(createdLabel);
+            Label createdLabel = _helper.Create(new CreateLabelInput(TestLabel + random.Next()));
             string newName = TestLabel + random.Next();
 
             // Act
@@ -40,25 +41,7 @@ namespace UnitTests.IntegrationTests.LabelServiceTests
 
         public void Dispose()
         {
-            List<Exception> exceptions = new List<Exception>();
-
-            foreach (var label in _labels)
-            {
-                try
-                {
-                    _service.Delete(label.Id);
-                }
-                catch (Exception ex)
-                {
-                    exceptions.Add(ex);
-                }
-            }
-
-            if (exceptions.Any())
-            {
-                string errorMessages = string.Join(",", exceptions.Select(e => e.Message));
-                throw new Exception("Could not cleanup Labels: " + errorMessages);
-            }
+            _helper.Cleanup();
         }
     }
 }

@@ -64,6 +64,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="IntegrationTests\AttachmentServiceTests\AttachmentGetTests.cs" />
     <Compile Include="IntegrationTests\DraftServiceTests\DraftGetTests.cs" />
     <Compile Include="IntegrationTests\DraftServiceTests\DraftListTests.cs" />
     <Compile Include="IntegrationTests\LabelServiceTests\LabelUpdateTests.cs" />

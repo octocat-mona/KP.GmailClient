@@ -4,16 +4,37 @@ using System.Linq;
 
 namespace UnitTests
 {
-    public class ServiceItemHelper<T>
+    public class ServiceItemHelper<T, TParam>
     {
+        private readonly Func<TParam, T> _createAction;
+        private readonly Action<T> _deleteAction;
         private readonly List<T> _createdItems = new List<T>();
+
+        public ServiceItemHelper(Func<TParam, T> createAction, Action<T> deleteAction)
+        {
+            _createAction = createAction;
+            _deleteAction = deleteAction;
+        }
+
+        public T Create(TParam createParam)
+        {
+            T createdItem = _createAction(createParam);
+            _createdItems.Add(createdItem);
+
+            return createdItem;
+        }
 
         public void Add(T item)
         {
             _createdItems.Add(item);
         }
 
-        public void Cleanup(Action<T> deleteAction)
+        public void Remove(T item)
+        {
+            _createdItems.Remove(item);
+        }
+
+        public void Cleanup()
         {
             List<Exception> exceptions = new List<Exception>();
 
@@ -21,7 +42,7 @@ namespace UnitTests
             {
                 try
                 {
-                    deleteAction(item);
+                    _deleteAction(item);
                 }
                 catch (Exception ex)
                 {
