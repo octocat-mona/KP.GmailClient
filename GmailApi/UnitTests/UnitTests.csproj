@@ -64,14 +64,19 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="IntegrationTests\DraftServiceTests\DraftGetTests.cs" />
+    <Compile Include="IntegrationTests\DraftServiceTests\DraftListTests.cs" />
     <Compile Include="IntegrationTests\LabelServiceTests\LabelUpdateTests.cs" />
     <Compile Include="IntegrationTests\LabelServiceTests\LabelGetTests.cs" />
     <Compile Include="IntegrationTests\SettingsManager.cs" />
     <Compile Include="IntegrationTests\SmokeTests.cs" />
     <Compile Include="IntegrationTests\ThreadServiceTests\ThreadGetTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceItemHelper.cs" />
     <Compile Include="UnitTests\BuilderTests\ThreadBuilderTests.cs" />
     <Compile Include="UnitTests\BuilderTests\LabelBuilderTests.cs" />
+    <Compile Include="UnitTests\ExtensionTests\Base64UrlStringTests.cs" />
+    <Compile Include="UnitTests\ExtensionTests\GetAttributeTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -83,6 +88,7 @@
       <Name>GmailApi</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

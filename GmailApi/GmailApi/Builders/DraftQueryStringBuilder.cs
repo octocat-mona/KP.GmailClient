@@ -29,5 +29,14 @@ namespace GmailApi.Builders
 
             return this;
         }
+
+        public DraftQueryStringBuilder SetUploadType(UploadType uploadType)
+        {
+            string text = uploadType.GetAttribute<StringValueAttribute, UploadType>().Text;
+
+
+
+            return this;
+        }
     }
 }

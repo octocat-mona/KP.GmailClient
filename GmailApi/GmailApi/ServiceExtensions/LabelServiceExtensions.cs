@@ -10,8 +10,10 @@ namespace GmailApi.ServiceExtensions
         /// <summary>
         /// Lists all labels in the user's mailbox of the given type.
         /// </summary>
-        /// <returns></returns>
-        public static List<Label> List(LabelService service, LabelType type)
+        /// <param name="service">Gmail API service instance</param>
+        /// <param name="type"></param>
+        /// <returns>A list of Labels</returns>
+        public static List<Label> List(this LabelService service, LabelType type)
         {
             return service.List()
                 .Where(l => l.Type == type)

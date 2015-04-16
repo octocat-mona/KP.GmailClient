@@ -17,9 +17,14 @@ namespace GmailApi.Services
         /// <summary>
         /// Creates a new draft with the DRAFT label.
         /// </summary>
-        public void Create()
+        public Draft Create(Draft draftInput)
         {
-            throw new NotImplementedException();
+            string queryString = new DraftQueryStringBuilder()
+                .SetRequestAction(DraftRequestAction.Create)
+                //.SetUploadType(UploadType.Media)//TODO:
+                .Build();
+
+            return _client.Post<Draft>(queryString, draftInput);
         }
 
         /// <summary>

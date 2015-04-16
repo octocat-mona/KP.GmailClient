@@ -8,10 +8,10 @@ namespace GmailApi.ServiceExtensions
     public static class DraftServiceExtensions
     {
         /// <summary>
-        /// Lists the drafts in the user's inbox
+        /// Lists the drafts in the user's inbox.
         /// </summary>
-        /// <param name="service"></param>
-        /// <returns></returns>
+        /// <param name="service">Gmail API service instance</param>
+        /// <returns>A list of Drafts</returns>
         public static IEnumerable<Draft> List(this DraftService service)
         {
             DraftList draftIds = service.ListIds();

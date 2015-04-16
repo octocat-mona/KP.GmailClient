@@ -60,6 +60,7 @@
     <Compile Include="Builders\AttachmentQueryStringBuilder.cs" />
     <Compile Include="Builders\UserQueryStringBuilder.cs" />
     <Compile Include="DTO\LabelRequestAction.cs" />
+    <Compile Include="DTO\UploadType.cs" />
     <Compile Include="GmailException.cs" />
     <Compile Include="Models\CreateLabelInput.cs" />
     <Compile Include="Models\Draft.cs" />
