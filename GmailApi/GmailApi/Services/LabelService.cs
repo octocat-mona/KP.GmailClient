@@ -62,7 +62,7 @@ namespace GmailApi.Services
                 .SetRequestAction(LabelRequestAction.Delete, id)
                 .Build();
 
-            _client.Delete<object>(queryString);
+            _client.Delete(queryString);
         }
 
         /// <summary>

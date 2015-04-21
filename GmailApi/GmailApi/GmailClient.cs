@@ -76,11 +76,11 @@ namespace GmailApi
             return JsonConvert.DeserializeObject<T>(response);
         }
 
-        public T Delete<T>(string queryString)
+        public void Delete(string queryString)
         {
-            string response = GetResponse(HttpDelete, queryString);
-
-            return JsonConvert.DeserializeObject<T>(response);
+            GetResponse(HttpDelete, queryString);
+            //string response = GetResponse(HttpDelete, queryString);
+            //return JsonConvert.DeserializeObject<T>(response);
         }
 
         private HttpClient GetClient()

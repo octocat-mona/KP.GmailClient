@@ -49,7 +49,7 @@ namespace GmailApi.Services
                 .SetRequestAction(ThreadRequestAction.Delete, id)
                 .Build();
 
-            _client.Delete<object>(queryString);
+            _client.Delete(queryString);
         }
 
         public Thread Trash()

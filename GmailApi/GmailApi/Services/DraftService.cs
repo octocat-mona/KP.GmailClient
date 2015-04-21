@@ -30,9 +30,14 @@ namespace GmailApi.Services
         /// <summary>
         /// Immediately and permanently deletes the specified draft. Does not simply trash it.
         /// </summary>
-        public void Delete()
+        /// <param name="id">The ID of the draft to delete</param>
+        public void Delete(string id)
         {
-            throw new NotImplementedException();
+            string queryString = new DraftQueryStringBuilder()
+                .SetRequestAction(DraftRequestAction.Delete, id)
+                .Build();
+
+            _client.Delete(queryString);
         }
 
         /// <summary>
