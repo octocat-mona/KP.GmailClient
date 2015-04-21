@@ -29,7 +29,8 @@ namespace GmailApi.Builders
         /// <returns></returns>
         public HistoryQueryStringBuilder SetMaxResults(uint maxResults)
         {
-            if (maxResults < ulong.MaxValue && maxResults > 0)
+            // Only set when value is not 'default' (like '0' or MaxValue)
+            if (maxResults != uint.MaxValue && maxResults != 0)
                 SetField("maxResults", maxResults);
 
             return this;
