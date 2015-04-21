@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using GmailApi.DTO;
 
@@ -15,7 +14,6 @@ namespace GmailApi.Builders
         public ThreadQueryStringBuilder SetFormat(ThreadFormat format)
         {
             base.SetFormat(format);
-
             return this;
         }
 
@@ -27,14 +25,12 @@ namespace GmailApi.Builders
         public ThreadQueryStringBuilder SetRequestAction(ThreadRequestAction action)
         {
             base.SetRequestAction(action);
-
             return this;
         }
 
         public ThreadQueryStringBuilder SetFields(ThreadFields fields)
         {
             throw new NotImplementedException();//TODO:
-
             return this;
         }
 
@@ -58,8 +54,7 @@ namespace GmailApi.Builders
 
             SetFormat(ThreadFormat.Metadata);
 
-            Dictionary["metadataHeaders"] = new List<string>(headers);
-
+            SetField("metadataHeaders", headers);
             return this;
         }
     }

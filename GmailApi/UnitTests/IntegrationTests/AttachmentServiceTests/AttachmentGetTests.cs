@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using FluentAssertions;
 using GmailApi;
 using GmailApi.Models;
@@ -20,7 +21,7 @@ namespace UnitTests.IntegrationTests.AttachmentServiceTests
         }
 
         //[Fact]
-        public void NonExistingAttachment_ThrowsException()
+        public void NonExistingAttachment_ReturnsNotFound()
         {
             // Arrange
             Draft draft = new Draft();// TODO: create draft with attachment
@@ -31,7 +32,8 @@ namespace UnitTests.IntegrationTests.AttachmentServiceTests
             Action action = () => _service.Get(messageId, Guid.NewGuid().ToString("N"));
 
             // Assert
-            action.ShouldThrow<GmailException>();
+            action.ShouldThrow<GmailException>()
+                .And.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
     }
 }

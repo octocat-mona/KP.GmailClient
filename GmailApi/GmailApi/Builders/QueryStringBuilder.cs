@@ -9,13 +9,13 @@ namespace GmailApi.Builders
 {
     internal abstract class QueryStringBuilder
     {
-        protected readonly Dictionary<string, List<string>> Dictionary;
+        protected readonly Dictionary<string, List<object>> FieldsDictionary;
         protected string Path { get; set; }
 
         protected QueryStringBuilder()
         {
             Path = string.Empty;
-            Dictionary = new Dictionary<string, List<string>>();
+            FieldsDictionary = new Dictionary<string, List<object>>();
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace GmailApi.Builders
             Format f = ParseEnumValue<Format>(format);
 
             if (f != Format.Full)// Full is default
-                Dictionary["format"] = new List<string>(new[] { f.ToString() });
+                SetField("format", f);
         }
 
         private static T ParseEnumValue<T>(Enum action) where T : struct, IConvertible // = enum
@@ -109,11 +109,28 @@ namespace GmailApi.Builders
             return (T)Enum.Parse(typeof(T), value);
         }
 
+        /// <summary>
+        /// Add field(s) to the query string. Null values are ignored.
+        /// </summary>
+        /// <param name="key">The key of the field</param>
+        /// <param name="values">Zero or more nullable values.</param>
+        public void SetField(string key, params object[] values)
+        {
+            List<object> nonNullValues = values
+                .Where(value => !ReferenceEquals(value, null))
+                .ToList();
+
+            if (!nonNullValues.Any())
+                return;
+
+            FieldsDictionary[key] = new List<object>(nonNullValues);
+        }
+
         public virtual string Build()
         {
-            var encodedValues = Dictionary
-                .SelectMany(d => d.Value, (d, value) => new { d.Key, value })
-                .Select(kvp => string.Concat(kvp.Key, "=", HttpUtility.UrlEncode(kvp.value)))
+            var encodedValues = FieldsDictionary
+                .SelectMany(d => d.Value, (d, value) => new { d.Key, Value = value.ToString() })
+                .Select(kvp => string.Concat(kvp.Key, "=", HttpUtility.UrlEncode(kvp.Value)))
                 .ToList();
 
             // Only set a questionmark if any values

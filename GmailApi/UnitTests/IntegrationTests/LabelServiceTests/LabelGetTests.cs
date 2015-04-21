@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using FluentAssertions;
 using GmailApi;
 using GmailApi.Models;
@@ -39,13 +40,14 @@ namespace UnitTests.IntegrationTests.LabelServiceTests
         }
 
         [Fact]
-        public void NonExistingLabel_ThrowsException()
+        public void NonExistingLabel_ReturnsNotFound()
         {
             // Act
             Action action = () => _service.Get(Guid.NewGuid().ToString("N"));
 
             // Assert
-            action.ShouldThrow<GmailException>();
+            action.ShouldThrow<GmailException>()
+                .And.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
     }
 }

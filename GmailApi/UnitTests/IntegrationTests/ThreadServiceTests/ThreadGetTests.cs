@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Net;
 using FluentAssertions;
 using GmailApi;
 using GmailApi.Models;
@@ -50,13 +51,17 @@ namespace UnitTests.IntegrationTests.ThreadServiceTests
         }*/
 
         [Fact]
-        public void NonExistingThread_ThrowsException()
+        public void NonExistingThreadId_ReturnsNotFound()
         {
+            // Arrange
+            const string id = "13c97ae7b72cb05e";
+
             // Act
-            Action action = () => _service.Get(Guid.NewGuid().ToString("N"));
+            Action action = () => _service.Get(id);
 
             // Assert
-            action.ShouldThrow<GmailException>();
+            action.ShouldThrow<GmailException>()
+                .And.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
     }
 }

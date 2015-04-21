@@ -67,6 +67,7 @@
     <Compile Include="IntegrationTests\AttachmentServiceTests\AttachmentGetTests.cs" />
     <Compile Include="IntegrationTests\DraftServiceTests\DraftGetTests.cs" />
     <Compile Include="IntegrationTests\DraftServiceTests\DraftListTests.cs" />
+    <Compile Include="IntegrationTests\HistoryServiceTests\HistoryListTests.cs" />
     <Compile Include="IntegrationTests\LabelServiceTests\LabelUpdateTests.cs" />
     <Compile Include="IntegrationTests\LabelServiceTests\LabelGetTests.cs" />
     <Compile Include="IntegrationTests\SettingsManager.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="IntegrationTests\ThreadServiceTests\ThreadGetTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceItemHelper.cs" />
+    <Compile Include="UnitTests\BuilderTests\HistoryBuilderTests.cs" />
     <Compile Include="UnitTests\BuilderTests\ThreadBuilderTests.cs" />
     <Compile Include="UnitTests\BuilderTests\LabelBuilderTests.cs" />
     <Compile Include="UnitTests\ExtensionTests\Base64UrlStringTests.cs" />

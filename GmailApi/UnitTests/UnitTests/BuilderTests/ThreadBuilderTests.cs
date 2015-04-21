@@ -39,7 +39,7 @@ namespace UnitTests.UnitTests.BuilderTests
             string value = collection["format"];
 
             // Assert
-            value.Should().BeEquivalentTo(ThreadFormat.Metadata.ToString());
+            value.Should().Be(ThreadFormat.Metadata.ToString());
         }
 
         [Fact]

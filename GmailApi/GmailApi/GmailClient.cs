@@ -79,8 +79,6 @@ namespace GmailApi
         public void Delete(string queryString)
         {
             GetResponse(HttpDelete, queryString);
-            //string response = GetResponse(HttpDelete, queryString);
-            //return JsonConvert.DeserializeObject<T>(response);
         }
 
         private HttpClient GetClient()

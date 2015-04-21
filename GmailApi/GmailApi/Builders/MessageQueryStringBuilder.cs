@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using GmailApi.DTO;
@@ -23,7 +22,6 @@ namespace GmailApi.Builders
         public MessageQueryStringBuilder SetRequestAction(MessageRequestAction action)
         {
             base.SetRequestAction(action);
-
             return this;
         }
 
@@ -36,7 +34,6 @@ namespace GmailApi.Builders
         public MessageQueryStringBuilder SetRequestAction(MessageRequestAction action, string id)
         {
             base.SetRequestAction(action, id);
-
             return this;
         }
 
@@ -79,7 +76,7 @@ namespace GmailApi.Builders
                     sb.Append(string.Join(",", otherFields));
                 }
 
-                Dictionary["fields"] = new List<string>(new[] { sb.ToString() });
+                SetField("fields", sb.ToString());
             };
 
             return this;
@@ -87,20 +84,20 @@ namespace GmailApi.Builders
 
         public MessageQueryStringBuilder SetMaxResults(ushort maxResults)
         {
-            Dictionary["maxResults"] = new List<string>(new[] { Convert.ToString(maxResults) });
+            SetField("maxResults", maxResults);
             return this;
         }
 
         public MessageQueryStringBuilder SetIncludeSpamTrash()
         {
-            Dictionary["includeSpamTrash"] = new List<string>(new[] { "true" }); // false is default, no need to include
+            SetField("includeSpamTrash", "true"); // false is default, no need to include
             return this;
         }
 
         public MessageQueryStringBuilder SetLabelIds(params string[] labelIds)
         {
             if (labelIds.Any())
-                Dictionary["labelIds"] = new List<string>(labelIds);
+                SetField("labelIds", labelIds);
 
             return this;
         }
@@ -108,7 +105,6 @@ namespace GmailApi.Builders
         public MessageQueryStringBuilder SetFormat(MessageFormat format)
         {
             base.SetFormat(format);
-
             return this;
         }
 
@@ -117,14 +113,14 @@ namespace GmailApi.Builders
             // Required:
             SetFormat(MessageFormat.Metadata);
 
-            Dictionary["metadataHeaders"] = new List<string>(new[] { metaData });
+            SetField("metadataHeaders", metaData);
             return this;
         }
 
         public MessageQueryStringBuilder SetQuery(string query)//TODO: query builder?
         {
             if (!string.IsNullOrWhiteSpace(query))// Ignore when not set
-                Dictionary["q"] = new List<string>(new[] { query });
+                SetField("q", query);
 
             return this;
         }

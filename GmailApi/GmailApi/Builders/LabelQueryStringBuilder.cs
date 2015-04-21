@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using GmailApi.DTO;
 using GmailApi.Models;
@@ -30,7 +29,7 @@ namespace GmailApi.Builders
 
                 string fieldsValue = string.Concat("labels(", string.Join(",", labelFields), ")");
 
-                Dictionary["fields"] = new List<string>(new[] { fieldsValue });
+                SetField("fields", fieldsValue);
             };
 
             return this;
@@ -44,7 +43,6 @@ namespace GmailApi.Builders
         public LabelQueryStringBuilder SetRequestAction(LabelRequestAction action)
         {
             base.SetRequestAction(action);
-
             return this;
         }
 
@@ -57,7 +55,6 @@ namespace GmailApi.Builders
         public LabelQueryStringBuilder SetRequestAction(LabelRequestAction action, string id)
         {
             base.SetRequestAction(action, id);
-
             return this;
         }
 

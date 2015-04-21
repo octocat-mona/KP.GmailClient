@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Builders\DraftQueryStringBuilder.cs" />
+    <Compile Include="Builders\HistoryQueryStringBuilder.cs" />
     <Compile Include="DTO\Format.cs" />
     <Compile Include="DTO\DraftRequestAction.cs" />
     <Compile Include="DTO\ThreadFields.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="Models\Message.cs" />
     <Compile Include="DTO\MessageFormat.cs" />
     <Compile Include="Models\DraftList.cs" />
+    <Compile Include="Models\HistoryList.cs" />
     <Compile Include="Models\ThreadList .cs" />
     <Compile Include="Models\MessageList.cs" />
     <Compile Include="Models\MessageListVisibility.cs" />

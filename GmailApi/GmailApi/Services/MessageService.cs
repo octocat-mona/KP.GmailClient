@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using GmailApi.Builders;
 using GmailApi.DTO;
 using GmailApi.Models;
