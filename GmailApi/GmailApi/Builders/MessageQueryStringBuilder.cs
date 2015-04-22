@@ -82,18 +82,36 @@ namespace GmailApi.Builders
             return this;
         }
 
+        /// <summary>
+        /// Maximum number of messages to return.
+        /// </summary>
+        /// <param name="maxResults"></param>
+        /// <returns></returns>
         public MessageQueryStringBuilder SetMaxResults(ushort maxResults)
         {
-            SetField("maxResults", maxResults);
+            if (maxResults != ushort.MaxValue && maxResults != 0)
+                SetField("maxResults", maxResults);
+
             return this;
         }
 
-        public MessageQueryStringBuilder SetIncludeSpamTrash()
+        /// <summary>
+        /// Include messages from SPAM and TRASH in the results.
+        /// </summary>
+        /// <returns></returns>
+        public MessageQueryStringBuilder SetIncludeSpamAndTrash(bool includeSpamAndTrash = false)
         {
-            SetField("includeSpamTrash", "true"); // false is default, no need to include
+            if (includeSpamAndTrash)// false is default, no need to include
+                SetField("includeSpamTrash", "true");
+
             return this;
         }
 
+        /// <summary>
+        /// Only return messages with labels that match all of the specified label IDs.
+        /// </summary>
+        /// <param name="labelIds"></param>
+        /// <returns></returns>
         public MessageQueryStringBuilder SetLabelIds(params string[] labelIds)
         {
             if (labelIds.Any())
@@ -117,11 +135,29 @@ namespace GmailApi.Builders
             return this;
         }
 
+        /// <summary>
+        /// Only return messages matching the specified query.
+        /// Supports the same query format as the Gmail search box. For example, "from:someuser@example.com rfc822msgid: is:unread".
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         public MessageQueryStringBuilder SetQuery(string query)//TODO: query builder?
         {
-            if (!string.IsNullOrWhiteSpace(query))// Ignore when not set
-                SetField("q", query);
+            if (string.IsNullOrWhiteSpace(query))
+                throw new ArgumentNullException("query");
 
+            SetField("q", query);
+            return this;
+        }
+
+        /// <summary>
+        /// Page token to retrieve a specific page of results in the list.
+        /// </summary>
+        /// <param name="pageToken"></param>
+        /// <returns></returns>
+        public MessageQueryStringBuilder SetPageToken(string pageToken)
+        {
+            SetField("pageToken", pageToken);
             return this;
         }
 

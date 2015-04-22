@@ -11,11 +11,11 @@ namespace GmailApi.ServiceExtensions
         /// Get the number of estimated messages of the specified label.
         /// </summary>
         /// <param name="service">Gmail API service instance</param>
-        /// <param name="labelId"></param>
+        /// <param name="labelIds">Only return messages with labels that match all of the specified label IDs</param>
         /// <returns>The number of Labels</returns>
-        public static uint Count(this MessageService service, string labelId)
+        public static uint Count(this MessageService service, params string[] labelIds)
         {
-            return service.ListIds(labelId).ResultSizeEstimate;
+            return service.ListIds(null, labelIds: labelIds).ResultSizeEstimate;
         }
 
         /// <summary>
@@ -29,28 +29,30 @@ namespace GmailApi.ServiceExtensions
         }
 
         /// <summary>
-        /// Lists the messages in the specified label.
+        /// Lists the message IDs of the user's inbox.
         /// </summary>
         /// <param name="service">Gmail API service instance</param>
-        /// <param name="query"></param>
-        /// <param name="labelId"></param>
-        /// <returns>A list of Messages</returns>
-        public static IEnumerable<Message> List(this MessageService service, string query, string labelId)
+        /// <returns>A <see cref="MessageList"/> instance</returns>
+        public static MessageList ListIds(this MessageService service)
         {
-            var messageList = service.ListIds(query, labelId);
-
-            return messageList.Messages.Select(id => service.Get(id.Id));// TODO: do one batch request?
+            return service.ListIds(null, labelIds: Label.Inbox);
         }
 
         /// <summary>
         /// Lists the messages in the specified label.
         /// </summary>
         /// <param name="service">Gmail API service instance</param>
-        /// <param name="labelId"></param>
+        /// <param name="query">Only return messages matching the specified query.
+        /// Supports the same query format as the Gmail search box. For example, "from:someuser@example.com rfc822msgid: is:unread".</param>
+        /// <param name="maxResults">Maximum number of messages to return</param>
+        /// <param name="includeSpamAndTrash">Include messages from SPAM and TRASH in the results.</param>
+        /// <param name="labelIds">Only return messages with labels that match all of the specified label IDs</param>
         /// <returns>A list of Messages</returns>
-        public static IEnumerable<Message> List(this MessageService service, string labelId)
+        public static IEnumerable<Message> List(this MessageService service, string query, ushort maxResults = 0, bool includeSpamAndTrash = false, params string[] labelIds)
         {
-            return service.List(null, labelId);
+            var messageList = service.ListIds(query, maxResults, includeSpamAndTrash, labelIds);
+
+            return messageList.Messages.Select(id => service.Get(id.Id));// TODO: do one batch request?
         }
 
         /// <summary>
@@ -60,17 +62,7 @@ namespace GmailApi.ServiceExtensions
         /// <returns>A list of Messages</returns>
         public static IEnumerable<Message> List(this MessageService service)
         {
-            return List(service, Label.Inbox);
-        }
-
-        /// <summary>
-        /// Lists the message IDs of the user's inbox.
-        /// </summary>
-        /// <param name="service">Gmail API service instance</param>
-        /// <returns>A <see cref="MessageList"/> instance</returns>
-        public static MessageList ListIds(this MessageService service)
-        {
-            return service.ListIds(Label.Inbox);
+            return List(service, null, labelIds: Label.Inbox);
         }
     }
 }

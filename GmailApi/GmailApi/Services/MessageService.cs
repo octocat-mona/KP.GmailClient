@@ -18,32 +18,22 @@ namespace GmailApi.Services
         }
 
         /// <summary>
-        /// Lists the message IDs from messages in the specified label.
+        /// Lists the message IDs from messages filtered with the specified query.
         /// </summary>
-        /// <param name="labelId"></param>
-        /// <returns></returns>
-        public MessageList ListIds(string labelId)
-        {
-            string queryString = new MessageQueryStringBuilder()
-                .SetFields(MessageFields.Id | MessageFields.ResultSizeEstimate | MessageFields.NextPageToken)
-                .SetLabelIds(labelId)
-                .Build();
-
-            return _client.Get<MessageList>(queryString);
-        }
-
-        /// <summary>
-        /// Lists the message IDs from messages in the specified label and filtered with the specified query.
-        /// </summary>
-        /// <param name="query"></param>
-        /// <param name="labelId"></param>
-        /// <returns></returns>
-        public MessageList ListIds(string query, string labelId)
+        /// <param name="query">Only return messages matching the specified query.
+        /// Supports the same query format as the Gmail search box. For example, "from:someuser@example.com rfc822msgid: is:unread".</param>
+        /// <param name="maxResults">Maximum number of messages to return</param>
+        /// <param name="includeSpamAndTrash">Include messages from SPAM and TRASH in the results.</param>
+        /// <param name="labelIds">Only return messages with labels that match all of the specified label IDs</param>
+        /// <returns>A <see cref="MessageList"/> containing the message IDs</returns>
+        public MessageList ListIds(string query, ushort maxResults = 0, bool includeSpamAndTrash = false, params string[] labelIds)
         {
             string queryString = new MessageQueryStringBuilder()
                 .SetFields(MessageFields.Id | MessageFields.ResultSizeEstimate | MessageFields.NextPageToken)
                 .SetQuery(query)
-                .SetLabelIds(labelId)
+                .SetLabelIds(labelIds)
+                .SetMaxResults(maxResults)
+                .SetIncludeSpamAndTrash(includeSpamAndTrash)
                 .Build();
 
             return _client.Get<MessageList>(queryString);
