@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using GmailApi;
+using UnitTests.Extensions;
 
 namespace UnitTests.IntegrationTests
 {
@@ -41,6 +42,7 @@ namespace UnitTests.IntegrationTests
             string refreshToken = GetRefreshToken();
 
             var tokenManager = new TokenManager(clientId, clientSecret);
+            tokenManager.DeleteFolder();
             tokenManager.Setup(refreshToken, true);
 
             return new GmailClient(emailAddress, tokenManager);
@@ -49,9 +51,14 @@ namespace UnitTests.IntegrationTests
         private static string GetSetting(string key)
         {
             // Environment variables are used on Travis
-            return UseConfig
+            string value = UseConfig
                 ? ConfigurationManager.AppSettings[key]
                 : Environment.GetEnvironmentVariable(key);
+
+            if (value == null)
+                throw new Exception(string.Concat("Key '", key, "' has not been configured"));
+
+            return value;
         }
     }
 }

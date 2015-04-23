@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
@@ -9,14 +10,14 @@ using Newtonsoft.Json;
 
 namespace GmailApi
 {
-    public class TokenManager// TODO: interface
+    public class TokenManager
     {
         public const string AuthorizationServerUrl = "https://www.googleapis.com/oauth2/v3/token";// "https://accounts.google.com/o/oauth2/token";
 
+        private static readonly ConcurrentDictionary<string, Oauth2Token> Tokens = new ConcurrentDictionary<string, Oauth2Token>();
         private readonly string _clientId;
         private readonly string _clientSecret;
         private readonly string _tokenFile;
-        private readonly object _lockObject;
         private Oauth2Token _token;
 
         public TokenManager(string clientId, string clientSecret)
@@ -26,10 +27,11 @@ namespace GmailApi
 
             _clientId = clientId;
             _clientSecret = clientSecret;
-            _lockObject = new { ClientId = _clientId };// Do not lock on string
 
             string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+
             _tokenFile = Path.Combine(appData, "GmailService\\", clientId.GetValidFilename() + ".json");
+            _token = Tokens.GetOrAdd(_tokenFile, (Oauth2Token)null);
         }
 
         /// <summary>
@@ -38,9 +40,13 @@ namespace GmailApi
         /// <returns>An AccessToken</returns>
         public string GetToken()
         {
-            lock (_lockObject)
+            lock (_token)
             {
-                LoadToken();
+                if (_token == null)
+                {
+                    string jsonText = File.ReadAllText(_tokenFile);
+                    _token = JsonConvert.DeserializeObject<Oauth2Token>(jsonText);
+                }
 
                 // Check if token is still valid
                 if (DateTime.UtcNow < _token.ExpirationDate)
@@ -68,17 +74,6 @@ namespace GmailApi
             }
         }
 
-        private void LoadToken()
-        {
-            if (_token != null)
-                return;
-
-            string json = File.ReadAllText(_tokenFile);
-
-            // Will fail if fail doesn't exists somehow
-            _token = JsonConvert.DeserializeObject<Oauth2Token>(json);
-        }
-
         private void SaveToken(string json)
         {
             string currentRefreshToken = _token.RefreshToken;
@@ -86,14 +81,17 @@ namespace GmailApi
             _token.RefreshToken = currentRefreshToken;
             _token.ExpirationDate = DateTime.UtcNow.AddSeconds(_token.ExpiresIn);
 
-            string tokenString = JsonConvert.SerializeObject(_token);
+            WriteToFile();
+        }
 
-            // Will create the directory/ies if not exist
+        private void WriteToFile()
+        {
+            // Will create the directory/directories if it doesn't exist
             var tokenFile = new FileInfo(_tokenFile);
-
             if (tokenFile.Directory != null && !tokenFile.Directory.Exists)
                 tokenFile.Directory.Create();
 
+            string tokenString = JsonConvert.SerializeObject(_token);
             File.WriteAllText(_tokenFile, tokenString);
         }
 
@@ -167,26 +165,20 @@ namespace GmailApi
         /// <param name="force"></param>
         public void Setup(string refreshToken, bool force)
         {
-            var token = new Oauth2Token
+            if (force || !File.Exists(_tokenFile))
             {
-                TokenType = "Bearer",
-                RefreshToken = refreshToken
-            };
-
-            if (force)
-            {
-                _token = token;
-            }
-            else
-            {
-                if (!File.Exists(_tokenFile))
+                var token = new Oauth2Token
                 {
-                    _token = token;
-                }
+                    TokenType = "Bearer",
+                    RefreshToken = refreshToken
+                };
+
+                _token = Tokens.AddOrUpdate(_tokenFile, token, (key, oldvalue) => token);
+                WriteToFile();
             }
         }
 
-        public bool HasTokenConfigured()
+        public bool HasTokenSetup()
         {
             return new FileInfo(_tokenFile).Exists;
         }
