@@ -26,8 +26,10 @@ namespace UnitTests.Extensions
                 throw new Exception();
 
             IDictionary<string, Oauth2Token> tokens = (IDictionary<string, Oauth2Token>)field.GetValue(tokenManager);
-            string dir = tokens.First().Key;
-            new FileInfo(dir).Directory.Delete(true);
+            string tokenFile = tokens.First().Key;
+            var directory = new FileInfo(tokenFile).Directory;
+            if (directory != null && directory.Exists)
+                directory.Delete(true);
         }
     }
 }
