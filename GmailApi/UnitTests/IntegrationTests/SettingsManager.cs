@@ -50,7 +50,7 @@ namespace UnitTests.IntegrationTests
 
         private static string GetSetting(string key)
         {
-            // Environment variables are used on Travis
+            // Environment variables are used on Travis / AppVeyor
             string value = UseConfig
                 ? ConfigurationManager.AppSettings[key]
                 : Environment.GetEnvironmentVariable(key);

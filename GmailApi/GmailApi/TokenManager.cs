@@ -31,7 +31,7 @@ namespace GmailApi
             string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
             _tokenFile = Path.Combine(appData, "GmailService\\", clientId.GetValidFilename() + ".json");
-            _token = Tokens.GetOrAdd(_tokenFile, (Oauth2Token)null);
+            _token = Tokens.GetOrAdd(_tokenFile, new Oauth2Token());
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace GmailApi
         {
             lock (_token)
             {
-                if (_token == null)
+                if (_token.RefreshToken == null)
                 {
                     string jsonText = File.ReadAllText(_tokenFile);
                     _token = JsonConvert.DeserializeObject<Oauth2Token>(jsonText);
@@ -69,19 +69,15 @@ namespace GmailApi
 
                 result.EnsureSuccessStatusCode();
 
-                SaveToken(json);
+                string currentRefreshToken = _token.RefreshToken;
+                _token = JsonConvert.DeserializeObject<Oauth2Token>(json);
+                _token.RefreshToken = currentRefreshToken;
+                _token.ExpirationDate = DateTime.UtcNow.AddSeconds(_token.ExpiresIn);
+
+                WriteToFile();
+
                 return _token.AccessToken;
             }
-        }
-
-        private void SaveToken(string json)
-        {
-            string currentRefreshToken = _token.RefreshToken;
-            _token = JsonConvert.DeserializeObject<Oauth2Token>(json);
-            _token.RefreshToken = currentRefreshToken;
-            _token.ExpirationDate = DateTime.UtcNow.AddSeconds(_token.ExpiresIn);
-
-            WriteToFile();
         }
 
         private void WriteToFile()
@@ -165,14 +161,17 @@ namespace GmailApi
         /// <param name="force"></param>
         public void Setup(string refreshToken, bool force)
         {
-            if (force || !File.Exists(_tokenFile))
-            {
-                var token = new Oauth2Token
-                {
-                    TokenType = "Bearer",
-                    RefreshToken = refreshToken
-                };
+            if (!force && File.Exists(_tokenFile))
+                return;
 
+            var token = new Oauth2Token
+            {
+                TokenType = "Bearer",
+                RefreshToken = refreshToken
+            };
+
+            lock (Tokens)
+            {
                 _token = Tokens.AddOrUpdate(_tokenFile, token, (key, oldvalue) => token);
                 WriteToFile();
             }

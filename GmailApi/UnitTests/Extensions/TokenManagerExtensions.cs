@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using GmailApi;
 using GmailApi.Models;
 
@@ -12,24 +10,26 @@ namespace UnitTests.Extensions
     {
         public static Oauth2Token Token(this TokenManager tokenManager)
         {
-            FieldInfo field = tokenManager.GetType().GetField("_token", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public | BindingFlags.Default);
-            if (ReferenceEquals(field, null))
-                throw new Exception();
-
-            return (Oauth2Token)field.GetValue(tokenManager);
+            return ReflectionHelper.GetFieldValue<Oauth2Token>(tokenManager, "_token");
         }
 
         public static void DeleteFolder(this TokenManager tokenManager)
         {
-            FieldInfo field = tokenManager.GetType().GetField("Tokens", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.Default);
-            if (ReferenceEquals(field, null))
-                throw new Exception();
-
-            IDictionary<string, Oauth2Token> tokens = (IDictionary<string, Oauth2Token>)field.GetValue(tokenManager);
+            IDictionary<string, Oauth2Token> tokens = StaticTokens(tokenManager);
             string tokenFile = tokens.First().Key;
             var directory = new FileInfo(tokenFile).Directory;
             if (directory != null && directory.Exists)
                 directory.Delete(true);
+        }
+
+        public static IDictionary<string, Oauth2Token> StaticTokens(this TokenManager tokenManager)
+        {
+            return ReflectionHelper.GetStaticFieldValue<IDictionary<string, Oauth2Token>>(typeof(TokenManager), "Tokens");
+        }
+
+        public static string TokenFile(this TokenManager tokenManager)
+        {
+            return ReflectionHelper.GetFieldValue<string>(tokenManager, "_tokenFile");
         }
     }
 }
