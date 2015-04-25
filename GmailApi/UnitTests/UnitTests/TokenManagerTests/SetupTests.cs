@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using FluentAssertions;
 using GmailApi;
 using GmailApi.Models;

@@ -26,7 +26,7 @@ namespace GmailApi.Services
         /// <param name="includeSpamAndTrash">Include messages from SPAM and TRASH in the results.</param>
         /// <param name="labelIds">Only return messages with labels that match all of the specified label IDs</param>
         /// <returns>A <see cref="MessageList"/> containing the message IDs</returns>
-        public MessageList ListIds(string query, ushort maxResults = 0, bool includeSpamAndTrash = false, params string[] labelIds)
+        public MessageList ListIds(string query = null, ushort maxResults = 0, bool includeSpamAndTrash = false, params string[] labelIds)
         {
             string queryString = new MessageQueryStringBuilder()
                 .SetFields(MessageFields.Id | MessageFields.ResultSizeEstimate | MessageFields.NextPageToken)

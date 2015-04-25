@@ -143,9 +143,6 @@ namespace GmailApi.Builders
         /// <returns></returns>
         public MessageQueryStringBuilder SetQuery(string query)//TODO: query builder?
         {
-            if (string.IsNullOrWhiteSpace(query))
-                throw new ArgumentNullException("query");
-
             SetField("q", query);
             return this;
         }

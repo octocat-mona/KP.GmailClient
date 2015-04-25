@@ -71,6 +71,7 @@
     <Compile Include="IntegrationTests\HistoryServiceTests\HistoryListTests.cs" />
     <Compile Include="IntegrationTests\LabelServiceTests\LabelUpdateTests.cs" />
     <Compile Include="IntegrationTests\LabelServiceTests\LabelGetTests.cs" />
+    <Compile Include="IntegrationTests\MessageServiceTests\MessageCountTests.cs" />
     <Compile Include="IntegrationTests\SettingsManager.cs" />
     <Compile Include="IntegrationTests\SmokeTests.cs" />
     <Compile Include="IntegrationTests\ThreadServiceTests\ThreadGetTests.cs" />
