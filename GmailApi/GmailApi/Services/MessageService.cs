@@ -67,14 +67,6 @@ namespace GmailApi.Services
         }
 
         /// <summary>
-        /// Sends the specified message to the recipients in the To, Cc, and Bcc headers.
-        /// </summary>
-        public void Send()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
         /// Moves the specified message to the trash.
         /// </summary>
         /// <param name="id">The ID of the message to Trash.</param>
@@ -86,6 +78,54 @@ namespace GmailApi.Services
                 .Build();
 
             return _client.Post<Message>(queryString);
+        }
+
+        /// <summary>
+        /// Removes the specified message from the trash.
+        /// </summary>
+        /// <param name="id">The ID of the message to remove from Trash</param>
+        public Message UnTrash(string id)
+        {
+            string queryString = new MessageQueryStringBuilder()
+               .SetRequestAction(MessageRequestAction.Untrash, id)
+               .Build();
+
+            return _client.Post<Message>(queryString);
+        }
+
+        /// <summary>
+        /// Sends the specified message to the recipients in the To, Cc, and Bcc headers.
+        /// </summary>
+        public void Send()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Directly inserts a message into only this user's mailbox similar to IMAP APPEND, bypassing most scanning and classification. Does not send a message.
+        /// </summary>
+        public void Insert()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Modifies the labels on the specified message.
+        /// </summary>
+        /// <param name="id">The ID of the message to modify</param>
+        /// <param name="addLabelIds">A list of IDs of labels to add to this message</param>
+        /// <param name="removeLabelIds">A list IDs of labels to remove from this message</param>
+        public void Modify(string id, string[] addLabelIds, string[] removeLabelIds)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Imports a message into only this user's mailbox, with standard email delivery scanning and classification similar to receiving via SMTP. Does not send a message.
+        /// </summary>
+        public void Import()
+        {
+            throw new NotImplementedException();
         }
     }
 }
