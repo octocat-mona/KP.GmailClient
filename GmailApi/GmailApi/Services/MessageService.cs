@@ -5,7 +5,7 @@ using GmailApi.Models;
 
 namespace GmailApi.Services
 {
-    public class MessageService//TODO: interface
+    public class MessageService
     {
         private readonly GmailClient _client;
 
@@ -59,7 +59,11 @@ namespace GmailApi.Services
         /// </summary>
         public void Delete(string id)
         {
-            throw new NotImplementedException();
+            string queryString = new MessageQueryStringBuilder()
+               .SetRequestAction(MessageRequestAction.Delete, id)
+               .Build();
+
+            _client.Delete(queryString);
         }
 
         /// <summary>
