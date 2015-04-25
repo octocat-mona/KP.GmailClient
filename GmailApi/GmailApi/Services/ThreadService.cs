@@ -28,9 +28,27 @@ namespace GmailApi.Services
             return _client.Get<Thread>(queryString);
         }
 
-        public ThreadList ListIds()
+        /// <summary>
+        /// Lists the thread IDs.
+        /// </summary>
+        /// <param name="query">Only return threads matching the specified query.
+        /// Supports the same query format as the Gmail search box. For example, "from:someuser@example.com rfc822msgid: is:unread".</param>
+        /// <param name="maxResults">Maximum number of threads to return</param>
+        /// <param name="includeSpamAndTrash">Include threads from SPAM and TRASH in the results.</param>
+        /// <param name="labelIds">Only return threads with labels that match all of the specified label IDs</param>
+        /// <returns>A <see cref="ThreadList"/> containing the thread IDs</returns>
+        public ThreadList ListIds(string query = null, ushort maxResults = 0, bool includeSpamAndTrash = false, params string[] labelIds)
         {
-            throw new NotImplementedException();
+            string queryString = new ThreadQueryStringBuilder()
+                .SetRequestAction(ThreadRequestAction.List)
+                .SetFields(ThreadFields.Id | ThreadFields.ResultSizeEstimate | ThreadFields.NextPageToken)
+                .SetQuery(query)
+                .SetLabelIds(labelIds)
+                .SetMaxResults(maxResults)
+                .SetIncludeSpamAndTrash(includeSpamAndTrash)
+                .Build();
+
+            return _client.Get<ThreadList>(queryString);
         }
 
         public Thread Modify()

@@ -5,14 +5,20 @@ namespace GmailApi.DTO
     [Flags]
     public enum ThreadFields
     {
+        [StringValue("nextPageToken")]
+        NextPageToken = 1,
+
+        [StringValue("resultSizeEstimate")]
+        ResultSizeEstimate = 2,
+
         [StringValue("historyId")]
-        HistoryId = 1,
+        HistoryId = 4,
 
         [StringValue("id")]
-        Id = 2,
+        Id = 8,
 
         [StringValue("snippet")]
-        Snippet = 4,
+        Snippet = 16,
 
         [StringValue("historyId")]
         MessageHistoryId = 1024,
@@ -44,7 +50,7 @@ namespace GmailApi.DTO
         Messages = MessageHistoryId | MessageId | MessageLabelIds | MessagePayload | MessageRaw | MessageSizeEstimate | MessageSnippet | MessageThreadId,
 
         /// <summary>
-        /// All values of Messages plus HistoryId, Id and Snippet
+        /// All values of Messages plus NextPageToken, ResultSizeEstimate, HistoryId, Id and Snippet
         /// </summary>
         All = int.MaxValue
     }

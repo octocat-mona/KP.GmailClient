@@ -53,8 +53,69 @@ namespace GmailApi.Builders
                 throw new ArgumentException("Collection can't be empty", "headers");
 
             SetFormat(ThreadFormat.Metadata);
-
             SetField("metadataHeaders", headers);
+
+            return this;
+        }
+
+        /// <summary>
+        /// Include threads from SPAM and TRASH in the results.
+        /// </summary>
+        /// <returns></returns>
+        public ThreadQueryStringBuilder SetIncludeSpamAndTrash(bool includeSpamAndTrash = false)
+        {
+            if (includeSpamAndTrash)// false is default, no need to include
+                SetField("includeSpamTrash", "true");
+
+            return this;
+        }
+
+        /// <summary>
+        /// Only return threads with labels that match all of the specified label IDs.
+        /// </summary>
+        /// <param name="labelIds"></param>
+        /// <returns></returns>
+        public ThreadQueryStringBuilder SetLabelIds(params string[] labelIds)
+        {
+            if (labelIds.Any())
+                SetField("labelIds", labelIds);
+
+            return this;
+        }
+
+        /// <summary>
+        /// Maximum number of threads to return.
+        /// </summary>
+        /// <param name="maxResults"></param>
+        /// <returns></returns>
+        public ThreadQueryStringBuilder SetMaxResults(ushort maxResults)
+        {
+            if (maxResults != ushort.MaxValue && maxResults != 0)
+                SetField("maxResults", maxResults);
+
+            return this;
+        }
+
+        /// <summary>
+        /// Page token to retrieve a specific page of results in the list.
+        /// </summary>
+        /// <param name="pageToken"></param>
+        /// <returns></returns>
+        public ThreadQueryStringBuilder SetPageToken(string pageToken)
+        {
+            SetField("pageToken", pageToken);
+            return this;
+        }
+
+        /// <summary>
+        /// Only return threads matching the specified query.
+        /// Supports the same query format as the Gmail search box. For example, "from:someuser@example.com rfc822msgid: is:unread".
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        public ThreadQueryStringBuilder SetQuery(string query)//TODO: query builder?
+        {
+            SetField("q", query);
             return this;
         }
     }

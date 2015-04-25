@@ -95,6 +95,7 @@
     <Compile Include="ServiceExtensions\DraftServiceExtensions.cs" />
     <Compile Include="ServiceExtensions\LabelServiceExtensions.cs" />
     <Compile Include="ServiceExtensions\MessageServiceExtensions.cs" />
+    <Compile Include="ServiceExtensions\ThreadServiceExtensions.cs" />
     <Compile Include="Services\DraftService.cs" />
     <Compile Include="Services\AttachmentService.cs" />
     <Compile Include="Services\GmailService.cs" />
@@ -124,4 +125,3 @@
   </Target>
   -->
 </Project>
-

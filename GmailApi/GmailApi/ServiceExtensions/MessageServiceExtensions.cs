@@ -12,7 +12,7 @@ namespace GmailApi.ServiceExtensions
         /// </summary>
         /// <param name="service">Gmail API service instance</param>
         /// <param name="labelIds">Only return messages with labels that match all of the specified label IDs</param>
-        /// <returns>The number of Labels</returns>
+        /// <returns>The number of messages</returns>
         public static uint Count(this MessageService service, params string[] labelIds)
         {
             return service.ListIds(labelIds: labelIds).ResultSizeEstimate;
@@ -22,7 +22,7 @@ namespace GmailApi.ServiceExtensions
         /// Get the number of estimated messages in the user's inbox.
         /// </summary>
         /// <param name="service">Gmail API service instance</param>
-        /// <returns>The number of Labels</returns>
+        /// <returns>The number of messages</returns>
         public static uint Count(this MessageService service)
         {
             return Count(service, Label.Inbox);

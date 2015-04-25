@@ -90,7 +90,7 @@ namespace GmailApi.Builders
             }
         }
 
-        public void SetFormat(Enum format)
+        protected void SetFormat(Enum format)
         {
             // Validate the passed argument
             Format f = ParseEnumValue<Format>(format);
@@ -114,7 +114,7 @@ namespace GmailApi.Builders
         /// </summary>
         /// <param name="key">The key of the field</param>
         /// <param name="values">Zero or more nullable values.</param>
-        public void SetField(string key, params object[] values)
+        protected void SetField(string key, params object[] values)
         {
             List<object> nonNullValues = values
                 .Where(value => !ReferenceEquals(value, null))

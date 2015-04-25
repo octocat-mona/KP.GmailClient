@@ -18,7 +18,7 @@ namespace GmailApi.Services
         }
 
         /// <summary>
-        /// Lists the message IDs from messages filtered with the specified query.
+        /// Lists the message IDs.
         /// </summary>
         /// <param name="query">Only return messages matching the specified query.
         /// Supports the same query format as the Gmail search box. For example, "from:someuser@example.com rfc822msgid: is:unread".</param>
@@ -29,6 +29,7 @@ namespace GmailApi.Services
         public MessageList ListIds(string query = null, ushort maxResults = 0, bool includeSpamAndTrash = false, params string[] labelIds)
         {
             string queryString = new MessageQueryStringBuilder()
+                .SetRequestAction(MessageRequestAction.List)
                 .SetFields(MessageFields.Id | MessageFields.ResultSizeEstimate | MessageFields.NextPageToken)
                 .SetQuery(query)
                 .SetLabelIds(labelIds)
