@@ -23,11 +23,13 @@ GmailService service = new GmailService(client);
 ```
 
 ## Usage examples
-    // Get inbox messages
-    service.Messages.List();
+``` csharp
+// Get inbox messages
+service.Messages.List();
 
-    // Get starred messages
-    service.Messages.ListByLabel(Label.Starred);
+// Get starred messages
+service.Messages.ListByLabel(Label.Starred);
 
-    // List all labels
-    service.Labels.List();
+// List all labels
+service.Labels.List();
+```
