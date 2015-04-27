@@ -61,7 +61,8 @@ namespace GmailApi
                 return plainText;
 
             string base64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(plainText));
-            return base64.Replace('+', '-').Replace('/', '_');
+            //return base64.Replace("+/", "-_");//.TrimEnd('=');
+            return base64.Replace('+', '-').Replace('/', '_').Replace('=', '*');
         }
 
         /// <summary>
@@ -75,7 +76,8 @@ namespace GmailApi
             if (string.IsNullOrEmpty(base64))
                 return base64;
 
-            string safeBase64 = base64.Replace('-', '+').Replace('_', '/');
+            //string safeBase64 = base64.Replace("-_", "+/");//TODO: calculate '='
+            string safeBase64 = base64.Replace('-', '+').Replace('_', '/').Replace('*', '=');
             byte[] bytes = Convert.FromBase64String(safeBase64);
             return Encoding.UTF8.GetString(bytes);
         }

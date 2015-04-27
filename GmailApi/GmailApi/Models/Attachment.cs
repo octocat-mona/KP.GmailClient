@@ -7,12 +7,10 @@ namespace GmailApi.Models
     /// </summary>
     public class Attachment
     {
-        private string _data;
-
         public Attachment()
         {
             AttachmentId = string.Empty;
-            _data = string.Empty;
+            Data = string.Empty;
         }
 
         /// <summary>
@@ -33,10 +31,13 @@ namespace GmailApi.Models
         /// An attachment ID is present if the body data is contained in a separate attachment.
         /// </summary>
         [JsonProperty("data")]
-        public string Data
+        public string Data { get; internal set; }
+
+        [JsonIgnore]
+        public string DecodedData
         {
-            get { return _data.FromBase64UrlString(); }
-            set { _data = value; }
+            get { return Data.FromBase64UrlString(); }
+            set { Data = value.ToBase64UrlString(); }
         }
 
         public override string ToString()

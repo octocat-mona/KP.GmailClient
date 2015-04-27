@@ -21,7 +21,7 @@ namespace UnitTests.IntegrationTests.DraftServiceTests
             var message = new Message
             {
                 Id = "1",
-                Raw = "dGVzdCBzbmlwcGV0",
+                DecodedRaw = "test",
                 Payload = new Payload
                 {
                     MimeType = "multipart/alternative",

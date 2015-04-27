@@ -10,7 +10,7 @@ namespace UnitTests.IntegrationTests.LabelServiceTests
     {
         private const string TestLabel = "Testing/";
         private readonly LabelService _service;
-        private readonly ServiceItemHelper<Label, CreateLabelInput> _helper;
+        private readonly CleanupHelper<Label, CreateLabelInput> _helper;
 
         public LabelUpdateTests()
         {
@@ -19,7 +19,7 @@ namespace UnitTests.IntegrationTests.LabelServiceTests
 
             Action<Label> deleteAction = label => _service.Delete(label.Id);
             Func<CreateLabelInput, Label> createAction = input => _service.Create(input);
-            _helper = new ServiceItemHelper<Label, CreateLabelInput>(createAction, deleteAction);
+            _helper = new CleanupHelper<Label, CreateLabelInput>(createAction, deleteAction);
         }
 
         [Fact]

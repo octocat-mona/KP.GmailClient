@@ -9,29 +9,33 @@ namespace UnitTests.IntegrationTests.DraftServiceTests
     public class DraftCreateTests : IDisposable
     {
         private readonly DraftService _service;
-        private readonly ServiceItemHelper<Draft, Draft> _helper;
+        private readonly CleanupHelper<Draft, Draft> _helper;
 
         public DraftCreateTests()
         {
-
             GmailClient client = SettingsManager.GetGmailClient();
             _service = new DraftService(client);
 
             Action<Draft> deleteAction = label => _service.Delete(label.Id);
             Func<Draft, Draft> createAction = input => _service.Create(input);
-            _helper = new ServiceItemHelper<Draft, Draft>(createAction, deleteAction);
+            _helper = new CleanupHelper<Draft, Draft>(createAction, deleteAction);
         }
 
-        //[Fact]
+        [Fact]
         public void CanCreate()
         {
-            Message message = new Message();
-            message.Raw = "<div>bla</div>".ToBase64UrlString();
-            message.Snippet = "snippet123";
-            Draft draft = new Draft();
-            draft.Message = message;
+            // Arrange
+            Draft draft = new Draft
+            {
+                Message = new Message
+                {
+                    DecodedRaw = "<div>text</div>",
+                    Snippet = "snippet123"
+                }
+            };
 
-            Draft createdDraft = _helper.Create(draft);
+            // Act
+            _helper.Create(draft);
         }
 
         public void Dispose()

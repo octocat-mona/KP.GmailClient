@@ -12,6 +12,7 @@ namespace GmailApi.Models
             MimeType = string.Empty;
             Filename = string.Empty;
             Headers = new List<Header>(0);
+            Body = new Attachment();
         }
 
         /// <summary>
@@ -88,8 +89,7 @@ namespace GmailApi.Models
 
         public override string ToString()
         {
-            string hasBody = Body == null ? bool.FalseString : bool.TrueString;
-            return string.Concat("PartID: ", PartId, ", MimeType: ", MimeType, ", Filename: ", Filename, ", has body: ", hasBody, ", # Headers: ", Headers.Count);
+            return string.Concat("PartID: ", PartId, ", MimeType: ", MimeType, ", Filename: ", Filename, ", # Headers: ", Headers.Count);
         }
     }
 }

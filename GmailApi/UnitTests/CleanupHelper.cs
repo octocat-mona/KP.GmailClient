@@ -4,13 +4,13 @@ using System.Linq;
 
 namespace UnitTests
 {
-    public class ServiceItemHelper<T, TParam>
+    public class CleanupHelper<T, TParam>
     {
         private readonly Func<TParam, T> _createAction;
         private readonly Action<T> _deleteAction;
         private readonly List<T> _createdItems = new List<T>();
 
-        public ServiceItemHelper(Func<TParam, T> createAction, Action<T> deleteAction)
+        public CleanupHelper(Func<TParam, T> createAction, Action<T> deleteAction)
         {
             _createAction = createAction;
             _deleteAction = deleteAction;
