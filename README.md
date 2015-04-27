@@ -7,7 +7,8 @@ An alternative library of the Gmail API NuGet package.
 
 ## Setup
 ``` csharp
-// Client ID and secret of your project, see your Dev Console (https://console.developers.google.com/project)
+// Client ID and secret of your project,
+// see the Dev Console (https://console.developers.google.com/project)
 TokenManager tokenManager = new TokenManager(clientId, clientSecret);
 
 // Get a refresh token, launches a browser for user interaction:
