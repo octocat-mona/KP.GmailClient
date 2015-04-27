@@ -15,7 +15,7 @@ namespace GmailApi.Models
             LabelIds = new List<string>(0);
         }
 
-        [JsonProperty("id", Required = Required.Always)]
+        [JsonProperty("id")]
         public string Id { get; set; }
 
         /// <summary>
@@ -70,11 +70,13 @@ namespace GmailApi.Models
             set { _raw = value; }
         }
 
+        [JsonIgnore]
         public string From
         {
             get { return Payload.GetHeaderValue(HeaderName.From); }
         }
 
+        [JsonIgnore]
         public string To
         {
             get { return Payload.GetHeaderValue(HeaderName.To); }
@@ -83,6 +85,7 @@ namespace GmailApi.Models
         /// <summary>
         /// Get the body of the message in HTML
         /// </summary>
+        [JsonIgnore]
         public string Html
         {
             get { return Payload.GetBodyData(MimeType.TextHtml); }
@@ -91,6 +94,7 @@ namespace GmailApi.Models
         /// <summary>
         /// Get the body of the message as plain text
         /// </summary>
+        [JsonIgnore]
         public string PlainText
         {
             get { return Payload.GetBodyData(MimeType.TextPlain); }

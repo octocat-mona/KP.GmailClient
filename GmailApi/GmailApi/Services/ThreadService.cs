@@ -51,11 +51,6 @@ namespace GmailApi.Services
             return _client.Get<ThreadList>(queryString);
         }
 
-        public Thread Modify()
-        {
-            throw new NotImplementedException();
-        }
-
         /// <summary>
         /// 
         /// </summary>
@@ -68,6 +63,11 @@ namespace GmailApi.Services
                 .Build();
 
             _client.Delete(queryString);
+        }
+
+        public Thread Modify()
+        {
+            throw new NotImplementedException();
         }
 
         public Thread Trash()

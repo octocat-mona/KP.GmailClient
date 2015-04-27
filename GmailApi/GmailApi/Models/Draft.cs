@@ -7,7 +7,7 @@ namespace GmailApi.Models
         /// <summary>
         /// The immutable ID of the draft.
         /// </summary>
-        [JsonProperty("id", Required = Required.Always)]
+        [JsonProperty("id")]
         public string Id { get; set; }
 
         /// <summary>
