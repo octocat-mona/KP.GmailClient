@@ -1,55 +1,44 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using FluentAssertions;
 using GmailApi;
 using GmailApi.Models;
 using GmailApi.Services;
+using Xunit;
 
 namespace UnitTests.IntegrationTests.DraftServiceTests
 {
-    public class DraftGetTests
+    public class DraftGetTests : IDisposable
     {
         private readonly DraftService _service;
+        private readonly CleanupHelper<Draft, Draft> _helper;
 
         public DraftGetTests()
         {
             GmailClient client = SettingsManager.GetGmailClient();
             _service = new DraftService(client);
+
+            _helper = CleanupHelpers.GetDraftServiceCleanupHelper(_service);
         }
 
-        //[Fact]
+        [Fact]
         public void CanGet()
         {
-            var message = new Message
-            {
-                Id = "1",
-                DecodedRaw = "test",
-                Payload = new Payload
-                {
-                    MimeType = "multipart/alternative",
-                    Parts = new List<PayloadBase>
-                    {
-                        new Payload
-                        {
-                            Body = new Attachment { AttachmentId = "" ,Data = "test".ToBase64UrlString()},
-                            MimeType = "text/html",
-                            PartId = "0",
-                            Headers = new List<Header>
-                            {
-                                new Header
-                                {
-                                    Name = "Content-Type",
-                                    Value = "text/html; charset=UTF-8"
-                                }
-                            },
-                        }
-                    }
-                }
-            };
+            // Arrange
+            Draft draft = Samples.DraftSample;
+            Draft createdDraft = _helper.Create(draft);
+            Draft getDraft = null;
 
-            _service.Create(new Draft
-            {
-                Id = "1",
-                Message = message
-            });
+            // Act
+            Action action = () => getDraft = _service.Get(createdDraft.Id);
+
+            // Assert
+            action.ShouldNotThrow();
+            getDraft.Id.Should().Be(createdDraft.Id);
+        }
+
+        public void Dispose()
+        {
+            _helper.Cleanup();
         }
     }
 }

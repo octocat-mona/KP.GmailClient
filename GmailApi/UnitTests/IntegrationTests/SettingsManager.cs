@@ -43,7 +43,7 @@ namespace UnitTests.IntegrationTests
 
             var tokenManager = new TokenManager(clientId, clientSecret);
             tokenManager.DeleteFolder();
-            tokenManager.Setup(refreshToken, true);
+            tokenManager.Setup(refreshToken, false);
 
             return new GmailClient(emailAddress, tokenManager);
         }

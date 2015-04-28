@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System.Linq;
+using FluentAssertions;
 using GmailApi;
 using GmailApi.ServiceExtensions;
 using GmailApi.Services;
@@ -24,14 +25,13 @@ namespace UnitTests.IntegrationTests.DraftServiceTests
 
             // Assert
             ids.Should().NotBeNull();
-            ids.Drafts.Should().NotBeNull();
         }
 
         [Fact]
         public void CanList()
         {
             // Act
-            var drafts = _service.List();
+            var drafts = _service.List().ToList();
 
             // Assert
             drafts.Should().NotBeNull();
