@@ -1,6 +1,6 @@
 ﻿namespace GmailApi.DTO
 {
-    public enum ThreadFormat
+    internal enum ThreadFormat
     {
         /// <summary>
         /// Returns the parsed email message content in the payload field and the raw field is not used. (default)

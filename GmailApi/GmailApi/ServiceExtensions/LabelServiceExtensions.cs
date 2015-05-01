@@ -5,6 +5,9 @@ using GmailApi.Services;
 
 namespace GmailApi.ServiceExtensions
 {
+    /// <summary>
+    /// Extensions for <see cref="LabelService"/>
+    /// </summary>
     public static class LabelServiceExtensions
     {
         /// <summary>

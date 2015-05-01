@@ -41,14 +41,14 @@ namespace GmailApi
             };
         }
 
-        public T Get<T>(string queryString)
+        internal T Get<T>(string queryString)
         {
             string response = GetResponse(HttpGet, queryString);
 
             return JsonConvert.DeserializeObject<T>(response);
         }
 
-        public T Get<T>(string queryString, ParseOptions options)
+        internal T Get<T>(string queryString, ParseOptions options)
         {
             string response = GetResponse(HttpGet, queryString);
 
@@ -56,27 +56,28 @@ namespace GmailApi
             return jo.SelectToken(options.Path, true).ToObject<T>();
         }
 
-        public T Post<T>(string queryString, object content = null)
+        internal T Post<T>(string queryString, object content = null)
         {
             string response = GetResponse(HttpPost, queryString, content);
 
             return JsonConvert.DeserializeObject<T>(response);
         }
 
-        public T Put<T>(string queryString, object content = null)
+        internal T Put<T>(string queryString, object content = null)
         {
             string response = GetResponse(HttpPut, queryString, content);
 
             return JsonConvert.DeserializeObject<T>(response);
         }
-        public T Patch<T>(string queryString, object content = null)
+
+        internal T Patch<T>(string queryString, object content = null)
         {
             string response = GetResponse(HttpPatch, queryString, content);
 
             return JsonConvert.DeserializeObject<T>(response);
         }
 
-        public void Delete(string queryString)
+        internal void Delete(string queryString)
         {
             GetResponse(HttpDelete, queryString);
         }

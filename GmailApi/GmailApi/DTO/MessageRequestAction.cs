@@ -1,6 +1,6 @@
 namespace GmailApi.DTO
 {
-    public enum MessageRequestAction
+    internal enum MessageRequestAction
     {
         Delete,
         Get,

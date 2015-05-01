@@ -1,6 +1,6 @@
 ﻿namespace GmailApi.DTO
 {
-    public enum Format
+    internal enum Format
     {
         Full,
         Metadata,

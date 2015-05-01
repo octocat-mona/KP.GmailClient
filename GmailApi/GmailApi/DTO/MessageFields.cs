@@ -3,7 +3,7 @@ using System;
 namespace GmailApi.DTO
 {
     [Flags]
-    public enum MessageFields
+    internal enum MessageFields
     {
         [StringValue("nextPageToken")]
         NextPageToken = 1,
@@ -32,7 +32,7 @@ namespace GmailApi.DTO
         [StringValue("snippet")]
         Snippet = 65536,
 
-        [StringValue("threadId ")]
+        [StringValue("threadId")]
         ThreadId = 131072,
 
         /// <summary>

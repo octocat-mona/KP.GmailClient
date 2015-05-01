@@ -7,6 +7,9 @@ namespace GmailApi.Models
     /// </summary>
     public class Attachment
     {
+        /// <summary>
+        /// An Attachment
+        /// </summary>
         public Attachment()
         {
             AttachmentId = string.Empty;

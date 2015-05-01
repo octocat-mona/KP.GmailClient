@@ -1,6 +1,6 @@
 ﻿namespace GmailApi.DTO
 {
-    public enum UploadType
+    internal enum UploadType
     {
         /// <summary>
         /// Simple upload. Upload the media only, without any metadata.

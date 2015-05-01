@@ -1,6 +1,6 @@
 namespace GmailApi.DTO
 {
-    public enum LabelRequestAction
+    internal enum LabelRequestAction
     {
         Create,
         Delete,

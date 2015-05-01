@@ -5,6 +5,9 @@ using GmailApi.Services;
 
 namespace GmailApi.ServiceExtensions
 {
+    /// <summary>
+    /// Extensions for <see cref="ThreadService"/>
+    /// </summary>
     public static class ThreadServiceExtensions
     {
         /// <summary>

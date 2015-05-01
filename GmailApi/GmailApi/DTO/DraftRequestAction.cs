@@ -1,6 +1,6 @@
 namespace GmailApi.DTO
 {
-    public enum DraftRequestAction
+    internal enum DraftRequestAction
     {
         Create,
         Delete,

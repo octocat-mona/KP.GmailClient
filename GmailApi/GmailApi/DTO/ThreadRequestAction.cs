@@ -1,6 +1,6 @@
 namespace GmailApi.DTO
 {
-    public enum ThreadRequestAction
+    internal enum ThreadRequestAction
     {
         Delete,
         Get,

@@ -1,6 +1,6 @@
 ﻿namespace GmailApi.DTO
 {
-    public enum MessageFormat
+    internal enum MessageFormat
     {
         /// <summary>
         /// Returns the full email message data with body content parsed in the payload field; the raw field is not used. (default)

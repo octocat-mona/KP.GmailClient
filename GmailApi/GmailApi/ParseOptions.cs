@@ -1,6 +1,6 @@
 ﻿namespace GmailApi
 {
-    public class ParseOptions
+    internal class ParseOptions
     {
         /// <summary>
         /// A JPath expression
