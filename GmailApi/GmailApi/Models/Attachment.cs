@@ -21,13 +21,13 @@ namespace GmailApi.Models
         /// When not present, the entire content of the message part body is contained in the data field.
         /// </summary>
         [JsonProperty("attachmentId")]
-        public string AttachmentId { get; set; }
+        public string AttachmentId { get; internal set; }
 
         /// <summary>
         /// Total number of bytes in the body of the message part.
         /// </summary>
         [JsonProperty("size")]
-        public int Size { get; set; }
+        public int Size { get; internal set; }
 
         /// <summary>
         /// The body data of a MIME message part. May be empty for MIME container types that have no message body or when the body data is sent as a separate attachment.
@@ -36,13 +36,20 @@ namespace GmailApi.Models
         [JsonProperty("data")]
         public string Data { get; internal set; }
 
+        /// <summary>
+        /// Get / set the <see cref="Data"/> Base64 URL decoded.
+        /// </summary>
         [JsonIgnore]
-        public string DecodedData
+        public string PlainData
         {
             get { return Data.FromBase64UrlString(); }
             set { Data = value.ToBase64UrlString(); }
         }
 
+        /// <summary>
+        /// A string with the values of the properties from this <see cref="Attachment"/>
+        /// </summary>
+        /// <returns>A string</returns>
         public override string ToString()
         {
             return string.Concat("ID: ", AttachmentId, ", Size: ", Size, ", Data size: ", Data.Length);

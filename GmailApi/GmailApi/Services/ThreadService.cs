@@ -15,7 +15,7 @@ namespace GmailApi.Services
         }
 
         /// <summary>
-        /// 
+        /// Gets the specified thread.
         /// </summary>
         /// <param name="id">The ID of the thread to retrieve.</param>
         /// <returns></returns>
@@ -52,7 +52,7 @@ namespace GmailApi.Services
         }
 
         /// <summary>
-        /// 
+        /// Immediately and permanently deletes the specified thread. WARNING: This operation cannot be undone. Prefer threads.trash instead.
         /// </summary>
         /// <param name="id">ID of the Thread to delete.</param>
         /// <returns></returns>
@@ -65,16 +65,28 @@ namespace GmailApi.Services
             _client.Delete(queryString);
         }
 
+        /// <summary>
+        /// Modifies the labels applied to the thread. This applies to all messages in the thread.
+        /// </summary>
+        /// <returns></returns>
         public Thread Modify()
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Moves the specified thread to the trash.
+        /// </summary>
+        /// <returns></returns>
         public Thread Trash()
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Removes the specified thread from the trash.
+        /// </summary>
+        /// <returns></returns>
         public Thread Untrash()
         {
             throw new NotImplementedException();

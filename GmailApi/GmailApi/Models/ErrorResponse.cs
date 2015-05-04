@@ -20,6 +20,10 @@ namespace GmailApi.Models
         [JsonProperty("errors")]
         public List<Error> Errors { get; set; }
 
+        /// <summary>
+        /// A string with the values of the properties from this <see cref="ErrorResponse"/>
+        /// </summary>
+        /// <returns>A string</returns>
         public override string ToString()
         {
             return string.Concat(Code, ": ", Message, ". ", Errors.Count, " errors.");

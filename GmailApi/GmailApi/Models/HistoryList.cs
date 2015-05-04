@@ -39,6 +39,10 @@ namespace GmailApi.Models
         [JsonProperty("nextPageToken")]
         public string NextPageToken { get; set; }
 
+        /// <summary>
+        /// A string with the values of the properties from this <see cref="HistoryList"/>
+        /// </summary>
+        /// <returns>A string</returns>
         public override string ToString()
         {
             return string.Concat("# Messages: ", Messages.Count, ", NextPageToken: ", NextPageToken, ", History ID: ", HistoryId);

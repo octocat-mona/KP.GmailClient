@@ -29,6 +29,10 @@ namespace GmailApi.Models
         [JsonProperty("resultSizeEstimate")]
         public uint ResultSizeEstimate { get; set; }
 
+        /// <summary>
+        /// A string with the values of the properties from this <see cref="DraftList"/>
+        /// </summary>
+        /// <returns>A string</returns>
         public override string ToString()
         {
             return string.Concat("# Drafts: ", Drafts.Count, ", NextPageToken: ", NextPageToken, ", SizeEstimate: ", ResultSizeEstimate);

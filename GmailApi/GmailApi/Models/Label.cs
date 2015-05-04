@@ -49,6 +49,10 @@ namespace GmailApi.Models
         [JsonProperty("threadsUnread")]
         public int ThreadsUnread { get; set; }
 
+        /// <summary>
+        /// A string with the values of the properties from this <see cref="Label"/>
+        /// </summary>
+        /// <returns>A string</returns>
         public override string ToString()
         {
             return string.Concat("ID: ", Id, ", Name: ", Name, ", Type: ", Type, ", Total messages: ", MessagesTotal, ", Unread messages: ", MessagesUnread);

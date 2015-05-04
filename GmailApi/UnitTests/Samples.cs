@@ -12,7 +12,7 @@ namespace UnitTests
                  {
                      Message = new Message
                      {
-                         DecodedRaw = "Body content",
+                         PlainRaw = "Body content",
                          Snippet = "snippet123"
                      }
                  };
@@ -21,7 +21,7 @@ namespace UnitTests
 
         /*var message = new Message
           {
-              DecodedRaw = "test",
+              PlainRaw = "test",
               Payload = new Payload
               {
                   MimeType = "multipart/alternative",

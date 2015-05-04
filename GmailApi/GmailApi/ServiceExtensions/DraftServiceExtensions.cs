@@ -24,7 +24,7 @@ namespace GmailApi.ServiceExtensions
                 Message = new Message
                 {
                     Snippet = subject,
-                    DecodedRaw = body.ToBase64UrlString(),//TODO: HTML headers
+                    PlainRaw = body.ToBase64UrlString(),//TODO: HTML headers
                     Payload =
                     {
                         Headers = { new Header { Name = "Content-Type", Value = "text/html" } },

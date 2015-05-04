@@ -11,8 +11,11 @@ namespace GmailApi
     /// <summary>
     /// Handles requests to the Gmail service and parses the response.
     /// </summary>
-    public class GmailClient //TODO: interface
+    public class GmailClient
     {
+        /// <summary>
+        /// The URL to send requests to the Gmail API service
+        /// </summary>
         public const string ApiBaseUrl = "https://www.googleapis.com/gmail/v1/users/";
         private const string HttpGet = "GET";
         private const string HttpPost = "POST";

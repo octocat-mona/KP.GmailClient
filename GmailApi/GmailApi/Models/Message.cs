@@ -66,22 +66,28 @@ namespace GmailApi.Models
         public string Raw { get; private set; }
 
         /// <summary>
-        /// The entire email message.
+        /// Get / set the entire email message decoded from the <see cref="Raw"/> RFC 2822 formatted and base64url encoded string.
         /// Returned in messages.get and drafts.get responses when the format=RAW parameter is supplied.
         /// </summary>
         [JsonIgnore]
-        public string DecodedRaw
+        public string PlainRaw
         {
             get { return Raw.FromBase64UrlString(); }
             set { Raw = value.ToBase64UrlString(); }
         }
 
+        /// <summary>
+        /// Get the 'From' header name.
+        /// </summary>
         [JsonIgnore]
         public string From
         {
             get { return Payload.GetHeaderValue(HeaderName.From); }
         }
 
+        /// <summary>
+        /// Get the 'To' header name.
+        /// </summary>
         [JsonIgnore]
         public string To
         {
@@ -106,6 +112,10 @@ namespace GmailApi.Models
             get { return Payload.GetBodyData(MimeType.TextPlain); }
         }
 
+        /// <summary>
+        /// A string with the values of the properties from this <see cref="Message"/>
+        /// </summary>
+        /// <returns>A string</returns>
         public override string ToString()
         {
             return string.Concat("ID: ", Id, ", ~Size: ", SizeEstimate, " bytes, # LabelIds: ", LabelIds.Count, ", Snippet: ", Snippet);

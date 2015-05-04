@@ -53,7 +53,7 @@ namespace GmailApi.Services
         }
 
         /// <summary>
-        /// NOTE: Immediately and permanently deletes the specified label and removes it from any messages and threads that it is applied to.
+        /// WARNING: Immediately and permanently deletes the specified label and removes it from any messages and threads that it is applied to.
         /// </summary>
         /// <param name="id">The ID of the label to delete.</param>
         public void Delete(string id)

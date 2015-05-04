@@ -33,6 +33,10 @@ namespace GmailApi.Models
                 : part.Body.Data;
         }
 
+        /// <summary>
+        /// A string with the values of the properties from this <see cref="Payload"/>
+        /// </summary>
+        /// <returns>A string</returns>
         public override string ToString()
         {
             return string.Concat(base.ToString(), ", # Parts: ", Parts.Count);

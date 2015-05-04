@@ -28,6 +28,10 @@ namespace GmailApi.Models
         [JsonProperty("historyId")]
         public ulong HistoryId { get; set; }
 
+        /// <summary>
+        /// A string with the values of the properties from this <see cref="Profile"/>
+        /// </summary>
+        /// <returns>A string</returns>
         public override string ToString()
         {
             return string.Concat("EmailAddress: ", EmailAddress, ", Total messages: ", MessagesTotal, ", Total Threads: ", ThreadsTotal, ", History ID: ", HistoryId);

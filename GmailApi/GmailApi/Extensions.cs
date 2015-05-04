@@ -6,6 +6,9 @@ using System.Text;
 
 namespace GmailApi
 {
+    /// <summary>
+    /// Common extensions
+    /// </summary>
     public static class Extensions
     {
         /// <summary>
@@ -24,6 +27,13 @@ namespace GmailApi
             return new String(name.Select(s => Path.GetInvalidFileNameChars().Contains(s) ? replaceWith : s).ToArray());
         }
 
+        /// <summary>
+        /// Get the Attribute of an Enum
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T2"></typeparam>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static T GetAttribute<T, T2>(this T2 value)
             where T : Attribute
             where T2 : struct , IConvertible// enum

@@ -55,8 +55,7 @@ namespace GmailApi.Services
         }
 
         /// <summary>
-        /// NOTE: Immediately and permanently deletes the specified message.
-        /// This operation CANNOT be undone. Prefer messages.trash instead.
+        /// Immediately and permanently deletes the specified message. WARNING: This operation CANNOT be undone. Prefer messages.trash instead.
         /// </summary>
         public void Delete(string id)
         {

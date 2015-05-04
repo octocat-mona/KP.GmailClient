@@ -41,6 +41,10 @@ namespace GmailApi.Models
             }
         }
 
+        /// <summary>
+        /// A string with the values of the properties from this <see cref="Header"/>
+        /// </summary>
+        /// <returns>A string</returns>
         public override string ToString()
         {
             return string.Concat(Name, ": ", Value);

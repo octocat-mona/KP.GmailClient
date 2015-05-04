@@ -87,6 +87,10 @@ namespace GmailApi.Models
                 : header.Value;
         }
 
+        /// <summary>
+        /// A string with the values of the properties from this <see cref="PayloadBase"/>
+        /// </summary>
+        /// <returns>A string</returns>
         public override string ToString()
         {
             return string.Concat("PartID: ", PartId, ", MimeType: ", MimeType, ", Filename: ", Filename, ", # Headers: ", Headers.Count);
