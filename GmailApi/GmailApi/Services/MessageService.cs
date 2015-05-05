@@ -5,13 +5,16 @@ using GmailApi.Models;
 
 namespace GmailApi.Services
 {
+    /// <summary>
+    /// Service to get, create, update and delete emails
+    /// </summary>
     public class MessageService
     {
         private readonly GmailClient _client;
 
         public AttachmentService Attachments { get; set; }
 
-        public MessageService(GmailClient client)
+        internal MessageService(GmailClient client)
         {
             _client = client;
             Attachments = new AttachmentService(client);

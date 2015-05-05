@@ -3,11 +3,14 @@ using GmailApi.Models;
 
 namespace GmailApi.Services
 {
+    /// <summary>
+    /// Service for getting email attachments
+    /// </summary>
     public class AttachmentService
     {
         private readonly GmailClient _client;
 
-        public AttachmentService(GmailClient client)
+        internal AttachmentService(GmailClient client)
         {
             _client = client;
         }

@@ -3,6 +3,9 @@ using GmailApi.Models;
 
 namespace GmailApi.Services
 {
+    /// <summary>
+    /// Contains all services provided by Gmail
+    /// </summary>
     public class GmailService
     {
         private readonly GmailClient _client;
@@ -13,7 +16,7 @@ namespace GmailApi.Services
         public ThreadService Threads { get; private set; }
         public HistoryService History { get; private set; }
 
-        public GmailService(GmailClient client)
+        internal GmailService(GmailClient client)
         {
             _client = client;
 

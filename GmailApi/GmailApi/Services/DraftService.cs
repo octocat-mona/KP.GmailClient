@@ -5,11 +5,14 @@ using GmailApi.Models;
 
 namespace GmailApi.Services
 {
+    /// <summary>
+    /// Service to get, create, update and delete email drafts
+    /// </summary>
     public class DraftService
     {
         private readonly GmailClient _client;
 
-        public DraftService(GmailClient client)
+        internal DraftService(GmailClient client)
         {
             _client = client;
         }

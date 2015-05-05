@@ -3,17 +3,20 @@ using GmailApi.Models;
 
 namespace GmailApi.Services
 {
+    /// <summary>
+    /// Service for getting the history of emails
+    /// </summary>
     public class HistoryService
     {
         private readonly GmailClient _client;
 
-        public HistoryService(GmailClient client)
+        internal HistoryService(GmailClient client)
         {
             _client = client;
         }
 
         /// <summary>
-        /// 
+        /// Lists the history of all changes to the given mailbox. History results are returned in chronological order (increasing historyId).
         /// </summary>
         /// <param name="startHistoryId">Returns history records after the specified startHistoryId</param>
         /// <param name="labelId">Only return messages with a label matching the ID</param>

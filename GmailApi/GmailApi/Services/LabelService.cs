@@ -5,11 +5,14 @@ using GmailApi.Models;
 
 namespace GmailApi.Services
 {
+    /// <summary>
+    /// Service to get, create, update and delete email labels
+    /// </summary>
     public class LabelService
     {
         private readonly GmailClient _client;
 
-        public LabelService(GmailClient client)
+        internal LabelService(GmailClient client)
         {
             _client = client;
         }
