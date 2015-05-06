@@ -1,9 +1,9 @@
 language: csharp
 mono: 3.12.0
-solution: GmailApi/GmailApi.sln
+solution: Src/GmailApi.sln
 install:
-  - nuget restore GmailApi/GmailApi.sln
+  - nuget restore Src/GmailApi.sln
   - nuget install xunit.runners -Version 1.9.2 -OutputDirectory testrunner
 script:
-  - xbuild /p:Configuration=Release GmailApi/GmailApi.sln
-  - mono ./testrunner/xunit.runners.1.9.2/tools/xunit.console.clr4.exe ./GmailApi/UnitTests/bin/Release/UnitTests.dll
+  - xbuild /p:Configuration=Release Src/GmailApi.sln
+  - mono ./testrunner/xunit.runners.1.9.2/tools/xunit.console.clr4.exe ./Src/KP.GmailApi.UnitTests/bin/Release/KP.GmailApi.UnitTests.dll
