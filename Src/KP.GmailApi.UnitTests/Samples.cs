@@ -1,6 +1,6 @@
-﻿using GmailApi.Models;
+﻿using KP.GmailApi.Models;
 
-namespace UnitTests
+namespace KP.GmailApi.UnitTests
 {
     public class Samples
     {

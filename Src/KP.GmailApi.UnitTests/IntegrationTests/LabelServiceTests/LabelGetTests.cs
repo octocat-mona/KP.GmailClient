@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Net;
 using FluentAssertions;
-using GmailApi;
-using GmailApi.Models;
-using GmailApi.Services;
+using KP.GmailApi.Models;
+using KP.GmailApi.Services;
 using Xunit;
 
-namespace UnitTests.IntegrationTests.LabelServiceTests
+namespace KP.GmailApi.UnitTests.IntegrationTests.LabelServiceTests
 {
     public class LabelGetTests
     {

@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace GmailApi.Models
+namespace KP.GmailApi.Models
 {
     /// <summary>
     /// The body of a single MIME message part.

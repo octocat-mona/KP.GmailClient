@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Net;
 using FluentAssertions;
-using GmailApi;
-using GmailApi.Services;
+using KP.GmailApi.Services;
 
-namespace UnitTests.IntegrationTests.HistoryServiceTests
+namespace KP.GmailApi.UnitTests.IntegrationTests.HistoryServiceTests
 {
     public class HistoryListTests
     {

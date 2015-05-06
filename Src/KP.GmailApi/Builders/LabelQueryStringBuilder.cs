@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
-using GmailApi.DTO;
-using GmailApi.Models;
+using KP.GmailApi.DTO;
+using KP.GmailApi.Models;
 
-namespace GmailApi.Builders
+namespace KP.GmailApi.Builders
 {
     internal class LabelQueryStringBuilder : QueryStringBuilder
     {

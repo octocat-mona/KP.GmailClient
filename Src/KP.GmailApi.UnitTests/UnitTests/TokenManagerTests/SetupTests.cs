@@ -1,11 +1,10 @@
 ﻿using System;
 using FluentAssertions;
-using GmailApi;
-using GmailApi.Models;
-using UnitTests.Extensions;
+using KP.GmailApi.Models;
+using KP.GmailApi.UnitTests.Extensions;
 using Xunit;
 
-namespace UnitTests.UnitTests.TokenManagerTests
+namespace KP.GmailApi.UnitTests.UnitTests.TokenManagerTests
 {
     public class SetupTests : IDisposable
     {

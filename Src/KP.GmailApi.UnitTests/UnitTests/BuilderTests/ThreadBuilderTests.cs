@@ -2,11 +2,11 @@
 using System.ComponentModel;
 using System.Web;
 using FluentAssertions;
-using GmailApi.Builders;
-using GmailApi.DTO;
+using KP.GmailApi.Builders;
+using KP.GmailApi.DTO;
 using Xunit;
 
-namespace UnitTests.UnitTests.BuilderTests
+namespace KP.GmailApi.UnitTests.UnitTests.BuilderTests
 {
     public class ThreadBuilderTests
     {

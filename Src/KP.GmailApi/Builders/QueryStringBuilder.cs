@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Web;
-using GmailApi.DTO;
+using KP.GmailApi.DTO;
 
-namespace GmailApi.Builders
+namespace KP.GmailApi.Builders
 {
     internal abstract class QueryStringBuilder
     {

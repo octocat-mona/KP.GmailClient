@@ -1,4 +1,4 @@
-﻿namespace GmailApi.Models
+﻿namespace KP.GmailApi.Models
 {
     /// <summary>
     /// The visibility of messages with this label in the message list in the Gmail web interface.

@@ -1,6 +1,6 @@
 using System.Runtime.Serialization;
 
-namespace GmailApi.Models
+namespace KP.GmailApi.Models
 {
     /// <summary>
     /// A Multipurpose Internet Mail Extensions (MIME) type.

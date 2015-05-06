@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
 using FluentAssertions;
-using GmailApi;
-using UnitTests.Extensions;
+using KP.GmailApi.UnitTests.Extensions;
 using Xunit;
 
-namespace UnitTests.UnitTests.TokenManagerTests
+namespace KP.GmailApi.UnitTests.UnitTests.TokenManagerTests
 {
     public class SetupLoadTests : IDisposable
     {

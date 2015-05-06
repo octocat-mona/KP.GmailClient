@@ -1,10 +1,9 @@
 ﻿using System;
 using FluentAssertions;
-using GmailApi;
-using GmailApi.ServiceExtensions;
-using GmailApi.Services;
+using KP.GmailApi.ServiceExtensions;
+using KP.GmailApi.Services;
 
-namespace UnitTests.IntegrationTests.ThreadServiceTests
+namespace KP.GmailApi.UnitTests.IntegrationTests.ThreadServiceTests
 {
     public class ThreadListTests
     {

@@ -1,11 +1,10 @@
 ﻿using System.Linq;
 using FluentAssertions;
-using GmailApi;
-using GmailApi.ServiceExtensions;
-using GmailApi.Services;
+using KP.GmailApi.ServiceExtensions;
+using KP.GmailApi.Services;
 using Xunit;
 
-namespace UnitTests.IntegrationTests.DraftServiceTests
+namespace KP.GmailApi.UnitTests.IntegrationTests.DraftServiceTests
 {
     public class DraftListTests
     {

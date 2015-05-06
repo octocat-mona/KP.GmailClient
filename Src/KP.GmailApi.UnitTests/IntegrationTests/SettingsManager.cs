@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Configuration;
-using GmailApi;
-using UnitTests.Extensions;
+using KP.GmailApi.UnitTests.Extensions;
 
-namespace UnitTests.IntegrationTests
+namespace KP.GmailApi.UnitTests.IntegrationTests
 {
     public class SettingsManager
     {

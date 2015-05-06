@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace GmailApi.Models
+namespace KP.GmailApi.Models
 {
     public class DraftList
     {

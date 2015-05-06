@@ -1,9 +1,9 @@
 using System.Net;
-using GmailApi.Models;
+using KP.GmailApi.Models;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
 
-namespace GmailApi
+namespace KP.GmailApi
 {
     internal class ErrorResponseParser
     {

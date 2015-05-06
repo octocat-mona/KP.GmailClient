@@ -1,6 +1,6 @@
 using System;
 
-namespace GmailApi.DTO
+namespace KP.GmailApi.DTO
 {
     [Flags]
     internal enum ThreadFields

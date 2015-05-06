@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Net;
 using FluentAssertions;
-using GmailApi;
-using GmailApi.Models;
-using GmailApi.Services;
+using KP.GmailApi.Models;
+using KP.GmailApi.Services;
 
-namespace UnitTests.IntegrationTests.AttachmentServiceTests
+namespace KP.GmailApi.UnitTests.IntegrationTests.AttachmentServiceTests
 {
     public class AttachmentGetTests
     {

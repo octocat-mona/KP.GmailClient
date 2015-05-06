@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace GmailApi.Models
+namespace KP.GmailApi.Models
 {
     /// <summary>
     /// The input required to create a label.

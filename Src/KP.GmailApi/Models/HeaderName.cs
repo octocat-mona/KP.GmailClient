@@ -1,6 +1,6 @@
 using System.Runtime.Serialization;
 
-namespace GmailApi.Models
+namespace KP.GmailApi.Models
 {
     /// <summary>
     /// Headers according to the RFC 2822, RFC 2369 and RFC 2919 Internet Message Format standard.

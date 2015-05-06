@@ -1,7 +1,7 @@
 using System;
 using Newtonsoft.Json;
 
-namespace GmailApi.Models
+namespace KP.GmailApi.Models
 {
     public class Header
     {

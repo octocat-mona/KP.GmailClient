@@ -1,7 +1,7 @@
-﻿using GmailApi.Builders;
-using GmailApi.Models;
+﻿using KP.GmailApi.Builders;
+using KP.GmailApi.Models;
 
-namespace GmailApi.Services
+namespace KP.GmailApi.Services
 {
     /// <summary>
     /// Service for getting the history of emails.

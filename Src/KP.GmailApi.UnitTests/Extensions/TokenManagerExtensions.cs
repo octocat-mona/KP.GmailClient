@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using GmailApi;
-using GmailApi.Models;
+using KP.GmailApi.Models;
 
-namespace UnitTests.Extensions
+namespace KP.GmailApi.UnitTests.Extensions
 {
     public static class TokenManagerExtensions
     {

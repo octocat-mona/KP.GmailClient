@@ -1,4 +1,4 @@
-﻿namespace GmailApi.Builders
+﻿namespace KP.GmailApi.Builders
 {
     internal class UserQueryStringBuilder : QueryStringBuilder
     {

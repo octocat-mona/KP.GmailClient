@@ -1,8 +1,7 @@
 ﻿using FluentAssertions;
-using GmailApi;
 using Xunit;
 
-namespace UnitTests.UnitTests.ExtensionTests
+namespace KP.GmailApi.UnitTests.UnitTests.ExtensionTests
 {
     public class Base64UrlStringTests
     {

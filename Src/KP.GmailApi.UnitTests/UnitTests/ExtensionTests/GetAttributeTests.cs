@@ -1,9 +1,8 @@
 ﻿using System;
 using FluentAssertions;
-using GmailApi;
 using Xunit;
 
-namespace UnitTests.UnitTests.ExtensionTests
+namespace KP.GmailApi.UnitTests.UnitTests.ExtensionTests
 {
     public class GetAttributeTests
     {

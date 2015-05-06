@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace GmailApi.Models
+namespace KP.GmailApi.Models
 {
     /// <summary>
     /// Labels are used to categorize messages and threads within the user's mailbox.

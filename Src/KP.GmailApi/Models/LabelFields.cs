@@ -1,6 +1,6 @@
 using System;
 
-namespace GmailApi.Models
+namespace KP.GmailApi.Models
 {
     [Flags]
     public enum LabelFields

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GmailApi.Builders
+namespace KP.GmailApi.Builders
 {
     internal class HistoryQueryStringBuilder : QueryStringBuilder
     {

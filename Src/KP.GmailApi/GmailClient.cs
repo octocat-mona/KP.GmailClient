@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 
-namespace GmailApi
+namespace KP.GmailApi
 {
     /// <summary>
     /// Handles requests to the Gmail service and parses the response.

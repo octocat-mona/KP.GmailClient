@@ -1,4 +1,4 @@
-﻿namespace GmailApi.Models
+﻿namespace KP.GmailApi.Models
 {
     /// <summary>
     /// The owner type for the label.

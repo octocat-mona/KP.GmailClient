@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace UnitTests
+namespace KP.GmailApi.UnitTests
 {
     public class ReflectionHelper
     {

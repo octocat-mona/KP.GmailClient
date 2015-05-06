@@ -1,6 +1,6 @@
-﻿using GmailApi.DTO;
+﻿using KP.GmailApi.DTO;
 
-namespace GmailApi.Builders
+namespace KP.GmailApi.Builders
 {
     internal class DraftQueryStringBuilder : QueryStringBuilder
     {

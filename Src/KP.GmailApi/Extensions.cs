@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace GmailApi
+namespace KP.GmailApi
 {
     /// <summary>
     /// Common extensions

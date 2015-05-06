@@ -1,6 +1,6 @@
 ﻿using Xunit;
 
-namespace UnitTests.IntegrationTests
+namespace KP.GmailApi.UnitTests.IntegrationTests
 {
     public class SmokeTests
     {

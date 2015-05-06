@@ -1,9 +1,9 @@
 ﻿using System;
 using FluentAssertions;
-using GmailApi.Models;
+using KP.GmailApi.Models;
 using Xunit;
 
-namespace UnitTests.IntegrationTests.DraftServiceTests
+namespace KP.GmailApi.UnitTests.IntegrationTests.DraftServiceTests
 {
     public class DraftCreateTests : IDisposable
     {

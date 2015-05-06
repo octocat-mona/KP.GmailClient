@@ -1,6 +1,6 @@
 using System;
 
-namespace GmailApi
+namespace KP.GmailApi
 {
     [AttributeUsage(AttributeTargets.Field, AllowMultiple = false)]
     internal class StringValueAttribute : Attribute

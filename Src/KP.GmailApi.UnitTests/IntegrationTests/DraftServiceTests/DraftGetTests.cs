@@ -1,11 +1,10 @@
 ﻿using System;
 using FluentAssertions;
-using GmailApi;
-using GmailApi.Models;
-using GmailApi.Services;
+using KP.GmailApi.Models;
+using KP.GmailApi.Services;
 using Xunit;
 
-namespace UnitTests.IntegrationTests.DraftServiceTests
+namespace KP.GmailApi.UnitTests.IntegrationTests.DraftServiceTests
 {
     public class DraftGetTests : IDisposable
     {

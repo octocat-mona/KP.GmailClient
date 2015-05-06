@@ -1,11 +1,11 @@
 ﻿using System;
 using FluentAssertions;
-using GmailApi.Builders;
-using GmailApi.DTO;
-using GmailApi.Models;
+using KP.GmailApi.Builders;
+using KP.GmailApi.DTO;
+using KP.GmailApi.Models;
 using Xunit;
 
-namespace UnitTests.UnitTests.BuilderTests
+namespace KP.GmailApi.UnitTests.UnitTests.BuilderTests
 {
     public class LabelBuilderTests
     {

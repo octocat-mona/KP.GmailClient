@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace GmailApi.Models
+namespace KP.GmailApi.Models
 {
     /// <summary>
     /// Gets the current user's Gmail profile.

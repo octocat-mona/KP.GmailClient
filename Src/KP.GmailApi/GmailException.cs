@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Net;
-using GmailApi.Models;
+using KP.GmailApi.Models;
 
-namespace GmailApi
+namespace KP.GmailApi
 {
     /// <summary>
     /// An error from the Gmail API service

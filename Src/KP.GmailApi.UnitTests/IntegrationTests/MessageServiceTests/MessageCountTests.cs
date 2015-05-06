@@ -1,12 +1,11 @@
 ﻿using System;
 using FluentAssertions;
-using GmailApi;
-using GmailApi.Models;
-using GmailApi.ServiceExtensions;
-using GmailApi.Services;
+using KP.GmailApi.Models;
+using KP.GmailApi.ServiceExtensions;
+using KP.GmailApi.Services;
 using Xunit;
 
-namespace UnitTests.IntegrationTests.MessageServiceTests
+namespace KP.GmailApi.UnitTests.IntegrationTests.MessageServiceTests
 {
     public class MessageCountTests
     {

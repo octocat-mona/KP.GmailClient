@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using GmailApi.Models;
-using GmailApi.Services;
+using KP.GmailApi.Models;
+using KP.GmailApi.Services;
 
-namespace GmailApi.ServiceExtensions
+namespace KP.GmailApi.ServiceExtensions
 {
     /// <summary>
     /// Extensions for <see cref="LabelService"/>

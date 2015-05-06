@@ -1,10 +1,9 @@
 ﻿using System;
-using GmailApi;
-using GmailApi.Models;
-using GmailApi.Services;
-using UnitTests.IntegrationTests;
+using KP.GmailApi.Models;
+using KP.GmailApi.Services;
+using KP.GmailApi.UnitTests.IntegrationTests;
 
-namespace UnitTests
+namespace KP.GmailApi.UnitTests
 {
     public class CleanupHelpers
     {

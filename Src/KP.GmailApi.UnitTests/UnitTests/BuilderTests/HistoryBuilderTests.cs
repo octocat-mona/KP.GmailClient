@@ -1,9 +1,9 @@
 ﻿using System;
 using FluentAssertions;
-using GmailApi.Builders;
+using KP.GmailApi.Builders;
 using Xunit;
 
-namespace UnitTests.UnitTests.BuilderTests
+namespace KP.GmailApi.UnitTests.UnitTests.BuilderTests
 {
     public class HistoryBuilderTests
     {

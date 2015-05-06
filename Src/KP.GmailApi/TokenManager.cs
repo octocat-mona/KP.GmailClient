@@ -4,10 +4,10 @@ using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web;
-using GmailApi.Models;
+using KP.GmailApi.Models;
 using Newtonsoft.Json;
 
-namespace GmailApi
+namespace KP.GmailApi
 {
     public class TokenManager
     {

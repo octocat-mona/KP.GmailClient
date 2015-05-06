@@ -1,9 +1,9 @@
 ﻿using System;
-using GmailApi.Builders;
-using GmailApi.DTO;
-using GmailApi.Models;
+using KP.GmailApi.Builders;
+using KP.GmailApi.DTO;
+using KP.GmailApi.Models;
 
-namespace GmailApi.Services
+namespace KP.GmailApi.Services
 {
     /// <summary>
     /// Service for getting email threads.

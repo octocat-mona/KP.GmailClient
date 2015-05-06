@@ -2,13 +2,12 @@
 using System.Linq;
 using System.Net;
 using FluentAssertions;
-using GmailApi;
-using GmailApi.Models;
-using GmailApi.ServiceExtensions;
-using GmailApi.Services;
+using KP.GmailApi.Models;
+using KP.GmailApi.ServiceExtensions;
+using KP.GmailApi.Services;
 using Xunit;
 
-namespace UnitTests.IntegrationTests.ThreadServiceTests
+namespace KP.GmailApi.UnitTests.IntegrationTests.ThreadServiceTests
 {
     public class ThreadGetTests
     {

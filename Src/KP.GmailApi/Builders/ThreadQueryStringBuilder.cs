@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
-using GmailApi.DTO;
+using KP.GmailApi.DTO;
 
-namespace GmailApi.Builders
+namespace KP.GmailApi.Builders
 {
     internal class ThreadQueryStringBuilder : QueryStringBuilder
     {

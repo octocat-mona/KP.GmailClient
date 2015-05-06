@@ -1,4 +1,4 @@
-namespace GmailApi.DTO
+namespace KP.GmailApi.DTO
 {
     internal enum DraftRequestAction
     {

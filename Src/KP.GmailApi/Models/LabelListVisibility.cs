@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace GmailApi.Models
+namespace KP.GmailApi.Models
 {
     /// <summary>
     /// The visibility of the label in the label list in the Gmail web interface.
