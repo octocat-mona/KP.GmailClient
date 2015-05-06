@@ -9,17 +9,18 @@ An alternative library of the Gmail API NuGet package.
 ``` csharp
 // Client ID and secret of your project,
 // see the Dev Console (https://console.developers.google.com/project)
-TokenManager tokenManager = new TokenManager(clientId, clientSecret);
+var tokenHelper = new TokenAccessHelper(TokenManager.AuthorizationServerUrl, "clientId", "clientSecret");
 
 // Get a refresh token, launches a browser for user interaction:
-string authCode = tokenManager.GetAuthorizationCode();
-Oauth2Token oauth2Token = tokenManager.GetToken(authCode);
+string authCode = tokenHelper.GetAuthorizationCode();
+Oauth2Token oauth2Token = tokenHelper.GetToken(authCode);
 
 // First time required only
+TokenManager tokenManager = new TokenManager("clientId", "clientSecret");
 tokenManager.Setup(oauth2Token.RefreshToken, false);
 
 // Setup
-GmailClient client = new GmailClient(emailAddress, tokenManager);
+GmailClient client = new GmailClient("me", tokenManager);
 GmailService service = new GmailService(client);
 ```
 
