@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -12,6 +11,9 @@ namespace GmailApi
 {
     public class TokenManager
     {
+        /// <summary>
+        /// The Google Authorization server URL used to authenticate.
+        /// </summary>
         public const string AuthorizationServerUrl = "https://www.googleapis.com/oauth2/v3/token";// "https://accounts.google.com/o/oauth2/token";
 
         private static readonly ConcurrentDictionary<string, Oauth2Token> Tokens = new ConcurrentDictionary<string, Oauth2Token>();
@@ -35,10 +37,10 @@ namespace GmailApi
         }
 
         /// <summary>
-        /// 
+        /// Get an access token. Will return an valid existing token or retrieves a new one if expired.
         /// </summary>
-        /// <returns>An AccessToken</returns>
-        public string GetToken()
+        /// <returns>An access token</returns>
+        internal string GetToken()
         {
             lock (_token)
             {
@@ -91,69 +93,6 @@ namespace GmailApi
             File.WriteAllText(_tokenFile, tokenString);
         }
 
-        [Obsolete("For testing only")]
-        public Oauth2Token GetToken(string authorizationCode)
-        {
-            const string url = AuthorizationServerUrl;
-            string content = string.Concat(
-                "code=", HttpUtility.UrlEncode(authorizationCode),
-                "&client_id=", HttpUtility.UrlEncode(_clientId),
-                "&client_secret=", HttpUtility.UrlEncode(_clientSecret),
-                "&redirect_uri=", HttpUtility.UrlEncode("http://localhost"),
-                "&grant_type=", HttpUtility.UrlEncode("authorization_code")
-                );
-
-            var stringContent = new StringContent(content);
-            stringContent.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
-
-            var client = new HttpClient();
-            var result = client.PostAsync(url, stringContent).Result;
-            string json = result.Content.ReadAsStringAsync().Result;
-
-            result.EnsureSuccessStatusCode();
-
-            return JsonConvert.DeserializeObject<Oauth2Token>(json);
-        }
-
-        [Obsolete("For testing only")]
-        public string GetAuthorizationCode()
-        {
-            string url = string.Concat("https://accounts.google.com/o/oauth2/auth",
-                "?client_id=", HttpUtility.UrlEncode(_clientId),
-                "&redirect_uri=", HttpUtility.UrlEncode("http://localhost"),
-                "&response_type=", HttpUtility.UrlEncode("code"),
-                "&scope=", HttpUtility.UrlEncode("https://www.googleapis.com/auth/gmail.modify https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/gmail.compose"),
-                "&access_type=", HttpUtility.UrlEncode("offline")
-                );
-
-            HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Clear();
-            var res = client.GetAsync(url).Result;
-            string content = res.Content.ReadAsStringAsync().Result;
-
-            res.EnsureSuccessStatusCode();
-
-            var file = new FileInfo("login.html");
-
-            File.WriteAllText(file.FullName, content);
-            Process.Start(file.FullName);
-
-            Console.WriteLine("Enter URl after accepting request:");
-            Console.WriteLine(Environment.NewLine);
-
-            var resultUrl = Console.ReadLine();
-            if (string.IsNullOrWhiteSpace(resultUrl))
-                throw new Exception("User did not enter valid Authorization code");
-
-            var query = new Uri(resultUrl).Query;
-            string code = HttpUtility.ParseQueryString(query).Get("code");
-
-            if (string.IsNullOrWhiteSpace(code))
-                throw new Exception();
-
-            return code;
-        }
-
         /// <summary>
         /// Set the refresh token. This is only required for the first request.
         /// </summary>
@@ -177,6 +116,10 @@ namespace GmailApi
             }
         }
 
+        /// <summary>
+        /// Checks if the token based on the ClientId has been saved.
+        /// </summary>
+        /// <returns></returns>
         public bool HasTokenSetup()
         {
             return new FileInfo(_tokenFile).Exists;

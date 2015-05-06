@@ -8,7 +8,7 @@ namespace GmailApi.Models
     public enum HeaderName
     {
         /// <summary>
-        /// Header is not a known type
+        /// Header is not a known type.
         /// </summary>
         Unknown,
         /// <summary>

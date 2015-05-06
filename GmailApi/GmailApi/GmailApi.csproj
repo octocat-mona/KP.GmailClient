@@ -110,6 +110,7 @@
     <Compile Include="ErrorResponseParser.cs" />
     <Compile Include="Models\UpdateLabelInput.cs" />
     <Compile Include="StringValueAttribute.cs" />
+    <Compile Include="TokenAccessHelper.cs" />
     <Compile Include="TokenManager.cs" />
   </ItemGroup>
   <ItemGroup>

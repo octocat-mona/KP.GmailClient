@@ -4,7 +4,7 @@ using GmailApi.Models;
 namespace GmailApi.Services
 {
     /// <summary>
-    /// Service for getting the history of emails
+    /// Service for getting the history of emails.
     /// </summary>
     public class HistoryService
     {

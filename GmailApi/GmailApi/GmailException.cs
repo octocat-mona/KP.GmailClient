@@ -17,26 +17,26 @@ namespace GmailApi
         /// <summary>
         /// The errors returned by Gmail if any
         /// </summary>
-        public List<Error> Errors { get; set; }
+        public List<Error> Errors { get; private set; }
 
-        public GmailException(ErrorResponse errorResponse, Exception innerException)
+        internal GmailException(ErrorResponse errorResponse, Exception innerException)
             : base(ConstructMessage(errorResponse), innerException)
         {
             StatusCode = (HttpStatusCode)errorResponse.Code;
             Errors = errorResponse.Errors;
         }
 
-        public GmailException(ErrorResponse errorResponse)
+        internal GmailException(ErrorResponse errorResponse)
             : this(errorResponse, null)
         {
         }
 
-        public GmailException(HttpStatusCode statusCode, string message, Exception innerException)
+        internal GmailException(HttpStatusCode statusCode, string message, Exception innerException)
             : base(ConstructMessage(statusCode, message), innerException)
         {
         }
 
-        public GmailException(HttpStatusCode statusCode, string message)
+        internal GmailException(HttpStatusCode statusCode, string message)
             : this(statusCode, message, null)
         {
         }

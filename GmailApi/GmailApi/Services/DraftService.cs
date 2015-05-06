@@ -6,7 +6,7 @@ using GmailApi.Models;
 namespace GmailApi.Services
 {
     /// <summary>
-    /// Service to get, create, update and delete email drafts
+    /// Service to get, create, update and delete email drafts.
     /// </summary>
     public class DraftService
     {

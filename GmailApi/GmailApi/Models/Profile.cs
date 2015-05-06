@@ -2,6 +2,9 @@
 
 namespace GmailApi.Models
 {
+    /// <summary>
+    /// Gets the current user's Gmail profile.
+    /// </summary>
     public class Profile
     {
         /// <summary>

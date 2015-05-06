@@ -6,7 +6,7 @@ using GmailApi.Models;
 namespace GmailApi.Services
 {
     /// <summary>
-    /// Service to get, create, update and delete email labels
+    /// Service to get, create, update and delete email labels.
     /// </summary>
     public class LabelService
     {

@@ -3,8 +3,14 @@ using Newtonsoft.Json;
 
 namespace GmailApi.Models
 {
+    /// <summary>
+    /// An email message.
+    /// </summary>
     public class Message
     {
+        /// <summary>
+        /// An email message.
+        /// </summary>
         public Message()
         {
             ThreadId = string.Empty;
@@ -14,6 +20,9 @@ namespace GmailApi.Models
             Payload = new Payload();
         }
 
+        /// <summary>
+        /// The immutable ID of the message.
+        /// </summary>
         [JsonProperty("id")]
         public string Id { get; internal set; }
 

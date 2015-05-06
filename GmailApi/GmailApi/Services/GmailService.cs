@@ -10,10 +10,25 @@ namespace GmailApi.Services
     {
         private readonly GmailClient _client;
 
+        /// <summary>
+        /// Service to get, create, update and delete emails.
+        /// </summary>
         public MessageService Messages { get; private set; }
+        /// <summary>
+        /// Service to get, create, update and delete email drafts.
+        /// </summary>
         public DraftService Drafts { get; private set; }
+        /// <summary>
+        /// Service to get, create, update and delete email labels.
+        /// </summary>
         public LabelService Labels { get; private set; }
+        /// <summary>
+        /// Service for getting email threads.
+        /// </summary>
         public ThreadService Threads { get; private set; }
+        /// <summary>
+        /// Service for getting the history of emails.
+        /// </summary>
         public HistoryService History { get; private set; }
 
         internal GmailService(GmailClient client)

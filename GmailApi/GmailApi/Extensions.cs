@@ -9,7 +9,7 @@ namespace GmailApi
     /// <summary>
     /// Common extensions
     /// </summary>
-    public static class Extensions
+    internal static class Extensions
     {
         /// <summary>
         /// 

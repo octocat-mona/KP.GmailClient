@@ -3,7 +3,7 @@ using System;
 namespace GmailApi
 {
     [AttributeUsage(AttributeTargets.Field, AllowMultiple = false)]
-    public class StringValueAttribute : Attribute
+    internal class StringValueAttribute : Attribute
     {
         public StringValueAttribute(string text)
         {

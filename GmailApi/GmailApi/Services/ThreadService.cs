@@ -6,7 +6,7 @@ using GmailApi.Models;
 namespace GmailApi.Services
 {
     /// <summary>
-    /// Service for getting email threads
+    /// Service for getting email threads.
     /// </summary>
     public class ThreadService
     {
