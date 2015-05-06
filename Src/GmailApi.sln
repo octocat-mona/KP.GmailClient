@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GmailApi", "GmailApi\GmailApi.csproj", "{EDE3CABA-6469-4EE3-B5F7-5AE7BA51E088}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KP.GmailApi", "KP.GmailApi\KP.GmailApi.csproj", "{EDE3CABA-6469-4EE3-B5F7-5AE7BA51E088}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{D9FAEB49-831B-4714-86BA-9B9ECDA96DA2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KP.GmailApi.UnitTests", "KP.GmailApi.UnitTests\KP.GmailApi.UnitTests.csproj", "{D9FAEB49-831B-4714-86BA-9B9ECDA96DA2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

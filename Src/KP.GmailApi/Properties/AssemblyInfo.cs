@@ -2,15 +2,14 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-[assembly: InternalsVisibleTo("Test")]
-[assembly: InternalsVisibleTo("UnitTests")]
+[assembly: InternalsVisibleTo("KP.GmailApi.UnitTests")]
 
-[assembly: AssemblyTitle("GmailApi")]
+[assembly: AssemblyTitle("KP.GmailApi")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("GmailApi")]
-[assembly: AssemblyCopyright("Copyright ©  2015")]
+[assembly: AssemblyProduct("KP.GmailApi")]
+[assembly: AssemblyCopyright("Copyright © 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

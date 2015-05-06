@@ -20,9 +20,9 @@
     </metadata>
 	
 	<files>
-		<file src="..\bin\Release\GmailApi.dll" target="lib\net45" />
-		<file src="..\bin\Release\GmailApi.pdb" target="lib\net45" />
-		<file src="..\bin\Release\GmailApi.XML" target="lib\net45" />
+		<file src="..\Src\KP.GmailApi\bin\Release\GmailApi.dll" target="lib\net45" />
+		<file src="..\Src\KP.GmailApi\bin\Release\GmailApi.pdb" target="lib\net45" />
+		<file src="..\Src\KP.GmailApi\bin\Release\GmailApi.XML" target="lib\net45" />
 		<file src="..\**\*.cs" target="src" />
 	</files>
 </package>

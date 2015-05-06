@@ -6,8 +6,8 @@
     <ProjectGuid>{D9FAEB49-831B-4714-86BA-9B9ECDA96DA2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UnitTests</RootNamespace>
-    <AssemblyName>UnitTests</AssemblyName>
+    <RootNamespace>KP.GmailApi.UnitTests</RootNamespace>
+    <AssemblyName>KP.GmailApi.UnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -95,9 +95,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GmailApi\GmailApi.csproj">
+    <ProjectReference Include="..\KP.GmailApi\KP.GmailApi.csproj">
       <Project>{ede3caba-6469-4ee3-b5f7-5ae7ba51e088}</Project>
-      <Name>GmailApi</Name>
+      <Name>KP.GmailApi</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
