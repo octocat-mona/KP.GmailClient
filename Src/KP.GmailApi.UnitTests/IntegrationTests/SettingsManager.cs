@@ -56,7 +56,7 @@ namespace UnitTests.IntegrationTests
                 : Environment.GetEnvironmentVariable(key);
 
             if (value == null)
-                throw new Exception(string.Concat("Key '", key, "' has not been configured"));
+                throw new Exception(string.Concat("Key '", key, "' has not been set in the ", UseConfig ? "config file." : "environment variables."));
 
             return value;
         }
