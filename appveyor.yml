@@ -1,0 +1,29 @@
+version: 0.1.{build}
+
+configuration:
+- Release
+- Debug
+
+platform: Any CPU
+
+environment:
+  ClientId:
+    secure: mX0vgGypLio11EWdGghxCQ6nKfTAM4yp/8aCBMMnPu4I4oeyFlE/OyEZG6KxZcuDnzQjsTuU/zzff3zAlJsghbS5ClIp4R2+SDlKrFBxPmU=
+  ClientSecret:
+    secure: gjqDtLvNh5T4/p5vQH81q3rU0ABb8K0Lj//qJZbmFpA=
+  EmailAddress: me
+  RefreshToken:
+    secure: ilHENwga6C9p6y8RUFjX+Tl6k0IZxmHc4jgSmTntPh+scHf3bR29JvILKVbeBwq3WKTqX3uuXb2F0/tif/kqGX2yrrHwYLz/fay/kONBpcM=
+
+before_build:
+- nuget restore Src\GmailApi.sln
+
+build:
+  publish_nuget: true
+  publish_nuget_symbols: true
+  verbosity: normal
+
+deploy:
+- provider: NuGet
+  api_key:
+    secure: L7Vp0jAqqqdmHdGulSr+S7Rc6GypRkYhns8GfUDRyBqvUSSUsGGVKy/9b3Er21JJ
