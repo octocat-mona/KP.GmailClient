@@ -23,7 +23,7 @@ environment:
     secure: ilHENwga6C9p6y8RUFjX+Tl6k0IZxmHc4jgSmTntPh+scHf3bR29JvILKVbeBwq3WKTqX3uuXb2F0/tif/kqGX2yrrHwYLz/fay/kONBpcM=
 
 before_build:
-- nuget restore Src\GmailApi.sln
+- nuget restore Src\KP.GmailApi.sln
 
 build:
   publish_nuget: true
