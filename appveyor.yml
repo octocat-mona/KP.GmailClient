@@ -6,6 +6,13 @@ configuration:
 
 platform: Any CPU
 
+assembly_info:
+  patch: true
+  file: '**\AssemblyInfo.*'
+  assembly_version: '{version}'
+  assembly_file_version: '{version}'
+  assembly_informational_version: '{version}'
+
 environment:
   ClientId:
     secure: mX0vgGypLio11EWdGghxCQ6nKfTAM4yp/8aCBMMnPu4I4oeyFlE/OyEZG6KxZcuDnzQjsTuU/zzff3zAlJsghbS5ClIp4R2+SDlKrFBxPmU=
