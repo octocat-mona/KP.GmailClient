@@ -5,9 +5,9 @@ using System.Runtime.InteropServices;
 [assembly: InternalsVisibleTo("KP.GmailApi.UnitTests")]
 
 [assembly: AssemblyTitle("KP.GmailApi")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("C# Gmail API client")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("KP")]
 [assembly: AssemblyProduct("KP.GmailApi")]
 [assembly: AssemblyCopyright("Copyright © 2015")]
 [assembly: AssemblyTrademark("")]

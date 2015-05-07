@@ -1,28 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
-        <id>KP.GmailApi</id>
-        <version>0.1.1</version>
-        <title>Gmail API client</title>
-        <authors>KP</authors>
-        <owners>KP</owners>
+		<id>$id$</id>
+		<version>$version$</version>
+		<title>$title$</title>
+		<authors>$author$</authors>
+		<owners>$author$</owners>
 		<licenseUrl>https://raw.githubusercontent.com/kpstolk/Gmail-Api/master/LICENSE.md</licenseUrl>
         <projectUrl>http://kpstolk.github.io/Gmail-Api/</projectUrl>
-		<iconUrl>http://icons.iconarchive.com/icons/dtafalonso/android-lollipop/32/Gmail-icon.png</iconUrl>
+		<!-- Icon thanks to Dtaf Alonso (http://dtafalonso.deviantart.com/) -->
+		<iconUrl>https://raw.githubusercontent.com/kpstolk/KP.GmailApi/master/Build/icon.png</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>C# Gmail API client</description>
-        <language>en-US</language>
+        <description>$description$</description>
 		<tags>gmail</tags>
-		
-		<dependencies>
-			<dependency id="Newtonsoft.Json" version="6.0.8" />
-		</dependencies>
     </metadata>
-	
-	<files>
-		<file src="..\Src\KP.GmailApi\bin\Release\GmailApi.dll" target="lib\net45" />
-		<file src="..\Src\KP.GmailApi\bin\Release\GmailApi.pdb" target="lib\net45" />
-		<file src="..\Src\KP.GmailApi\bin\Release\GmailApi.XML" target="lib\net45" />
-		<file src="..\**\*.cs" target="src" />
-	</files>
 </package>

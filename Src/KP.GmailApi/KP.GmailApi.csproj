@@ -31,9 +31,6 @@
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\KP.GmailApi.xml</DocumentationFile>
   </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationIcon>icon.ico</ApplicationIcon>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
       <HintPath>$(SolutionDir)packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -121,9 +118,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ModelExtensions\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
