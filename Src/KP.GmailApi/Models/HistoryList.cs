@@ -3,6 +3,9 @@ using Newtonsoft.Json;
 
 namespace KP.GmailApi.Models
 {
+    /// <summary>
+    /// Contains the history of added and deleted messages and labels.
+    /// </summary>
     public class HistoryList
     {
         public HistoryList()

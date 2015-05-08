@@ -3,8 +3,14 @@ using Newtonsoft.Json;
 
 namespace KP.GmailApi.Models
 {
+    /// <summary>
+    /// A collection of messages representing a conversation.
+    /// </summary>
     public class Thread
     {
+        /// <summary>
+        /// A collection of messages representing a conversation.
+        /// </summary>
         public Thread()
         {
             Id = string.Empty;

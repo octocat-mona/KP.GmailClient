@@ -4,8 +4,14 @@ using Newtonsoft.Json;
 
 namespace KP.GmailApi.Models
 {
+    /// <summary>
+    /// The parsed email structure in the message parts.
+    /// </summary>
     public class Payload : PayloadBase
     {
+        /// <summary>
+        /// The parsed email structure in the message parts.
+        /// </summary>
         public Payload()
         {
             Parts = new List<PayloadBase>(0);

@@ -4,12 +4,12 @@ using Newtonsoft.Json;
 namespace KP.GmailApi.Models
 {
     /// <summary>
-    /// Lists the drafts in the user's mailbox.
+    /// Contains a list of drafts.
     /// </summary>
     public class DraftList
     {
         /// <summary>
-        /// Lists the drafts in the user's mailbox.
+        /// Contains a list of drafts.
         /// </summary>
         public DraftList()
         {

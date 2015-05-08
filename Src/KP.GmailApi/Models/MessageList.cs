@@ -3,8 +3,14 @@ using Newtonsoft.Json;
 
 namespace KP.GmailApi.Models
 {
+    /// <summary>
+    /// Contains a list of messages.
+    /// </summary>
     public class MessageList
     {
+        /// <summary>
+        /// Contains a list of messages.
+        /// </summary>
         public MessageList()
         {
             Messages = new List<Message>(0);

@@ -38,7 +38,6 @@ namespace KP.GmailApi.Services
         public List<Label> List()
         {
             string queryString = new LabelQueryStringBuilder()
-                .SetFields(LabelFields.All)
                 .Build();
 
             return _client.Get<List<Label>>(queryString, new ParseOptions { Path = "labels" });

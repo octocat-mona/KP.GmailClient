@@ -15,6 +15,12 @@ namespace KP.GmailApi.Services
             _client = client;
         }
 
+        /// <summary>
+        /// Gets the specified message attachment.
+        /// </summary>
+        /// <param name="messageId">The ID of the message containing the attachment</param>
+        /// <param name="id">The ID of the attachment</param>
+        /// <returns></returns>
         public Attachment Get(string messageId, string id)
         {
             string queryString = new AttachmentQueryStringBuilder(messageId, id)

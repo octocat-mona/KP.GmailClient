@@ -3,8 +3,14 @@ using Newtonsoft.Json;
 
 namespace KP.GmailApi.Models
 {
+    /// <summary>
+    /// Contains a list of threads.
+    /// </summary>
     public class ThreadList
     {
+        /// <summary>
+        /// Contains a list of threads.
+        /// </summary>
         public ThreadList()
         {
             Threads = new List<Thread>(0);
