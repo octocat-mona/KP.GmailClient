@@ -1,8 +1,8 @@
-version: 0.1.{build}-beta
+version: 0.1.{build}-alpha
 
 configuration:
-- Release
 - Debug
+- Release
 
 platform: Any CPU
 
@@ -28,6 +28,7 @@ before_build:
 build:
   publish_nuget: true
   publish_nuget_symbols: true
+  parallel: true
   verbosity: normal
 
 deploy:
