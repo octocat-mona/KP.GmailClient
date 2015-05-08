@@ -4,7 +4,7 @@ using KP.GmailApi.Models;
 namespace KP.GmailApi.Services
 {
     /// <summary>
-    /// Contains all services provided by Gmail
+    /// Contains all services provided by Gmail.
     /// </summary>
     public class GmailService
     {
@@ -31,7 +31,11 @@ namespace KP.GmailApi.Services
         /// </summary>
         public HistoryService History { get; private set; }
 
-        internal GmailService(GmailClient client)
+        /// <summary>
+        /// Access to all Gmail services.
+        /// </summary>
+        /// <param name="client"></param>
+        public GmailService(GmailClient client)
         {
             _client = client;
 
