@@ -3,8 +3,14 @@ using Newtonsoft.Json;
 
 namespace KP.GmailApi.Models
 {
+    /// <summary>
+    /// Lists the drafts in the user's mailbox.
+    /// </summary>
     public class DraftList
     {
+        /// <summary>
+        /// Lists the drafts in the user's mailbox.
+        /// </summary>
         public DraftList()
         {
             Drafts = new List<Draft>(0);

@@ -2,6 +2,9 @@
 
 namespace KP.GmailApi.Models
 {
+    /// <summary>
+    /// A draft email in the user's mailbox.
+    /// </summary>
     public class Draft
     {
         /// <summary>

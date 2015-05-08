@@ -74,7 +74,7 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="GmailClient.cs" />
     <Compile Include="Models\Attachment.cs" />
-    <Compile Include="Models\Error.cs" />
+    <Compile Include="Models\GmailError.cs" />
     <Compile Include="Models\Header.cs" />
     <Compile Include="Models\HeaderName.cs" />
     <Compile Include="Models\Label.cs" />
@@ -90,7 +90,7 @@
     <Compile Include="Models\Oauth2Token.cs" />
     <Compile Include="Models\Payload.cs" />
     <Compile Include="Models\PayloadBase.cs" />
-    <Compile Include="Models\ErrorResponse.cs" />
+    <Compile Include="Models\GmailErrorResponse.cs" />
     <Compile Include="Models\Thread.cs" />
     <Compile Include="ParseOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

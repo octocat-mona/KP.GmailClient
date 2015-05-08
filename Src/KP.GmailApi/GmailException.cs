@@ -17,16 +17,16 @@ namespace KP.GmailApi
         /// <summary>
         /// The errors returned by Gmail if any
         /// </summary>
-        public List<Error> Errors { get; private set; }
+        public List<GmailError> Errors { get; private set; }
 
-        internal GmailException(ErrorResponse errorResponse, Exception innerException)
+        internal GmailException(GmailErrorResponse errorResponse, Exception innerException)
             : base(ConstructMessage(errorResponse), innerException)
         {
             StatusCode = (HttpStatusCode)errorResponse.Code;
             Errors = errorResponse.Errors;
         }
 
-        internal GmailException(ErrorResponse errorResponse)
+        internal GmailException(GmailErrorResponse errorResponse)
             : this(errorResponse, null)
         {
         }
@@ -41,7 +41,7 @@ namespace KP.GmailApi
         {
         }
 
-        private static string ConstructMessage(ErrorResponse errorResponse)
+        private static string ConstructMessage(GmailErrorResponse errorResponse)
         {
             return string.Concat(errorResponse.Code, ": ", errorResponse.Message);
         }

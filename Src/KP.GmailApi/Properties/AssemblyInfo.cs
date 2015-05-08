@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 [assembly: InternalsVisibleTo("KP.GmailApi.UnitTests")]
 
 [assembly: AssemblyTitle("GmailApi - A Gmail client library")]
-[assembly: AssemblyDescription("Gmail API client")]
+[assembly: AssemblyDescription("A Gmail API client library.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("KP")]
 [assembly: AssemblyProduct("KP.GmailApi")]
@@ -21,15 +21,5 @@ using System.Runtime.InteropServices;
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("8802740d-b05f-46bd-8de8-6011273093f4")]
 
-// Version information for an assembly consists of the following four values:
-//
-//      Major Version
-//      Minor Version 
-//      Build Number
-//      Revision
-//
-// You can specify all the values or you can default the Build and Revision Numbers 
-// by using the '*' as shown below:
-// [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("0.1.0.0")]
 [assembly: AssemblyFileVersion("0.1.0.0")]

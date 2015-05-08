@@ -6,7 +6,7 @@ git<?xml version="1.0" encoding="utf-8"?>
 		<title>$title$</title>
 		<authors>$author$</authors>
 		<owners>$author$</owners>
-		<licenseUrl>https://raw.githubusercontent.com/kpstolk/Gmail-Api/master/LICENSE.md</licenseUrl>
+		<licenseUrl>https://raw.githubusercontent.com/kpstolk/KP.GmailApi/master/LICENSE.md</licenseUrl>
         <projectUrl>https://github.com/kpstolk/KP.GmailApi</projectUrl>
 		<!-- Icon thanks to Dtaf Alonso (http://dtafalonso.deviantart.com/) -->
 		<iconUrl>https://raw.githubusercontent.com/kpstolk/KP.GmailApi/master/Build/icon.png</iconUrl>

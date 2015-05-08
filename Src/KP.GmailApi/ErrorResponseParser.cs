@@ -16,7 +16,7 @@ namespace KP.GmailApi
             if (!jObject.IsValid(JsonSchema) || errorContent == null)
                 return new GmailException(statusCode, content);
 
-            ErrorResponse errorResponse = errorContent.ToObject<ErrorResponse>();
+            GmailErrorResponse errorResponse = errorContent.ToObject<GmailErrorResponse>();
             return new GmailException(errorResponse);
         }
 

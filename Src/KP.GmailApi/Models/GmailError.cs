@@ -2,9 +2,15 @@
 
 namespace KP.GmailApi.Models
 {
-    public class Error
+    /// <summary>
+    /// The details of a single error returned by Gmail.
+    /// </summary>
+    public class GmailError
     {
-        public Error()
+        /// <summary>
+        /// The details of a single error returned by Gmail.
+        /// </summary>
+        public GmailError()
         {
             Domain = string.Empty;
             Reason = string.Empty;
@@ -19,6 +25,9 @@ namespace KP.GmailApi.Models
         [JsonProperty("reason")]
         public string Reason { get; set; }
 
+        /// <summary>
+        /// The  message of the error.
+        /// </summary>
         [JsonProperty("message")]
         public string Message { get; set; }
 
@@ -29,7 +38,7 @@ namespace KP.GmailApi.Models
         public string LocationType { get; set; }
 
         /// <summary>
-        /// A string with the values of the properties from this <see cref="Error"/>
+        /// A string with the values of the properties from this <see cref="GmailError"/>
         /// </summary>
         /// <returns>A string</returns>
         public override string ToString()
