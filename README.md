@@ -9,7 +9,7 @@ An alternative library of the Gmail API NuGet package.
 ``` csharp
 // Client ID and secret of your project,
 // see the Dev Console (https://console.developers.google.com/project)
-var tokenHelper = new TokenAccessHelper(TokenManager.AuthorizationServerUrl, "clientId", "clientSecret");
+var tokenHelper = new TokenAccessHelper("clientId", "clientSecret");
 
 // Get a refresh token, launches a browser for user interaction:
 string authCode = tokenHelper.GetAuthorizationCode();
