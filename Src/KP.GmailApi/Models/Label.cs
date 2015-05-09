@@ -126,6 +126,18 @@ namespace KP.GmailApi.Models
         public int ThreadsUnread { get; set; }
 
         /// <summary>
+        /// If the <see cref="Label"/> is a system label.
+        /// </summary>
+        [JsonIgnore]
+        public bool IsSystemLabel { get { return Type == LabelType.System; } }
+
+        /// <summary>
+        /// If the <see cref="Label"/> is a user defined label.
+        /// </summary>
+        [JsonIgnore]
+        public bool IsUserLabel { get { return Type == LabelType.User; } }
+
+        /// <summary>
         /// A string with the values of the properties from this <see cref="Label"/>
         /// </summary>
         /// <returns>A string</returns>

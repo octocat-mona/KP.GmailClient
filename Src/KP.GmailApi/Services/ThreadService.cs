@@ -1,5 +1,4 @@
-﻿using System;
-using KP.GmailApi.Builders;
+﻿using KP.GmailApi.Builders;
 using KP.GmailApi.DTO;
 using KP.GmailApi.Models;
 
@@ -71,28 +70,44 @@ namespace KP.GmailApi.Services
         /// <summary>
         /// Modifies the labels applied to the thread. This applies to all messages in the thread.
         /// </summary>
+        /// <param name="id">The ID of the thread to modify</param>
+        /// <param name="input">The input to modify a thread</param>
         /// <returns></returns>
-        public Thread Modify()
+        public Thread Modify(string id, ModifyThreadInput input)
         {
-            throw new NotImplementedException();
+            string queryString = new ThreadQueryStringBuilder()
+                .SetRequestAction(ThreadRequestAction.Modify, id)
+                .Build();
+
+            return _client.Post<Thread>(queryString, input);
         }
 
         /// <summary>
         /// Moves the specified thread to the trash.
         /// </summary>
+        /// <param name="id">The ID of the thread to Trash</param>
         /// <returns></returns>
-        public Thread Trash()
+        public Thread Trash(string id)
         {
-            throw new NotImplementedException();
+            string queryString = new ThreadQueryStringBuilder()
+                .SetRequestAction(ThreadRequestAction.Trash, id)
+                .Build();
+
+            return _client.Post<Thread>(queryString);
         }
 
         /// <summary>
         /// Removes the specified thread from the trash.
         /// </summary>
+        /// <param name="id">The ID of the thread to remove from Trash</param>
         /// <returns></returns>
-        public Thread Untrash()
+        public Thread Untrash(string id)
         {
-            throw new NotImplementedException();
+            string queryString = new ThreadQueryStringBuilder()
+                .SetRequestAction(ThreadRequestAction.Untrash, id)
+                .Build();
+
+            return _client.Post<Thread>(queryString);
         }
     }
 }

@@ -84,6 +84,7 @@
     <Compile Include="DTO\MessageFormat.cs" />
     <Compile Include="Models\DraftList.cs" />
     <Compile Include="Models\HistoryList.cs" />
+    <Compile Include="Models\ModifyThreadInput.cs" />
     <Compile Include="Models\ThreadList .cs" />
     <Compile Include="Models\MessageList.cs" />
     <Compile Include="Models\MessageListVisibility.cs" />

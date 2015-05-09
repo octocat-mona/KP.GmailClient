@@ -22,6 +22,5 @@ namespace KP.GmailApi.ServiceExtensions
                 .Where(l => l.Type == type)
                 .ToList();
         }
-
     }
 }
