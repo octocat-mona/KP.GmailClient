@@ -9,6 +9,9 @@ using Newtonsoft.Json;
 
 namespace KP.GmailApi
 {
+    /// <summary>
+    /// A manager which retrieves and stores a token of a client ID.
+    /// </summary>
     public class TokenManager
     {
         /// <summary>
@@ -22,6 +25,11 @@ namespace KP.GmailApi
         private readonly string _tokenFile;
         private Oauth2Token _token;
 
+        /// <summary>
+        /// A manager which retrieves and stores a token of a client ID.
+        /// </summary>
+        /// <param name="clientId"></param>
+        /// <param name="clientSecret"></param>
         public TokenManager(string clientId, string clientSecret)
         {
             if (string.IsNullOrWhiteSpace(clientId))

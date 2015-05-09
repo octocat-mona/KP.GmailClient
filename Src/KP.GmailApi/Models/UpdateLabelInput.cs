@@ -8,7 +8,7 @@ namespace KP.GmailApi.Models
     public class UpdateLabelInput
     {
         /// <summary>
-        /// 
+        /// The input required to update a label.
         /// </summary>
         /// <param name="id">The ID of the label to update</param>
         public UpdateLabelInput(string id)

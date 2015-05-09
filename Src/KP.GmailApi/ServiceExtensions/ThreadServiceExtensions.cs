@@ -6,7 +6,7 @@ using KP.GmailApi.Services;
 namespace KP.GmailApi.ServiceExtensions
 {
     /// <summary>
-    /// Extensions for <see cref="ThreadService"/>
+    /// Extensions for <see cref="ThreadService"/>.
     /// </summary>
     public static class ThreadServiceExtensions
     {

@@ -8,7 +8,7 @@ namespace KP.GmailApi.Models
     public class CreateLabelInput
     {
         /// <summary>
-        /// 
+        /// The input required to create a label.
         /// </summary>
         /// <param name="name">The display name of the label</param>
         public CreateLabelInput(string name)

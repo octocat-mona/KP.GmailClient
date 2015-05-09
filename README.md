@@ -13,11 +13,11 @@ var tokenHelper = new TokenAccessHelper(TokenManager.AuthorizationServerUrl, "cl
 
 // Get a refresh token, launches a browser for user interaction:
 string authCode = tokenHelper.GetAuthorizationCode();
-Oauth2Token oauth2Token = tokenHelper.GetToken(authCode);
+string refreshToken = tokenHelper.GetRefreshToken(authCode);
 
 // First time required only
 TokenManager tokenManager = new TokenManager("clientId", "clientSecret");
-tokenManager.Setup(oauth2Token.RefreshToken, false);
+tokenManager.Setup(refreshToken, false);
 
 // Setup
 GmailClient client = new GmailClient("me", tokenManager);

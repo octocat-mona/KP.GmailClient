@@ -43,7 +43,7 @@ namespace KP.GmailApi.Models
         /// <summary>
         /// Category labels
         /// </summary>
-        public static class Category
+        public struct Category
         {
             /// <summary>
             /// Updates category label

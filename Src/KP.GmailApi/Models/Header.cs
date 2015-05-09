@@ -39,6 +39,7 @@ namespace KP.GmailApi.Models
         /// <summary>
         /// Get the Internet Message Format (IMF) header if valid.
         /// </summary>
+        [JsonIgnore]
         public HeaderName ImfHeader
         {
             get

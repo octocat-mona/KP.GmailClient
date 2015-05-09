@@ -53,44 +53,12 @@ namespace KP.GmailApi.Models
         public Attachment Body { get; set; }
 
         /// <summary>
-        /// Get the MIME type of this payload
-        /// </summary>
-        /// <returns>The MIME type or Unknown</returns>
-        public MimeType GetMimeType()
-        {
-            switch (MimeType)
-            {
-                case "text/plain":
-                    return Models.MimeType.TextPlain;
-                case "text/html":
-                    return Models.MimeType.TextHtml;
-                default:
-                    return Models.MimeType.Unknown;
-            }
-        }
-
-        /// <summary>
         /// Get the extension ('X-') headers
         /// </summary>
+        [JsonIgnore]
         public IEnumerable<Header> XHeaders
         {
             get { return Headers.Where(h => h.IsExtensionHeader); }
-        }
-
-        public Header GetHeader(HeaderName headerName)
-        {
-            return Headers
-                .Except(XHeaders)
-                .FirstOrDefault(h => h.ImfHeader == headerName);
-        }
-
-        public string GetHeaderValue(HeaderName headerName)
-        {
-            Header header = GetHeader(headerName);
-
-            return header == null
-                ? string.Empty
-                : header.Value;
         }
 
         /// <summary>

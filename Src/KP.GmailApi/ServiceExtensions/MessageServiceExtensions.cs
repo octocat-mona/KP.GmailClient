@@ -6,7 +6,7 @@ using KP.GmailApi.Services;
 namespace KP.GmailApi.ServiceExtensions
 {
     /// <summary>
-    /// Extensions for <see cref="MessageService"/>
+    /// Extensions for <see cref="MessageService"/>.
     /// </summary>
     public static class MessageServiceExtensions
     {

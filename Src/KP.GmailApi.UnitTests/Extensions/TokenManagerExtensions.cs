@@ -5,7 +5,7 @@ using KP.GmailApi.Models;
 
 namespace KP.GmailApi.UnitTests.Extensions
 {
-    public static class TokenManagerExtensions
+    internal static class TokenManagerExtensions
     {
         public static Oauth2Token Token(this TokenManager tokenManager)
         {

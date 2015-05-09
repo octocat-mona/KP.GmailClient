@@ -8,6 +8,9 @@ namespace KP.GmailApi.Models
     /// </summary>
     public class HistoryList
     {
+        /// <summary>
+        /// Contains the history of added and deleted messages and labels.
+        /// </summary>
         public HistoryList()
         {
             Messages = new List<Message>(0);

@@ -65,6 +65,7 @@
     <Compile Include="DTO\LabelRequestAction.cs" />
     <Compile Include="DTO\UploadType.cs" />
     <Compile Include="GmailException.cs" />
+    <Compile Include="ModelExtensions\PayloadExtensions.cs" />
     <Compile Include="Models\CreateLabelInput.cs" />
     <Compile Include="Models\Draft.cs" />
     <Compile Include="Models\LabelFields.cs" />
@@ -116,9 +117,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ModelExtensions\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

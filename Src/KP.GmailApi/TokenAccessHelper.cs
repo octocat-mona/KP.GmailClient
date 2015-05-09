@@ -21,12 +21,11 @@ namespace KP.GmailApi
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="authorizationServerUrl"></param>
         /// <param name="clientId"></param>
         /// <param name="clientSecret"></param>
-        public TokenAccessHelper(string authorizationServerUrl, string clientId, string clientSecret)
+        public TokenAccessHelper(string clientId, string clientSecret)
         {
-            _authorizationServerUrl = authorizationServerUrl;
+            _authorizationServerUrl = TokenManager.AuthorizationServerUrl;
             _clientId = clientId;
             _clientSecret = clientSecret;
         }
@@ -73,7 +72,12 @@ namespace KP.GmailApi
             return code;
         }
 
-        public Oauth2Token GetToken(string authorizationCode)
+        /// <summary>
+        /// Exchange the authorization code into a refresh token.
+        /// </summary>
+        /// <param name="authorizationCode"></param>
+        /// <returns>A refresh token</returns>
+        public string GetRefreshToken(string authorizationCode)
         {
             string content = string.Concat(
                 "code=", HttpUtility.UrlEncode(authorizationCode),
@@ -92,7 +96,7 @@ namespace KP.GmailApi
 
             result.EnsureSuccessStatusCode();
 
-            return JsonConvert.DeserializeObject<Oauth2Token>(json);
+            return JsonConvert.DeserializeObject<Oauth2Token>(json).RefreshToken;
         }
     }
 }

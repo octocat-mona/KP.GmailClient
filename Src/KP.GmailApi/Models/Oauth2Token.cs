@@ -6,7 +6,7 @@ namespace KP.GmailApi.Models
     /// <summary>
     /// An OAuth 2.0 token.
     /// </summary>
-    public class Oauth2Token
+    internal class Oauth2Token
     {
         /// <summary>
         /// A string representing an authorization issued to the client.
