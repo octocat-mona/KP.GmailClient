@@ -12,6 +12,9 @@ namespace KP.GmailApi.Services
     {
         private readonly GmailClient _client;
 
+        /// <summary>
+        /// Service for getting email attachments.
+        /// </summary>
         public AttachmentService Attachments { get; set; }
 
         internal MessageService(GmailClient client)

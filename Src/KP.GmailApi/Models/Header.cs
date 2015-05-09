@@ -3,8 +3,14 @@ using Newtonsoft.Json;
 
 namespace KP.GmailApi.Models
 {
+    /// <summary>
+    /// A header containing a name and a value. 
+    /// </summary>
     public class Header
     {
+        /// <summary>
+        /// A header containing a name and a value. 
+        /// </summary>
         public Header()
         {
             Value = string.Empty;

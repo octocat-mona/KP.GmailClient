@@ -4,7 +4,7 @@ using KP.GmailApi.Models;
 namespace KP.GmailApi.Services
 {
     /// <summary>
-    /// Service for getting email attachments
+    /// Service for getting email attachments.
     /// </summary>
     public class AttachmentService
     {
