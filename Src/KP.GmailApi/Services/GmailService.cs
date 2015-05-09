@@ -34,16 +34,16 @@ namespace KP.GmailApi.Services
         /// <summary>
         /// Access to all Gmail services.
         /// </summary>
-        /// <param name="client"></param>
-        public GmailService(GmailClient client)
+        /// <param name="tokenManager"></param>
+        public GmailService(TokenManager tokenManager)
         {
-            _client = client;
+            _client = new GmailClient(tokenManager);
 
-            Messages = new MessageService(client);
-            Drafts = new DraftService(client);
-            Labels = new LabelService(client);
-            Threads = new ThreadService(client);
-            History = new HistoryService(client);
+            Messages = new MessageService(_client);
+            Drafts = new DraftService(_client);
+            Labels = new LabelService(_client);
+            Threads = new ThreadService(_client);
+            History = new HistoryService(_client);
         }
 
         /// <summary>

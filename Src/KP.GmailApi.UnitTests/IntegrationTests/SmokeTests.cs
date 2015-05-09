@@ -10,7 +10,7 @@ namespace KP.GmailApi.UnitTests.IntegrationTests
             // Assert
             SettingsManager.GetClientId();
             SettingsManager.GetClientSecret();
-            SettingsManager.GetEmailAddress();
+            //SettingsManager.GetEmailAddress();
             SettingsManager.GetRefreshToken();
         }
     }

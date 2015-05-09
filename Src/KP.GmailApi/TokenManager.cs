@@ -28,8 +28,8 @@ namespace KP.GmailApi
         /// <summary>
         /// A manager which retrieves and stores a token of a client ID.
         /// </summary>
-        /// <param name="clientId"></param>
-        /// <param name="clientSecret"></param>
+        /// <param name="clientId">The client ID of your project listed in the Google Developer Console</param>
+        /// <param name="clientSecret">The client secret of your project listed in the Google Developer Console</param>
         public TokenManager(string clientId, string clientSecret)
         {
             if (string.IsNullOrWhiteSpace(clientId))

@@ -4,7 +4,7 @@ using KP.GmailApi.UnitTests.Extensions;
 
 namespace KP.GmailApi.UnitTests.IntegrationTests
 {
-    public class SettingsManager
+    internal class SettingsManager
     {
         private static readonly bool UseConfig;
 
@@ -23,10 +23,10 @@ namespace KP.GmailApi.UnitTests.IntegrationTests
             return GetSetting("ClientSecret");
         }
 
-        public static string GetEmailAddress()
+        /*public static string GetEmailAddress()
         {
             return GetSetting("EmailAddress");
-        }
+        }*/
 
         public static string GetRefreshToken()
         {
@@ -35,7 +35,7 @@ namespace KP.GmailApi.UnitTests.IntegrationTests
 
         public static GmailClient GetGmailClient()
         {
-            string emailAddress = GetEmailAddress();
+            //string emailAddress = GetEmailAddress();
             string clientId = GetClientId();
             string clientSecret = GetClientSecret();
             string refreshToken = GetRefreshToken();
@@ -44,7 +44,7 @@ namespace KP.GmailApi.UnitTests.IntegrationTests
             tokenManager.DeleteFolder();
             tokenManager.Setup(refreshToken, false);
 
-            return new GmailClient(emailAddress, tokenManager);
+            return new GmailClient(tokenManager);
         }
 
         private static string GetSetting(string key)

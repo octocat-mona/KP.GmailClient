@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Net.Http;
 using System.Text;
-using System.Web;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
@@ -11,7 +10,7 @@ namespace KP.GmailApi
     /// <summary>
     /// Handles requests to the Gmail service and parses the response.
     /// </summary>
-    public class GmailClient
+    internal class GmailClient
     {
         /// <summary>
         /// The URL to send requests to the Gmail API service
@@ -26,15 +25,13 @@ namespace KP.GmailApi
         private readonly TokenManager _tokenManager;
         private readonly Uri _baseAddress;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="userId">The user's email address. The special value 'me' can be used to indicate the authenticated user.</param>
-        /// <param name="tokenManager"></param>
-        public GmailClient(string userId, TokenManager tokenManager)
+        internal GmailClient(TokenManager tokenManager)
         {
-            userId = HttpUtility.UrlEncode(userId);
-            _baseAddress = new Uri(string.Concat(ApiBaseUrl, userId, "/"));
+            // user ID:
+            //The user's email address. The special value 'me' can be used to indicate the authenticated user.
+            //userId = HttpUtility.UrlEncode(userId);
+
+            _baseAddress = new Uri(string.Concat(ApiBaseUrl, "me/"));// for personal accounts no other value than 'me' can be used?!
             _tokenManager = tokenManager;
 
             // Set default (de)serializing for enums
