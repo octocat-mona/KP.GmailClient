@@ -6,13 +6,13 @@ IF NOT DEFINED NugetApiKey (
 )
 
 ECHO Creating Nuget package(s).
-nuget pack ..\Src\KP.GmailApi\KP.GmailApi.csproj -Prop Configuration=Release -Symbols -NonInteractive
+nuget pack %~dp0..\Src\KP.GmailApi\KP.GmailApi.csproj -Prop Configuration=Release -Symbols -NonInteractive -OutputDirectory %~dp0
 
 ECHO Setting Nuget API key.
 nuget setApiKey -Verbosity quiet -NonInteractive %NugetApiKey%
 
 ECHO Publishing to Nuget / SymbolSource.
-nuget push KP.GmailApi.*.nupkg
+nuget push %~dp0KP.GmailApi.*.nupkg
 
 ECHO done.
 @ECHO on
