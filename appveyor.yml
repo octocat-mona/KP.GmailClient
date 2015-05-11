@@ -20,17 +20,15 @@ environment:
   EmailAddress: me
   RefreshToken:
     secure: ilHENwga6C9p6y8RUFjX+Tl6k0IZxmHc4jgSmTntPh+scHf3bR29JvILKVbeBwq3WKTqX3uuXb2F0/tif/kqGX2yrrHwYLz/fay/kONBpcM=
+  NugetApiKey:
+    secure: L7Vp0jAqqqdmHdGulSr+S7Rc6GypRkYhns8GfUDRyBqvUSSUsGGVKy/9b3Er21JJ
 
 before_build:
 - nuget restore Src\KP.GmailApi.sln
 
 build:
-  publish_nuget: true
-  publish_nuget_symbols: true
   parallel: true
   verbosity: normal
 
-deploy:
-- provider: NuGet
-  api_key:
-    secure: L7Vp0jAqqqdmHdGulSr+S7Rc6GypRkYhns8GfUDRyBqvUSSUsGGVKy/9b3Er21JJ
+deploy_script:
+- Build\Build.cmd
