@@ -32,4 +32,4 @@ build:
   verbosity: normal
 
 deploy_script:
-- ps: Build\Build.ps1 -configMode $Env:CONFIGURATION -cloneDir $Env:APPVEYOR_BUILD_FOLDER -apiKey $Env:NugetApiKey
+- ps: Build\Build.ps1 -configMode $Env:CONFIGURATION -cloneDir $Env:APPVEYOR_BUILD_FOLDER -nugetApiKey $Env:NugetApiKey
