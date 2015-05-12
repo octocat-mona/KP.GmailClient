@@ -22,7 +22,7 @@ environment:
   RefreshToken:
     secure: ilHENwga6C9p6y8RUFjX+Tl6k0IZxmHc4jgSmTntPh+scHf3bR29JvILKVbeBwq3WKTqX3uuXb2F0/tif/kqGX2yrrHwYLz/fay/kONBpcM=
   NugetApiKey:
-    secure: L7Vp0jAqqqdmHdGulSr+S7Rc6GypRkYhns8GfUDRyBqvUSSUsGGVKy/9b3Er21JJ
+    secure: LYPcgM4sbx22im3DfA29YA==
 
 before_build:
 - nuget restore Src\KP.GmailApi.sln
@@ -32,4 +32,4 @@ build:
   verbosity: normal
 
 deploy_script:
-- Build\Build.cmd
+- Build\Build.ps1 -configMode $Env:CONFIGURATION -cloneDir $Env:APPVEYOR_BUILD_FOLDER -apiKey $Env:NugetApiKey
