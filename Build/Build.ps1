@@ -10,7 +10,7 @@ Param(
 
 [Parameter(Mandatory=$true)]
 [ValidateNotNullOrEmpty()]
-[String]$apiKey
+[String]$nugetApiKey
 )
 
 # Abort when an error occurs
@@ -30,10 +30,10 @@ if (-Not (Test-Path $cloneDir))
 cd $cloneDir
 
 "Creating Nuget package(s)."
-nuget pack $scriptRoot\..\Src\KP.GmailApi\KP.GmailApi.csproj -Properties "Configuration=Release;Platform=AnyCPU" -Symbols -NonInteractive -OutputDirectory $scriptRoot -Verbosity detailed
+nuget pack $scriptRoot\..\Src\KP.GmailApi\KP.GmailApi.csproj -Properties "Configuration=Release;Platform=AnyCPU" -Symbols -NonInteractive -OutputDirectory $scriptRoot
 
 "Setting Nuget API key."
-nuget setApiKey -Verbosity quiet -NonInteractive %NugetApiKey%
+nuget setApiKey -Verbosity quiet -NonInteractive $nugetApiKey
 
 "Publishing to Nuget / SymbolSource."
 nuget push $scriptRoot\KP.GmailApi.*.nupkg
