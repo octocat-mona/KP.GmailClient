@@ -3,7 +3,7 @@ An alternative library of the Gmail API NuGet package.
 
 [![Build Status](https://travis-ci.org/kpstolk/KP.GmailApi.svg?branch=master)](https://travis-ci.org/kpstolk/KP.GmailApi)
 [![Build status](https://ci.appveyor.com/api/projects/status/tqv09fs3fo9a37t0?svg=true)](https://ci.appveyor.com/project/kpstolk/gmail-api)
-
+[![Coverage Status](https://coveralls.io/repos/kpstolk/KP.GmailApi/badge.svg)](https://coveralls.io/r/kpstolk/KP.GmailApi)
 
 ## Setup
 ``` csharp
