@@ -30,7 +30,7 @@ if (-Not (Test-Path $cloneDir))
 cd $cloneDir
 
 "Creating Nuget package(s)."
-nuget pack $scriptRoot\..\Src\KP.GmailApi\KP.GmailApi.csproj -Properties "Configuration=Release;Platform=AnyCPU" -Symbols -NonInteractive -OutputDirectory $scriptRoot
+nuget pack $scriptRoot\..\Src\KP.GmailApi\KP.GmailApi.csproj -Properties "Configuration=Release;Platform=AnyCPU" -NonInteractive -OutputDirectory $scriptRoot # -Symbols
 
 "Setting Nuget API key."
 nuget setApiKey -Verbosity quiet -NonInteractive $nugetApiKey
