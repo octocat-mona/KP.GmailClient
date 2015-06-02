@@ -96,8 +96,8 @@ namespace KP.GmailApi
         private string GetResponse(string httpMethod, string queryString, object content = null)
         {
             HttpContent httpContent = content == null
-               ? null
-               : new StringContent(JsonConvert.SerializeObject(content), Encoding.UTF8, "application/json");
+                ? null
+                : new StringContent(JsonConvert.SerializeObject(content), Encoding.UTF8, "application/json");
 
             var request = new HttpRequestMessage(new HttpMethod(httpMethod), queryString)
             {

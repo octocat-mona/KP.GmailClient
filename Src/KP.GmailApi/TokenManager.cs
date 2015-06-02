@@ -102,10 +102,10 @@ namespace KP.GmailApi
         }
 
         /// <summary>
-        /// Set the refresh token. This is only required for the first request.
+        /// Set the refresh token. This is only required once.
         /// </summary>
-        /// <param name="refreshToken"></param>
-        /// <param name="force"></param>
+        /// <param name="refreshToken">A refresh token</param>
+        /// <param name="force">True to overwrite an existing refresh token</param>
         public void Setup(string refreshToken, bool force)
         {
             if (!force && File.Exists(_tokenFile))

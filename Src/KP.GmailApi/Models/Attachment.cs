@@ -34,7 +34,7 @@ namespace KP.GmailApi.Models
         /// An attachment ID is present if the body data is contained in a separate attachment.
         /// </summary>
         [JsonProperty("data")]
-        public string Data { get; internal set; }
+        public string Data { get; private set; }
 
         /// <summary>
         /// Get / set the <see cref="Data"/> Base64 URL decoded.
