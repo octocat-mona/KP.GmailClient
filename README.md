@@ -7,7 +7,7 @@ An alternative library of the Gmail API NuGet package.
 
 ## Setup
 ``` csharp
-TokenManager tokenManager = new TokenManager(clientId, clientSecret);
+var tokenManager = new OAuth2TokenManager(clientId, clientSecret);
 // Provide a refresh token (required once)
 if (!tokenManager.HasTokenSetup())
 {
