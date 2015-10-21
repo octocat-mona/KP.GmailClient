@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using FluentAssertions;
+using KP.GmailApi.Common;
 using KP.GmailApi.Services;
 
 namespace KP.GmailApi.UnitTests.IntegrationTests.HistoryServiceTests

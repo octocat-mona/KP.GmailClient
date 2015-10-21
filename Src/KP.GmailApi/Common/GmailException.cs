@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using KP.GmailApi.Models;
 
-namespace KP.GmailApi
+namespace KP.GmailApi.Common
 {
     /// <summary>
     /// An error from the Gmail API service

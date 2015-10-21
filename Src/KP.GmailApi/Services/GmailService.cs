@@ -1,4 +1,5 @@
 ﻿using KP.GmailApi.Builders;
+using KP.GmailApi.Managers;
 using KP.GmailApi.Models;
 
 namespace KP.GmailApi.Services
@@ -35,7 +36,7 @@ namespace KP.GmailApi.Services
         /// Access to all Gmail services.
         /// </summary>
         /// <param name="tokenManager"></param>
-        public GmailService(TokenManager tokenManager)
+        public GmailService(OAuth2TokenManager tokenManager)
         {
             _client = new GmailClient(tokenManager);
 

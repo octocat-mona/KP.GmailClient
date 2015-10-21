@@ -1,4 +1,4 @@
-﻿namespace KP.GmailApi.DTO
+﻿namespace KP.GmailApi.Common.Enums
 {
     internal enum Format
     {

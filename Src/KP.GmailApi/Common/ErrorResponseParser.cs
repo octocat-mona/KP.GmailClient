@@ -3,10 +3,16 @@ using KP.GmailApi.Models;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
 
-namespace KP.GmailApi
+namespace KP.GmailApi.Common
 {
     internal class ErrorResponseParser
     {
+        /// <summary>
+        /// Parses the <paramref name="content"/> to an Gmail API error response.
+        /// </summary>
+        /// <param name="statusCode"></param>
+        /// <param name="content"></param>
+        /// <returns></returns>
         public static GmailException Parse(HttpStatusCode statusCode, string content)
         {
             JObject jObject = JObject.Parse(content);

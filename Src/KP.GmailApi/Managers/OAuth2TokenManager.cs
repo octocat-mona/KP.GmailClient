@@ -4,33 +4,34 @@ using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web;
+using KP.GmailApi.Common;
 using KP.GmailApi.Models;
 using Newtonsoft.Json;
 
-namespace KP.GmailApi
+namespace KP.GmailApi.Managers
 {
     /// <summary>
     /// A manager which retrieves and stores a token of a client ID.
     /// </summary>
-    public class TokenManager
+    public class OAuth2TokenManager
     {
         /// <summary>
         /// The Google Authorization server URL used to authenticate.
         /// </summary>
         public const string AuthorizationServerUrl = "https://www.googleapis.com/oauth2/v3/token";// "https://accounts.google.com/o/oauth2/token";
 
-        private static readonly ConcurrentDictionary<string, Oauth2Token> Tokens = new ConcurrentDictionary<string, Oauth2Token>();
+        private static readonly ConcurrentDictionary<string, OAuth2Token> Tokens = new ConcurrentDictionary<string, OAuth2Token>();
         private readonly string _clientId;
         private readonly string _clientSecret;
         private readonly string _tokenFile;
-        private Oauth2Token _token;
+        private OAuth2Token _token;
 
         /// <summary>
         /// A manager which retrieves and stores a token of a client ID.
         /// </summary>
         /// <param name="clientId">The client ID of your project listed in the Google Developer Console</param>
         /// <param name="clientSecret">The client secret of your project listed in the Google Developer Console</param>
-        public TokenManager(string clientId, string clientSecret)
+        public OAuth2TokenManager(string clientId, string clientSecret)
         {
             if (string.IsNullOrWhiteSpace(clientId))
                 throw new ArgumentNullException("clientId");
@@ -41,7 +42,7 @@ namespace KP.GmailApi
             string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
             _tokenFile = Path.Combine(appData, "GmailService\\", clientId.GetValidFilename() + ".json");
-            _token = Tokens.GetOrAdd(_tokenFile, new Oauth2Token());
+            _token = Tokens.GetOrAdd(_tokenFile, new OAuth2Token());
         }
 
         /// <summary>
@@ -55,13 +56,14 @@ namespace KP.GmailApi
                 if (_token.RefreshToken == null)
                 {
                     string jsonText = File.ReadAllText(_tokenFile);
-                    _token = JsonConvert.DeserializeObject<Oauth2Token>(jsonText);
+                    _token = JsonConvert.DeserializeObject<OAuth2Token>(jsonText);
                 }
 
-                // Check if token is still valid
+                // Check if access token is still valid
                 if (DateTime.UtcNow < _token.ExpirationDate)
                     return _token.AccessToken;
 
+                // Access token not valid (anymore), request new one
                 const string url = AuthorizationServerUrl;
                 string content = string.Concat(
                     "refresh_token=", HttpUtility.UrlEncode(_token.RefreshToken),
@@ -80,7 +82,7 @@ namespace KP.GmailApi
                 result.EnsureSuccessStatusCode();
 
                 string currentRefreshToken = _token.RefreshToken;
-                _token = JsonConvert.DeserializeObject<Oauth2Token>(json);
+                _token = JsonConvert.DeserializeObject<OAuth2Token>(json);
                 _token.RefreshToken = currentRefreshToken;
                 _token.ExpirationDate = DateTime.UtcNow.AddSeconds(_token.ExpiresIn);
 
@@ -102,7 +104,7 @@ namespace KP.GmailApi
         }
 
         /// <summary>
-        /// Set the refresh token. This is only required once.
+        /// Set the refresh token. This is required only once.
         /// </summary>
         /// <param name="refreshToken">A refresh token</param>
         /// <param name="force">True to overwrite an existing refresh token</param>
@@ -111,7 +113,7 @@ namespace KP.GmailApi
             if (!force && File.Exists(_tokenFile))
                 return;
 
-            var token = new Oauth2Token
+            var token = new OAuth2Token
             {
                 TokenType = "Bearer",
                 RefreshToken = refreshToken

@@ -1,6 +1,6 @@
-﻿namespace KP.GmailApi.DTO
+﻿namespace KP.GmailApi.Common.Enums
 {
-    internal enum DraftFormat
+    internal enum MessageFormat
     {
         /// <summary>
         /// Returns the full email message data with body content parsed in the payload field; the raw field is not used. (default)

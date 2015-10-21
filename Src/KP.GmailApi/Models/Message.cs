@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using KP.GmailApi.Common;
 using KP.GmailApi.ModelExtensions;
 using Newtonsoft.Json;
 

@@ -1,3 +1,4 @@
+using KP.GmailApi.Common;
 using Newtonsoft.Json;
 
 namespace KP.GmailApi.Models

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Net.Http;
 using System.Text;
+using KP.GmailApi.Common;
+using KP.GmailApi.Managers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
@@ -22,10 +24,10 @@ namespace KP.GmailApi
         private const string HttpPatch = "PATCH";
         private const string HttpDelete = "DELETE";
 
-        private readonly TokenManager _tokenManager;
+        private readonly OAuth2TokenManager _tokenManager;
         private readonly Uri _baseAddress;
 
-        internal GmailClient(TokenManager tokenManager)
+        internal GmailClient(OAuth2TokenManager tokenManager)
         {
             // user ID:
             //The user's email address. The special value 'me' can be used to indicate the authenticated user.

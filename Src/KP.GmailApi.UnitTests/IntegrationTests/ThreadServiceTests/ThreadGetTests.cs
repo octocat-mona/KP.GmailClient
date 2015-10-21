@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Net;
 using FluentAssertions;
+using KP.GmailApi.Common;
 using KP.GmailApi.Models;
 using KP.GmailApi.ServiceExtensions;
 using KP.GmailApi.Services;

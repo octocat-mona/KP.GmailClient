@@ -1,5 +1,8 @@
-namespace KP.GmailApi.DTO
+namespace KP.GmailApi.Common.Enums
 {
+    /// <summary>
+    /// A list of all the available actions.
+    /// </summary>
     internal enum RequestAction
     {
         Delete,

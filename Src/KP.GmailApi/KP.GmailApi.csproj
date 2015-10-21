@@ -50,29 +50,29 @@
   <ItemGroup>
     <Compile Include="Builders\DraftQueryStringBuilder.cs" />
     <Compile Include="Builders\HistoryQueryStringBuilder.cs" />
-    <Compile Include="DTO\Format.cs" />
-    <Compile Include="DTO\DraftRequestAction.cs" />
-    <Compile Include="DTO\ThreadFields.cs" />
-    <Compile Include="DTO\RequestAction.cs" />
-    <Compile Include="DTO\DraftFormat.cs" />
-    <Compile Include="DTO\ThreadRequestAction.cs" />
-    <Compile Include="DTO\ThreadFormat.cs" />
+    <Compile Include="Common\Enums\Format.cs" />
+    <Compile Include="Common\Enums\DraftRequestAction.cs" />
+    <Compile Include="Common\Enums\ThreadFields.cs" />
+    <Compile Include="Common\Enums\RequestAction.cs" />
+    <Compile Include="Common\Enums\DraftFormat.cs" />
+    <Compile Include="Common\Enums\ThreadRequestAction.cs" />
+    <Compile Include="Common\Enums\ThreadFormat.cs" />
     <Compile Include="Builders\ThreadQueryStringBuilder.cs" />
     <Compile Include="Builders\MessageQueryStringBuilder.cs" />
     <Compile Include="Builders\QueryStringBuilder.cs" />
     <Compile Include="Builders\AttachmentQueryStringBuilder.cs" />
     <Compile Include="Builders\UserQueryStringBuilder.cs" />
-    <Compile Include="DTO\LabelRequestAction.cs" />
-    <Compile Include="DTO\UploadType.cs" />
-    <Compile Include="GmailException.cs" />
+    <Compile Include="Common\Enums\LabelRequestAction.cs" />
+    <Compile Include="Common\Enums\UploadType.cs" />
+    <Compile Include="Common\GmailException.cs" />
     <Compile Include="ModelExtensions\PayloadExtensions.cs" />
     <Compile Include="Models\CreateLabelInput.cs" />
     <Compile Include="Models\Draft.cs" />
     <Compile Include="Models\LabelFields.cs" />
     <Compile Include="Models\LabelListVisibility.cs" />
-    <Compile Include="DTO\MessageFields.cs" />
-    <Compile Include="DTO\MessageRequestAction.cs" />
-    <Compile Include="Extensions.cs" />
+    <Compile Include="Common\Enums\MessageFields.cs" />
+    <Compile Include="Common\Enums\MessageRequestAction.cs" />
+    <Compile Include="Common\Extensions.cs" />
     <Compile Include="GmailClient.cs" />
     <Compile Include="Models\Attachment.cs" />
     <Compile Include="Models\GmailError.cs" />
@@ -81,7 +81,7 @@
     <Compile Include="Models\Label.cs" />
     <Compile Include="Models\LabelType.cs" />
     <Compile Include="Models\Message.cs" />
-    <Compile Include="DTO\MessageFormat.cs" />
+    <Compile Include="Common\Enums\MessageFormat.cs" />
     <Compile Include="Models\DraftList.cs" />
     <Compile Include="Models\HistoryList.cs" />
     <Compile Include="Models\ModifyThreadInput.cs" />
@@ -94,7 +94,7 @@
     <Compile Include="Models\PayloadBase.cs" />
     <Compile Include="Models\GmailErrorResponse.cs" />
     <Compile Include="Models\Thread.cs" />
-    <Compile Include="ParseOptions.cs" />
+    <Compile Include="Common\ParseOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceExtensions\DraftServiceExtensions.cs" />
     <Compile Include="ServiceExtensions\LabelServiceExtensions.cs" />
@@ -109,11 +109,11 @@
     <Compile Include="Services\MessageService.cs" />
     <Compile Include="Models\Profile.cs" />
     <Compile Include="Services\ThreadService.cs" />
-    <Compile Include="ErrorResponseParser.cs" />
+    <Compile Include="Common\ErrorResponseParser.cs" />
     <Compile Include="Models\UpdateLabelInput.cs" />
-    <Compile Include="StringValueAttribute.cs" />
+    <Compile Include="Common\StringValueAttribute.cs" />
     <Compile Include="TokenAccessHelper.cs" />
-    <Compile Include="TokenManager.cs" />
+    <Compile Include="Managers\OAuth2TokenManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

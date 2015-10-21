@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace KP.GmailApi
+namespace KP.GmailApi.Common
 {
     /// <summary>
     /// Common extensions
@@ -17,14 +17,14 @@ namespace KP.GmailApi
         /// <param name="name"></param>
         /// <param name="replaceWith"></param>
         /// <returns></returns>
-        public static String GetValidFilename(this String name, char replaceWith = '_')
+        public static string GetValidFilename(this string name, char replaceWith = '_')
         {
             if (Path.GetInvalidFileNameChars().Contains(replaceWith))
-                throw new Exception(String.Concat("Replacement char '", replaceWith, "' is not valid!"));
+                throw new Exception(string.Concat("Replacement char '", replaceWith, "' is not valid!"));
             if (name.Length > 256)// total file including path max is 256 chars
                 name = new string(name.Take(260).ToArray());
 
-            return new String(name.Select(s => Path.GetInvalidFileNameChars().Contains(s) ? replaceWith : s).ToArray());
+            return new string(name.Select(s => Path.GetInvalidFileNameChars().Contains(s) ? replaceWith : s).ToArray());
         }
 
         /// <summary>

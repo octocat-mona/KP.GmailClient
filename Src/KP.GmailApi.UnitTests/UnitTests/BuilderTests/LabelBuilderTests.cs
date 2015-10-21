@@ -1,7 +1,7 @@
 ﻿using System;
 using FluentAssertions;
 using KP.GmailApi.Builders;
-using KP.GmailApi.DTO;
+using KP.GmailApi.Common.Enums;
 using KP.GmailApi.Models;
 using Xunit;
 

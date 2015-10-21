@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using KP.GmailApi.Common;
 using Xunit;
 
 namespace KP.GmailApi.UnitTests.UnitTests.ExtensionTests

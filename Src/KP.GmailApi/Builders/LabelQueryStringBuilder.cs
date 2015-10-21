@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
-using KP.GmailApi.DTO;
+using KP.GmailApi.Common;
+using KP.GmailApi.Common.Enums;
 using KP.GmailApi.Models;
 
 namespace KP.GmailApi.Builders

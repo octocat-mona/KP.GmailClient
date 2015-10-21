@@ -1,5 +1,8 @@
-namespace KP.GmailApi.DTO
+namespace KP.GmailApi.Common.Enums
 {
+    /// <summary>
+    /// Actions available for email labels.
+    /// </summary>
     internal enum LabelRequestAction
     {
         Create,

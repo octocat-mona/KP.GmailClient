@@ -1,4 +1,4 @@
-﻿namespace KP.GmailApi
+﻿namespace KP.GmailApi.Common
 {
     internal class ParseOptions
     {

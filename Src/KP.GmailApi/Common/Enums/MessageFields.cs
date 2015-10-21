@@ -1,6 +1,6 @@
 using System;
 
-namespace KP.GmailApi.DTO
+namespace KP.GmailApi.Common.Enums
 {
     [Flags]
     internal enum MessageFields

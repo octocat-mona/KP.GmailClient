@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Web;
 using FluentAssertions;
 using KP.GmailApi.Builders;
-using KP.GmailApi.DTO;
+using KP.GmailApi.Common.Enums;
 using Xunit;
 
 namespace KP.GmailApi.UnitTests.UnitTests.BuilderTests
@@ -13,12 +13,14 @@ namespace KP.GmailApi.UnitTests.UnitTests.BuilderTests
         [Fact]
         public void CanBuild()
         {
-            // Act
-            string queryString = new ThreadQueryStringBuilder()
+            // Arrange
+            var builder = new ThreadQueryStringBuilder()
                 .SetRequestAction(ThreadRequestAction.List)
                 .SetFormat(ThreadFormat.Minimal)
-                .SetMetadataHeaders(new[] { "header1", "header2" })
-                .Build();
+                .SetMetadataHeaders(new[] { "header1", "header2" });
+
+            // Act
+            string queryString = builder.Build();
 
             // Assert
             queryString.Should().NotBeNullOrWhiteSpace();

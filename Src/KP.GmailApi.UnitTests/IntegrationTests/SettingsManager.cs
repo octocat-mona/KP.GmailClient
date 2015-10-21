@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using KP.GmailApi.Managers;
 using KP.GmailApi.UnitTests.Extensions;
 
 namespace KP.GmailApi.UnitTests.IntegrationTests
@@ -23,11 +24,6 @@ namespace KP.GmailApi.UnitTests.IntegrationTests
             return GetSetting("ClientSecret");
         }
 
-        /*public static string GetEmailAddress()
-        {
-            return GetSetting("EmailAddress");
-        }*/
-
         public static string GetRefreshToken()
         {
             return GetSetting("RefreshToken");
@@ -35,12 +31,11 @@ namespace KP.GmailApi.UnitTests.IntegrationTests
 
         public static GmailClient GetGmailClient()
         {
-            //string emailAddress = GetEmailAddress();
             string clientId = GetClientId();
             string clientSecret = GetClientSecret();
             string refreshToken = GetRefreshToken();
 
-            var tokenManager = new TokenManager(clientId, clientSecret);
+            var tokenManager = new OAuth2TokenManager(clientId, clientSecret);
             tokenManager.DeleteFolder();
             tokenManager.Setup(refreshToken, false);
 

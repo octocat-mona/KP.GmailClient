@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
+using System.Threading.Tasks;
 using System.Web;
+using KP.GmailApi.Managers;
 using KP.GmailApi.Models;
 using Newtonsoft.Json;
 
@@ -17,6 +21,7 @@ namespace KP.GmailApi
         private readonly string _authorizationServerUrl;
         private readonly string _clientId;
         private readonly string _clientSecret;
+        private bool _waitingForResponse;
 
         /// <summary>
         /// 
@@ -25,7 +30,7 @@ namespace KP.GmailApi
         /// <param name="clientSecret"></param>
         public TokenAccessHelper(string clientId, string clientSecret)
         {
-            _authorizationServerUrl = TokenManager.AuthorizationServerUrl;
+            _authorizationServerUrl = OAuth2TokenManager.AuthorizationServerUrl;
             _clientId = clientId;
             _clientSecret = clientSecret;
         }
@@ -56,6 +61,9 @@ namespace KP.GmailApi
             File.WriteAllText(file.FullName, content);
             Process.Start(file.FullName);
 
+            //TODO: WIP
+            //ListenForResponse();
+
             Console.WriteLine("Enter URl after accepting request:");
             Console.WriteLine(Environment.NewLine);
 
@@ -70,6 +78,53 @@ namespace KP.GmailApi
                 throw new Exception("No valid code found");
 
             return code;
+        }
+
+        private void ListenForResponse()
+        {
+            var listener = new HttpListener();
+            try
+            {
+                listener.Prefixes.Add("http://*:80/");
+
+                listener.Start();
+                while (_waitingForResponse)
+                {
+                    var context = listener.GetContext();
+                    Task.Run(() => ProcessRequest(context));
+                }
+            }
+            finally
+            {
+                listener.Abort();
+            }
+        }
+
+        private void ProcessRequest(HttpListenerContext context)
+        {
+            try
+            {
+                _waitingForResponse = false;
+                //context.Request.Url;//http://localhost/?code=4/CKYxlJc64Ag_UYOB25qEIDEhjV2zYnU6FxKcZRAIiWA.AvsvczEHfp4aWmFiZwPfH02HPEqUmgI
+
+                string text = "test";
+                byte[] bytes = Encoding.UTF8.GetBytes(text);
+
+                context.Response.OutputStream.Write(bytes, 0, bytes.Length);
+                context.Response.StatusCode = 200;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("ERROR: " + ex);
+                byte[] bytes = Encoding.UTF8.GetBytes(ex.ToString());
+
+                context.Response.OutputStream.Write(bytes, 0, bytes.Length);
+                context.Response.StatusCode = 500;
+            }
+            finally
+            {
+                context.Response.Close();
+            }
         }
 
         /// <summary>
@@ -96,7 +151,7 @@ namespace KP.GmailApi
 
             result.EnsureSuccessStatusCode();
 
-            return JsonConvert.DeserializeObject<Oauth2Token>(json).RefreshToken;
+            return JsonConvert.DeserializeObject<OAuth2Token>(json).RefreshToken;
         }
     }
 }

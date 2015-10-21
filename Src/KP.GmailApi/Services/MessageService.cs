@@ -1,6 +1,6 @@
 using System;
 using KP.GmailApi.Builders;
-using KP.GmailApi.DTO;
+using KP.GmailApi.Common.Enums;
 using KP.GmailApi.Models;
 
 namespace KP.GmailApi.Services

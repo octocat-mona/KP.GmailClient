@@ -1,5 +1,6 @@
 ﻿using System;
 using FluentAssertions;
+using KP.GmailApi.Managers;
 using KP.GmailApi.Models;
 using KP.GmailApi.UnitTests.Extensions;
 using Xunit;
@@ -8,7 +9,7 @@ namespace KP.GmailApi.UnitTests.UnitTests.TokenManagerTests
 {
     public class SetupTests : IDisposable
     {
-        private readonly TokenManager _tokenManager;
+        private readonly OAuth2TokenManager _tokenManager;
         private const string ClientIdName = "ClientId1";
         private const string ClientSecretName = "ClientSecret1";
         private const string RefreshTokenName = "RefreshToken1";
@@ -16,7 +17,7 @@ namespace KP.GmailApi.UnitTests.UnitTests.TokenManagerTests
         public SetupTests()
         {
             _tokenManager.StaticTokens().Clear();// Clear static field
-            _tokenManager = new TokenManager(ClientIdName, ClientSecretName);
+            _tokenManager = new OAuth2TokenManager(ClientIdName, ClientSecretName);
             _tokenManager.DeleteFolder();
         }
 
@@ -27,7 +28,7 @@ namespace KP.GmailApi.UnitTests.UnitTests.TokenManagerTests
             _tokenManager.Setup(RefreshTokenName, false);
 
             // Assert
-            Oauth2Token setupToken = _tokenManager.Token();
+            OAuth2Token setupToken = _tokenManager.Token();
             setupToken.Should().NotBeNull();
         }
 
@@ -38,7 +39,7 @@ namespace KP.GmailApi.UnitTests.UnitTests.TokenManagerTests
             _tokenManager.Setup(RefreshTokenName, true);
 
             // Assert
-            Oauth2Token setupToken = _tokenManager.Token();
+            OAuth2Token setupToken = _tokenManager.Token();
             setupToken.Should().NotBeNull();
         }
 

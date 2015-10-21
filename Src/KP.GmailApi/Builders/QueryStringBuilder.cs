@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Web;
-using KP.GmailApi.DTO;
+using KP.GmailApi.Common.Enums;
 
 namespace KP.GmailApi.Builders
 {

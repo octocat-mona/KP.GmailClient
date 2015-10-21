@@ -6,7 +6,7 @@ namespace KP.GmailApi.Models
     /// <summary>
     /// An OAuth 2.0 token.
     /// </summary>
-    internal class Oauth2Token
+    internal class OAuth2Token
     {
         /// <summary>
         /// A string representing an authorization issued to the client.
@@ -40,7 +40,7 @@ namespace KP.GmailApi.Models
         public DateTime ExpirationDate { get; set; }
 
         /// <summary>
-        /// A string with the values of the properties from this <see cref="Oauth2Token"/>
+        /// A string with the values of the properties from this <see cref="OAuth2Token"/>
         /// </summary>
         /// <returns>A string</returns>
         public override string ToString()

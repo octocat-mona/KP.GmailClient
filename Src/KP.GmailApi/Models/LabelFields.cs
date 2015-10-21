@@ -1,4 +1,5 @@
 using System;
+using KP.GmailApi.Common;
 
 namespace KP.GmailApi.Models
 {
