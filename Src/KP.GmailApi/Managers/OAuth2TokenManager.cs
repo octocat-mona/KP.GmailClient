@@ -41,6 +41,7 @@ namespace KP.GmailApi.Managers
 
             string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
+            //TODO: save with emailaddress as key instead (clientId = project based, not user based)
             _tokenFile = Path.Combine(appData, "GmailService\\", clientId.GetValidFilename() + ".json");
             _token = Tokens.GetOrAdd(_tokenFile, new OAuth2Token());
         }
@@ -123,6 +124,17 @@ namespace KP.GmailApi.Managers
             {
                 _token = Tokens.AddOrUpdate(_tokenFile, token, (key, oldvalue) => token);
                 WriteToFile();
+            }
+        }
+
+        /// <summary>
+        /// Deletes the stored authentication for the active ClientId
+        /// </summary>
+        public void Delete()
+        {
+            if (HasTokenSetup())
+            {
+                File.Delete(_tokenFile);
             }
         }
 

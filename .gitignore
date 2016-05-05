@@ -184,3 +184,4 @@ FakesAssemblies/
 # Rest
 /GmailApi/UnitTests/App.config
 /GmailApi/Test/App.config
+KP.GmailApi.WinFormsSample

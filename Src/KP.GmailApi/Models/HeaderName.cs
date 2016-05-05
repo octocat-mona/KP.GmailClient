@@ -180,5 +180,8 @@ namespace KP.GmailApi.Models
         /// </summary>
         [EnumMember(Value = "List-ID")]
         ListId,
+
+        //TODO: Received-SPF
+        // extension to RFC2822 reserving the "Received-SPF:" header.
     }
 }

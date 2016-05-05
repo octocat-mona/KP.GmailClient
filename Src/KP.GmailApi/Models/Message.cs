@@ -88,7 +88,16 @@ namespace KP.GmailApi.Models
         }
 
         /// <summary>
-        /// Get the 'From' header name.
+        /// Get the 'Subject' header value.
+        /// </summary>
+        [JsonIgnore]
+        public string Subject
+        {
+            get { return Payload.GetHeaderValue(HeaderName.Subject); }
+        }
+
+        /// <summary>
+        /// Get the 'From' header value.
         /// </summary>
         [JsonIgnore]
         public string From
@@ -97,7 +106,7 @@ namespace KP.GmailApi.Models
         }
 
         /// <summary>
-        /// Get the 'To' header name.
+        /// Get the 'To' header value.
         /// </summary>
         [JsonIgnore]
         public string To

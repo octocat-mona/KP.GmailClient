@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using KP.GmailApi.Models;
 using KP.GmailApi.Services;
@@ -14,13 +15,25 @@ namespace KP.GmailApi.ServiceExtensions
         /// Lists all labels in the user's mailbox of the given type.
         /// </summary>
         /// <param name="service">Gmail API service instance</param>
-        /// <param name="type"></param>
+        /// <param name="type">The label type</param>
         /// <returns>A list of Labels</returns>
         public static List<Label> List(this LabelService service, LabelType type)
         {
             return service.List()
                 .Where(l => l.Type == type)
                 .ToList();
+        }
+
+        /// <summary>
+        /// Lists all labels in the user's mailbox of the given type.
+        /// </summary>
+        /// <param name="service">Gmail API service instance</param>
+        /// <param name="name">The name of the label defined by the user</param>
+        /// <returns>A list of Labels</returns>
+        public static Label GetByName(this LabelService service, string name)
+        {
+            return List(service, LabelType.User)
+                .FirstOrDefault(label => string.Equals(label.Name, name, StringComparison.OrdinalIgnoreCase));
         }
     }
 }

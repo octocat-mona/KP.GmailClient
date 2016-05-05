@@ -44,7 +44,14 @@ namespace KP.GmailApi.Models
         {
             get
             {
-                return JsonConvert.DeserializeObject<HeaderName>(string.Concat("\"", Name, "\""));
+                try
+                {
+                    return JsonConvert.DeserializeObject<HeaderName>(string.Concat("\"", Name, "\""));
+                }
+                catch (JsonSerializationException)
+                {
+                    return HeaderName.Unknown;
+                }
             }
         }
 
