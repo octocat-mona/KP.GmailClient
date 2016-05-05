@@ -36,6 +36,6 @@ nuget pack $scriptRoot\..\Src\KP.GmailApi\KP.GmailApi.csproj -Properties "Config
 nuget setApiKey -Verbosity quiet -NonInteractive $nugetApiKey
 
 "Publishing to Nuget / SymbolSource."
-nuget push $scriptRoot\KP.GmailApi.*.nupkg
+nuget push $scriptRoot\KP.GmailApi.*.nupkg -Source "https://www.nuget.org/api/v2/package"
 
 "done."
