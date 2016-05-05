@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -11,15 +12,16 @@ namespace KP.GmailApi.WinFormsSample
 {
     public partial class MainForm : Form
     {
-        private const string ClientId = "sample.apps.googleusercontent.com";
-        private const string ClientSecret = "secret";
         private readonly GmailServiceHelper _gmailServiceHelper;
 
         public MainForm()
         {
             InitializeComponent();
             AppDomain.CurrentDomain.UnhandledException += OnUnhandledException;
-            _gmailServiceHelper = new GmailServiceHelper(ClientId, ClientSecret);
+
+            string clientId = ConfigurationManager.AppSettings["ClientId"];
+            string clientSecret = ConfigurationManager.AppSettings["ClientSecret"];
+            _gmailServiceHelper = new GmailServiceHelper(clientId, clientSecret);
             AppendToLog("Starting");
         }
 
