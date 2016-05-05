@@ -182,5 +182,5 @@ UpgradeLog*.htm
 FakesAssemblies/
 
 # Rest
-**/KP.GmailApi.WinFormsSample/App.config
-**/KP.GmailApi.UnitTests/App.config
+/Src/KP.GmailApi.UnitTests/App.config
+/Src/KP.GmailApi.WinFormsSample/App.config
