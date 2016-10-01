@@ -34,7 +34,7 @@ namespace KP.GmailApi.Managers
         public OAuth2TokenManager(string clientId, string clientSecret)
         {
             if (string.IsNullOrWhiteSpace(clientId))
-                throw new ArgumentNullException("clientId");
+                throw new ArgumentNullException(nameof(clientId));
 
             _clientId = clientId;
             _clientSecret = clientSecret;
@@ -42,7 +42,7 @@ namespace KP.GmailApi.Managers
             string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
             //TODO: save with emailaddress as key instead (clientId = project based, not user based)
-            _tokenFile = Path.Combine(appData, "GmailService\\", clientId.GetValidFilename() + ".json");
+            _tokenFile = Path.Combine(appData, "GmailClient\\", clientId.GetValidFilename() + ".json");
             _token = Tokens.GetOrAdd(_tokenFile, new OAuth2Token());
         }
 

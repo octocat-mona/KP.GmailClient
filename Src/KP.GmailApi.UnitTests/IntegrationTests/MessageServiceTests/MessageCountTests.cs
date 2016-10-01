@@ -13,8 +13,8 @@ namespace KP.GmailApi.UnitTests.IntegrationTests.MessageServiceTests
 
         public MessageCountTests()
         {
-            GmailClient client = SettingsManager.GetGmailClient();
-            _service = new MessageService(client);
+            GmailProxy proxy = SettingsManager.GetGmailClient();
+            _service = new MessageService(proxy);
         }
 
         [Fact]

@@ -14,10 +14,10 @@ namespace KP.GmailApi.UnitTests.IntegrationTests.AttachmentServiceTests
 
         public AttachmentGetTests()
         {
-            GmailClient client = SettingsManager.GetGmailClient();
+            GmailProxy proxy = SettingsManager.GetGmailClient();
 
-            _service = new AttachmentService(client);
-            _draftService = new DraftService(client);
+            _service = new AttachmentService(proxy);
+            _draftService = new DraftService(proxy);
         }
 
         //[Fact]

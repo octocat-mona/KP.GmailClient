@@ -11,11 +11,11 @@ namespace KP.GmailApi.Services
     /// </summary>
     public class LabelService
     {
-        private readonly GmailClient _client;
+        private readonly GmailProxy _proxy;
 
-        internal LabelService(GmailClient client)
+        internal LabelService(GmailProxy proxy)
         {
-            _client = client;
+            _proxy = proxy;
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace KP.GmailApi.Services
                 .SetRequestAction(LabelRequestAction.Get, id)
                 .Build();
 
-            return _client.Get<Label>(queryString);
+            return _proxy.Get<Label>(queryString);
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace KP.GmailApi.Services
             string queryString = new LabelQueryStringBuilder()
                 .Build();
 
-            return _client.Get<List<Label>>(queryString, new ParseOptions { Path = "labels" });
+            return _proxy.Get<List<Label>>(queryString, new ParseOptions { Path = "labels" });
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace KP.GmailApi.Services
             string queryString = new LabelQueryStringBuilder()
                 .Build();
 
-            return _client.Post<Label>(queryString, labelInput);
+            return _proxy.Post<Label>(queryString, labelInput);
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace KP.GmailApi.Services
                 .SetRequestAction(LabelRequestAction.Delete, id)
                 .Build();
 
-            _client.Delete(queryString);
+            _proxy.Delete(queryString);
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace KP.GmailApi.Services
                 .SetRequestAction(LabelRequestAction.Update, labelInput.Id)
                 .Build();
 
-            return _client.Put<Label>(queryString, labelInput);
+            return _proxy.Put<Label>(queryString, labelInput);
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace KP.GmailApi.Services
                 .SetRequestAction(LabelRequestAction.Update, label.Id)
                 .Build();
 
-            return _client.Patch<Label>(queryString, label);
+            return _proxy.Patch<Label>(queryString, label);
         }
     }
 }

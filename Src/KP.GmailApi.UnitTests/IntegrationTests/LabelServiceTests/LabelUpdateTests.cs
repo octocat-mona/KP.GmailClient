@@ -13,8 +13,8 @@ namespace KP.GmailApi.UnitTests.IntegrationTests.LabelServiceTests
 
         public LabelUpdateTests()
         {
-            GmailClient client = SettingsManager.GetGmailClient();
-            _service = new LabelService(client);
+            GmailProxy proxy = SettingsManager.GetGmailClient();
+            _service = new LabelService(proxy);
 
             Action<Label> deleteAction = label => _service.Delete(label.Id);
             Func<CreateLabelInput, Label> createAction = input => _service.Create(input);

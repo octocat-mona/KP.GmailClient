@@ -8,11 +8,11 @@ namespace KP.GmailApi.Services
     /// </summary>
     public class AttachmentService
     {
-        private readonly GmailClient _client;
+        private readonly GmailProxy _proxy;
 
-        internal AttachmentService(GmailClient client)
+        internal AttachmentService(GmailProxy proxy)
         {
-            _client = client;
+            _proxy = proxy;
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace KP.GmailApi.Services
             string queryString = new AttachmentQueryStringBuilder(messageId, id)
                 .Build();
 
-            return _client.Get<Attachment>(queryString);
+            return _proxy.Get<Attachment>(queryString);
         }
     }
 }

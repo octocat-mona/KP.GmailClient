@@ -7,9 +7,9 @@ namespace KP.GmailApi.Services
     /// <summary>
     /// Contains all services provided by Gmail.
     /// </summary>
-    public class GmailService
+    public class GmailClient
     {
-        private readonly GmailClient _client;
+        private readonly GmailProxy _proxy;
 
         /// <summary>
         /// Service to get, create, update and delete emails.
@@ -36,15 +36,15 @@ namespace KP.GmailApi.Services
         /// Access to all Gmail services.
         /// </summary>
         /// <param name="tokenManager"></param>
-        public GmailService(OAuth2TokenManager tokenManager)
+        public GmailClient(OAuth2TokenManager tokenManager)
         {
-            _client = new GmailClient(tokenManager);
+            _proxy = new GmailProxy(new AuthorizationDelegatingHandler(tokenManager));
 
-            Messages = new MessageService(_client);
-            Drafts = new DraftService(_client);
-            Labels = new LabelService(_client);
-            Threads = new ThreadService(_client);
-            History = new HistoryService(_client);
+            Messages = new MessageService(_proxy);
+            Drafts = new DraftService(_proxy);
+            Labels = new LabelService(_proxy);
+            Threads = new ThreadService(_proxy);
+            History = new HistoryService(_proxy);
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace KP.GmailApi.Services
             string queryString = new UserQueryStringBuilder()
                  .Build();
 
-            return _client.Get<Profile>(queryString);
+            return _proxy.Get<Profile>(queryString);
         }
     }
 }

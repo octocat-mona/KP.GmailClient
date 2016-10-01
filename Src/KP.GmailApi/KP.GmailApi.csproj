@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuthorizationDelegatingHandler.cs" />
     <Compile Include="Builders\DraftQueryStringBuilder.cs" />
     <Compile Include="Builders\HistoryQueryStringBuilder.cs" />
     <Compile Include="Common\Enums\Format.cs" />
@@ -73,7 +74,7 @@
     <Compile Include="Common\Enums\MessageFields.cs" />
     <Compile Include="Common\Enums\MessageRequestAction.cs" />
     <Compile Include="Common\Extensions.cs" />
-    <Compile Include="GmailClient.cs" />
+    <Compile Include="GmailProxy.cs" />
     <Compile Include="Models\Attachment.cs" />
     <Compile Include="Models\GmailError.cs" />
     <Compile Include="Models\Header.cs" />
@@ -102,7 +103,7 @@
     <Compile Include="ServiceExtensions\ThreadServiceExtensions.cs" />
     <Compile Include="Services\DraftService.cs" />
     <Compile Include="Services\AttachmentService.cs" />
-    <Compile Include="Services\GmailService.cs" />
+    <Compile Include="Services\GmailClient.cs" />
     <Compile Include="Services\HistoryService.cs" />
     <Compile Include="Builders\LabelQueryStringBuilder.cs" />
     <Compile Include="Services\LabelService.cs" />

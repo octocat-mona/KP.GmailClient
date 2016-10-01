@@ -11,8 +11,8 @@ namespace KP.GmailApi.UnitTests.IntegrationTests.ThreadServiceTests
 
         public ThreadListTests()
         {
-            GmailClient client = SettingsManager.GetGmailClient();
-            _service = new ThreadService(client);
+            GmailProxy proxy = SettingsManager.GetGmailClient();
+            _service = new ThreadService(proxy);
         }
 
         public void CanListIds()

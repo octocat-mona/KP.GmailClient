@@ -8,11 +8,11 @@ namespace KP.GmailApi.Services
     /// </summary>
     public class HistoryService
     {
-        private readonly GmailClient _client;
+        private readonly GmailProxy _proxy;
 
-        internal HistoryService(GmailClient client)
+        internal HistoryService(GmailProxy proxy)
         {
-            _client = client;
+            _proxy = proxy;
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace KP.GmailApi.Services
                 .SetMaxResults(maxResults)
                 .Build();
 
-            return _client.Get<HistoryList>(queryString);
+            return _proxy.Get<HistoryList>(queryString);
         }
     }
 }

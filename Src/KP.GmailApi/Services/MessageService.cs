@@ -10,17 +10,17 @@ namespace KP.GmailApi.Services
     /// </summary>
     public class MessageService
     {
-        private readonly GmailClient _client;
+        private readonly GmailProxy _proxy;
 
         /// <summary>
         /// Service for getting email attachments.
         /// </summary>
         public AttachmentService Attachments { get; set; }
 
-        internal MessageService(GmailClient client)
+        internal MessageService(GmailProxy proxy)
         {
-            _client = client;
-            Attachments = new AttachmentService(client);
+            _proxy = proxy;
+            Attachments = new AttachmentService(proxy);
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace KP.GmailApi.Services
                 .SetIncludeSpamAndTrash(includeSpamAndTrash)
                 .Build();
 
-            return _client.Get<MessageList>(queryString);
+            return _proxy.Get<MessageList>(queryString);
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace KP.GmailApi.Services
                .SetRequestAction(MessageRequestAction.Get, id)
                .Build();
 
-            return _client.Get<Message>(queryString);
+            return _proxy.Get<Message>(queryString);
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace KP.GmailApi.Services
                .SetRequestAction(MessageRequestAction.Delete, id)
                .Build();
 
-            _client.Delete(queryString);
+            _proxy.Delete(queryString);
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace KP.GmailApi.Services
                 .SetRequestAction(MessageRequestAction.Trash, id)
                 .Build();
 
-            return _client.Post<Message>(queryString);
+            return _proxy.Post<Message>(queryString);
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace KP.GmailApi.Services
                .SetRequestAction(MessageRequestAction.Untrash, id)
                .Build();
 
-            return _client.Post<Message>(queryString);
+            return _proxy.Post<Message>(queryString);
         }
 
         /// <summary>

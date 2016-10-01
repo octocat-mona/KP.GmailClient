@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using KP.GmailApi.Common;
-using KP.GmailApi.Managers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
@@ -12,7 +12,7 @@ namespace KP.GmailApi
     /// <summary>
     /// Handles requests to the Gmail service and parses the response.
     /// </summary>
-    internal class GmailClient
+    internal class GmailProxy
     {
         /// <summary>
         /// The URL to send requests to the Gmail API service
@@ -24,17 +24,28 @@ namespace KP.GmailApi
         private const string HttpPatch = "PATCH";
         private const string HttpDelete = "DELETE";
 
-        private readonly OAuth2TokenManager _tokenManager;
-        private readonly Uri _baseAddress;
+        private readonly HttpClient _client;
 
-        internal GmailClient(OAuth2TokenManager tokenManager)
+        /// <summary>
+        /// Takes care of all I/O to Gmail.
+        /// </summary>
+        /// <param name="handler">An optional handler to handle authentication or caching for example</param>
+        internal GmailProxy(DelegatingHandler handler)
         {
-            // user ID:
-            //The user's email address. The special value 'me' can be used to indicate the authenticated user.
-            //userId = HttpUtility.UrlEncode(userId);
+            var compressionHandler = new HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate };
+            HttpMessageHandler mainHandler;
+            if (handler == null)
+            {
+                mainHandler = compressionHandler;
+            }
+            else
+            {
+                handler.InnerHandler = compressionHandler;
+                mainHandler = handler;
+            }
 
-            _baseAddress = new Uri(string.Concat(ApiBaseUrl, "me/"));// for personal accounts no other value than 'me' can be used?!
-            _tokenManager = tokenManager;
+            _client = new HttpClient(mainHandler) { BaseAddress = new Uri(string.Concat(ApiBaseUrl, "me/")) };
+            _client.DefaultRequestHeaders.Add("Accept", "application/json");
 
             // Set default (de)serializing for enums
             JsonConvert.DefaultSettings = () => new JsonSerializerSettings
@@ -84,17 +95,6 @@ namespace KP.GmailApi
             GetResponse(HttpDelete, queryString);
         }
 
-        private HttpClient GetClient()
-        {
-            // For example: https://www.googleapis.com/gmail/v1/users/{userId}/
-            var client = new HttpClient { BaseAddress = _baseAddress };
-
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + _tokenManager.GetToken());
-            client.DefaultRequestHeaders.Add("Accept", "application/json");
-
-            return client;
-        }
-
         private string GetResponse(string httpMethod, string queryString, object content = null)
         {
             HttpContent httpContent = content == null
@@ -106,8 +106,7 @@ namespace KP.GmailApi
                 Content = httpContent
             };
 
-            HttpClient client = GetClient();
-            HttpResponseMessage response = client.SendAsync(request).Result;
+            HttpResponseMessage response = _client.SendAsync(request).Result;
 
             string contentString = response.Content.ReadAsStringAsync().Result;
 

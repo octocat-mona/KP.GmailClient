@@ -9,11 +9,11 @@ namespace KP.GmailApi.Services
     /// </summary>
     public class ThreadService
     {
-        private readonly GmailClient _client;
+        private readonly GmailProxy _proxy;
 
-        internal ThreadService(GmailClient client)
+        internal ThreadService(GmailProxy proxy)
         {
-            _client = client;
+            _proxy = proxy;
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace KP.GmailApi.Services
                 .SetRequestAction(ThreadRequestAction.Get, id)
                 .Build();
 
-            return _client.Get<Thread>(queryString);
+            return _proxy.Get<Thread>(queryString);
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace KP.GmailApi.Services
                 .SetIncludeSpamAndTrash(includeSpamAndTrash)
                 .Build();
 
-            return _client.Get<ThreadList>(queryString);
+            return _proxy.Get<ThreadList>(queryString);
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace KP.GmailApi.Services
                 .SetRequestAction(ThreadRequestAction.Delete, id)
                 .Build();
 
-            _client.Delete(queryString);
+            _proxy.Delete(queryString);
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace KP.GmailApi.Services
                 .SetRequestAction(ThreadRequestAction.Modify, id)
                 .Build();
 
-            return _client.Post<Thread>(queryString, input);
+            return _proxy.Post<Thread>(queryString, input);
         }
 
         /// <summary>
@@ -93,7 +93,7 @@ namespace KP.GmailApi.Services
                 .SetRequestAction(ThreadRequestAction.Trash, id)
                 .Build();
 
-            return _client.Post<Thread>(queryString);
+            return _proxy.Post<Thread>(queryString);
         }
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace KP.GmailApi.Services
                 .SetRequestAction(ThreadRequestAction.Untrash, id)
                 .Build();
 
-            return _client.Post<Thread>(queryString);
+            return _proxy.Post<Thread>(queryString);
         }
     }
 }

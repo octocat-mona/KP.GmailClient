@@ -9,8 +9,8 @@ namespace KP.GmailApi.UnitTests
     {
         public static CleanupHelper<Draft, Draft> GetDraftServiceCleanupHelper()
         {
-            GmailClient client = SettingsManager.GetGmailClient();
-            var service = new DraftService(client);
+            GmailProxy proxy = SettingsManager.GetGmailClient();
+            var service = new DraftService(proxy);
 
             return GetDraftServiceCleanupHelper(service);
         }

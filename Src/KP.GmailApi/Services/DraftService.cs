@@ -10,11 +10,11 @@ namespace KP.GmailApi.Services
     /// </summary>
     public class DraftService
     {
-        private readonly GmailClient _client;
+        private readonly GmailProxy _proxy;
 
-        internal DraftService(GmailClient client)
+        internal DraftService(GmailProxy proxy)
         {
-            _client = client;
+            _proxy = proxy;
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace KP.GmailApi.Services
                 //.SetUploadType(UploadType.Media)//TODO:
                 .Build();
 
-            return _client.Post<Draft>(queryString, draftInput);
+            return _proxy.Post<Draft>(queryString, draftInput);
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace KP.GmailApi.Services
                 .SetRequestAction(DraftRequestAction.Delete, id)
                 .Build();
 
-            _client.Delete(queryString);
+            _proxy.Delete(queryString);
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace KP.GmailApi.Services
                 .SetRequestAction(DraftRequestAction.Get, id)
                 .Build();
 
-            return _client.Get<Draft>(queryString);
+            return _proxy.Get<Draft>(queryString);
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace KP.GmailApi.Services
                 .SetRequestAction(DraftRequestAction.List)
                 .Build();
 
-            return _client.Get<DraftList>(queryString);
+            return _proxy.Get<DraftList>(queryString);
         }
 
         /// <summary>

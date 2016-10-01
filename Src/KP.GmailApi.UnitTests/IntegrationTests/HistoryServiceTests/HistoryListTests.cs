@@ -12,8 +12,8 @@ namespace KP.GmailApi.UnitTests.IntegrationTests.HistoryServiceTests
 
         public HistoryListTests()
         {
-            GmailClient client = SettingsManager.GetGmailClient();
-            _service = new HistoryService(client);
+            GmailProxy proxy = SettingsManager.GetGmailClient();
+            _service = new HistoryService(proxy);
         }
 
         //[Fact]

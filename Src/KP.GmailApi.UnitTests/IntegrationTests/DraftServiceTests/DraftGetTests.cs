@@ -13,8 +13,8 @@ namespace KP.GmailApi.UnitTests.IntegrationTests.DraftServiceTests
 
         public DraftGetTests()
         {
-            GmailClient client = SettingsManager.GetGmailClient();
-            _service = new DraftService(client);
+            GmailProxy proxy = SettingsManager.GetGmailClient();
+            _service = new DraftService(proxy);
 
             _helper = CleanupHelpers.GetDraftServiceCleanupHelper(_service);
         }

@@ -11,7 +11,7 @@ namespace KP.GmailApi.WinFormsSample
     {
         private readonly string _clientId;
         private readonly string _clientSecret;
-        private readonly GmailService _gmailService;
+        private readonly GmailClient _gmailClient;
         private readonly OAuth2TokenManager _tokenManager;
 
         public GmailServiceHelper(string clientId, string clientSecret)
@@ -19,7 +19,7 @@ namespace KP.GmailApi.WinFormsSample
             _clientId = clientId;
             _clientSecret = clientSecret;
             _tokenManager = new OAuth2TokenManager(_clientId, _clientSecret);
-            _gmailService = new GmailService(_tokenManager);
+            _gmailClient = new GmailClient(_tokenManager);
         }
 
         public bool IsUserLoggedIn()
@@ -38,14 +38,14 @@ namespace KP.GmailApi.WinFormsSample
 
         public List<Message> GetMail()
         {
-            Label keepLabel = _gmailService.Labels.GetByName("Keep");
-            return _gmailService.Messages.ListByLabel(keepLabel.Id)
+            Label keepLabel = _gmailClient.Labels.GetByName("Keep");
+            return _gmailClient.Messages.ListByLabel(keepLabel.Id)
                 .ToList();
         }
 
         public List<Label> GetLabels()
         {
-            return _gmailService.Labels.List(LabelType.User);
+            return _gmailClient.Labels.List(LabelType.User);
         }
 
         public void Logout()

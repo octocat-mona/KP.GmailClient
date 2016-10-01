@@ -17,10 +17,10 @@ namespace KP.GmailApi.UnitTests.IntegrationTests.ThreadServiceTests
 
         public ThreadGetTests()
         {
-            GmailClient client = SettingsManager.GetGmailClient();
+            GmailProxy proxy = SettingsManager.GetGmailClient();
 
-            _service = new ThreadService(client);
-            _messageService = new MessageService(client);
+            _service = new ThreadService(proxy);
+            _messageService = new MessageService(proxy);
         }
 
         [Fact]

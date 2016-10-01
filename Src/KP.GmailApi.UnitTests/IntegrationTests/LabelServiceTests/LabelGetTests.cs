@@ -15,8 +15,8 @@ namespace KP.GmailApi.UnitTests.IntegrationTests.LabelServiceTests
 
         public LabelGetTests()
         {
-            GmailClient client = SettingsManager.GetGmailClient();
-            _service = new LabelService(client);
+            GmailProxy proxy = SettingsManager.GetGmailClient();
+            _service = new LabelService(proxy);
         }
 
         [Fact]
