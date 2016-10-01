@@ -2,12 +2,11 @@
 using System.Net;
 using System.Net.Http;
 using System.Text;
-using KP.GmailApi.Common;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 
-namespace KP.GmailApi
+namespace KP.GmailApi.Common
 {
     /// <summary>
     /// Handles requests to the Gmail service and parses the response.

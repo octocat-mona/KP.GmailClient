@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using KP.GmailApi.Common;
 using KP.GmailApi.Managers;
 using KP.GmailApi.UnitTests.Extensions;
 

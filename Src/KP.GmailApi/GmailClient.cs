@@ -1,8 +1,10 @@
 ﻿using KP.GmailApi.Builders;
+using KP.GmailApi.Common;
 using KP.GmailApi.Managers;
 using KP.GmailApi.Models;
+using KP.GmailApi.Services;
 
-namespace KP.GmailApi.Services
+namespace KP.GmailApi
 {
     /// <summary>
     /// Contains all services provided by Gmail.

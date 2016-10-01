@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using FluentAssertions;
+using KP.GmailApi.Common;
 using KP.GmailApi.ServiceExtensions;
 using KP.GmailApi.Services;
 using Xunit;
