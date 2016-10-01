@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -18,10 +20,12 @@ namespace KP.GmailApi
     /// </summary>
     public class TokenAccessHelper
     {
+        private const string ScopeModify = "https://www.googleapis.com/auth/gmail.modify";
+        private const string ScopeReadonly = "https://www.googleapis.com/auth/gmail.readonly";
+        private const string ScopeCompose = "https://www.googleapis.com/auth/gmail.compose";
         private readonly string _authorizationServerUrl;
         private readonly string _clientId;
         private readonly string _clientSecret;
-        private bool _waitingForResponse;
 
         /// <summary>
         /// 
@@ -45,7 +49,7 @@ namespace KP.GmailApi
                 "?client_id=", HttpUtility.UrlEncode(_clientId),
                 "&redirect_uri=", HttpUtility.UrlEncode("http://localhost"),
                 "&response_type=", HttpUtility.UrlEncode("code"),
-                "&scope=", HttpUtility.UrlEncode("https://www.googleapis.com/auth/gmail.modify https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/gmail.compose"),
+                "&scope=", HttpUtility.UrlEncode(string.Join(" ", ScopeModify, ScopeReadonly, ScopeCompose)),
                 "&access_type=", HttpUtility.UrlEncode("offline")
                 );
 
@@ -57,75 +61,116 @@ namespace KP.GmailApi
             res.EnsureSuccessStatusCode();
 
             var file = new FileInfo("login.html");
-
             File.WriteAllText(file.FullName, content);
+            // Start the browser to let the user login
             Process.Start(file.FullName);
 
-            //TODO: WIP
-            //ListenForResponse();
-
-            Console.WriteLine("Enter URl after accepting request:");
-            Console.WriteLine(Environment.NewLine);
-
-            var resultUrl = Console.ReadLine();
-            if (string.IsNullOrWhiteSpace(resultUrl))
-                throw new Exception("User did not enter valid Authorization code");
-
-            var query = new Uri(resultUrl).Query;
-            string code = HttpUtility.ParseQueryString(query).Get("code");
-
-            if (string.IsNullOrWhiteSpace(code))
-                throw new Exception("No valid code found");
-
-            return code;
+            return RequestAuthorizationCode();
         }
 
-        private void ListenForResponse()
+        private static string RequestAuthorizationCode()
         {
-            var listener = new HttpListener();
-            try
+            using (var listener = new HttpListener())
             {
                 listener.Prefixes.Add("http://*:80/");
-
                 listener.Start();
-                while (_waitingForResponse)
+
+                while (true)
                 {
                     var context = listener.GetContext();
-                    Task.Run(() => ProcessRequest(context));
+                    try
+                    {
+                        if (!context.Request.IsLocal)
+                            throw new Exception("URL should be localhost");
+
+                        var uri = context.Request.Url;
+                        var queryStringCollection = HttpUtility.ParseQueryString(uri.Query);
+
+                        // Example: http://localhost/?error=access_denied#
+                        string error = queryStringCollection["error"];
+                        if (error != null && string.Equals(error, "access_denied", StringComparison.OrdinalIgnoreCase))
+                            throw new Exception("User denied request");
+
+                        string code = queryStringCollection.Get("code");
+                        if (string.IsNullOrWhiteSpace(code))
+                            throw new Exception("No valid code found");
+
+                        context.Response.StatusCode = 200;
+                        return code;
+                    }
+                    finally
+                    {
+                        context.Response.Close();
+                    }
                 }
-            }
-            finally
-            {
-                listener.Abort();
             }
         }
 
-        private void ProcessRequest(HttpListenerContext context)
+        /*private string ProcessRequest(HttpListenerContext context)
         {
             try
             {
-                _waitingForResponse = false;
-                //context.Request.Url;//http://localhost/?code=4/CKYxlJc64Ag_UYOB25qEIDEhjV2zYnU6FxKcZRAIiWA.AvsvczEHfp4aWmFiZwPfH02HPEqUmgI
+                if (!context.Request.IsLocal)
+                    throw new Exception("URL should be localhost");
 
-                string text = "test";
-                byte[] bytes = Encoding.UTF8.GetBytes(text);
+                var uri = context.Request.Url;
+                var queryStringCollection = HttpUtility.ParseQueryString(uri.Query);
 
-                context.Response.OutputStream.Write(bytes, 0, bytes.Length);
+                //http://localhost/?error=access_denied#
+                string error = queryStringCollection["error"];
+                if (error != null && string.Equals(error, "access_denied", StringComparison.OrdinalIgnoreCase))
+                    throw new Exception("User denied request");
+
+                string code = queryStringCollection.Get("code");
+                if (string.IsNullOrWhiteSpace(code))
+                    throw new Exception("No valid code found");
+
+                //_code = code;
                 context.Response.StatusCode = 200;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("ERROR: " + ex);
-                byte[] bytes = Encoding.UTF8.GetBytes(ex.ToString());
-
-                context.Response.OutputStream.Write(bytes, 0, bytes.Length);
-                context.Response.StatusCode = 500;
+                return code;
             }
             finally
             {
                 context.Response.Close();
             }
         }
+
+        private bool ProcessRequest2(HttpListenerContext context)
+        {
+            try
+            {
+                if (!context.Request.IsLocal)
+                    throw new Exception("URL should be localhost");
+
+                var uri = context.Request.Url;
+                var queryStringCollection = HttpUtility.ParseQueryString(uri.Query);
+
+                //http://localhost/?error=access_denied#
+                string error = queryStringCollection["error"];
+                if (error != null && string.Equals(error, "access_denied", StringComparison.OrdinalIgnoreCase))
+                    throw new Exception("User denied request");
+
+                string code = queryStringCollection.Get("code");
+                if (string.IsNullOrWhiteSpace(code))
+                    throw new Exception("No valid code found");
+
+                //_code = code;
+                context.Response.StatusCode = 200;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("ERROR: " + ex);
+                context.Response.StatusCode = 500;
+                //_code = null;
+
+                return false;
+            }
+            finally
+            {
+                context.Response.Close();
+            }
+        }*/
 
         /// <summary>
         /// Exchange the authorization code into a refresh token.
