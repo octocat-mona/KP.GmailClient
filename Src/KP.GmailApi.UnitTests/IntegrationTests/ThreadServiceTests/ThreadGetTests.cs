@@ -32,7 +32,7 @@ namespace KP.GmailApi.UnitTests.IntegrationTests.ThreadServiceTests
             string threadId = message.ThreadId;
 
             // Act
-            Thread thread = await _service.GetAsync(threadId);
+            MessageThread thread = await _service.GetAsync(threadId);
 
             // Assert
             thread.Should().NotBeNull();

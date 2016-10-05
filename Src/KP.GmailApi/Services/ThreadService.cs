@@ -23,13 +23,13 @@ namespace KP.GmailApi.Services
         /// </summary>
         /// <param name="id">The ID of the thread to retrieve.</param>
         /// <returns></returns>
-        public async Task<Thread> GetAsync(string id)
+        public async Task<MessageThread> GetAsync(string id)
         {
             string queryString = new ThreadQueryStringBuilder()
                 .SetRequestAction(ThreadRequestAction.Get, id)
                 .Build();
 
-            return await _proxy.Get<Thread>(queryString);
+            return await _proxy.Get<MessageThread>(queryString);
         }
 
         /// <summary>
@@ -75,13 +75,13 @@ namespace KP.GmailApi.Services
         /// <param name="id">The ID of the thread to modify</param>
         /// <param name="input">The input to modify a thread</param>
         /// <returns></returns>
-        public async Task<Thread> ModifyAsync(string id, ModifyThreadInput input)
+        public async Task<MessageThread> ModifyAsync(string id, ModifyThreadInput input)
         {
             string queryString = new ThreadQueryStringBuilder()
                 .SetRequestAction(ThreadRequestAction.Modify, id)
                 .Build();
 
-            return await _proxy.Post<Thread>(queryString, input);
+            return await _proxy.Post<MessageThread>(queryString, input);
         }
 
         /// <summary>
@@ -89,13 +89,13 @@ namespace KP.GmailApi.Services
         /// </summary>
         /// <param name="id">The ID of the thread to Trash</param>
         /// <returns></returns>
-        public async Task<Thread> TrashAsync(string id)
+        public async Task<MessageThread> TrashAsync(string id)
         {
             string queryString = new ThreadQueryStringBuilder()
                 .SetRequestAction(ThreadRequestAction.Trash, id)
                 .Build();
 
-            return await _proxy.Post<Thread>(queryString);
+            return await _proxy.Post<MessageThread>(queryString);
         }
 
         /// <summary>
@@ -103,13 +103,13 @@ namespace KP.GmailApi.Services
         /// </summary>
         /// <param name="id">The ID of the thread to remove from Trash</param>
         /// <returns></returns>
-        public async Task<Thread> UntrashAsync(string id)
+        public async Task<MessageThread> UntrashAsync(string id)
         {
             string queryString = new ThreadQueryStringBuilder()
                 .SetRequestAction(ThreadRequestAction.Untrash, id)
                 .Build();
 
-            return await _proxy.Post<Thread>(queryString);
+            return await _proxy.Post<MessageThread>(queryString);
         }
     }
 }

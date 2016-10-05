@@ -47,7 +47,7 @@ namespace KP.GmailApi.ServiceExtensions
         /// </summary>
         /// <param name="service">Gmail API service instance</param>
         /// <returns>A list of Threads</returns>
-        public static async Task<IList<Thread>> ListAsync(this ThreadService service)
+        public static async Task<IList<MessageThread>> ListAsync(this ThreadService service)
         {
             return await ListAsync(service, null, labelIds: Label.Inbox);
         }
@@ -62,7 +62,7 @@ namespace KP.GmailApi.ServiceExtensions
         /// <param name="includeSpamAndTrash">Include threads from SPAM and TRASH in the results.</param>
         /// <param name="labelIds">Only return threads with labels that match all of the specified label IDs</param>
         /// <returns>A list of threads</returns>
-        public static async Task<IList<Thread>> ListAsync(this ThreadService service, string query, ushort maxResults = 0, bool includeSpamAndTrash = false, params string[] labelIds)
+        public static async Task<IList<MessageThread>> ListAsync(this ThreadService service, string query, ushort maxResults = 0, bool includeSpamAndTrash = false, params string[] labelIds)
         {
             var threadList = await service.ListIdsAsync(query, maxResults, includeSpamAndTrash, labelIds);
 
@@ -80,7 +80,7 @@ namespace KP.GmailApi.ServiceExtensions
         /// <param name="maxResults">Maximum number of threads to return</param>
         /// <param name="includeSpamAndTrash">Include threads from SPAM and TRASH in the results.</param>
         /// <returns>A list of threads</returns>
-        public static async Task<IList<Thread>> ListByLabelAsync(this ThreadService service, string labelId, string query = null, ushort maxResults = 0, bool includeSpamAndTrash = false)
+        public static async Task<IList<MessageThread>> ListByLabelAsync(this ThreadService service, string labelId, string query = null, ushort maxResults = 0, bool includeSpamAndTrash = false)
         {
             var threadList = await service.ListIdsAsync(query, maxResults, includeSpamAndTrash, labelId);
 
@@ -98,7 +98,7 @@ namespace KP.GmailApi.ServiceExtensions
         /// <param name="maxResults">Maximum number of threads to return</param>
         /// <param name="includeSpamAndTrash">Include threads from SPAM and TRASH in the results.</param>
         /// <returns>A list of threads</returns>
-        public static async Task<IList<Thread>> ListByLabelsAsync(this ThreadService service, string[] labelIds, string query = null, ushort maxResults = 0, bool includeSpamAndTrash = false)
+        public static async Task<IList<MessageThread>> ListByLabelsAsync(this ThreadService service, string[] labelIds, string query = null, ushort maxResults = 0, bool includeSpamAndTrash = false)
         {
             var threadList = await service.ListIdsAsync(query, maxResults, includeSpamAndTrash, labelIds);
 

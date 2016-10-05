@@ -13,7 +13,7 @@ namespace KP.GmailApi.Models
         /// </summary>
         public ThreadList()
         {
-            Threads = new List<Thread>(0);
+            Threads = new List<MessageThread>(0);
             NextPageToken = string.Empty;
         }
 
@@ -21,7 +21,7 @@ namespace KP.GmailApi.Models
         /// List with threads.
         /// </summary>
         [JsonProperty("threads")]
-        public List<Thread> Threads { get; set; }
+        public List<MessageThread> Threads { get; set; }
 
         /// <summary>
         /// Token to retrieve the next page of results in the list.

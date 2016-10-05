@@ -95,7 +95,7 @@
     <Compile Include="Models\Payload.cs" />
     <Compile Include="Models\PayloadBase.cs" />
     <Compile Include="Models\GmailErrorResponse.cs" />
-    <Compile Include="Models\Thread.cs" />
+    <Compile Include="Models\MessageThread.cs" />
     <Compile Include="Common\ParseOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceExtensions\DraftServiceExtensions.cs" />

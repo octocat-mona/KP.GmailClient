@@ -6,12 +6,12 @@ namespace KP.GmailApi.Models
     /// <summary>
     /// A collection of messages representing a conversation.
     /// </summary>
-    public class Thread
+    public class MessageThread
     {
         /// <summary>
         /// A collection of messages representing a conversation.
         /// </summary>
-        public Thread()
+        public MessageThread()
         {
             Id = string.Empty;
             Snippet = string.Empty;
@@ -43,7 +43,7 @@ namespace KP.GmailApi.Models
         public List<Message> Messages { get; set; }
 
         /// <summary>
-        /// A string with the values of the properties from this <see cref="Thread"/>
+        /// A string with the values of the properties from this <see cref="MessageThread"/>
         /// </summary>
         /// <returns>A string</returns>
         public override string ToString()
