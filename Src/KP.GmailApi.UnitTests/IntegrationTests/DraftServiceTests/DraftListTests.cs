@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using FluentAssertions;
 using KP.GmailApi.Common;
 using KP.GmailApi.ServiceExtensions;
@@ -13,25 +14,25 @@ namespace KP.GmailApi.UnitTests.IntegrationTests.DraftServiceTests
 
         public DraftListTests()
         {
-            GmailProxy proxy = SettingsManager.GetGmailClient();
+            GmailProxy proxy = SettingsManager.GetGmailProxy();
             _service = new DraftService(proxy);
         }
 
         [Fact]
-        public void CanListIds()
+        public async Task CanListIds()
         {
             // Act
-            var ids = _service.ListIds();
+            var ids = await _service.ListIdsAsync();
 
             // Assert
             ids.Should().NotBeNull();
         }
 
         [Fact]
-        public void CanList()
+        public async Task CanList()
         {
             // Act
-            var drafts = _service.List().ToList();
+            var drafts = (await _service.ListAsync()).ToList();
 
             // Assert
             drafts.Should().NotBeNull();

@@ -1,4 +1,4 @@
-using System;
+using System.Threading.Tasks;
 using KP.GmailApi.Builders;
 using KP.GmailApi.Common;
 using KP.GmailApi.Common.Enums;
@@ -33,7 +33,7 @@ namespace KP.GmailApi.Services
         /// <param name="includeSpamAndTrash">Include messages from SPAM and TRASH in the results.</param>
         /// <param name="labelIds">Only return messages with labels that match all of the specified label IDs</param>
         /// <returns>A <see cref="MessageList"/> containing the message IDs</returns>
-        public MessageList ListIds(string query = null, ushort maxResults = 0, bool includeSpamAndTrash = false, params string[] labelIds)
+        public async Task<MessageList> ListIdsAsync(string query = null, ushort maxResults = 0, bool includeSpamAndTrash = false, params string[] labelIds)
         {
             string queryString = new MessageQueryStringBuilder()
                 .SetRequestAction(MessageRequestAction.List)
@@ -44,7 +44,7 @@ namespace KP.GmailApi.Services
                 .SetIncludeSpamAndTrash(includeSpamAndTrash)
                 .Build();
 
-            return _proxy.Get<MessageList>(queryString);
+            return await _proxy.Get<MessageList>(queryString);
         }
 
         /// <summary>
@@ -52,25 +52,25 @@ namespace KP.GmailApi.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Message Get(string id)
+        public async Task<Message> GetAsync(string id)
         {
             string queryString = new MessageQueryStringBuilder()
                .SetRequestAction(MessageRequestAction.Get, id)
                .Build();
 
-            return _proxy.Get<Message>(queryString);
+            return await _proxy.Get<Message>(queryString);
         }
 
         /// <summary>
         /// Immediately and permanently deletes the specified message. WARNING: This operation CANNOT be undone. Prefer messages.trash instead.
         /// </summary>
-        public void Delete(string id)
+        public async Task DeleteAsync(string id)
         {
             string queryString = new MessageQueryStringBuilder()
                .SetRequestAction(MessageRequestAction.Delete, id)
                .Build();
 
-            _proxy.Delete(queryString);
+            await _proxy.Delete(queryString);
         }
 
         /// <summary>
@@ -78,29 +78,29 @@ namespace KP.GmailApi.Services
         /// </summary>
         /// <param name="id">The ID of the message to Trash.</param>
         /// <returns></returns>
-        public Message Trash(string id)
+        public async Task<Message> TrashAsync(string id)
         {
             string queryString = new MessageQueryStringBuilder()
                 .SetRequestAction(MessageRequestAction.Trash, id)
                 .Build();
 
-            return _proxy.Post<Message>(queryString);
+            return await _proxy.Post<Message>(queryString);
         }
 
         /// <summary>
         /// Removes the specified message from the trash.
         /// </summary>
         /// <param name="id">The ID of the message to remove from Trash</param>
-        public Message UnTrash(string id)
+        public async Task<Message> UnTrashAsync(string id)
         {
             string queryString = new MessageQueryStringBuilder()
                .SetRequestAction(MessageRequestAction.Untrash, id)
                .Build();
 
-            return _proxy.Post<Message>(queryString);
+            return await _proxy.Post<Message>(queryString);
         }
 
-        /// <summary>
+        /*/// <summary>
         /// Sends the specified message to the recipients in the To, Cc, and Bcc headers.
         /// </summary>
         public void Send()
@@ -133,6 +133,6 @@ namespace KP.GmailApi.Services
         public void Import()
         {
             throw new NotImplementedException();
-        }
+        }*/
     }
 }

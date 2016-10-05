@@ -1,20 +1,24 @@
-﻿using KP.GmailApi.Managers;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using KP.GmailApi.Managers;
 using KP.GmailApi.Models;
 using KP.GmailApi.ServiceExtensions;
-using KP.GmailApi.Services;
+using KP.GmailApi.UnitTests.IntegrationTests;
+using Xunit;
 
-namespace KP.GmailApi.WinFormsSample
+namespace KP.GmailApi.UnitTests
 {
-    internal class Readme
+    public class Playground
     {
-        public static void Samples()
+        //[Fact]
+        public static async Task Play()
         {
             // ----------------------
             // --- SETUP ---
             // ----------------------
 
-            string clientId = "";
-            string clientSecret = "";
+            string clientId = SettingsManager.GetClientId();
+            string clientSecret = SettingsManager.GetClientSecret();
 
             var tokenManager = new OAuth2TokenManager(clientId, clientSecret);
             // Provide a refresh token (required once)
@@ -38,16 +42,26 @@ namespace KP.GmailApi.WinFormsSample
             // --- USAGE EXAMPLES ---
             // ----------------------
             // Get the users profile
-            service.GetProfile();
+            Profile profile = await service.GetProfileAsync();
 
             // Get inbox messages
-            service.Messages.List();
+            IList<Message> messages = await service.Messages.ListAsync();
 
             // Get starred messages
-            service.Messages.ListByLabel(Label.Starred);
+            IList<Message> starredMessages = await service.Messages.ListByLabelAsync(Label.Starred);
 
             // List all labels
-            service.Labels.List();
+            IList<Label> labels = await service.Labels.ListAsync();
+
+            // List all drafts
+            IList<Draft> drafts = await service.Drafts.ListAsync();
+
+
+            // ----------------------
+            // --- EXTRA USAGE EXAMPLES ---
+            // ----------------------
+            string refreshToken2 = SettingsManager.GetRefreshToken();
+            tokenManager.Setup(refreshToken2, true);
         }
     }
 }

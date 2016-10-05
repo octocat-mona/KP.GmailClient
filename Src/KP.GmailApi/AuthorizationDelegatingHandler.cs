@@ -15,12 +15,12 @@ namespace KP.GmailApi
             _tokenManager = tokenManager;
         }
 
-        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            string token = _tokenManager.GetToken();
+            string token = await _tokenManager.GetTokenAsync().ConfigureAwait(false);
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-            return base.SendAsync(request, cancellationToken);
+            return await base.SendAsync(request, cancellationToken);
         }
     }
 }

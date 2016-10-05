@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Net;
+using System.Threading.Tasks;
 using FluentAssertions;
 using KP.GmailApi.Common;
 using KP.GmailApi.Models;
 using KP.GmailApi.Services;
+using Xunit;
 
 namespace KP.GmailApi.UnitTests.IntegrationTests.AttachmentServiceTests
 {
@@ -14,26 +16,26 @@ namespace KP.GmailApi.UnitTests.IntegrationTests.AttachmentServiceTests
 
         public AttachmentGetTests()
         {
-            GmailProxy proxy = SettingsManager.GetGmailClient();
+            GmailProxy proxy = SettingsManager.GetGmailProxy();
 
             _service = new AttachmentService(proxy);
             _draftService = new DraftService(proxy);
         }
 
         //[Fact]
-        public void NonExistingAttachment_ReturnsNotFound()
+        public async Task NonExistingAttachment_ReturnsNotFound()
         {
             // Arrange
             Draft draft = new Draft();// TODO: create draft with attachment
-            Message message = _draftService.Create(draft).Message;
+            Message message = (await _draftService.CreateAsync(draft)).Message;
             string messageId = message.Id;
 
             // Act
-            Action action = () => _service.Get(messageId, Guid.NewGuid().ToString("N"));
+            Func<Task> action = async () => await _service.GetAsync(messageId, Guid.NewGuid().ToString("N"));
 
             // Assert
-            action.ShouldThrow<GmailException>()
-                .And.StatusCode.Should().Be(HttpStatusCode.NotFound);
+            var ex = await Assert.ThrowsAsync<GmailException>(action);
+            ex.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
     }
 }

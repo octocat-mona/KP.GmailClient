@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Threading.Tasks;
 using FluentAssertions;
 using KP.GmailApi.Common;
 using KP.GmailApi.Models;
@@ -15,39 +16,39 @@ namespace KP.GmailApi.UnitTests.IntegrationTests.LabelServiceTests
 
         public LabelGetTests()
         {
-            GmailProxy proxy = SettingsManager.GetGmailClient();
+            GmailProxy proxy = SettingsManager.GetGmailProxy();
             _service = new LabelService(proxy);
         }
 
         [Fact]
-        public void CanGet()
+        public async Task CanGet()
         {
             // Act
-            Label label = _service.Get(Label.Inbox);
+            Label label = await _service.GetAsync(Label.Inbox);
 
             // Assert
             Assert.NotNull(label);
         }
 
         [Fact]
-        public void CanList()
+        public async Task CanList()
         {
             // Act
-            List<Label> labels = _service.List();
+            IList<Label> labels = await _service.ListAsync();
 
             // Assert
             Assert.NotNull(labels);
         }
 
         [Fact]
-        public void NonExistingLabel_ReturnsNotFound()
+        public async Task NonExistingLabel_ReturnsNotFound()
         {
             // Act
-            Action action = () => _service.Get(Guid.NewGuid().ToString("N"));
+            Func<Task> action = async () => await _service.GetAsync(Guid.NewGuid().ToString("N"));
 
             // Assert
-            action.ShouldThrow<GmailException>()
-                .And.StatusCode.Should().Be(HttpStatusCode.NotFound);
+            var ex = await Assert.ThrowsAsync<GmailException>(action);
+            ex.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
     }
 }

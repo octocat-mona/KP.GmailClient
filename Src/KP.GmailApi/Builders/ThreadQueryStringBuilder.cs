@@ -31,7 +31,7 @@ namespace KP.GmailApi.Builders
         public ThreadQueryStringBuilder SetFields(ThreadFields fields)
         {
             throw new NotImplementedException();//TODO:
-            return this;
+            //return this;
         }
 
         /// <summary>

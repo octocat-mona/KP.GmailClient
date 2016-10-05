@@ -1,4 +1,5 @@
-﻿using KP.GmailApi.Builders;
+﻿using System.Threading.Tasks;
+using KP.GmailApi.Builders;
 using KP.GmailApi.Common;
 using KP.GmailApi.Common.Enums;
 using KP.GmailApi.Models;
@@ -22,13 +23,13 @@ namespace KP.GmailApi.Services
         /// </summary>
         /// <param name="id">The ID of the thread to retrieve.</param>
         /// <returns></returns>
-        public Thread Get(string id)
+        public async Task<Thread> GetAsync(string id)
         {
             string queryString = new ThreadQueryStringBuilder()
                 .SetRequestAction(ThreadRequestAction.Get, id)
                 .Build();
 
-            return _proxy.Get<Thread>(queryString);
+            return await _proxy.Get<Thread>(queryString);
         }
 
         /// <summary>
@@ -40,7 +41,7 @@ namespace KP.GmailApi.Services
         /// <param name="includeSpamAndTrash">Include threads from SPAM and TRASH in the results.</param>
         /// <param name="labelIds">Only return threads with labels that match all of the specified label IDs</param>
         /// <returns>A <see cref="ThreadList"/> containing the thread IDs</returns>
-        public ThreadList ListIds(string query = null, ushort maxResults = 0, bool includeSpamAndTrash = false, params string[] labelIds)
+        public async Task<ThreadList> ListIdsAsync(string query = null, ushort maxResults = 0, bool includeSpamAndTrash = false, params string[] labelIds)
         {
             string queryString = new ThreadQueryStringBuilder()
                 .SetRequestAction(ThreadRequestAction.List)
@@ -51,7 +52,7 @@ namespace KP.GmailApi.Services
                 .SetIncludeSpamAndTrash(includeSpamAndTrash)
                 .Build();
 
-            return _proxy.Get<ThreadList>(queryString);
+            return await _proxy.Get<ThreadList>(queryString);
         }
 
         /// <summary>
@@ -59,13 +60,13 @@ namespace KP.GmailApi.Services
         /// </summary>
         /// <param name="id">ID of the Thread to delete.</param>
         /// <returns></returns>
-        public void Delete(string id)
+        public async Task DeleteAsync(string id)
         {
             string queryString = new ThreadQueryStringBuilder()
                 .SetRequestAction(ThreadRequestAction.Delete, id)
                 .Build();
 
-            _proxy.Delete(queryString);
+            await _proxy.Delete(queryString);
         }
 
         /// <summary>
@@ -74,13 +75,13 @@ namespace KP.GmailApi.Services
         /// <param name="id">The ID of the thread to modify</param>
         /// <param name="input">The input to modify a thread</param>
         /// <returns></returns>
-        public Thread Modify(string id, ModifyThreadInput input)
+        public async Task<Thread> ModifyAsync(string id, ModifyThreadInput input)
         {
             string queryString = new ThreadQueryStringBuilder()
                 .SetRequestAction(ThreadRequestAction.Modify, id)
                 .Build();
 
-            return _proxy.Post<Thread>(queryString, input);
+            return await _proxy.Post<Thread>(queryString, input);
         }
 
         /// <summary>
@@ -88,13 +89,13 @@ namespace KP.GmailApi.Services
         /// </summary>
         /// <param name="id">The ID of the thread to Trash</param>
         /// <returns></returns>
-        public Thread Trash(string id)
+        public async Task<Thread> TrashAsync(string id)
         {
             string queryString = new ThreadQueryStringBuilder()
                 .SetRequestAction(ThreadRequestAction.Trash, id)
                 .Build();
 
-            return _proxy.Post<Thread>(queryString);
+            return await _proxy.Post<Thread>(queryString);
         }
 
         /// <summary>
@@ -102,13 +103,13 @@ namespace KP.GmailApi.Services
         /// </summary>
         /// <param name="id">The ID of the thread to remove from Trash</param>
         /// <returns></returns>
-        public Thread Untrash(string id)
+        public async Task<Thread> UntrashAsync(string id)
         {
             string queryString = new ThreadQueryStringBuilder()
                 .SetRequestAction(ThreadRequestAction.Untrash, id)
                 .Build();
 
-            return _proxy.Post<Thread>(queryString);
+            return await _proxy.Post<Thread>(queryString);
         }
     }
 }

@@ -1,24 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace KP.GmailApi.UnitTests
 {
     public class CleanupHelper<T, TParam>
     {
-        private readonly Func<TParam, T> _createAction;
-        private readonly Action<T> _deleteAction;
+        private readonly Func<TParam, Task<T>> _createFunc;
+        private readonly Func<T, Task> _deleteFunc;
         private readonly List<T> _createdItems = new List<T>();
 
-        public CleanupHelper(Func<TParam, T> createAction, Action<T> deleteAction)
+        public CleanupHelper(Func<TParam, Task<T>> createFunc, Func<T, Task> deleteFunc)
         {
-            _createAction = createAction;
-            _deleteAction = deleteAction;
+            _createFunc = createFunc;
+            _deleteFunc = deleteFunc;
         }
 
-        public T Create(TParam createParam)
+        public async Task<T> CreateAsync(TParam createParam)
         {
-            T createdItem = _createAction(createParam);
+            T createdItem = await _createFunc(createParam);
             _createdItems.Add(createdItem);
 
             return createdItem;
@@ -42,7 +43,8 @@ namespace KP.GmailApi.UnitTests
             {
                 try
                 {
-                    _deleteAction(item);
+                    //TODO: use Task.WhenAll instead of loop
+                    _deleteFunc(item).Wait();
                 }
                 catch (Exception ex)
                 {

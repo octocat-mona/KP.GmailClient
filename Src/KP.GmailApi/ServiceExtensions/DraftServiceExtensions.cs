@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using KP.GmailApi.Common;
 using KP.GmailApi.Models;
 using KP.GmailApi.Services;
@@ -18,7 +19,7 @@ namespace KP.GmailApi.ServiceExtensions
         /// <param name="subject">The subject of the draft</param>
         /// <param name="body">The body of the draft</param>
         /// <returns></returns>
-        public static Draft Create(this DraftService service, string subject, string body)
+        public static async Task<Draft> CreateAsync(this DraftService service, string subject, string body)
         {
             Draft draftInput = new Draft
             {
@@ -34,7 +35,7 @@ namespace KP.GmailApi.ServiceExtensions
                 }
             };
 
-            return service.Create(draftInput);
+            return await service.CreateAsync(draftInput);
         }
 
         /// <summary>
@@ -42,11 +43,12 @@ namespace KP.GmailApi.ServiceExtensions
         /// </summary>
         /// <param name="service">Gmail API service instance</param>
         /// <returns>A list of Drafts</returns>
-        public static IEnumerable<Draft> List(this DraftService service)
+        public static async Task<IList<Draft>> ListAsync(this DraftService service)
         {
-            DraftList draftIds = service.ListIds();
+            DraftList draftIds = await service.ListIdsAsync();
 
-            return draftIds.Drafts.Select(draft => service.Get(draft.Id));
+            var tasks = draftIds.Drafts.Select(async draft => (await service.GetAsync(draft.Id)));
+            return (await Task.WhenAll(tasks)).ToList();
         }
     }
 }

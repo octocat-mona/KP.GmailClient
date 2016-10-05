@@ -1,4 +1,5 @@
-﻿using KP.GmailApi.Builders;
+﻿using System.Threading.Tasks;
+using KP.GmailApi.Builders;
 using KP.GmailApi.Common;
 using KP.GmailApi.Managers;
 using KP.GmailApi.Models;
@@ -53,12 +54,12 @@ namespace KP.GmailApi
         /// Gets the current user's Gmail profile.
         /// </summary>
         /// <returns></returns>
-        public Profile GetProfile()
+        public async Task<Profile> GetProfileAsync()
         {
             string queryString = new UserQueryStringBuilder()
                  .Build();
 
-            return _proxy.Get<Profile>(queryString);
+            return await _proxy.Get<Profile>(queryString);
         }
     }
 }

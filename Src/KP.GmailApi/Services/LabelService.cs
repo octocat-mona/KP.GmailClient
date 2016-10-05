@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using KP.GmailApi.Builders;
 using KP.GmailApi.Common;
 using KP.GmailApi.Common.Enums;
@@ -23,75 +24,75 @@ namespace KP.GmailApi.Services
         /// </summary>
         /// <param name="id">The ID of the label to retrieve.</param>
         /// <returns></returns>
-        public Label Get(string id)
+        public async Task<Label> GetAsync(string id)
         {
             string queryString = new LabelQueryStringBuilder()
                 .SetRequestAction(LabelRequestAction.Get, id)
                 .Build();
 
-            return _proxy.Get<Label>(queryString);
+            return await _proxy.Get<Label>(queryString);
         }
 
         /// <summary>
         /// Lists all labels in the user's mailbox.
         /// </summary>
         /// <returns></returns>
-        public List<Label> List()
+        public async Task<IList<Label>> ListAsync()
         {
             string queryString = new LabelQueryStringBuilder()
                 .Build();
 
-            return _proxy.Get<List<Label>>(queryString, new ParseOptions { Path = "labels" });
+            return await _proxy.Get<IList<Label>>(queryString, new ParseOptions { Path = "labels" });
         }
 
         /// <summary>
         /// Creates a new label.
         /// </summary>
-        public Label Create(CreateLabelInput labelInput)
+        public async Task<Label> CreateAsync(CreateLabelInput labelInput)
         {
             string queryString = new LabelQueryStringBuilder()
                 .Build();
 
-            return _proxy.Post<Label>(queryString, labelInput);
+            return await _proxy.Post<Label>(queryString, labelInput);
         }
 
         /// <summary>
         /// WARNING: Immediately and permanently deletes the specified label and removes it from any messages and threads that it is applied to.
         /// </summary>
         /// <param name="id">The ID of the label to delete.</param>
-        public void Delete(string id)
+        public async Task DeleteAsync(string id)
         {
             string queryString = new LabelQueryStringBuilder()
                 .SetRequestAction(LabelRequestAction.Delete, id)
                 .Build();
 
-            _proxy.Delete(queryString);
+            await _proxy.Delete(queryString);
         }
 
         /// <summary>
         /// Updates the specified label.
         /// </summary>
         /// <param name="labelInput"></param>
-        public Label Update(UpdateLabelInput labelInput)
+        public async Task<Label> UpdateAsync(UpdateLabelInput labelInput)
         {
             string queryString = new LabelQueryStringBuilder()
                 .SetRequestAction(LabelRequestAction.Update, labelInput.Id)
                 .Build();
 
-            return _proxy.Put<Label>(queryString, labelInput);
+            return await _proxy.Put<Label>(queryString, labelInput);
         }
 
         /// <summary>
         /// Updates the specified label. This method supports patch semantics.
         /// </summary>
         /// <param name="label"></param>
-        public Label Patch(Label label)
+        public async Task<Label> PatchAsync(Label label)
         {
             string queryString = new LabelQueryStringBuilder()
                 .SetRequestAction(LabelRequestAction.Update, label.Id)
                 .Build();
 
-            return _proxy.Patch<Label>(queryString, label);
+            return await _proxy.Patch<Label>(queryString, label);
         }
     }
 }

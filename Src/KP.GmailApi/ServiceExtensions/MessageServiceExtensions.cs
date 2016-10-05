@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using KP.GmailApi.Models;
 using KP.GmailApi.Services;
 
@@ -16,9 +17,9 @@ namespace KP.GmailApi.ServiceExtensions
         /// <param name="service">Gmail API service instance</param>
         /// <param name="labelIds">Only return messages with labels that match all of the specified label IDs</param>
         /// <returns>The number of messages</returns>
-        public static uint Count(this MessageService service, params string[] labelIds)
+        public static async Task<uint> CountAsync(this MessageService service, params string[] labelIds)
         {
-            return service.ListIds(labelIds: labelIds).ResultSizeEstimate;
+            return (await service.ListIdsAsync(labelIds: labelIds)).ResultSizeEstimate;
         }
 
         /// <summary>
@@ -26,9 +27,9 @@ namespace KP.GmailApi.ServiceExtensions
         /// </summary>
         /// <param name="service">Gmail API service instance</param>
         /// <returns>The number of messages</returns>
-        public static uint Count(this MessageService service)
+        public static async Task<uint> CountAsync(this MessageService service)
         {
-            return Count(service, Label.Inbox);
+            return await CountAsync(service, Label.Inbox);
         }
 
         /// <summary>
@@ -36,9 +37,9 @@ namespace KP.GmailApi.ServiceExtensions
         /// </summary>
         /// <param name="service">Gmail API service instance</param>
         /// <returns>A <see cref="MessageList"/> instance</returns>
-        public static MessageList ListIds(this MessageService service)
+        public static async Task<MessageList> ListIdsAsync(this MessageService service)
         {
-            return service.ListIds(labelIds: Label.Inbox);
+            return await service.ListIdsAsync(labelIds: Label.Inbox);
         }
 
         /// <summary>
@@ -46,9 +47,9 @@ namespace KP.GmailApi.ServiceExtensions
         /// </summary>
         /// <param name="service">Gmail API service instance</param>
         /// <returns>A list of Messages</returns>
-        public static IEnumerable<Message> List(this MessageService service)
+        public static async Task<IList<Message>> ListAsync(this MessageService service)
         {
-            return List(service, null, labelIds: Label.Inbox);
+            return await ListAsync(service, null, labelIds: Label.Inbox);
         }
 
         /// <summary>
@@ -61,11 +62,12 @@ namespace KP.GmailApi.ServiceExtensions
         /// <param name="includeSpamAndTrash">Include messages from SPAM and TRASH in the results.</param>
         /// <param name="labelIds">Only return messages with labels that match all of the specified label IDs</param>
         /// <returns>A list of Messages</returns>
-        public static IEnumerable<Message> List(this MessageService service, string query, ushort maxResults = 0, bool includeSpamAndTrash = false, params string[] labelIds)
+        public static async Task<IList<Message>> ListAsync(this MessageService service, string query, ushort maxResults = 0, bool includeSpamAndTrash = false, params string[] labelIds)
         {
-            var messageList = service.ListIds(query, maxResults, includeSpamAndTrash, labelIds);
+            var messageList = await service.ListIdsAsync(query, maxResults, includeSpamAndTrash, labelIds);
 
-            return messageList.Messages.Select(id => service.Get(id.Id));// TODO: do one batch request?
+            var tasks = messageList.Messages.Select(id => service.GetAsync(id.Id));// TODO: do one batch request?
+            return (await Task.WhenAll(tasks)).ToList();
         }
 
         /// <summary>
@@ -78,11 +80,12 @@ namespace KP.GmailApi.ServiceExtensions
         /// <param name="maxResults">Maximum number of messages to return</param>
         /// <param name="includeSpamAndTrash">Include messages from SPAM and TRASH in the results.</param>
         /// <returns>A list of Messages</returns>
-        public static IEnumerable<Message> ListByLabel(this MessageService service, string labelId, string query = null, ushort maxResults = 0, bool includeSpamAndTrash = false)
+        public static async Task<IList<Message>> ListByLabelAsync(this MessageService service, string labelId, string query = null, ushort maxResults = 0, bool includeSpamAndTrash = false)
         {
-            var messageList = service.ListIds(query, maxResults, includeSpamAndTrash, labelId);
+            var messageList = await service.ListIdsAsync(query, maxResults, includeSpamAndTrash, labelId);
 
-            return messageList.Messages.Select(id => service.Get(id.Id));
+            var tasks = messageList.Messages.Select(message => service.GetAsync(message.Id));
+            return (await Task.WhenAll(tasks)).ToList();
         }
 
         /// <summary>
@@ -95,11 +98,12 @@ namespace KP.GmailApi.ServiceExtensions
         /// <param name="maxResults">Maximum number of messages to return</param>
         /// <param name="includeSpamAndTrash">Include messages from SPAM and TRASH in the results.</param>
         /// <returns>A list of Messages</returns>
-        public static IEnumerable<Message> ListByLabels(this MessageService service, string[] labelIds, string query = null, ushort maxResults = 0, bool includeSpamAndTrash = false)
+        public static async Task<IList<Message>> ListByLabelsAsync(this MessageService service, string[] labelIds, string query = null, ushort maxResults = 0, bool includeSpamAndTrash = false)
         {
-            var messageList = service.ListIds(query, maxResults, includeSpamAndTrash, labelIds);
+            var messageList = await service.ListIdsAsync(query, maxResults, includeSpamAndTrash, labelIds);
 
-            return messageList.Messages.Select(id => service.Get(id.Id));// TODO: do one batch request?
+            var tasks = messageList.Messages.Select(id => service.GetAsync(id.Id));
+            return (await Task.WhenAll(tasks)).ToList();
         }
     }
 }

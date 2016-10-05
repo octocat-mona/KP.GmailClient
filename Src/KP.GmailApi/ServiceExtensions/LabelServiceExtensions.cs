@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using KP.GmailApi.Models;
 using KP.GmailApi.Services;
 
@@ -17,9 +18,9 @@ namespace KP.GmailApi.ServiceExtensions
         /// <param name="service">Gmail API service instance</param>
         /// <param name="type">The label type</param>
         /// <returns>A list of Labels</returns>
-        public static List<Label> List(this LabelService service, LabelType type)
+        public static async Task<IList<Label>> ListAsync(this LabelService service, LabelType type)
         {
-            return service.List()
+            return (await service.ListAsync())
                 .Where(l => l.Type == type)
                 .ToList();
         }
@@ -30,9 +31,9 @@ namespace KP.GmailApi.ServiceExtensions
         /// <param name="service">Gmail API service instance</param>
         /// <param name="name">The name of the label defined by the user</param>
         /// <returns>A list of Labels</returns>
-        public static Label GetByName(this LabelService service, string name)
+        public static async Task<Label> GetByNameAsync(this LabelService service, string name)
         {
-            return List(service, LabelType.User)
+            return (await ListAsync(service, LabelType.User))
                 .FirstOrDefault(label => string.Equals(label.Name, name, StringComparison.OrdinalIgnoreCase));
         }
     }

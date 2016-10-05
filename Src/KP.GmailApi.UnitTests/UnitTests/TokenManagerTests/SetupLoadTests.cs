@@ -9,7 +9,7 @@ namespace KP.GmailApi.UnitTests.UnitTests.TokenManagerTests
 {
     public class SetupLoadTests : IDisposable
     {
-        private const int ThreadCount = 10000;
+        private const int ThreadCount = 500;
         private readonly OAuth2TokenManager _tokenManager;
         private const string ClientIdName = "ClientId1";
         private const string ClientSecretName = "ClientSecret1";
@@ -85,8 +85,10 @@ namespace KP.GmailApi.UnitTests.UnitTests.TokenManagerTests
             Task[] tasks = new Task[ThreadCount];
 
             for (int i = 0; i < ThreadCount; i++)
+            {
                 //Act
                 tasks[i] = Task.Run(() => new OAuth2TokenManager(ClientIdName, ClientSecretName).Setup(RefreshTokenName, true));
+            }
 
             Task.WaitAll(tasks);
 

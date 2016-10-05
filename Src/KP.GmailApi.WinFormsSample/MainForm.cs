@@ -45,12 +45,12 @@ namespace KP.GmailApi.WinFormsSample
             }
         }
 
-        private void OnBtnLabelsClick(object sender, EventArgs e)
+        private async void OnBtnLabelsClick(object sender, EventArgs e)
         {
             try
             {
                 AppendToLog("Getting labels");
-                List<Label> labels = _gmailServiceHelper.GetLabels();
+                IList<Label> labels = await _gmailServiceHelper.GetLabelsAsync();
                 var labelNames = labels
                     .Select(label => $"ID: {label.Id}{Environment.NewLine}Name: {label.Name}{Environment.NewLine}")
                     .ToList();
@@ -64,12 +64,12 @@ namespace KP.GmailApi.WinFormsSample
             }
         }
 
-        private void OnBtnInboxMailClick(object sender, EventArgs e)
+        private async void OnBtnInboxMailClick(object sender, EventArgs e)
         {
             try
             {
                 AppendToLog("Getting emails");
-                List<Message> messages = _gmailServiceHelper.GetMail();
+                IList<Message> messages = await _gmailServiceHelper.GetMailAsync();
 
                 StringBuilder builder = new StringBuilder();
                 foreach (var message in messages)

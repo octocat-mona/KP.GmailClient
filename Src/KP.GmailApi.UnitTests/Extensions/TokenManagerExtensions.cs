@@ -31,5 +31,19 @@ namespace KP.GmailApi.UnitTests.Extensions
         {
             return ReflectionHelper.GetFieldValue<string>(tokenManager, "_tokenFile");
         }
+
+        public static void SetTokenFile(this OAuth2TokenManager tokenManager, string tokenFile)
+        {
+            ReflectionHelper.SetFieldValue<string>(tokenManager, "_tokenFile", tokenFile);
+        }
+
+        public static OAuth2TokenManager OverrideTokenFile(this OAuth2TokenManager tokenManager, string folderSuffix)
+        {
+            string dirPath = ReflectionHelper.GetExecutingAssemblyPath();
+            string fileName = new FileInfo(tokenManager.TokenFile()).Name;
+            tokenManager.SetTokenFile($"{dirPath}\\GmailClient_{folderSuffix}\\" + fileName);
+
+            return tokenManager;
+        }
     }
 }

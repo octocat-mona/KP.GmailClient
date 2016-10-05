@@ -1,7 +1,9 @@
 ﻿using System;
+using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
@@ -24,6 +26,7 @@ namespace KP.GmailApi.Common
         private const string HttpDelete = "DELETE";
 
         private readonly HttpClient _client;
+        private readonly JsonSerializer _jsonSerializer;
 
         /// <summary>
         /// Takes care of all I/O to Gmail.
@@ -47,54 +50,45 @@ namespace KP.GmailApi.Common
             _client.DefaultRequestHeaders.Add("Accept", "application/json");
 
             // Set default (de)serializing for enums
-            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
-            {
-                Converters = { new StringEnumConverter { CamelCaseText = true } }
-            };
+            var stringEnumConverter = new StringEnumConverter { CamelCaseText = true };
+            _jsonSerializer = new JsonSerializer { Converters = { stringEnumConverter } };
+            JsonConvert.DefaultSettings = () => new JsonSerializerSettings { Converters = { stringEnumConverter } };
         }
 
-        internal T Get<T>(string queryString)
+        internal async Task<T> Get<T>(string queryString)
         {
-            string response = GetResponse(HttpGet, queryString);
-
-            return JsonConvert.DeserializeObject<T>(response);
+            return await GetResponseAsync<T>(HttpGet, queryString);
         }
 
-        internal T Get<T>(string queryString, ParseOptions options)
+        internal async Task<T> Get<T>(string queryString, ParseOptions options)
         {
-            string response = GetResponse(HttpGet, queryString);
+            var jObject = await GetResponseAsync<JObject>(HttpGet, queryString);
 
-            var jo = JObject.Parse(response);
-            return jo.SelectToken(options.Path, true).ToObject<T>();
+            //var jObject = JObject.Parse(response);
+            return jObject.SelectToken(options.Path, true).ToObject<T>();
         }
 
-        internal T Post<T>(string queryString, object content = null)
+        internal async Task<T> Post<T>(string queryString, object content = null)
         {
-            string response = GetResponse(HttpPost, queryString, content);
-
-            return JsonConvert.DeserializeObject<T>(response);
+            return await GetResponseAsync<T>(HttpPost, queryString, content);
         }
 
-        internal T Put<T>(string queryString, object content = null)
+        internal async Task<T> Put<T>(string queryString, object content = null)
         {
-            string response = GetResponse(HttpPut, queryString, content);
-
-            return JsonConvert.DeserializeObject<T>(response);
+            return await GetResponseAsync<T>(HttpPut, queryString, content);
         }
 
-        internal T Patch<T>(string queryString, object content = null)
+        internal async Task<T> Patch<T>(string queryString, object content = null)
         {
-            string response = GetResponse(HttpPatch, queryString, content);
-
-            return JsonConvert.DeserializeObject<T>(response);
+            return await GetResponseAsync<T>(HttpPatch, queryString, content);
         }
 
-        internal void Delete(string queryString)
+        internal async Task Delete(string queryString)
         {
-            GetResponse(HttpDelete, queryString);
+            await GetResponseAsync<object>(HttpDelete, queryString);
         }
 
-        private string GetResponse(string httpMethod, string queryString, object content = null)
+        private async Task<T> GetResponseAsync<T>(string httpMethod, string queryString, object content = null)
         {
             HttpContent httpContent = content == null
                 ? null
@@ -105,15 +99,20 @@ namespace KP.GmailApi.Common
                 Content = httpContent
             };
 
-            HttpResponseMessage response = _client.SendAsync(request).Result;
+            HttpResponseMessage response = await _client.SendAsync(request).ConfigureAwait(false);
+            if (!response.IsSuccessStatusCode)
+            {
+                string contentString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                GmailException ex = ErrorResponseParser.Parse(response.StatusCode, contentString);
+                throw ex;
+            }
 
-            string contentString = response.Content.ReadAsStringAsync().Result;
-
-            if (response.IsSuccessStatusCode)
-                return contentString;
-
-            GmailException ex = ErrorResponseParser.Parse(response.StatusCode, contentString);
-            throw ex;
+            using (Stream stream = (await response.Content.ReadAsStreamAsync().ConfigureAwait(false)))
+            using (StreamReader streamReader = new StreamReader(stream))
+            using (JsonReader jsonReader = new JsonTextReader(streamReader))
+            {
+                return _jsonSerializer.Deserialize<T>(jsonReader);
+            }
         }
     }
 }

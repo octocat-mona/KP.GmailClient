@@ -3,6 +3,8 @@ using System.Collections.Concurrent;
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Web;
 using KP.GmailApi.Common;
 using KP.GmailApi.Models;
@@ -25,6 +27,7 @@ namespace KP.GmailApi.Managers
         private readonly string _clientSecret;
         private readonly string _tokenFile;
         private OAuth2Token _token;
+        private readonly SemaphoreSlim _semaphoreSlim = new SemaphoreSlim(1, 1);
 
         /// <summary>
         /// A manager which retrieves and stores a token of a client ID.
@@ -40,7 +43,6 @@ namespace KP.GmailApi.Managers
             _clientSecret = clientSecret;
 
             string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-
             //TODO: save with emailaddress as key instead (clientId = project based, not user based)
             _tokenFile = Path.Combine(appData, "GmailClient\\", clientId.GetValidFilename() + ".json");
             _token = Tokens.GetOrAdd(_tokenFile, new OAuth2Token());
@@ -50,10 +52,11 @@ namespace KP.GmailApi.Managers
         /// Get an access token. Will return an valid existing token or retrieves a new one if expired.
         /// </summary>
         /// <returns>An access token</returns>
-        internal string GetToken()
+        internal async Task<string> GetTokenAsync()
         {
-            lock (_token)
+            try
             {
+                await _semaphoreSlim.WaitAsync().ConfigureAwait(false);
                 if (_token.RefreshToken == null)
                 {
                     string jsonText = File.ReadAllText(_tokenFile);
@@ -70,15 +73,15 @@ namespace KP.GmailApi.Managers
                     "refresh_token=", HttpUtility.UrlEncode(_token.RefreshToken),
                     "&client_id=", HttpUtility.UrlEncode(_clientId),
                     "&client_secret=", HttpUtility.UrlEncode(_clientSecret),
-                    "&grant_type=", HttpUtility.UrlEncode("refresh_token")
+                    "&grant_type=refresh_token"
                     );
 
                 var stringContent = new StringContent(content);
                 stringContent.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
 
                 var client = new HttpClient();
-                var result = client.PostAsync(url, stringContent).Result;
-                string json = result.Content.ReadAsStringAsync().Result;
+                var result = await client.PostAsync(url, stringContent).ConfigureAwait(false);
+                string json = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
 
                 result.EnsureSuccessStatusCode();
 
@@ -90,6 +93,10 @@ namespace KP.GmailApi.Managers
                 WriteToFile();
 
                 return _token.AccessToken;
+            }
+            finally
+            {
+                _semaphoreSlim.Release();
             }
         }
 

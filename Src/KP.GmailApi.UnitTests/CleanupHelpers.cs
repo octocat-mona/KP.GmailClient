@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using KP.GmailApi.Common;
 using KP.GmailApi.Models;
 using KP.GmailApi.Services;
@@ -10,7 +11,7 @@ namespace KP.GmailApi.UnitTests
     {
         public static CleanupHelper<Draft, Draft> GetDraftServiceCleanupHelper()
         {
-            GmailProxy proxy = SettingsManager.GetGmailClient();
+            GmailProxy proxy = SettingsManager.GetGmailProxy();
             var service = new DraftService(proxy);
 
             return GetDraftServiceCleanupHelper(service);
@@ -18,8 +19,8 @@ namespace KP.GmailApi.UnitTests
 
         public static CleanupHelper<Draft, Draft> GetDraftServiceCleanupHelper(DraftService service)
         {
-            Action<Draft> deleteAction = label => service.Delete(label.Id);
-            Func<Draft, Draft> createAction = service.Create;
+            Func<Draft, Task> deleteAction = async label => await service.DeleteAsync(label.Id);
+            Func<Draft, Task<Draft>> createAction = service.CreateAsync;
             return new CleanupHelper<Draft, Draft>(createAction, deleteAction);
         }
     }

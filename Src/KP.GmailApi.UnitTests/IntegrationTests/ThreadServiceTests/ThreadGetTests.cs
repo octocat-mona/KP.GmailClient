@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using FluentAssertions;
 using KP.GmailApi.Common;
 using KP.GmailApi.Models;
@@ -17,21 +18,21 @@ namespace KP.GmailApi.UnitTests.IntegrationTests.ThreadServiceTests
 
         public ThreadGetTests()
         {
-            GmailProxy proxy = SettingsManager.GetGmailClient();
+            GmailProxy proxy = SettingsManager.GetGmailProxy();
 
             _service = new ThreadService(proxy);
             _messageService = new MessageService(proxy);
         }
 
         [Fact]
-        public void CanGet()
+        public async Task CanGet()
         {
             // Arrange
-            Message message = _messageService.ListByLabel(Label.Sent).First();
+            Message message = (await _messageService.ListByLabelAsync(Label.Sent)).First();
             string threadId = message.ThreadId;
 
             // Act
-            Thread thread = _service.Get(threadId);
+            Thread thread = await _service.GetAsync(threadId);
 
             // Assert
             thread.Should().NotBeNull();
@@ -51,17 +52,17 @@ namespace KP.GmailApi.UnitTests.IntegrationTests.ThreadServiceTests
         }*/
 
         [Fact]
-        public void NonExistingThreadId_ReturnsNotFound()
+        public async Task NonExistingThreadId_ReturnsNotFound()
         {
             // Arrange
             const string id = "13c97ae7b72cb05e";
 
             // Act
-            Action action = () => _service.Get(id);
+            Func<Task> action = async () => await _service.GetAsync(id);
 
             // Assert
-            action.ShouldThrow<GmailException>()
-                .And.StatusCode.Should().Be(HttpStatusCode.NotFound);
+            var ex = await Assert.ThrowsAsync<GmailException>(action);
+            ex.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using FluentAssertions;
 using KP.GmailApi.Common;
 using KP.GmailApi.ServiceExtensions;
@@ -12,23 +13,25 @@ namespace KP.GmailApi.UnitTests.IntegrationTests.ThreadServiceTests
 
         public ThreadListTests()
         {
-            GmailProxy proxy = SettingsManager.GetGmailClient();
+            GmailProxy proxy = SettingsManager.GetGmailProxy();
             _service = new ThreadService(proxy);
         }
 
+        //[Fact] TODO: implement
         public void CanListIds()
         {
             // Act
-            Action action = () => _service.ListIds();
+            Func<Task> action = async () => await _service.ListIdsAsync();
 
             // Assert
             action.ShouldNotThrow();
         }
 
+        //[Fact] TODO: implement
         public void CanList()
         {
             // Act
-            Action action = () => _service.List();
+            Func<Task> action = async () => await _service.ListAsync();
 
             // Assert
             action.ShouldNotThrow();

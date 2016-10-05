@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using FluentAssertions;
 using KP.GmailApi.Models;
 using Xunit;
@@ -22,7 +23,7 @@ namespace KP.GmailApi.UnitTests.IntegrationTests.DraftServiceTests
             Draft createdDraft = null;
 
             // Act
-            Action action = () => createdDraft = _helper.Create(draft);
+            Func<Task> action = async () => createdDraft =await _helper.CreateAsync(draft);
 
             // Assert
             action.ShouldNotThrow();

@@ -1,4 +1,5 @@
-﻿using KP.GmailApi.Builders;
+﻿using System.Threading.Tasks;
+using KP.GmailApi.Builders;
 using KP.GmailApi.Common;
 using KP.GmailApi.Models;
 
@@ -24,7 +25,7 @@ namespace KP.GmailApi.Services
         /// <param name="pageToken">Page token to retrieve a specific page of results in the list</param>
         /// <param name="maxResults">The maximum number of history records to return. Use zero ('0') to use the default.</param>
         /// <returns></returns>
-        public HistoryList List(ulong startHistoryId, string labelId = null, string pageToken = null, uint maxResults = 0)
+        public async Task<HistoryList> ListAsync(ulong startHistoryId, string labelId = null, string pageToken = null, uint maxResults = 0)
         {
             string queryString = new HistoryQueryStringBuilder()
                 .SetStartHistoryId(startHistoryId)
@@ -33,7 +34,7 @@ namespace KP.GmailApi.Services
                 .SetMaxResults(maxResults)
                 .Build();
 
-            return _proxy.Get<HistoryList>(queryString);
+            return await _proxy.Get<HistoryList>(queryString);
         }
     }
 }

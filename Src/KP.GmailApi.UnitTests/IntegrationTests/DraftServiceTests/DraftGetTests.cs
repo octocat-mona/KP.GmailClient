@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using FluentAssertions;
 using KP.GmailApi.Common;
 using KP.GmailApi.Models;
@@ -14,22 +15,22 @@ namespace KP.GmailApi.UnitTests.IntegrationTests.DraftServiceTests
 
         public DraftGetTests()
         {
-            GmailProxy proxy = SettingsManager.GetGmailClient();
+            GmailProxy proxy = SettingsManager.GetGmailProxy();
             _service = new DraftService(proxy);
 
             _helper = CleanupHelpers.GetDraftServiceCleanupHelper(_service);
         }
 
         [Fact]
-        public void CanGet()
+        public async Task CanGet()
         {
             // Arrange
             Draft draft = Samples.DraftSample;
-            Draft createdDraft = _helper.Create(draft);
+            Draft createdDraft = await _helper.CreateAsync(draft);
             Draft getDraft = null;
 
             // Act
-            Action action = () => getDraft = _service.Get(createdDraft.Id);
+            Func<Task> action = async () => getDraft = await _service.GetAsync(createdDraft.Id);
 
             // Assert
             action.ShouldNotThrow();

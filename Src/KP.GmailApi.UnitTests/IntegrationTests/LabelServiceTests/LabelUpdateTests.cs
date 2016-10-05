@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using KP.GmailApi.Common;
 using KP.GmailApi.Models;
 using KP.GmailApi.Services;
@@ -14,24 +15,24 @@ namespace KP.GmailApi.UnitTests.IntegrationTests.LabelServiceTests
 
         public LabelUpdateTests()
         {
-            GmailProxy proxy = SettingsManager.GetGmailClient();
+            GmailProxy proxy = SettingsManager.GetGmailProxy();
             _service = new LabelService(proxy);
 
-            Action<Label> deleteAction = label => _service.Delete(label.Id);
-            Func<CreateLabelInput, Label> createAction = input => _service.Create(input);
+            Func<Label, Task> deleteAction = label => _service.DeleteAsync(label.Id);
+            Func<CreateLabelInput, Task<Label>> createAction = async input => await _service.CreateAsync(input);
             _helper = new CleanupHelper<Label, CreateLabelInput>(createAction, deleteAction);
         }
 
         [Fact]
-        public void CanUpdate()
+        public async Task CanUpdate()
         {
             // Arrange
             var random = new Random();
-            Label createdLabel = _helper.Create(new CreateLabelInput(TestLabel + random.Next()));
+            Label createdLabel = await _helper.CreateAsync(new CreateLabelInput(TestLabel + random.Next()));
             string newName = TestLabel + random.Next();
 
             // Act
-            Label label = _service.Update(new UpdateLabelInput(createdLabel.Id) { Name = newName });
+            Label label = await _service.UpdateAsync(new UpdateLabelInput(createdLabel.Id) { Name = newName });
 
             // Assert
             Assert.NotNull(label);

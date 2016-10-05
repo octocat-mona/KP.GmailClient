@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using KP.GmailApi.Managers;
 using KP.GmailApi.Models;
 using KP.GmailApi.ServiceExtensions;
-using KP.GmailApi.Services;
 
 namespace KP.GmailApi.WinFormsSample
 {
@@ -36,16 +36,16 @@ namespace KP.GmailApi.WinFormsSample
             _tokenManager.Setup(refreshToken, true);
         }
 
-        public List<Message> GetMail()
+        public async Task<IList<Message>> GetMailAsync()
         {
-            Label keepLabel = _gmailClient.Labels.GetByName("Keep");
-            return _gmailClient.Messages.ListByLabel(keepLabel.Id)
+            Label keepLabel = (await _gmailClient.Labels.GetByNameAsync("Keep"));
+            return (await _gmailClient.Messages.ListByLabelAsync(keepLabel.Id))
                 .ToList();
         }
 
-        public List<Label> GetLabels()
+        public async Task<IList<Label>> GetLabelsAsync()
         {
-            return _gmailClient.Labels.List(LabelType.User);
+            return await _gmailClient.Labels.ListAsync(LabelType.User);
         }
 
         public void Logout()

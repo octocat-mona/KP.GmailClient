@@ -30,14 +30,14 @@ namespace KP.GmailApi.UnitTests.IntegrationTests
             return GetSetting("RefreshToken");
         }
 
-        public static GmailProxy GetGmailClient()
+        public static GmailProxy GetGmailProxy()
         {
             string clientId = GetClientId();
             string clientSecret = GetClientSecret();
             string refreshToken = GetRefreshToken();
 
             var tokenManager = new OAuth2TokenManager(clientId, clientSecret);
-            tokenManager.DeleteFolder();
+            //tokenManager.DeleteFolder();
             tokenManager.Setup(refreshToken, false);
 
             return new GmailProxy(new AuthorizationDelegatingHandler(tokenManager));
