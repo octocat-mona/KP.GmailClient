@@ -25,7 +25,7 @@ namespace KP.GmailApi.UnitTests
             return createdItem;
         }
 
-        public void Add(T item)
+        /*public void Add(T item)
         {
             _createdItems.Add(item);
         }
@@ -33,13 +33,17 @@ namespace KP.GmailApi.UnitTests
         public void Remove(T item)
         {
             _createdItems.Remove(item);
-        }
+        }*/
 
         public void Cleanup()
         {
-            List<Exception> exceptions = new List<Exception>();
+            //List<Exception> exceptions = new List<Exception>();
 
-            foreach (T item in _createdItems)
+            var deleteTasks = _createdItems.Select(async item => await _deleteFunc(item));
+            Task.WhenAll(deleteTasks).ConfigureAwait(false).GetAwaiter().GetResult();
+            _createdItems.Clear();
+
+            /*foreach (T item in _createdItems)
             {
                 try
                 {
@@ -51,9 +55,9 @@ namespace KP.GmailApi.UnitTests
                     exceptions.Add(ex);
                 }
             }
-
+            
             if (exceptions.Any())
-                throw new AggregateException("Error(s) occured during cleanup", exceptions);
+                throw new AggregateException("Error(s) occured during cleanup", exceptions);*/
         }
     }
 }
