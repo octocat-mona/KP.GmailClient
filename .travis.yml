@@ -3,7 +3,7 @@ mono: latest
 solution: Src/KP.GmailApi.sln
 install:
   - nuget restore Src/KP.GmailApi.sln
-  - nuget install xunit.runners -Version 2.0.0 -OutputDirectory testrunner
+  - nuget install xunit.runner.console -Version 2.1.0 -OutputDirectory testrunner
 script:
   - xbuild /p:Configuration=Release Src/KP.GmailApi.sln /tv:14.0
-  - mono ./testrunner/xunit.runners.2.0.0/tools/xunit.console.clr4.exe ./Src/KP.GmailApi.UnitTests/bin/Release/KP.GmailApi.UnitTests.dll
+  - mono ./testrunner/xunit.runner.console.2.1.0/tools/xunit.console.exe ./Src/KP.GmailApi.UnitTests/bin/Release/KP.GmailApi.UnitTests.dll
