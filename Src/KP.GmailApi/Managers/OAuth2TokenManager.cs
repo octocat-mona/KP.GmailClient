@@ -22,11 +22,11 @@ namespace KP.GmailApi.Managers
         /// </summary>
         public const string AuthorizationServerUrl = "https://www.googleapis.com/oauth2/v3/token";// "https://accounts.google.com/o/oauth2/token";
 
-        private static readonly ConcurrentDictionary<string, OAuth2Token> Tokens = new ConcurrentDictionary<string, OAuth2Token>();
+        //private static readonly ConcurrentDictionary<string, OAuth2Token> Tokens = new ConcurrentDictionary<string, OAuth2Token>();
         private readonly string _clientId;
         private readonly string _clientSecret;
-        private readonly string _tokenFile;
-        private OAuth2Token _token;
+        //private readonly string _tokenFile;
+        //private OAuth2Token _token;
         private readonly SemaphoreSlim _semaphoreSlim = new SemaphoreSlim(1, 1);
 
         /// <summary>
@@ -42,13 +42,13 @@ namespace KP.GmailApi.Managers
             _clientId = clientId;
             _clientSecret = clientSecret;
 
-            string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            //TODO: save with emailaddress as key instead (clientId = project based, not user based)
-            _tokenFile = Path.Combine(appData, "GmailClient\\", clientId.GetValidFilename() + ".json");
-            _token = Tokens.GetOrAdd(_tokenFile, new OAuth2Token());
+            //string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            ////TODO: save with emailaddress as key instead (clientId = project based, not user based)
+            //_tokenFile = Path.Combine(appData, "GmailClient\\", clientId.GetValidFilename() + ".json");
+            //_token = Tokens.GetOrAdd(_tokenFile, new OAuth2Token());
         }
 
-        /// <summary>
+        /*/// <summary>
         /// Get an access token. Will return an valid existing token or retrieves a new one if expired.
         /// </summary>
         /// <returns>An access token</returns>
@@ -57,11 +57,11 @@ namespace KP.GmailApi.Managers
             try
             {
                 await _semaphoreSlim.WaitAsync().ConfigureAwait(false);
-                if (_token.RefreshToken == null)
+                /*if (_token.RefreshToken == null)
                 {
                     string jsonText = File.ReadAllText(_tokenFile);
                     _token = JsonConvert.DeserializeObject<OAuth2Token>(jsonText);
-                }
+                }#1#
 
                 // Check if access token is still valid
                 if (DateTime.UtcNow < _token.ExpirationDate)
@@ -90,7 +90,7 @@ namespace KP.GmailApi.Managers
                 _token.RefreshToken = currentRefreshToken;
                 _token.ExpirationDate = DateTime.UtcNow.AddSeconds(_token.ExpiresIn);
 
-                WriteToFile();
+                //WriteToFile();
 
                 return _token.AccessToken;
             }
@@ -98,9 +98,9 @@ namespace KP.GmailApi.Managers
             {
                 _semaphoreSlim.Release();
             }
-        }
+        }*/
 
-        private void WriteToFile()
+        /*private void WriteToFile()
         {
             // Will create the directory/directories if it doesn't exist
             var tokenFile = new FileInfo(_tokenFile);
@@ -109,9 +109,9 @@ namespace KP.GmailApi.Managers
 
             string tokenString = JsonConvert.SerializeObject(_token);
             File.WriteAllText(_tokenFile, tokenString);
-        }
+        }*/
 
-        /// <summary>
+        /*/// <summary>
         /// Set the refresh token. This is required only once.
         /// </summary>
         /// <param name="refreshToken">A refresh token</param>
@@ -132,9 +132,9 @@ namespace KP.GmailApi.Managers
                 _token = Tokens.AddOrUpdate(_tokenFile, token, (key, oldvalue) => token);
                 WriteToFile();
             }
-        }
+        }*/
 
-        /// <summary>
+        /*/// <summary>
         /// Deletes the stored authentication for the active ClientId
         /// </summary>
         public void Delete()
@@ -152,6 +152,6 @@ namespace KP.GmailApi.Managers
         public bool HasTokenSetup()
         {
             return new FileInfo(_tokenFile).Exists;
-        }
+        }*/
     }
 }

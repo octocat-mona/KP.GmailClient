@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using KP.GmailApi.Builders;
 using KP.GmailApi.Common;
-using KP.GmailApi.Managers;
 using KP.GmailApi.Models;
 using KP.GmailApi.Services;
 
@@ -38,10 +37,10 @@ namespace KP.GmailApi
         /// <summary>
         /// Access to all Gmail services.
         /// </summary>
-        /// <param name="tokenManager"></param>
-        public GmailClient(OAuth2TokenManager tokenManager)
+        /// <param name="tokenStore"></param>
+        public GmailClient(ITokenStore tokenStore)
         {
-            _proxy = new GmailProxy(new AuthorizationDelegatingHandler(tokenManager));
+            _proxy = new GmailProxy(new AuthorizationDelegatingHandler(tokenStore));
 
             Messages = new MessageService(_proxy);
             Drafts = new DraftService(_proxy);

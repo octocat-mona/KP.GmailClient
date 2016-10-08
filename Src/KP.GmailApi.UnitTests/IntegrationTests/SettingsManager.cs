@@ -36,11 +36,12 @@ namespace KP.GmailApi.UnitTests.IntegrationTests
             string clientSecret = GetClientSecret();
             string refreshToken = GetRefreshToken();
 
-            var tokenManager = new OAuth2TokenManager(clientId, clientSecret);
+            //var tokenManager = new OAuth2TokenManager(clientId, clientSecret);
             //tokenManager.DeleteFolder();
-            tokenManager.Setup(refreshToken, false);
+            //tokenManager.Setup(refreshToken, false);
 
-            return new GmailProxy(new AuthorizationDelegatingHandler(tokenManager));
+            var tokenStore = new InMemoryTokenStore(clientId, clientSecret, refreshToken);
+            return new GmailProxy(new AuthorizationDelegatingHandler(tokenStore));
         }
 
         private static string GetSetting(string key)

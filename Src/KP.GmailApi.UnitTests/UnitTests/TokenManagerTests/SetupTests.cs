@@ -7,7 +7,7 @@ using Xunit;
 
 namespace KP.GmailApi.UnitTests.UnitTests.TokenManagerTests
 {
-    public class SetupTests : IDisposable
+    /*public class SetupTests : IDisposable
     {
         private readonly OAuth2TokenManager _tokenManager;
         private const string ClientIdName = "ClientId1";
@@ -73,5 +73,5 @@ namespace KP.GmailApi.UnitTests.UnitTests.TokenManagerTests
         {
             _tokenManager.DeleteFolder();
         }
-    }
+    }*/
 }

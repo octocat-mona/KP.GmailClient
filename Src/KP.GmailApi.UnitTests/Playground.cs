@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using KP.GmailApi.Managers;
 using KP.GmailApi.Models;
@@ -8,6 +9,7 @@ using Xunit;
 
 namespace KP.GmailApi.UnitTests
 {
+    [SuppressMessage("", "C", Justification = "Just samples")]
     public class Playground
     {
         //[Fact]
@@ -19,24 +21,26 @@ namespace KP.GmailApi.UnitTests
 
             string clientId = SettingsManager.GetClientId();
             string clientSecret = SettingsManager.GetClientSecret();
+            string refreshToken = SettingsManager.GetRefreshToken();
 
-            var tokenManager = new OAuth2TokenManager(clientId, clientSecret);
+            var tokenStore = new InMemoryTokenStore(clientId, clientSecret, refreshToken);
+            //var tokenManager = new OAuth2TokenManager(clientId, clientSecret);
             // Provide a refresh token (required once)
-            if (!tokenManager.HasTokenSetup())
+            //if (!tokenManager.HasTokenSetup())
             {
                 // Client ID and secret of your project,
                 // see the Dev Console (https://console.developers.google.com/project)
-                var tokenHelper = new TokenAccessHelper(clientId, clientSecret);
+                //var tokenHelper = new TokenAccessHelper(clientId, clientSecret);
 
                 // Get a refresh token, launches a browser for user interaction:
-                string authCode = tokenHelper.GetAuthorizationCode();
-                string refreshToken = tokenHelper.GetRefreshToken(authCode);
+                //string authCode = tokenHelper.GetAuthorizationCode();
+                //string refreshToken = tokenHelper.GetRefreshToken(authCode);
 
                 // First time required only
-                tokenManager.Setup(refreshToken, false);
+                //tokenManager.Setup(refreshToken, false);
             }
 
-            var service = new GmailClient(tokenManager);
+            var service = new GmailClient(tokenStore);
 
             // ----------------------
             // --- USAGE EXAMPLES ---
@@ -60,8 +64,8 @@ namespace KP.GmailApi.UnitTests
             // ----------------------
             // --- EXTRA USAGE EXAMPLES ---
             // ----------------------
-            string refreshToken2 = SettingsManager.GetRefreshToken();
-            tokenManager.Setup(refreshToken2, true);
+
+
         }
     }
 }

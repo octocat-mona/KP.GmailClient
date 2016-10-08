@@ -67,6 +67,8 @@
     <Compile Include="Common\Enums\LabelRequestAction.cs" />
     <Compile Include="Common\Enums\UploadType.cs" />
     <Compile Include="Common\GmailException.cs" />
+    <Compile Include="InMemoryTokenStore.cs" />
+    <Compile Include="ITokenStore.cs" />
     <Compile Include="ModelExtensions\PayloadExtensions.cs" />
     <Compile Include="Models\CreateLabelInput.cs" />
     <Compile Include="Models\Draft.cs" />
