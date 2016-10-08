@@ -27,7 +27,7 @@ namespace KP.GmailApi.Builders
         protected void SetRequestAction(Enum action, string id)
         {
             if (string.IsNullOrWhiteSpace(id))
-                throw new ArgumentException("ID is required", "id");
+                throw new ArgumentException("ID is required", nameof(id));
 
             RequestAction requestAction = ParseEnumValue<RequestAction>(action);
             switch (requestAction)
@@ -53,7 +53,7 @@ namespace KP.GmailApi.Builders
                 case RequestAction.Insert:
                     throw new ArgumentException("Action '" + action + "' does not require an ID");
                 default:
-                    throw new ArgumentOutOfRangeException("action");
+                    throw new ArgumentOutOfRangeException(nameof(action));
             }
         }
 
@@ -86,7 +86,7 @@ namespace KP.GmailApi.Builders
                 case RequestAction.Untrash:
                     throw new ArgumentException("Action '" + action + "' requires an ID");
                 default:
-                    throw new ArgumentOutOfRangeException("action");
+                    throw new ArgumentOutOfRangeException(nameof(action));
             }
         }
 

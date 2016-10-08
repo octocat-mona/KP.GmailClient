@@ -50,7 +50,7 @@ namespace KP.GmailApi.Builders
         public ThreadQueryStringBuilder SetMetadataHeaders(string[] headers)
         {
             if (!headers.Any())
-                throw new ArgumentException("Collection can't be empty", "headers");
+                throw new ArgumentException("Collection can't be empty", nameof(headers));
 
             SetFormat(ThreadFormat.Metadata);
             SetField("metadataHeaders", headers);
