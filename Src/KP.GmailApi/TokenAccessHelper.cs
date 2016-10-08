@@ -16,8 +16,11 @@ namespace KP.GmailApi
     /// </summary>
     public class TokenAccessHelper
     {
+        /// <summary>View and modify but not delete your email</summary>
         private const string ScopeModify = "https://www.googleapis.com/auth/gmail.modify";
+        /// <summary>View your emails messages and settings</summary>
         private const string ScopeReadonly = "https://www.googleapis.com/auth/gmail.readonly";
+        /// <summary>Manage drafts and send emails</summary>
         private const string ScopeCompose = "https://www.googleapis.com/auth/gmail.compose";
         private readonly string _authorizationServerUrl;
         private readonly string _clientId;
