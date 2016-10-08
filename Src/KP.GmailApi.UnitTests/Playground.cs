@@ -9,7 +9,7 @@ using Xunit;
 
 namespace KP.GmailApi.UnitTests
 {
-    [SuppressMessage("", "C", Justification = "Just samples")]
+    [SuppressMessage("", "CS0219", Justification = "Just samples")]
     public class Playground
     {
         //[Fact]
