@@ -69,7 +69,7 @@
     <Compile Include="Common\GmailException.cs" />
     <Compile Include="InMemoryTokenStore.cs" />
     <Compile Include="ITokenStore.cs" />
-    <Compile Include="ModelExtensions\PayloadExtensions.cs" />
+    <Compile Include="Models\Extensions\PayloadExtensions.cs" />
     <Compile Include="Models\CreateLabelInput.cs" />
     <Compile Include="Models\Draft.cs" />
     <Compile Include="Models\LabelFields.cs" />
@@ -100,10 +100,10 @@
     <Compile Include="Models\MessageThread.cs" />
     <Compile Include="Common\ParseOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServiceExtensions\DraftServiceExtensions.cs" />
-    <Compile Include="ServiceExtensions\LabelServiceExtensions.cs" />
-    <Compile Include="ServiceExtensions\MessageServiceExtensions.cs" />
-    <Compile Include="ServiceExtensions\ThreadServiceExtensions.cs" />
+    <Compile Include="Services\Extensions\DraftServiceExtensions.cs" />
+    <Compile Include="Services\Extensions\LabelServiceExtensions.cs" />
+    <Compile Include="Services\Extensions\MessageServiceExtensions.cs" />
+    <Compile Include="Services\Extensions\ThreadServiceExtensions.cs" />
     <Compile Include="Services\DraftService.cs" />
     <Compile Include="Services\AttachmentService.cs" />
     <Compile Include="GmailClient.cs" />
@@ -119,9 +119,7 @@
     <Compile Include="TokenAccessHelper.cs" />
     <Compile Include="Managers\OAuth2TokenManager.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Services\Extensions\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

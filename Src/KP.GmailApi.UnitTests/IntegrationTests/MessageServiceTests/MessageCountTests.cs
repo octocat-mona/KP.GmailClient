@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using KP.GmailApi.Common;
 using KP.GmailApi.Models;
-using KP.GmailApi.ServiceExtensions;
 using KP.GmailApi.Services;
+using KP.GmailApi.Services.Extensions;
 using Xunit;
 
 namespace KP.GmailApi.UnitTests.IntegrationTests.MessageServiceTests

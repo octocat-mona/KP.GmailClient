@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using KP.GmailApi.Managers;
 using KP.GmailApi.Models;
-using KP.GmailApi.ServiceExtensions;
+using KP.GmailApi.Services.Extensions;
 
 namespace KP.GmailApi.WinFormsSample
 {

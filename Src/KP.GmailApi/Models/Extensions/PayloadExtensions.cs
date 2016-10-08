@@ -1,7 +1,6 @@
 ﻿using System.Linq;
-using KP.GmailApi.Models;
 
-namespace KP.GmailApi.ModelExtensions
+namespace KP.GmailApi.Models.Extensions
 {
     /// <summary>
     /// Extensions for <see cref="PayloadBase"/> and <see cref="Payload"/>.

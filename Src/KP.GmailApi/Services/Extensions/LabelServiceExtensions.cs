@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using KP.GmailApi.Models;
-using KP.GmailApi.Services;
 
-namespace KP.GmailApi.ServiceExtensions
+namespace KP.GmailApi.Services.Extensions
 {
     /// <summary>
     /// Extensions for <see cref="LabelService"/>.

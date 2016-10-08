@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using KP.GmailApi.Managers;
 using KP.GmailApi.Models;
-using KP.GmailApi.ServiceExtensions;
+using KP.GmailApi.Services.Extensions;
 using KP.GmailApi.UnitTests.IntegrationTests;
 using Xunit;
 
