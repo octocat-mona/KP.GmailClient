@@ -180,7 +180,3 @@ UpgradeLog*.htm
 
 # Microsoft Fakes
 FakesAssemblies/
-
-# Rest
-/Src/KP.GmailApi.UnitTests/App.config
-/Src/KP.GmailApi.WinFormsSample/App.config
