@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Configuration;
 using KP.GmailApi.Common;
-using KP.GmailApi.Managers;
-using KP.GmailApi.UnitTests.Extensions;
 
 namespace KP.GmailApi.UnitTests.IntegrationTests
 {
@@ -15,44 +13,36 @@ namespace KP.GmailApi.UnitTests.IntegrationTests
             bool.TryParse(ConfigurationManager.AppSettings["UseConfig"], out UseConfig);
         }
 
-        public static string GetClientId()
+        public static string GetGoogleAccountCredentialsFile()
         {
-            return GetSetting("ClientId");
+            return GetSetting("GoogleAccountCredentialsFile");
         }
 
-        public static string GetClientSecret()
+        public static string GetEmailAddress()
         {
-            return GetSetting("ClientSecret");
-        }
-
-        public static string GetRefreshToken()
-        {
-            return GetSetting("RefreshToken");
+            return GetSetting("EmailAddress");
         }
 
         public static GmailProxy GetGmailProxy()
         {
-            string clientId = GetClientId();
-            string clientSecret = GetClientSecret();
-            string refreshToken = GetRefreshToken();
+            string keyFile = GetGoogleAccountCredentialsFile();
+            string emailAddress = GetEmailAddress();
 
-            //var tokenManager = new OAuth2TokenManager(clientId, clientSecret);
-            //tokenManager.DeleteFolder();
-            //tokenManager.Setup(refreshToken, false);
-
-            var tokenStore = new InMemoryTokenStore(clientId, clientSecret, refreshToken);
-            return new GmailProxy(new AuthorizationDelegatingHandler(tokenStore));
+            //TODO: get GmailClient.ConvertToScopes using reflection in ReflectionHelper
+            return new GmailProxy(new AuthorizationDelegatingHandler(keyFile, emailAddress, "https://www.googleapis.com/auth/gmail.modify"));
         }
 
         private static string GetSetting(string key)
         {
-            // Environment variables are used on Travis / AppVeyor
+            // Environment variables are used on Travis CI / AppVeyor
             string value = UseConfig
                 ? ConfigurationManager.AppSettings[key]
                 : Environment.GetEnvironmentVariable(key);
 
             if (value == null)
+            {
                 throw new Exception(string.Concat("Key '", key, "' has not been set in the ", UseConfig ? "config file." : "environment variables."));
+            }
 
             return value;
         }

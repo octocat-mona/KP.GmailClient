@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using KP.GmailApi.Managers;
 using KP.GmailApi.Models;
 using KP.GmailApi.Services.Extensions;
 
@@ -10,39 +9,26 @@ namespace KP.GmailApi.WinFormsSample
 {
     public class GmailServiceHelper
     {
-        private readonly string _clientId;
-        private readonly string _clientSecret;
         private readonly GmailClient _gmailClient;
-        //private readonly OAuth2TokenManager _tokenManager;
 
-        public GmailServiceHelper(string clientId, string clientSecret)
+        public GmailServiceHelper(string keyFile, string emailAddress, GmailScopes scopes)
         {
-            _clientId = clientId;
-            _clientSecret = clientSecret;
-            //_tokenManager = new OAuth2TokenManager(_clientId, _clientSecret);
-            var tokenStore = new InMemoryTokenStore(clientId, clientSecret, null);
-            _gmailClient = new GmailClient(tokenStore);
+            _gmailClient = new GmailClient(keyFile, emailAddress, scopes);
         }
 
         public bool IsUserLoggedIn()
         {
             throw new NotImplementedException();
-            //return _tokenManager.HasTokenSetup();
         }
 
         public void RequestUserToLogin()
         {
-            throw new NotImplementedException();
-            /*TokenAccessHelper tokenHelper = new TokenAccessHelper(_clientId, _clientSecret);
-            string authorizationCode = tokenHelper.GetAuthorizationCode();
-            string refreshToken = tokenHelper.GetRefreshToken(authorizationCode);
-
-            _tokenManager.Setup(refreshToken, true);*/
+            throw new NotImplementedException();//TODO: not required anymore, delete
         }
 
         public async Task<IList<Message>> GetMailAsync()
         {
-            Label keepLabel = (await _gmailClient.Labels.GetByNameAsync("Keep"));
+            Label keepLabel = await _gmailClient.Labels.GetByNameAsync("Keep");
             return (await _gmailClient.Messages.ListByLabelAsync(keepLabel.Id))
                 .ToList();
         }
@@ -55,7 +41,6 @@ namespace KP.GmailApi.WinFormsSample
         public void Logout()
         {
             throw new NotImplementedException();
-            //_tokenManager.Delete();
         }
     }
 }

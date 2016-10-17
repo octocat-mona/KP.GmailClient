@@ -8,7 +8,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>KP.GmailApi.UnitTests</RootNamespace>
     <AssemblyName>KP.GmailApi.UnitTests</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -82,7 +82,6 @@
   </Choose>
   <ItemGroup>
     <Compile Include="CleanupHelpers.cs" />
-    <Compile Include="Extensions\TokenManagerExtensions.cs" />
     <Compile Include="IntegrationTests\AttachmentServiceTests\AttachmentGetTests.cs" />
     <Compile Include="IntegrationTests\DraftServiceTests\DraftCreateTests.cs" />
     <Compile Include="IntegrationTests\DraftServiceTests\DraftGetTests.cs" />
@@ -106,11 +105,11 @@
     <Compile Include="UnitTests\ExtensionTests\Base64UrlStringTests.cs" />
     <Compile Include="UnitTests\ExtensionTests\GetAttributeTests.cs" />
     <Compile Include="UnitTests\SerializationTests\SerializeMessageTests.cs" />
-    <Compile Include="UnitTests\TokenManagerTests\SetupLoadTests.cs" />
-    <Compile Include="UnitTests\TokenManagerTests\SetupTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

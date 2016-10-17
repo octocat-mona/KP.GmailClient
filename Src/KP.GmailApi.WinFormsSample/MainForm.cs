@@ -19,9 +19,9 @@ namespace KP.GmailApi.WinFormsSample
             InitializeComponent();
             AppDomain.CurrentDomain.UnhandledException += OnUnhandledException;
 
-            string clientId = ConfigurationManager.AppSettings["ClientId"];
-            string clientSecret = ConfigurationManager.AppSettings["ClientSecret"];
-            _gmailServiceHelper = new GmailServiceHelper(clientId, clientSecret);
+            string keyFile = ConfigurationManager.AppSettings["GoogleAccountCredentialsFile"];
+            string emailAddress = ConfigurationManager.AppSettings["EmailAddress"];
+            _gmailServiceHelper = new GmailServiceHelper(keyFile, emailAddress, GmailScopes.Modify);
             AppendToLog("Starting");
         }
 

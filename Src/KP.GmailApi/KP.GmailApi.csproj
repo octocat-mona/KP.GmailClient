@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>KP.GmailApi</RootNamespace>
     <AssemblyName>KP.GmailApi</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -33,6 +33,10 @@
     <DocumentationFile>bin\Release\KP.GmailApi.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="jose-jwt, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\jose-jwt.2.0.2\lib\net40\jose-jwt.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -67,8 +71,8 @@
     <Compile Include="Common\Enums\LabelRequestAction.cs" />
     <Compile Include="Common\Enums\UploadType.cs" />
     <Compile Include="Common\GmailException.cs" />
-    <Compile Include="InMemoryTokenStore.cs" />
-    <Compile Include="ITokenStore.cs" />
+    <Compile Include="GmailScopes.cs" />
+    <Compile Include="Models\ServiceAccountCredential.cs" />
     <Compile Include="Models\Extensions\PayloadExtensions.cs" />
     <Compile Include="Models\CreateLabelInput.cs" />
     <Compile Include="Models\Draft.cs" />
@@ -99,6 +103,7 @@
     <Compile Include="Models\GmailErrorResponse.cs" />
     <Compile Include="Models\MessageThread.cs" />
     <Compile Include="Common\ParseOptions.cs" />
+    <Compile Include="OpenSslKey.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Extensions\DraftServiceExtensions.cs" />
     <Compile Include="Services\Extensions\LabelServiceExtensions.cs" />
@@ -116,8 +121,6 @@
     <Compile Include="Common\ErrorResponseParser.cs" />
     <Compile Include="Models\UpdateLabelInput.cs" />
     <Compile Include="Common\StringValueAttribute.cs" />
-    <Compile Include="TokenAccessHelper.cs" />
-    <Compile Include="Managers\OAuth2TokenManager.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -63,8 +63,6 @@ namespace KP.GmailApi.Common
         internal async Task<T> Get<T>(string queryString, ParseOptions options)
         {
             var jObject = await GetResponseAsync<JObject>(HttpGet, queryString);
-
-            //var jObject = JObject.Parse(response);
             return jObject.SelectToken(options.Path, true).ToObject<T>();
         }
 
@@ -99,15 +97,15 @@ namespace KP.GmailApi.Common
                 Content = httpContent
             };
 
-            HttpResponseMessage response = await _client.SendAsync(request).ConfigureAwait(false);
+            HttpResponseMessage response = await _client.SendAsync(request);
             if (!response.IsSuccessStatusCode)
             {
-                string contentString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                string contentString = await response.Content.ReadAsStringAsync();
                 GmailException ex = ErrorResponseParser.Parse(response.StatusCode, contentString);
                 throw ex;
             }
 
-            using (Stream stream = (await response.Content.ReadAsStreamAsync().ConfigureAwait(false)))
+            using (Stream stream = await response.Content.ReadAsStreamAsync())
             using (StreamReader streamReader = new StreamReader(stream))
             using (JsonReader jsonReader = new JsonTextReader(streamReader))
             {

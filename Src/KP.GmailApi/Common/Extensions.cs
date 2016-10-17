@@ -36,7 +36,7 @@ namespace KP.GmailApi.Common
         /// <returns></returns>
         public static T GetAttribute<T, T2>(this T2 value)
             where T : Attribute
-            where T2 : struct , IConvertible// enum
+            where T2 : struct, IConvertible// enum
         {
             Type type = typeof(T2);
             string name = Enum.GetName(type, value);
@@ -84,12 +84,18 @@ namespace KP.GmailApi.Common
         public static string FromBase64UrlString(this string base64)
         {
             if (string.IsNullOrEmpty(base64))
+            {
                 return base64;
-
-            //string safeBase64 = base64.Replace("-_", "+/");//TODO: calculate '='
+            }
+            
             string safeBase64 = base64.Replace('-', '+').Replace('_', '/').Replace('*', '=');
             byte[] bytes = Convert.FromBase64String(safeBase64);
             return Encoding.UTF8.GetString(bytes);
+        }
+
+        public static long ToUnixTime(this DateTime dateTime)
+        {
+            return (int)dateTime.ToUniversalTime().Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
         }
     }
 }

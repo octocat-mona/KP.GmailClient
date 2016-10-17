@@ -6,7 +6,7 @@ namespace KP.GmailApi.Models
     /// <summary>
     /// An OAuth 2.0 token.
     /// </summary>
-    public class OAuth2Token
+    internal class OAuth2Token
     {
         /// <summary>
         /// A string representing an authorization issued to the client.
@@ -31,7 +31,7 @@ namespace KP.GmailApi.Models
         /// The lifetime in seconds of the access token.
         /// </summary>
         [JsonProperty("expires_in")]
-        public long ExpiresIn { get; set; }
+        public int ExpiresIn { get; set; }
 
         /// <summary>
         /// The expiration date of the access token.

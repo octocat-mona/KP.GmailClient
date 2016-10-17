@@ -19,8 +19,10 @@ namespace KP.GmailApi.Common
             JToken errorContent = jObject.SelectToken("error", false);
 
             // Return just the StatusCode and content in case the response is not an Gmail API error
-            if (!jObject.IsValid(JsonSchema) || errorContent == null)
+            if (errorContent == null || !jObject.IsValid(JsonSchema))
+            {
                 return new GmailException(statusCode, content);
+            }
 
             GmailErrorResponse errorResponse = errorContent.ToObject<GmailErrorResponse>();
             return new GmailException(errorResponse);
