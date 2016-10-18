@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using KP.GmailApi.Common;
+using KP.GmailApi.Models;
 
 namespace KP.GmailApi.UnitTests.IntegrationTests
 {
@@ -10,12 +11,22 @@ namespace KP.GmailApi.UnitTests.IntegrationTests
 
         static SettingsManager()
         {
-            bool.TryParse(ConfigurationManager.AppSettings["UseConfig"], out UseConfig);
+            UseConfig = ConfigurationManager.AppSettings["UseConfig"] != null;
         }
 
-        public static string GetGoogleAccountCredentialsFile()
+        public static string GetPrivateKey()
         {
-            return GetSetting("GoogleAccountCredentialsFile");
+            return GetSetting("PrivateKey");
+        }
+
+        public static string GetTokenUri()
+        {
+            return GetSetting("TokenUri");
+        }
+
+        public static string GetClientEmail()
+        {
+            return GetSetting("ClientEmail");
         }
 
         public static string GetEmailAddress()
@@ -25,11 +36,19 @@ namespace KP.GmailApi.UnitTests.IntegrationTests
 
         public static GmailProxy GetGmailProxy()
         {
-            string keyFile = GetGoogleAccountCredentialsFile();
+            string privateKey = GetPrivateKey();
+            string tokenUri = GetTokenUri();
+            string clientEmail = GetClientEmail();
             string emailAddress = GetEmailAddress();
+            ServiceAccountCredential accountCredential = new ServiceAccountCredential
+            {
+                PrivateKey = privateKey,
+                TokenUri = tokenUri,
+                ClientEmail = clientEmail
+            };
 
             //TODO: get GmailClient.ConvertToScopes using reflection in ReflectionHelper
-            return new GmailProxy(new AuthorizationDelegatingHandler(keyFile, emailAddress, "https://www.googleapis.com/auth/gmail.modify"));
+            return new GmailProxy(new AuthorizationDelegatingHandler(accountCredential, emailAddress, "https://www.googleapis.com/auth/gmail.modify"));
         }
 
         private static string GetSetting(string key)

@@ -5,6 +5,7 @@ using KP.GmailApi.Builders;
 using KP.GmailApi.Common;
 using KP.GmailApi.Models;
 using KP.GmailApi.Services;
+using Newtonsoft.Json;
 
 namespace KP.GmailApi
 {
@@ -39,11 +40,28 @@ namespace KP.GmailApi
         /// <summary>
         /// Access to all Gmail services.
         /// </summary>
-        /// <param name="keyFile">The Google Account Credentials JSON file</param>
+        /// <param name="accountCredential">The Google Account Credentials</param>
         /// <param name="emailAddress">The emailaddress of the user to impersonate</param>
         /// <param name="scopes">The required Gmail scopes</param>
-        public GmailClient(string keyFile, string emailAddress, GmailScopes scopes)
-            : this(keyFile, emailAddress, ConvertToScopes(scopes)) { }
+        public GmailClient(ServiceAccountCredential accountCredential, string emailAddress, GmailScopes scopes)
+            : this(accountCredential, emailAddress, ConvertToScopes(scopes)) { }
+
+        /// <summary>
+        /// Access to all Gmail services.
+        /// </summary>
+        /// <param name="accountCredential">The Google Account Credentials</param>
+        /// <param name="emailAddress">The emailaddress of the user to impersonate</param>
+        /// <param name="scopes">The required Gmail scopes, separated by space</param>
+        public GmailClient(ServiceAccountCredential accountCredential, string emailAddress, string scopes)
+        {
+            _proxy = new GmailProxy(new AuthorizationDelegatingHandler(accountCredential, emailAddress, scopes));
+
+            Messages = new MessageService(_proxy);
+            Drafts = new DraftService(_proxy);
+            Labels = new LabelService(_proxy);
+            Threads = new ThreadService(_proxy);
+            History = new HistoryService(_proxy);
+        }
 
         private static string ConvertToScopes(GmailScopes gmailScopes)
         {
@@ -86,23 +104,6 @@ namespace KP.GmailApi
             }
 
             return scopeValueStrings.Aggregate((scope1, scope2) => scope1 + " " + scope2);
-        }
-
-        /// <summary>
-        /// Access to all Gmail services.
-        /// </summary>
-        /// <param name="keyFile">The Google Account Credentials JSON file</param>
-        /// <param name="emailAddress">The emailaddress of the user to impersonate</param>
-        /// <param name="scopes">The required Gmail scopes, separated by space</param>
-        public GmailClient(string keyFile, string emailAddress, string scopes)
-        {
-            _proxy = new GmailProxy(new AuthorizationDelegatingHandler(keyFile, emailAddress, scopes));
-
-            Messages = new MessageService(_proxy);
-            Drafts = new DraftService(_proxy);
-            Labels = new LabelService(_proxy);
-            Threads = new ThreadService(_proxy);
-            History = new HistoryService(_proxy);
         }
 
         /// <summary>

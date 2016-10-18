@@ -2,7 +2,7 @@
 
 namespace KP.GmailApi.Models
 {
-    internal class ServiceAccountCredential
+    public class ServiceAccountCredential
     {
         [JsonProperty("client_email")]
         public string ClientEmail { get; set; }

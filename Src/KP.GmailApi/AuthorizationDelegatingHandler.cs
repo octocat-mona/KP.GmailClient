@@ -15,23 +15,21 @@ namespace KP.GmailApi
 {
     internal class AuthorizationDelegatingHandler : DelegatingHandler
     {
-        private readonly string _keyFile;
         private readonly string _emailAddress;
         private readonly string _scopes;
         private readonly SemaphoreSlim _semaphoreSlim = new SemaphoreSlim(1, 1);
         private readonly HttpClient _client;
         private readonly JsonSerializer _jsonSerializer = new JsonSerializer();
-        private readonly Lazy<ServiceAccountCredential> _accountCredential;
+        private readonly ServiceAccountCredential _accountCredential;
         private OAuth2Token _token;
 
 
-        public AuthorizationDelegatingHandler(string keyFile, string emailAddress, string scopes)
+        public AuthorizationDelegatingHandler(ServiceAccountCredential accountCredential, string emailAddress, string scopes)
         {
-            _keyFile = keyFile;
+            _accountCredential = accountCredential;
             _emailAddress = emailAddress;
             _scopes = scopes;
             _client = new HttpClient(new HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate });
-            _accountCredential = new Lazy<ServiceAccountCredential>(GetAccountCredential);
         }
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
@@ -80,14 +78,13 @@ namespace KP.GmailApi
             }
 
             // Access token not valid (anymore), request new one
-            var accountCredential = _accountCredential.Value;
-            var rsaCryptoServiceProvider = Opensslkey.GetRsaFromPemKey(accountCredential.PrivateKey);
+            var rsaCryptoServiceProvider = Opensslkey.GetRsaFromPemKey(_accountCredential.PrivateKey);
 
             var payload = new Dictionary<string, object>
             {
-                { "iss", accountCredential.ClientEmail },
+                { "iss", _accountCredential.ClientEmail },
                 { "scope", _scopes },
-                { "aud", accountCredential.TokenUri },
+                { "aud", _accountCredential.TokenUri },
                 { "sub", _emailAddress },
                 { "iat", DateTime.UtcNow.ToUnixTime() },
                 { "exp", DateTime.UtcNow.AddHours(1).ToUnixTime() }
@@ -100,7 +97,7 @@ namespace KP.GmailApi
                 { "grant_type", "urn:ietf:params:oauth:grant-type:jwt-bearer" }
             };
 
-            var responseMessage = await _client.PostAsync(accountCredential.TokenUri, new FormUrlEncodedContent(content), cancellationToken);
+            var responseMessage = await _client.PostAsync(_accountCredential.TokenUri, new FormUrlEncodedContent(content), cancellationToken);
             if (!responseMessage.IsSuccessStatusCode)
             {
                 //TODO: parse error response
@@ -118,16 +115,6 @@ namespace KP.GmailApi
 
             _token.ExpirationDate = DateTime.UtcNow.AddSeconds(_token.ExpiresIn);
             return _token.AccessToken;
-        }
-
-        private ServiceAccountCredential GetAccountCredential()
-        {
-            using (var fileStream = new FileStream(_keyFile, FileMode.Open, FileAccess.Read))
-            using (var streamReader = new StreamReader(fileStream))
-            using (var jsonTextReader = new JsonTextReader(streamReader))
-            {
-                return _jsonSerializer.Deserialize<ServiceAccountCredential>(jsonTextReader);
-            }
         }
     }
 }

@@ -11,9 +11,9 @@ namespace KP.GmailApi.WinFormsSample
     {
         private readonly GmailClient _gmailClient;
 
-        public GmailServiceHelper(string keyFile, string emailAddress, GmailScopes scopes)
+        public GmailServiceHelper(ServiceAccountCredential accountCredential, string emailAddress, GmailScopes scopes)
         {
-            _gmailClient = new GmailClient(keyFile, emailAddress, scopes);
+            _gmailClient = new GmailClient(accountCredential, emailAddress, scopes);
         }
 
         public bool IsUserLoggedIn()

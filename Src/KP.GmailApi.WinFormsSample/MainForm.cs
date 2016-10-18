@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using KP.GmailApi.Models;
 using KP.GmailApi.WinFormsSample.Properties;
 using Label = KP.GmailApi.Models.Label;
 using Message = KP.GmailApi.Models.Message;
@@ -19,9 +20,17 @@ namespace KP.GmailApi.WinFormsSample
             InitializeComponent();
             AppDomain.CurrentDomain.UnhandledException += OnUnhandledException;
 
-            string keyFile = ConfigurationManager.AppSettings["GoogleAccountCredentialsFile"];
+            string privateKey = ConfigurationManager.AppSettings["PrivateKey"];
+            string tokenUri = ConfigurationManager.AppSettings["TokenUri"];
+            string clientEmail = ConfigurationManager.AppSettings["ClientEmail"];
             string emailAddress = ConfigurationManager.AppSettings["EmailAddress"];
-            _gmailServiceHelper = new GmailServiceHelper(keyFile, emailAddress, GmailScopes.Modify);
+            ServiceAccountCredential accountCredential = new ServiceAccountCredential
+            {
+                PrivateKey = privateKey,
+                TokenUri = tokenUri,
+                ClientEmail = clientEmail
+            };
+            _gmailServiceHelper = new GmailServiceHelper(accountCredential, emailAddress, GmailScopes.Modify);
             AppendToLog("Starting");
         }
 
