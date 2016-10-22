@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-[assembly: InternalsVisibleTo("KP.GmailApi.UnitTests")]
+[assembly: InternalsVisibleTo("KP.GmailApi.Tests")]
 
 [assembly: AssemblyTitle("GmailApi - A Gmail client library")]
 [assembly: AssemblyDescription("A Gmail API client library.")]
