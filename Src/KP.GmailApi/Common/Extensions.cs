@@ -49,7 +49,8 @@ namespace KP.GmailApi.Common
         /// </summary>
         /// <param name="e"></param>
         /// <returns></returns>
-        public static T[] GetFlagEnumValues<T>(this T e) where T : struct, IConvertible // = enum
+        public static T[] GetFlagEnumValues<T>(this T e)
+            where T : struct, IConvertible // = enum
         {
             return Enum.GetValues(typeof(T))
                 .Cast<int>()
@@ -71,7 +72,6 @@ namespace KP.GmailApi.Common
                 return plainText;
 
             string base64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(plainText));
-            //return base64.Replace("+/", "-_");//.TrimEnd('=');
             return base64.Replace('+', '-').Replace('/', '_').Replace('=', '*');
         }
 
@@ -87,7 +87,7 @@ namespace KP.GmailApi.Common
             {
                 return base64;
             }
-            
+
             string safeBase64 = base64.Replace('-', '+').Replace('_', '/').Replace('*', '=');
             byte[] bytes = Convert.FromBase64String(safeBase64);
             return Encoding.UTF8.GetString(bytes);

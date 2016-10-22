@@ -71,6 +71,7 @@
     <Compile Include="Common\Enums\LabelRequestAction.cs" />
     <Compile Include="Common\Enums\UploadType.cs" />
     <Compile Include="Common\GmailException.cs" />
+    <Compile Include="Common\GmailExtensions.cs" />
     <Compile Include="GmailScopes.cs" />
     <Compile Include="Models\ServiceAccountCredential.cs" />
     <Compile Include="Models\Extensions\PayloadExtensions.cs" />
