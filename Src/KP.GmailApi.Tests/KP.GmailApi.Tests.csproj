@@ -82,6 +82,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="CleanupHelpers.cs" />
+    <Compile Include="GmailHelper.cs" />
     <Compile Include="IntegrationTests\AttachmentServiceTests\AttachmentGetTests.cs" />
     <Compile Include="IntegrationTests\DraftServiceTests\DraftCreateTests.cs" />
     <Compile Include="IntegrationTests\DraftServiceTests\DraftGetTests.cs" />
@@ -99,11 +100,13 @@
     <Compile Include="ReflectionHelper.cs" />
     <Compile Include="CleanupHelper.cs" />
     <Compile Include="Samples.cs" />
+    <Compile Include="TestExtensions.cs" />
     <Compile Include="UnitTests\BuilderTests\HistoryBuilderTests.cs" />
     <Compile Include="UnitTests\BuilderTests\ThreadBuilderTests.cs" />
     <Compile Include="UnitTests\BuilderTests\LabelBuilderTests.cs" />
     <Compile Include="UnitTests\ExtensionTests\Base64UrlStringTests.cs" />
     <Compile Include="UnitTests\ExtensionTests\GetAttributeTests.cs" />
+    <Compile Include="UnitTests\ExtensionTests\ToScopeStringTests.cs" />
     <Compile Include="UnitTests\SerializationTests\SerializeMessageTests.cs" />
   </ItemGroup>
   <ItemGroup>
