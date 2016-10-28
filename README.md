@@ -36,6 +36,13 @@ var client = new GmailClient(accountCredential, emailAddress, GmailScopes.Readon
 
 ## Usage examples
 ``` csharp
+// Send a plain text email
+Message sentMessage = await client.Messages.SendAsync("you@gmail.com", "The subject", "Plain text body");
+
+// Send a HTML email
+sentMessage = await client.Messages.SendAsync("you@gmail.com", "The subject", "<h1>HTML body</h1>",
+                                                isBodyHtml: true);
+
 // Get the users profile
 Profile profile = await client.GetProfileAsync();
 
