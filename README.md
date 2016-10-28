@@ -1,5 +1,9 @@
 [![Build Status](https://travis-ci.org/kpstolk/KP.GmailApi.svg?branch=master)](https://travis-ci.org/kpstolk/KP.GmailApi)
 [![Build status](https://ci.appveyor.com/api/projects/status/tqv09fs3fo9a37t0?svg=true)](https://ci.appveyor.com/project/kpstolk/gmail-api)
+<a href="https://scan.coverity.com/projects/kpstolk-kp-gmailapi">
+  <img alt="Coverity Scan Build Status"
+       src="https://scan.coverity.com/projects/5330/badge.svg"/>
+</a>
 
 # KP.GmailApi
 This is an alternative client for the auto generated Google.Apis.Gmail.v1 Client Library.
