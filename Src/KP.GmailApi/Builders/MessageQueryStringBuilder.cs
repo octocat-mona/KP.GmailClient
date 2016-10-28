@@ -38,6 +38,19 @@ namespace KP.GmailApi.Builders
             return this;
         }
 
+        public MessageQueryStringBuilder SetUploadType(UploadType uploadType)
+        {
+            string uploadTypeString = uploadType.GetAttribute<StringValueAttribute, UploadType>().Text;
+            SetField("uploadType", uploadTypeString);
+            return this;
+        }
+
+        public MessageQueryStringBuilder SetThreadId(string threadId)
+        {
+            SetField("threadId", threadId);
+            return this;
+        }
+
         public MessageQueryStringBuilder SetFields(MessageFields fields)
         {
             _fieldsAction = () =>
@@ -116,7 +129,9 @@ namespace KP.GmailApi.Builders
         public MessageQueryStringBuilder SetLabelIds(params string[] labelIds)
         {
             if (labelIds.Any())
+            {
                 SetField("labelIds", labelIds);
+            }
 
             return this;
         }
@@ -161,9 +176,7 @@ namespace KP.GmailApi.Builders
 
         public override string Build()
         {
-            if (_fieldsAction != null)
-                _fieldsAction();
-
+            _fieldsAction?.Invoke();
             return base.Build();
         }
     }

@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using KP.GmailApi.Builders;
+using KP.GmailApi.Common;
 using KP.GmailApi.Models;
 
 namespace KP.GmailApi.Services.Extensions
@@ -103,6 +105,33 @@ namespace KP.GmailApi.Services.Extensions
 
             var tasks = messageList.Messages.Select(id => service.GetAsync(id.Id));
             return (await Task.WhenAll(tasks)).ToList();
+        }
+
+        /// <summary>
+        /// Sends the specified message to the recipients in the To, Cc, and Bcc headers.
+        /// </summary>
+        /// <param name="service">Gmail API service instance</param>
+        /// <param name="toAddresses">One or more email addresses separated with a comma character (",").</param>
+        /// <param name="subject">The subject line for this email message</param>
+        /// <param name="body">The message body</param>
+        /// <param name="ccAddresses">One or more email addresses separated with a comma character (",").</param>
+        /// <param name="bccAddresses">One or more email addresses separated with a comma character (",").</param>
+        /// <param name="replyToAddresses">One or more email addresses separated with a comma character (",").</param>
+        /// <param name="isBodyHtml">True for HTML message ('text/html'). Defaults to 'text/plain'.</param>
+        /// <returns></returns>
+        public static async Task<Message> SendAsync(this MessageService service, string toAddresses, string subject, string body, string ccAddresses = null, string bccAddresses = null, string replyToAddresses = null, bool isBodyHtml = false)
+        {
+            string rfc2822 = new EmailMessageBuilder()
+                .AddTo(toAddresses)
+                .AddReplyTo(replyToAddresses)
+                .AddCc(ccAddresses)
+                .AddBcc(bccAddresses)
+                .SetSubject(subject)
+                .SetBody(body, isBodyHtml)
+                .Build();
+
+            string raw = rfc2822.ToBase64UrlString();
+            return await service.SendAsync(raw, null);
         }
     }
 }

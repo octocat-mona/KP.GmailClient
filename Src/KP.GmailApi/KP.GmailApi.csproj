@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="AuthorizationDelegatingHandler.cs" />
     <Compile Include="Builders\DraftQueryStringBuilder.cs" />
+    <Compile Include="Builders\EmailMessageBuilder.cs" />
     <Compile Include="Builders\HistoryQueryStringBuilder.cs" />
     <Compile Include="Common\Enums\Format.cs" />
     <Compile Include="Common\Enums\DraftRequestAction.cs" />
@@ -78,7 +79,7 @@
     <Compile Include="Models\Extensions\PayloadExtensions.cs" />
     <Compile Include="Models\CreateLabelInput.cs" />
     <Compile Include="Models\Draft.cs" />
-    <Compile Include="Models\LabelFields.cs" />
+    <Compile Include="Common\Enums\LabelFields.cs" />
     <Compile Include="Models\LabelListVisibility.cs" />
     <Compile Include="Common\Enums\MessageFields.cs" />
     <Compile Include="Common\Enums\MessageRequestAction.cs" />
@@ -99,7 +100,7 @@
     <Compile Include="Models\MessageList.cs" />
     <Compile Include="Models\MessageListVisibility.cs" />
     <Compile Include="Models\MimeType.cs" />
-    <Compile Include="Models\Oauth2Token.cs" />
+    <Compile Include="Models\OAuth2Token.cs" />
     <Compile Include="Models\Payload.cs" />
     <Compile Include="Models\PayloadBase.cs" />
     <Compile Include="Models\GmailErrorResponse.cs" />

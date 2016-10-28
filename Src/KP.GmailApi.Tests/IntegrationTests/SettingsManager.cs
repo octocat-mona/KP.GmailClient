@@ -48,7 +48,8 @@ namespace KP.GmailApi.Tests.IntegrationTests
             };
 
             //TODO: get GmailClient.ConvertToScopes using reflection in ReflectionHelper
-            return new GmailProxy(new AuthorizationDelegatingHandler(accountCredential, emailAddress, "https://www.googleapis.com/auth/gmail.modify"));
+            string scope = GmailHelper.GetGmailScopesField("ModifyScope");
+            return new GmailProxy(new AuthorizationDelegatingHandler(accountCredential, emailAddress, scope));
         }
 
         private static string GetSetting(string key)

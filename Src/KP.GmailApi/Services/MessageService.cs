@@ -3,6 +3,7 @@ using KP.GmailApi.Builders;
 using KP.GmailApi.Common;
 using KP.GmailApi.Common.Enums;
 using KP.GmailApi.Models;
+using Newtonsoft.Json.Linq;
 
 namespace KP.GmailApi.Services
 {
@@ -100,15 +101,31 @@ namespace KP.GmailApi.Services
             return await _proxy.Post<Message>(queryString);
         }
 
-        /*/// <summary>
+        /// <summary>
         /// Sends the specified message to the recipients in the To, Cc, and Bcc headers.
         /// </summary>
-        public void Send()
+        /// <param name="raw">The entire email message in an RFC 2822 formatted and base64url encoded string.
+        /// Returned in <see cref="GetAsync"/> and <see cref="DraftService.GetAsync"/> responses when the format=RAW parameter is supplied.</param>
+        /// <param name="threadId">The ID of the thread the message belongs to. To add a message or draft to a thread, the following criteria must be met:
+        /// <list type="disc">
+        /// <item><description>1. The requested threadId must be specified on the <see cref="Message"/> or <see cref="Draft.Message"/> you supply with your request.</description></item>
+        /// <item><description>2. The References and In-Reply-To headers must be set in compliance with the RFC 2822 standard.</description></item>
+        /// <item><description>3. The Subject headers must match.</description></item>
+        /// </list>
+        /// </param>
+        /// <returns></returns>
+        public async Task<Message> SendAsync(string raw, string threadId)
         {
-            throw new NotImplementedException();
+            string queryString = new MessageQueryStringBuilder()
+               .SetRequestAction(MessageRequestAction.Send)
+               .SetThreadId(threadId)
+               //.SetUploadType(UploadType.Multipart) -> if none provided no attachments are send
+               .Build();
+
+            return await _proxy.Post<Message>(queryString, JObject.FromObject(new { raw }));
         }
 
-        /// <summary>
+        /*/// <summary>
         /// Directly inserts a message into only this user's mailbox similar to IMAP APPEND, bypassing most scanning and classification. Does not send a message.
         /// </summary>
         public void Insert()

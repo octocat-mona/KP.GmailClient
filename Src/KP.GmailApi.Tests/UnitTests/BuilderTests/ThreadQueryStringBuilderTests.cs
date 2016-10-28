@@ -8,7 +8,7 @@ using Xunit;
 
 namespace KP.GmailApi.Tests.UnitTests.BuilderTests
 {
-    public class ThreadBuilderTests
+    public class ThreadQueryStringBuilderTests
     {
         [Fact]
         public void CanBuild()

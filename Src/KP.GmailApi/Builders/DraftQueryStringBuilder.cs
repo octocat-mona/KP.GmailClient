@@ -13,30 +13,26 @@ namespace KP.GmailApi.Builders
         public DraftQueryStringBuilder SetFormat(DraftFormat format)
         {
             base.SetFormat(format);
-
             return this;
         }
 
         public DraftQueryStringBuilder SetRequestAction(DraftRequestAction action, string id)
         {
             base.SetRequestAction(action, id);
-
             return this;
         }
 
         public DraftQueryStringBuilder SetRequestAction(DraftRequestAction action)
         {
             base.SetRequestAction(action);
-
             return this;
         }
 
         public DraftQueryStringBuilder SetUploadType(UploadType uploadType)
         {
-            string text = uploadType.GetAttribute<StringValueAttribute, UploadType>().Text;
-
-
-
+            //TODO: remove duplication with MessageQueryStringBuilder?
+            string uploadTypeString = uploadType.GetAttribute<StringValueAttribute, UploadType>().Text;
+            SetField("uploadType", uploadTypeString);
             return this;
         }
     }

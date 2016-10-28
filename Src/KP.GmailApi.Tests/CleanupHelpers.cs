@@ -23,5 +23,11 @@ namespace KP.GmailApi.Tests
             Func<Draft, Task<Draft>> createAction = service.CreateAsync;
             return new CleanupHelper<Draft, Draft>(createAction, deleteAction);
         }
+
+        public static CleanupHelper<Message, Message> GetMessageServiceCleanupHelper(MessageService service)
+        {
+            Func<Message, Task> deleteAction = async message => await service.TrashAsync(message.Id);
+            return new CleanupHelper<Message, Message>(null, deleteAction);
+        }
     }
 }

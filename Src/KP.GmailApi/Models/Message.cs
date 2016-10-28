@@ -71,13 +71,13 @@ namespace KP.GmailApi.Models
 
         /// <summary>
         /// The entire email message in an RFC 2822 formatted and base64url encoded string.
-        /// Returned in messages.get and drafts.get responses when the format=RAW parameter is supplied.
+        /// Returned in <see cref="Services.MessageService.GetAsync"/> and <see cref="Services.DraftService.GetAsync"/> responses when the format=RAW parameter is supplied.
         /// </summary>
         [JsonProperty("raw")]
         public string Raw { get; private set; }
 
         /// <summary>
-        /// Get / set the entire email message decoded from the <see cref="Raw"/> RFC 2822 formatted and base64url encoded string.
+        /// Get/set the entire email message decoded from the <see cref="Raw"/> RFC 2822 formatted and base64url encoded string.
         /// Returned in messages.get and drafts.get responses when the format=RAW parameter is supplied.
         /// </summary>
         [JsonIgnore]
@@ -91,46 +91,31 @@ namespace KP.GmailApi.Models
         /// Get the 'Subject' header value.
         /// </summary>
         [JsonIgnore]
-        public string Subject
-        {
-            get { return Payload.GetHeaderValue(HeaderName.Subject); }
-        }
+        public string Subject => Payload.GetHeaderValue(HeaderName.Subject);
 
         /// <summary>
         /// Get the 'From' header value.
         /// </summary>
         [JsonIgnore]
-        public string From
-        {
-            get { return Payload.GetHeaderValue(HeaderName.From); }
-        }
+        public string From => Payload.GetHeaderValue(HeaderName.From);
 
         /// <summary>
         /// Get the 'To' header value.
         /// </summary>
         [JsonIgnore]
-        public string To
-        {
-            get { return Payload.GetHeaderValue(HeaderName.To); }
-        }
+        public string To => Payload.GetHeaderValue(HeaderName.To);
 
         /// <summary>
         /// Get the body of the message in HTML
         /// </summary>
         [JsonIgnore]
-        public string Html
-        {
-            get { return Payload.GetBodyData(MimeType.TextHtml); }
-        }
+        public string Html => Payload.GetBodyData(MimeType.TextHtml);
 
         /// <summary>
         /// Get the body of the message as plain text
         /// </summary>
         [JsonIgnore]
-        public string PlainText
-        {
-            get { return Payload.GetBodyData(MimeType.TextPlain); }
-        }
+        public string PlainText => Payload.GetBodyData(MimeType.TextPlain);
 
         /// <summary>
         /// A string with the values of the properties from this <see cref="Message"/>

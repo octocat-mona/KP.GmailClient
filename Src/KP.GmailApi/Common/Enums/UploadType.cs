@@ -1,5 +1,8 @@
 ﻿namespace KP.GmailApi.Common.Enums
 {
+    /// <summary>
+    /// The type of upload request to the /upload URI.
+    /// </summary>
     internal enum UploadType
     {
         /// <summary>

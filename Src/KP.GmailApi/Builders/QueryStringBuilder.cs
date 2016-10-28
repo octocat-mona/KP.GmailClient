@@ -110,18 +110,21 @@ namespace KP.GmailApi.Builders
         }
 
         /// <summary>
-        /// Add field(s) to the query string. Null values are ignored.
+        /// Add field(s) to the query string. Empty and null values are ignored.
         /// </summary>
         /// <param name="key">The key of the field</param>
         /// <param name="values">Zero or more nullable values.</param>
         protected void SetField(string key, params object[] values)
         {
+            // Remove null values from collection
             List<object> nonNullValues = values
-                .Where(value => !ReferenceEquals(value, null))
+                .Where(value => !string.IsNullOrWhiteSpace(value?.ToString()))
                 .ToList();
 
             if (!nonNullValues.Any())
+            {
                 return;
+            }
 
             FieldsDictionary[key] = new List<object>(nonNullValues);
         }

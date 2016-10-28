@@ -36,12 +36,12 @@ namespace KP.GmailApi.Common.Enums
         ThreadId = 131072,
 
         /// <summary>
-        /// All the message fields (excluded: NextPageToken and ResultSizeEstimate)
+        /// All the message fields (excluded: NextPageToken and ResultSizeEstimate).
         /// </summary>
         Messages = HistoryId | Id | LabelIds | Payload | Raw | SizeEstimate | Snippet | ThreadId,
 
         /// <summary>
-        /// All values of Messages plus NextPageToken and ResultSizeEstimate
+        /// All values of Messages plus NextPageToken and ResultSizeEstimate.
         /// </summary>
         All = int.MaxValue
     }

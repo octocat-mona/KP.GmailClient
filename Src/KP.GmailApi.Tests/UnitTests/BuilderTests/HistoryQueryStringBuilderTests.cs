@@ -5,7 +5,7 @@ using Xunit;
 
 namespace KP.GmailApi.Tests.UnitTests.BuilderTests
 {
-    public class HistoryBuilderTests
+    public class HistoryQueryStringBuilderTests
     {
         [Fact]
         public void CannotBuild_WithoutHistoryId()

@@ -7,7 +7,7 @@ using Xunit;
 
 namespace KP.GmailApi.Tests.UnitTests.BuilderTests
 {
-    public class LabelBuilderTests
+    public class LabelQueryStringBuilderTests
     {
         private const string Path = "labels";
 

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using KP.GmailApi.Models;
 using KP.GmailApi.Services.Extensions;
@@ -8,7 +7,6 @@ using Xunit;
 
 namespace KP.GmailApi.Tests
 {
-    [SuppressMessage("", "CS0219", Justification = "Just samples")]
     public class Playground
     {
         //[Fact]
@@ -39,11 +37,17 @@ namespace KP.GmailApi.Tests
                 TokenUri = tokenUri,
                 ClientEmail = clientEmail
             };
-            var client = new GmailClient(accountCredential, emailAddress, GmailScopes.Readonly);
+            var client = new GmailClient(accountCredential, emailAddress, GmailScopes.Readonly | GmailScopes.Compose);
 
             // ----------------------
             // --- USAGE EXAMPLES ---
             // ----------------------
+
+            // Send an plain text email
+            Message sentMessage = await client.Messages.SendAsync("you@gmail.com", "The subject", "Plain text body");
+
+            // Send an HTML email
+            sentMessage = await client.Messages.SendAsync("you@gmail.com", "The subject", "<h1>HTML body</h1>", isBodyHtml: true);
 
             // Get the users profile
             Profile profile = await client.GetProfileAsync();
@@ -59,11 +63,6 @@ namespace KP.GmailApi.Tests
 
             // List all drafts
             IList<Draft> drafts = await client.Drafts.ListAsync();
-
-
-            // ----------------------
-            // --- EXTRA USAGE EXAMPLES ---
-            // ----------------------
 
         }
     }

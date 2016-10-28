@@ -25,12 +25,12 @@ namespace KP.GmailApi.Tests
             return createdItem;
         }
 
-        /*public void Add(T item)
+        public void Add(T item)
         {
             _createdItems.Add(item);
         }
 
-        public void Remove(T item)
+        /*public void Remove(T item)
         {
             _createdItems.Remove(item);
         }*/

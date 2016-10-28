@@ -1,10 +1,9 @@
 using System;
-using KP.GmailApi.Common;
 
-namespace KP.GmailApi.Models
+namespace KP.GmailApi.Common.Enums
 {
     [Flags]
-    public enum LabelFields
+    internal enum LabelFields
     {
         /// <summary>
         /// The immutable ID of the label.

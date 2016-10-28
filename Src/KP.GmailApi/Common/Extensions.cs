@@ -7,7 +7,7 @@ using System.Text;
 namespace KP.GmailApi.Common
 {
     /// <summary>
-    /// Common extensions
+    /// Common extensions.
     /// </summary>
     internal static class Extensions
     {
@@ -20,9 +20,13 @@ namespace KP.GmailApi.Common
         public static string GetValidFilename(this string name, char replaceWith = '_')
         {
             if (Path.GetInvalidFileNameChars().Contains(replaceWith))
+            {
                 throw new Exception(string.Concat("Replacement char '", replaceWith, "' is not valid!"));
+            }
             if (name.Length > 256)// total file including path max is 256 chars
+            {
                 name = new string(name.Take(260).ToArray());
+            }
 
             return new string(name.Select(s => Path.GetInvalidFileNameChars().Contains(s) ? replaceWith : s).ToArray());
         }
@@ -69,10 +73,12 @@ namespace KP.GmailApi.Common
         public static string ToBase64UrlString(this string plainText)
         {
             if (string.IsNullOrEmpty(plainText))
+            {
                 return plainText;
+            }
 
             string base64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(plainText));
-            return base64.Replace('+', '-').Replace('/', '_').Replace('=', '*');
+            return base64.Replace('+', '-').Replace('/', '_');
         }
 
         /// <summary>
@@ -88,7 +94,7 @@ namespace KP.GmailApi.Common
                 return base64;
             }
 
-            string safeBase64 = base64.Replace('-', '+').Replace('_', '/').Replace('*', '=');
+            string safeBase64 = base64.Replace('-', '+').Replace('_', '/');
             byte[] bytes = Convert.FromBase64String(safeBase64);
             return Encoding.UTF8.GetString(bytes);
         }
@@ -96,6 +102,23 @@ namespace KP.GmailApi.Common
         public static long ToUnixTime(this DateTime dateTime)
         {
             return (int)dateTime.ToUniversalTime().Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
+        }
+
+        /// <summary>
+        /// Append line if condition is true.
+        /// </summary>
+        /// <param name="builder"></param>
+        /// <param name="value"></param>
+        /// <param name="condition"></param>
+        public static StringBuilder Append(this StringBuilder builder, string value, bool condition)
+        {
+            if (!condition)
+            {
+                return builder;
+            }
+
+            builder.Append(value);
+            return builder;
         }
     }
 }

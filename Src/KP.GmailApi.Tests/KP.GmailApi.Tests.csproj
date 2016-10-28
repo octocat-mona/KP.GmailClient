@@ -91,6 +91,7 @@
     <Compile Include="IntegrationTests\LabelServiceTests\LabelUpdateTests.cs" />
     <Compile Include="IntegrationTests\LabelServiceTests\LabelGetTests.cs" />
     <Compile Include="IntegrationTests\MessageServiceTests\MessageCountTests.cs" />
+    <Compile Include="IntegrationTests\MessageServiceTests\MessageSendTests.cs" />
     <Compile Include="IntegrationTests\SettingsManager.cs" />
     <Compile Include="IntegrationTests\SmokeTests.cs" />
     <Compile Include="IntegrationTests\ThreadServiceTests\ThreadGetTests.cs" />
@@ -101,9 +102,11 @@
     <Compile Include="CleanupHelper.cs" />
     <Compile Include="Samples.cs" />
     <Compile Include="TestExtensions.cs" />
-    <Compile Include="UnitTests\BuilderTests\HistoryBuilderTests.cs" />
-    <Compile Include="UnitTests\BuilderTests\ThreadBuilderTests.cs" />
-    <Compile Include="UnitTests\BuilderTests\LabelBuilderTests.cs" />
+    <Compile Include="UnitTests\BuilderTests\EmailMessageBuilderTests.cs" />
+    <Compile Include="UnitTests\BuilderTests\HistoryQueryStringBuilderTests.cs" />
+    <Compile Include="UnitTests\BuilderTests\MessageQueryStringBuilderTests.cs" />
+    <Compile Include="UnitTests\BuilderTests\ThreadQueryStringBuilderTests.cs" />
+    <Compile Include="UnitTests\BuilderTests\LabelQueryStringBuilderTests.cs" />
     <Compile Include="UnitTests\ExtensionTests\Base64UrlStringTests.cs" />
     <Compile Include="UnitTests\ExtensionTests\GetAttributeTests.cs" />
     <Compile Include="UnitTests\ExtensionTests\ToScopeStringTests.cs" />
