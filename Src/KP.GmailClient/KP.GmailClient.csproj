@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EDE3CABA-6469-4EE3-B5F7-5AE7BA51E088}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>KP.GmailClient</RootNamespace>
+    <AssemblyName>KP.GmailClient</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\KP.GmailClient.xml</DocumentationFile>
+    <NoWarn>1591</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\KP.GmailClient.xml</DocumentationFile>
+    <NoWarn>1591</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="jose-jwt, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\jose-jwt.2.0.2\lib\net40\jose-jwt.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AuthorizationDelegatingHandler.cs" />
+    <Compile Include="Builders\DraftQueryStringBuilder.cs" />
+    <Compile Include="Builders\EmailMessageBuilder.cs" />
+    <Compile Include="Builders\HistoryQueryStringBuilder.cs" />
+    <Compile Include="Common\Enums\Format.cs" />
+    <Compile Include="Common\Enums\DraftRequestAction.cs" />
+    <Compile Include="Common\Enums\ThreadFields.cs" />
+    <Compile Include="Common\Enums\RequestAction.cs" />
+    <Compile Include="Common\Enums\DraftFormat.cs" />
+    <Compile Include="Common\Enums\ThreadRequestAction.cs" />
+    <Compile Include="Common\Enums\ThreadFormat.cs" />
+    <Compile Include="Builders\ThreadQueryStringBuilder.cs" />
+    <Compile Include="Builders\MessageQueryStringBuilder.cs" />
+    <Compile Include="Builders\QueryStringBuilder.cs" />
+    <Compile Include="Builders\AttachmentQueryStringBuilder.cs" />
+    <Compile Include="Builders\UserQueryStringBuilder.cs" />
+    <Compile Include="Common\Enums\LabelRequestAction.cs" />
+    <Compile Include="Common\Enums\UploadType.cs" />
+    <Compile Include="Common\GmailException.cs" />
+    <Compile Include="Common\GmailExtensions.cs" />
+    <Compile Include="GmailScopes.cs" />
+    <Compile Include="Models\ServiceAccountCredential.cs" />
+    <Compile Include="Models\Extensions\PayloadExtensions.cs" />
+    <Compile Include="Models\CreateLabelInput.cs" />
+    <Compile Include="Models\Draft.cs" />
+    <Compile Include="Common\Enums\LabelFields.cs" />
+    <Compile Include="Models\LabelListVisibility.cs" />
+    <Compile Include="Common\Enums\MessageFields.cs" />
+    <Compile Include="Common\Enums\MessageRequestAction.cs" />
+    <Compile Include="Common\Extensions.cs" />
+    <Compile Include="Common\GmailProxy.cs" />
+    <Compile Include="Models\Attachment.cs" />
+    <Compile Include="Models\GmailError.cs" />
+    <Compile Include="Models\Header.cs" />
+    <Compile Include="Models\HeaderName.cs" />
+    <Compile Include="Models\Label.cs" />
+    <Compile Include="Models\LabelType.cs" />
+    <Compile Include="Models\Message.cs" />
+    <Compile Include="Common\Enums\MessageFormat.cs" />
+    <Compile Include="Models\DraftList.cs" />
+    <Compile Include="Models\HistoryList.cs" />
+    <Compile Include="Models\ModifyThreadInput.cs" />
+    <Compile Include="Models\ThreadList .cs" />
+    <Compile Include="Models\MessageList.cs" />
+    <Compile Include="Models\MessageListVisibility.cs" />
+    <Compile Include="Models\MimeType.cs" />
+    <Compile Include="Models\OAuth2Token.cs" />
+    <Compile Include="Models\Payload.cs" />
+    <Compile Include="Models\PayloadBase.cs" />
+    <Compile Include="Models\GmailErrorResponse.cs" />
+    <Compile Include="Models\MessageThread.cs" />
+    <Compile Include="Common\ParseOptions.cs" />
+    <Compile Include="OpenSslKey.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Extensions\DraftServiceExtensions.cs" />
+    <Compile Include="Services\Extensions\LabelServiceExtensions.cs" />
+    <Compile Include="Services\Extensions\MessageServiceExtensions.cs" />
+    <Compile Include="Services\Extensions\ThreadServiceExtensions.cs" />
+    <Compile Include="Services\DraftService.cs" />
+    <Compile Include="Services\AttachmentService.cs" />
+    <Compile Include="GmailClient.cs" />
+    <Compile Include="Services\HistoryService.cs" />
+    <Compile Include="Builders\LabelQueryStringBuilder.cs" />
+    <Compile Include="Services\LabelService.cs" />
+    <Compile Include="Services\MessageService.cs" />
+    <Compile Include="Models\Profile.cs" />
+    <Compile Include="Services\ThreadService.cs" />
+    <Compile Include="Common\ErrorResponseParser.cs" />
+    <Compile Include="Models\UpdateLabelInput.cs" />
+    <Compile Include="Common\StringValueAttribute.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

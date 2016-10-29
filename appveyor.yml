@@ -25,7 +25,7 @@ environment:
     secure: L7Vp0jAqqqdmHdGulSr+S7Rc6GypRkYhns8GfUDRyBqvUSSUsGGVKy/9b3Er21JJ
 
 before_build:
-- nuget restore Src\KP.GmailApi.sln
+- nuget restore Src\KP.GmailClient.sln
 
 build:
   parallel: true
