@@ -108,6 +108,7 @@
     <Compile Include="Common\ParseOptions.cs" />
     <Compile Include="OpenSslKey.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="GmailClientInitializer.cs" />
     <Compile Include="Services\Extensions\DraftServiceExtensions.cs" />
     <Compile Include="Services\Extensions\LabelServiceExtensions.cs" />
     <Compile Include="Services\Extensions\MessageServiceExtensions.cs" />

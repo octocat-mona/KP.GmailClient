@@ -16,16 +16,19 @@ namespace KP.GmailClient.Tests
             // ----------------------
 
 #if DOCS
-            1. Create a new project in the Google Developer Console -> https://console.developers.google.com/project
-            2. Create a service account for the project -> https://console.developers.google.com/iam-admin/serviceaccounts
-            3. Create and download a new key as JSON file.
-            4. (only for Google Apps users) Go to the Google Apps Admin console and select the scopes, more on that here https://developers.google.com/identity/protocols/OAuth2ServiceAccount#delegatingauthority
+            1. Create a new project in the Google Cloud Platform -> https://console.cloud.google.com/home/dashboard
+            2. Enable the Gmail API.
+            3. Create a service account for the project -> https://console.cloud.google.com/iam-admin/serviceaccounts/
+            4. Create and download a new key as JSON file.
+            5. (only for G Suite users) Go to the G Suite Admin console and select the scopes, more on that here https://developers.google.com/identity/protocols/OAuth2ServiceAccount#delegatingauthority
 #endif
 
             // ----------------------
             // --- SETUP ---
             // ----------------------
 
+            // Either use from config
+            const GmailScopes scopes = GmailScopes.Readonly | GmailScopes.Compose;
             string privateKey = SettingsManager.GetPrivateKey();
             string tokenUri = SettingsManager.GetTokenUri();
             string clientEmail = SettingsManager.GetClientEmail();
@@ -36,17 +39,22 @@ namespace KP.GmailClient.Tests
                 TokenUri = tokenUri,
                 ClientEmail = clientEmail
             };
-            var client = new GmailClient(accountCredential, emailAddress, GmailScopes.Readonly | GmailScopes.Compose);
+            var client = new GmailClient(accountCredential, emailAddress, scopes);
+
+            // Or use from downloaded JSON file directly
+            const string path = "C:\\Users\\Me\\Documents\\Gmail-Project.json";
+            var initializer = GmailClientInitializer.Initialize(path, scopes);
+            client = new GmailClient(initializer, emailAddress);
 
             // ----------------------
             // --- USAGE EXAMPLES ---
             // ----------------------
 
             // Send a plain text email
-            Message sentMessage = await client.Messages.SendAsync("you@gmail.com", "The subject", "Plain text body");
+            Message sentMessage = await client.Messages.SendAsync(emailAddress, "The subject", "Plain text body");
 
             // Send a HTML email
-            sentMessage = await client.Messages.SendAsync("you@gmail.com", "The subject", "<h1>HTML body</h1>", isBodyHtml: true);
+            sentMessage = await client.Messages.SendAsync(emailAddress, "The subject", "<h1>HTML body</h1>", isBodyHtml: true);
 
             // Get the users profile
             Profile profile = await client.GetProfileAsync();

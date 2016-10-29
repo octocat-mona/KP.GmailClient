@@ -37,9 +37,17 @@ namespace KP.GmailClient
         /// <summary>
         /// Access to all Gmail services.
         /// </summary>
+        /// <param name="initializer">A <see cref="GmailClientInitializer"/> instance</param>
+        /// <param name="emailAddress">The emailaddress of the user to impersonate</param>
+        public GmailClient(GmailClientInitializer initializer, string emailAddress)
+            : this(initializer.AccountCredential, emailAddress, initializer.Scopes) { }
+
+        /// <summary>
+        /// Access to all Gmail services.
+        /// </summary>
         /// <param name="accountCredential">The Google Account Credentials</param>
         /// <param name="emailAddress">The emailaddress of the user to impersonate</param>
-        /// <param name="scopes">The required Gmail scopes</param>
+        /// <param name="scopes">The Gmail scopes required to access the users data</param>
         public GmailClient(ServiceAccountCredential accountCredential, string emailAddress, GmailScopes scopes)
             : this(accountCredential, emailAddress, scopes.ToScopeString()) { }
 
