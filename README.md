@@ -14,34 +14,41 @@ This is an alternative client for the auto generated Google.Apis.Gmail.v1 Client
 - Did I mention easy?
 
 ## Prerequisites
-1. Create a new project in the Google Developer Console -> https://console.developers.google.com/project
-2. Create a service account for the project -> https://console.cloud.google.com/iam-admin/serviceaccounts/
-3. Create and download a new key as JSON file.
-4. (only for Google Apps users) Go to the Google Apps Admin console and select the scopes, more on that here https://developers.google.com/identity/protocols/OAuth2ServiceAccount#delegatingauthority
+1. Create a new project in the Google Cloud Platform -> https://console.cloud.google.com/home/dashboard
+2. Enable the Gmail API.
+3. Create a service account for the project -> https://console.cloud.google.com/iam-admin/serviceaccounts/
+4. Create and download a new key as JSON file.
+5. (only for G Suite users) Go to the G Suite Admin console and select the scopes, more on that here https://developers.google.com/identity/protocols/OAuth2ServiceAccount#delegatingauthority
 
 ## Setup
 ``` csharp
-string privateKey = "<PKCS#8 private key from downloaded JSON file>";
-string tokenUri = "https://accounts.google.com/o/oauth2/token";
-string clientEmail = "<Client email from downloaded JSON file>";
-string emailAddress = "<The associated Gmail address or domain email address>";
+// Either use from config
+const GmailScopes scopes = GmailScopes.Readonly | GmailScopes.Compose;
+string privateKey = SettingsManager.GetPrivateKey();
+string tokenUri = SettingsManager.GetTokenUri();
+string clientEmail = SettingsManager.GetClientEmail();
+string emailAddress = SettingsManager.GetEmailAddress();
 ServiceAccountCredential accountCredential = new ServiceAccountCredential
 {
     PrivateKey = privateKey,
     TokenUri = tokenUri,
     ClientEmail = clientEmail
 };
-var client = new GmailClient(accountCredential, emailAddress, GmailScopes.Readonly);
+var client = new GmailClient(accountCredential, emailAddress, scopes);
+
+// Or use from downloaded JSON file directly
+const string path = "C:\\Users\\Me\\Documents\\Gmail-Project.json";
+var initializer = GmailClientInitializer.Initialize(path, scopes);
+client = new GmailClient(initializer, emailAddress);
 ```
 
 ## Usage examples
 ``` csharp
 // Send a plain text email
-Message sentMessage = await client.Messages.SendAsync("you@gmail.com", "The subject", "Plain text body");
+Message sentMessage = await client.Messages.SendAsync(emailAddress, "The subject", "Plain text body");
 
 // Send a HTML email
-sentMessage = await client.Messages.SendAsync("you@gmail.com", "The subject", "<h1>HTML body</h1>",
-                                                isBodyHtml: true);
+sentMessage = await client.Messages.SendAsync(emailAddress, "The subject", "<h1>HTML body</h1>", isBodyHtml: true);
 
 // Get the users profile
 Profile profile = await client.GetProfileAsync();
