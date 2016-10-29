@@ -9,7 +9,6 @@ namespace KP.GmailClient.Tests
 {
     public class Playground
     {
-        [Fact]
         public async Task Play()
         {
             // ----------------------
@@ -37,7 +36,7 @@ namespace KP.GmailClient.Tests
                 TokenUri = tokenUri,
                 ClientEmail = clientEmail
             };
-            var client = new KP.GmailClient.GmailClient(accountCredential, emailAddress, GmailScopes.Readonly /*| GmailScopes.Compose*/);
+            var client = new GmailClient(accountCredential, emailAddress, GmailScopes.Readonly | GmailScopes.Compose);
 
             // ----------------------
             // --- USAGE EXAMPLES ---

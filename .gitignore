@@ -180,3 +180,6 @@ UpgradeLog*.htm
 
 # Microsoft Fakes
 FakesAssemblies/
+
+# Project specific files
+/Src/KP.GmailClient.Tests/App.private.config
