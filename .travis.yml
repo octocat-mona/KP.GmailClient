@@ -26,4 +26,4 @@ addons:
     build_command_prepend: "msbuild /t:Clean"
     build_command:   "msbuild /t:Rebuild"
     branch_pattern: master
-	#branch_pattern: coverity_scan
+    #branch_pattern: coverity_scan
