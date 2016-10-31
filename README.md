@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/kpstolk/KP.GmailClient.svg?branch=master)](https://travis-ci.org/kpstolk/KP.GmailClient)
-[![Build status](https://ci.appveyor.com/api/projects/status/tqv09fs3fo9a37t0?svg=true)](https://ci.appveyor.com/project/kpstolk/gmail-api)
+[![Build status](https://ci.appveyor.com/api/projects/status/tqv09fs3fo9a37t0?svg=true)](https://ci.appveyor.com/project/KP/gmail-api)
 <a href="https://scan.coverity.com/projects/kpstolk-kp-gmailclient">
   <img alt="Coverity Scan Build Status"
        src="https://scan.coverity.com/projects/5330/badge.svg"/>
