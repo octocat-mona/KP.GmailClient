@@ -27,3 +27,4 @@ addons:
     build_command:   "msbuild /t:Rebuild"
     branch_pattern: master
     #branch_pattern: coverity_scan
+  srcclr: true
