@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Text;
 using KP.GmailClient.Common;
 using KP.GmailClient.Models;
 
@@ -11,7 +12,9 @@ namespace KP.GmailClient.Tests.IntegrationTests
 
         public static string GetPrivateKey()
         {
-            return GetSetting($"{SettingsPrefix}PrivateKey");
+            string base64String = GetSetting($"{SettingsPrefix}PrivateKey");
+            byte[] bytes = Convert.FromBase64String(base64String);
+            return Encoding.UTF8.GetString(bytes);
         }
 
         public static string GetTokenUri()
