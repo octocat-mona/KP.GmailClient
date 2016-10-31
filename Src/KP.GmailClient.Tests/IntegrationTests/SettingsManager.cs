@@ -8,7 +8,7 @@ namespace KP.GmailClient.Tests.IntegrationTests
 {
     internal class SettingsManager
     {
-        private const string SettingsPrefix = "KP.GmailClient.";
+        private const string SettingsPrefix = "KP_GmailClient_";
 
         public static string GetPrivateKey()
         {
