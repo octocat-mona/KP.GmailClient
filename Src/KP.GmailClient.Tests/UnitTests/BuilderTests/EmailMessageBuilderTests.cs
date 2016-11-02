@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
 using FluentAssertions;
 using KP.GmailClient.Builders;
 using Xunit;
@@ -44,7 +45,7 @@ namespace KP.GmailClient.Tests.UnitTests.BuilderTests
             AssertMessage(parsedMessage);
         }
 
-        private static void AssertMessage(string parsedMessage)
+        private static void AssertMessage(string parsedMessage, bool isBodyHtml = false)
         {
             string[] fields = parsedMessage.Split(new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
             Dictionary<string, string> headers = fields
@@ -53,11 +54,15 @@ namespace KP.GmailClient.Tests.UnitTests.BuilderTests
 
             string to = headers["To"];
             string subject = headers["Subject"];
-            string contentType = headers["Content-Type"];
+            string contentTypeString = headers["Content-Type"];
+            var contentType = new ContentType(contentTypeString);
 
             to.ShouldBeEquivalentTo(To);
             subject.ShouldBeEquivalentTo(Subject);
-            contentType.ShouldBeEquivalentTo("text/plain; charset=us-ascii");
+
+            // Charset is 'utf-8' with Mono
+            contentType.CharSet.Should().BeOneOf("us-ascii", "utf-8");
+            contentType.MediaType.ShouldBeEquivalentTo(isBodyHtml ? MediaTypeNames.Text.Html : MediaTypeNames.Text.Plain);
         }
     }
 }
