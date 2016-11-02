@@ -121,7 +121,7 @@ namespace KP.GmailClient.Builders
             using (_mailMessage)
             {
                 string mediaType = _mailMessage.IsBodyHtml ? MediaTypeNames.Text.Html : MediaTypeNames.Text.Plain;
-                var view = AlternateView.CreateAlternateViewFromString(_mailMessage.Body, _mailMessage.BodyEncoding, mediaType);
+                var view = AlternateView.CreateAlternateViewFromString(_mailMessage.Body ?? "", _mailMessage.BodyEncoding, mediaType);
                 const string crlf = "\r\n";
 
                 return new StringBuilder()
