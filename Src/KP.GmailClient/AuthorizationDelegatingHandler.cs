@@ -15,14 +15,13 @@ namespace KP.GmailClient
 {
     internal class AuthorizationDelegatingHandler : DelegatingHandler
     {
-        private readonly string _emailAddress;
-        private readonly string _scopes;
         private readonly SemaphoreSlim _semaphoreSlim = new SemaphoreSlim(1, 1);
         private readonly HttpClient _client;
         private readonly JsonSerializer _jsonSerializer = new JsonSerializer();
         private readonly ServiceAccountCredential _accountCredential;
+        private readonly string _emailAddress;
+        private readonly string _scopes;
         private OAuth2Token _token;
-
 
         public AuthorizationDelegatingHandler(ServiceAccountCredential accountCredential, string emailAddress, string scopes)
         {
@@ -115,6 +114,12 @@ namespace KP.GmailClient
 
             _token.ExpirationDate = DateTime.UtcNow.AddSeconds(_token.ExpiresIn);
             return _token.AccessToken;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _semaphoreSlim.Dispose();
+            base.Dispose(disposing);
         }
     }
 }

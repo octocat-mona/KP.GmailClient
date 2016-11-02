@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using KP.GmailClient.Builders;
 using KP.GmailClient.Common;
 using KP.GmailClient.Models;
@@ -9,7 +10,7 @@ namespace KP.GmailClient
     /// <summary>
     /// Contains all services provided by Gmail.
     /// </summary>
-    public class GmailClient
+    public class GmailClient : IDisposable
     {
         private readonly GmailProxy _proxy;
 
@@ -78,6 +79,11 @@ namespace KP.GmailClient
                  .Build();
 
             return await _proxy.Get<Profile>(queryString);
+        }
+
+        public void Dispose()
+        {
+            _proxy.Dispose();
         }
     }
 }

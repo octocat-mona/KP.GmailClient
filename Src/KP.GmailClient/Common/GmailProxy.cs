@@ -13,7 +13,7 @@ namespace KP.GmailClient.Common
     /// <summary>
     /// Handles requests to the Gmail service and parses the response.
     /// </summary>
-    internal class GmailProxy
+    internal class GmailProxy : IDisposable
     {
         /// <summary>
         /// The URL to send requests to the Gmail API service
@@ -111,6 +111,11 @@ namespace KP.GmailClient.Common
             {
                 return _jsonSerializer.Deserialize<T>(jsonReader);
             }
+        }
+
+        public void Dispose()
+        {
+            _client.Dispose();
         }
     }
 }
