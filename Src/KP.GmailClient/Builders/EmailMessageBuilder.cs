@@ -106,7 +106,7 @@ namespace KP.GmailClient.Builders
         /// <returns></returns>
         public EmailMessageBuilder SetBody(string body, bool isBodyHtml, Encoding encoding = null)
         {
-            _mailMessage.Body = body;
+            _mailMessage.Body = body ?? "";
             _mailMessage.IsBodyHtml = isBodyHtml;
             if (encoding != null)
             {
