@@ -12,11 +12,12 @@ namespace KP.GmailClient.Tests.IntegrationTests.LabelServiceTests
         private const string TestLabel = "Testing/";
         private readonly LabelService _service;
         private readonly CleanupHelper<Label, CreateLabelInput> _helper;
+        private readonly GmailProxy _proxy;
 
         public LabelUpdateTests()
         {
-            GmailProxy proxy = SettingsManager.GetGmailProxy();
-            _service = new LabelService(proxy);
+            _proxy = SettingsManager.GetGmailProxy();
+            _service = new LabelService(_proxy);
 
             Func<Label, Task> deleteAction = label => _service.DeleteAsync(label.Id);
             Func<CreateLabelInput, Task<Label>> createAction = async input => await _service.CreateAsync(input);
@@ -26,12 +27,6 @@ namespace KP.GmailClient.Tests.IntegrationTests.LabelServiceTests
         [Fact]
         public async Task CanUpdate()
         {
-            //TODO: fix on Mono, disable for now
-            if (Environment.GetEnvironmentVariable("HOME") != null)
-            {
-                await Task.FromResult(0);
-            }
-
             // Arrange
             var random = new Random();
             Label createdLabel = await _helper.CreateAsync(new CreateLabelInput(TestLabel + random.Next()));
@@ -48,7 +43,8 @@ namespace KP.GmailClient.Tests.IntegrationTests.LabelServiceTests
 
         public void Dispose()
         {
-            _helper.Cleanup();
+            _helper?.Cleanup();
+            _proxy?.Dispose();
         }
     }
 }

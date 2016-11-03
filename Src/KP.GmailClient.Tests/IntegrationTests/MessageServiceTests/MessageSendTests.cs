@@ -14,11 +14,12 @@ namespace KP.GmailClient.Tests.IntegrationTests.MessageServiceTests
     {
         private readonly CleanupHelper<Message, Message> _helper;
         private readonly MessageService _service;
+        private readonly GmailProxy _proxy;
 
         public MessageSendTests()
         {
-            GmailProxy proxy = SettingsManager.GetGmailProxy();
-            _service = new MessageService(proxy);
+            _proxy = SettingsManager.GetGmailProxy();
+            _service = new MessageService(_proxy);
             _helper = CleanupHelpers.GetMessageServiceCleanupHelper(_service);
         }
 
@@ -39,7 +40,8 @@ namespace KP.GmailClient.Tests.IntegrationTests.MessageServiceTests
 
         public void Dispose()
         {
-            _helper.Cleanup();
+            _helper?.Cleanup();
+            _proxy?.Dispose();
         }
     }
 }

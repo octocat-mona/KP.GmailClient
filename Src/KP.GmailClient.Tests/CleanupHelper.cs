@@ -37,27 +37,9 @@ namespace KP.GmailClient.Tests
 
         public void Cleanup()
         {
-            //List<Exception> exceptions = new List<Exception>();
-
             var deleteTasks = _createdItems.Select(async item => await _deleteFunc(item));
-            Task.WhenAll(deleteTasks).ConfigureAwait(false).GetAwaiter().GetResult();
+            Task.WhenAll(deleteTasks).GetAwaiter().GetResult();
             _createdItems.Clear();
-
-            /*foreach (T item in _createdItems)
-            {
-                try
-                {
-                    //TODO: use Task.WhenAll instead of loop
-                    _deleteFunc(item).Wait();
-                }
-                catch (Exception ex)
-                {
-                    exceptions.Add(ex);
-                }
-            }
-            
-            if (exceptions.Any())
-                throw new AggregateException("Error(s) occured during cleanup", exceptions);*/
         }
     }
 }

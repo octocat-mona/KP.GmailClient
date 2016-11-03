@@ -3,16 +3,21 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using KP.GmailClient.Models;
 using Xunit;
+using KP.GmailClient.Common;
+using KP.GmailClient.Services;
 
 namespace KP.GmailClient.Tests.IntegrationTests.DraftServiceTests
 {
     public class DraftCreateTests : IDisposable
     {
         private readonly CleanupHelper<Draft, Draft> _helper;
+        private readonly GmailProxy _proxy;
 
         public DraftCreateTests()
         {
-            _helper = CleanupHelpers.GetDraftServiceCleanupHelper();
+            _proxy = SettingsManager.GetGmailProxy();
+            var service = new DraftService(_proxy);
+            _helper = CleanupHelpers.GetDraftServiceCleanupHelper(service);
         }
 
         [Fact]
@@ -23,7 +28,7 @@ namespace KP.GmailClient.Tests.IntegrationTests.DraftServiceTests
             Draft createdDraft = null;
 
             // Act
-            Func<Task> action = async () => createdDraft =await _helper.CreateAsync(draft);
+            Func<Task> action = async () => createdDraft = await _helper.CreateAsync(draft);
 
             // Assert
             action.ShouldNotThrow();
@@ -32,7 +37,8 @@ namespace KP.GmailClient.Tests.IntegrationTests.DraftServiceTests
 
         public void Dispose()
         {
-            _helper.Cleanup();
+            _helper?.Cleanup();
+            _proxy?.Dispose();
         }
     }
 }

@@ -7,14 +7,15 @@ using KP.GmailClient.Services.Extensions;
 
 namespace KP.GmailClient.Tests.IntegrationTests.ThreadServiceTests
 {
-    public class ThreadListTests
+    public class ThreadListTests : IDisposable
     {
         private readonly ThreadService _service;
+        private readonly GmailProxy _proxy;
 
         public ThreadListTests()
         {
-            GmailProxy proxy = SettingsManager.GetGmailProxy();
-            _service = new ThreadService(proxy);
+            _proxy = SettingsManager.GetGmailProxy();
+            _service = new ThreadService(_proxy);
         }
 
         //[Fact] TODO: implement
@@ -35,6 +36,11 @@ namespace KP.GmailClient.Tests.IntegrationTests.ThreadServiceTests
 
             // Assert
             action.ShouldNotThrow();
+        }
+
+        public void Dispose()
+        {
+            _proxy.Dispose();
         }
     }
 }

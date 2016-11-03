@@ -12,24 +12,18 @@ namespace KP.GmailClient.Tests.IntegrationTests.DraftServiceTests
     {
         private readonly DraftService _service;
         private readonly CleanupHelper<Draft, Draft> _helper;
+        private readonly GmailProxy _proxy;
 
         public DraftGetTests()
         {
-            GmailProxy proxy = SettingsManager.GetGmailProxy();
-            _service = new DraftService(proxy);
-
+            _proxy = SettingsManager.GetGmailProxy();
+            _service = new DraftService(_proxy);
             _helper = CleanupHelpers.GetDraftServiceCleanupHelper(_service);
         }
 
         [Fact]
         public async Task CanGet()
         {
-            //TODO: fix on Mono, disable for now
-            if (Environment.GetEnvironmentVariable("HOME") != null)
-            {
-                await Task.FromResult(0);
-            }
-
             // Arrange
             Draft draft = Samples.DraftSample;
             Draft createdDraft = await _helper.CreateAsync(draft);
@@ -45,7 +39,8 @@ namespace KP.GmailClient.Tests.IntegrationTests.DraftServiceTests
 
         public void Dispose()
         {
-            _helper.Cleanup();
+            _helper?.Cleanup();
+            _proxy?.Dispose();
         }
     }
 }

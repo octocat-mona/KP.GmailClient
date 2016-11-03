@@ -9,14 +9,15 @@ using Xunit;
 
 namespace KP.GmailClient.Tests.IntegrationTests.DraftServiceTests
 {
-    public class DraftListTests
+    public class DraftListTests : IDisposable
     {
         private readonly DraftService _service;
+        private readonly GmailProxy _proxy;
 
         public DraftListTests()
         {
-            GmailProxy proxy = SettingsManager.GetGmailProxy();
-            _service = new DraftService(proxy);
+            _proxy = SettingsManager.GetGmailProxy();
+            _service = new DraftService(_proxy);
         }
 
         [Fact]
@@ -32,17 +33,16 @@ namespace KP.GmailClient.Tests.IntegrationTests.DraftServiceTests
         [Fact]
         public async Task CanList()
         {
-            //TODO: fix on Mono, disable for now
-            if (Environment.GetEnvironmentVariable("HOME") != null)
-            {
-                await Task.FromResult(0);
-            }
-
             // Act
             var drafts = (await _service.ListAsync()).ToList();
 
             // Assert
             drafts.Should().NotBeNull();
+        }
+
+        public void Dispose()
+        {
+            _proxy.Dispose();
         }
     }
 }

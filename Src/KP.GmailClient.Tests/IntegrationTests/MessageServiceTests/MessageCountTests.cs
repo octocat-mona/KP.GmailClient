@@ -9,14 +9,15 @@ using Xunit;
 
 namespace KP.GmailClient.Tests.IntegrationTests.MessageServiceTests
 {
-    public class MessageCountTests
+    public class MessageCountTests : IDisposable
     {
         private readonly MessageService _service;
+        private readonly GmailProxy _proxy;
 
         public MessageCountTests()
         {
-            GmailProxy proxy = SettingsManager.GetGmailProxy();
-            _service = new MessageService(proxy);
+            _proxy = SettingsManager.GetGmailProxy();
+            _service = new MessageService(_proxy);
         }
 
         [Fact]
@@ -49,6 +50,11 @@ namespace KP.GmailClient.Tests.IntegrationTests.MessageServiceTests
 
             // Assert
             count.Should().Be(0);
+        }
+
+        public void Dispose()
+        {
+            _proxy.Dispose();
         }
     }
 }
