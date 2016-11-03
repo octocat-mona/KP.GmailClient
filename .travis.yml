@@ -4,7 +4,7 @@ solution: Src/KP.GmailClient.sln
 
 env:
   global:
-   - secure: "VKIMVBD/48obdtE5b4CiTDjPd9MWCTCvpOElVTWO3pa6ow/AzJzIUoOisW0wtFdccwy1Bsi/2hI/JVkDiK1RjMT5XkKqCRdtO0IEGTd0JODYhQCcxmSYbg+Kd80pAzcoRUY8czbpP5qRXmECAEAvvJ16cNR13BTBxadfAYP/yfA="
+   - secure: "cyL+Y/qjn8xzBLG4q7w+sPBpIT+Ro5lWFf8Qyo6PoRW2OWs/A6Ry/XhaLjwvptOe5NrAyAXWkh3p5EvUuntnzH8BHoaiED6dV4zuq5QVkEr0p0OzYbyg6u1iD6Vc1SEUzoXzA6+yj7RorOWIEed/ec2jIutFKOioXtzTB3+/6t0="
 
 before_install:
       - echo -n | openssl s_client -connect scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
