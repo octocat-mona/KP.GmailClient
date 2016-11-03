@@ -23,7 +23,7 @@ addons:
       name: "kpstolk/KP.GmailClient"
       description: "Build submitted via Travis CI"
     #notification_email: me@gmail.com
-    build_command_prepend: "xbuild /t:Clean"
-    build_command:   "xbuild /t:Rebuild"
+    build_command_prepend: "xbuild /p:Configuration=Release Src/KP.GmailClient.sln /t:Clean"
+    build_command:   "xbuild /p:Configuration=Release Src/KP.GmailClient.sln /t:Rebuild"
     branch_pattern: master
     #branch_pattern: coverity_scan
