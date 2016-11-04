@@ -2,13 +2,6 @@ language: csharp
 mono: latest
 solution: Src/KP.GmailClient.sln
 
-env:
-  global:
-   - secure: "cyL+Y/qjn8xzBLG4q7w+sPBpIT+Ro5lWFf8Qyo6PoRW2OWs/A6Ry/XhaLjwvptOe5NrAyAXWkh3p5EvUuntnzH8BHoaiED6dV4zuq5QVkEr0p0OzYbyg6u1iD6Vc1SEUzoXzA6+yj7RorOWIEed/ec2jIutFKOioXtzTB3+/6t0="
-
-before_install:
-      - echo -n | openssl s_client -connect scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
-
 install:
   - nuget restore Src/KP.GmailClient.sln
   - nuget install xunit.runner.console -Version 2.1.0 -OutputDirectory testrunner
@@ -16,14 +9,3 @@ install:
 script:
   - xbuild /p:Configuration=Release Src/KP.GmailClient.sln /tv:14.0
   - mono ./testrunner/xunit.runner.console.2.1.0/tools/xunit.console.exe ./Src/KP.GmailClient.Tests/bin/Release/KP.GmailClient.Tests.dll
-
-addons:
-  coverity_scan:
-    project:
-      name: "kpstolk/KP.GmailClient"
-      description: "Build submitted via Travis CI"
-    #notification_email: me@gmail.com
-    build_command_prepend: "xbuild /p:Configuration=Release Src/KP.GmailClient.sln /t:Clean"
-    build_command:   "xbuild /p:Configuration=Release Src/KP.GmailClient.sln /t:Rebuild"
-    branch_pattern: master
-    #branch_pattern: coverity_scan
