@@ -58,6 +58,7 @@
     <Compile Include="Builders\DraftQueryStringBuilder.cs" />
     <Compile Include="Builders\EmailMessageBuilder.cs" />
     <Compile Include="Builders\HistoryQueryStringBuilder.cs" />
+    <Compile Include="Builders\UploadQueryStringBuilder.cs" />
     <Compile Include="Common\Enums\Format.cs" />
     <Compile Include="Common\Enums\DraftRequestAction.cs" />
     <Compile Include="Common\Enums\ThreadFields.cs" />

@@ -1,9 +1,8 @@
-﻿using KP.GmailClient.Common;
-using KP.GmailClient.Common.Enums;
+﻿using KP.GmailClient.Common.Enums;
 
 namespace KP.GmailClient.Builders
 {
-    internal class DraftQueryStringBuilder : QueryStringBuilder
+    internal class DraftQueryStringBuilder : UploadQueryStringBuilder
     {
         public DraftQueryStringBuilder()
         {
@@ -25,14 +24,6 @@ namespace KP.GmailClient.Builders
         public DraftQueryStringBuilder SetRequestAction(DraftRequestAction action)
         {
             base.SetRequestAction(action);
-            return this;
-        }
-
-        public DraftQueryStringBuilder SetUploadType(UploadType uploadType)
-        {
-            //TODO: remove duplication with MessageQueryStringBuilder?
-            string uploadTypeString = uploadType.GetAttribute<StringValueAttribute, UploadType>().Text;
-            SetField("uploadType", uploadTypeString);
             return this;
         }
     }

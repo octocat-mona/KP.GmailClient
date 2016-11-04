@@ -113,7 +113,7 @@ namespace KP.GmailClient.Builders
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public ThreadQueryStringBuilder SetQuery(string query)//TODO: query builder?
+        public ThreadQueryStringBuilder SetQuery(string query)
         {
             SetField("q", query);
             return this;

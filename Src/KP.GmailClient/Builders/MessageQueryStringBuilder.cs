@@ -6,7 +6,7 @@ using KP.GmailClient.Common.Enums;
 
 namespace KP.GmailClient.Builders
 {
-    internal class MessageQueryStringBuilder : QueryStringBuilder
+    internal class MessageQueryStringBuilder : UploadQueryStringBuilder
     {
         private Action _fieldsAction;
 
@@ -35,13 +35,6 @@ namespace KP.GmailClient.Builders
         public MessageQueryStringBuilder SetRequestAction(MessageRequestAction action, string id)
         {
             base.SetRequestAction(action, id);
-            return this;
-        }
-
-        public MessageQueryStringBuilder SetUploadType(UploadType uploadType)
-        {
-            string uploadTypeString = uploadType.GetAttribute<StringValueAttribute, UploadType>().Text;
-            SetField("uploadType", uploadTypeString);
             return this;
         }
 
@@ -157,7 +150,7 @@ namespace KP.GmailClient.Builders
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public MessageQueryStringBuilder SetQuery(string query)//TODO: query builder?
+        public MessageQueryStringBuilder SetQuery(string query)
         {
             SetField("q", query);
             return this;
