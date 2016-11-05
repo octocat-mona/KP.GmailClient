@@ -34,5 +34,22 @@ namespace KP.GmailClient.Tests.UnitTests.ExtensionTests
             // Assert
             action.ShouldThrowExactly<InvalidEnumArgumentException>();
         }
+
+        /// <summary>
+        /// Should match the name of the enum value, not the integer value.
+        /// </summary>
+        [Fact]
+        public void WithSameValueName_ReturnsRequestedTypeValue()
+        {
+            // Arrange
+            const LabelRequestAction labelAction = LabelRequestAction.Create; // nr. 0
+            const RequestAction requestAction = RequestAction.Create; // nr. != 0
+
+            // Act
+            var action = labelAction.ParseEnumValue<RequestAction>();
+
+            // Assert
+            action.ShouldBeEquivalentTo(requestAction);
+        }
     }
 }
