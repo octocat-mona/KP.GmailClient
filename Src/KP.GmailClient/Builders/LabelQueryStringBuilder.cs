@@ -29,7 +29,7 @@ namespace KP.GmailClient.Builders
 
                 string fieldsValue = string.Concat("labels(", string.Join(",", labelFields), ")");
 
-                SetField("fields", fieldsValue);
+                SetParameter("fields", fieldsValue);
             };
 
             return this;

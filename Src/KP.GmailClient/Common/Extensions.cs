@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -62,6 +63,19 @@ namespace KP.GmailClient.Common
                 .Where(f => (f & Convert.ToInt32(e)) == f)
                 .Cast<T>()
                 .ToArray();
+        }
+
+        public static T ParseEnumValue<T>(this Enum action)
+            where T : struct, IConvertible // = enum
+        {
+            int value = Convert.ToInt32(action);
+            string enumValueName = action.ToString();
+            if (!Enum.IsDefined(typeof(T), enumValueName))
+            {
+                throw new InvalidEnumArgumentException(nameof(action), value, action.GetType());
+            }
+
+            return (T)Enum.Parse(typeof(T), enumValueName);
         }
 
         /// <summary>

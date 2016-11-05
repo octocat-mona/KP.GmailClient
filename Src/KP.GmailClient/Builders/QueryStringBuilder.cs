@@ -1,21 +1,21 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Web;
+using KP.GmailClient.Common;
 using KP.GmailClient.Common.Enums;
 
 namespace KP.GmailClient.Builders
 {
     internal abstract class QueryStringBuilder
     {
-        protected readonly Dictionary<string, List<object>> FieldsDictionary;
+        protected readonly Dictionary<string, List<object>> ParametersDictionary;
         protected string Path { get; set; }
 
         protected QueryStringBuilder()
         {
             Path = string.Empty;
-            FieldsDictionary = new Dictionary<string, List<object>>();
+            ParametersDictionary = new Dictionary<string, List<object>>();
         }
 
         /// <summary>
@@ -27,9 +27,11 @@ namespace KP.GmailClient.Builders
         protected void SetRequestAction(Enum action, string id)
         {
             if (string.IsNullOrWhiteSpace(id))
+            {
                 throw new ArgumentException("ID is required", nameof(id));
+            }
 
-            RequestAction requestAction = ParseEnumValue<RequestAction>(action);
+            RequestAction requestAction = action.ParseEnumValue<RequestAction>();
             switch (requestAction)
             {
                 case RequestAction.Patch:
@@ -39,19 +41,19 @@ namespace KP.GmailClient.Builders
                     Path += "/" + id;
                     break;
                 case RequestAction.Modify:
-                    Path += "/" + id + "/modify";
+                    Path += $"/{id}/modify";
                     break;
                 case RequestAction.Trash:
-                    Path += "/" + id + "/trash";
+                    Path += $"/{id}/trash";
                     break;
                 case RequestAction.Untrash:
-                    Path += "/" + id + "/untrash";
+                    Path += $"/{id}/untrash";
                     break;
                 case RequestAction.Send:
                 case RequestAction.Import:
                 case RequestAction.List:
                 case RequestAction.Insert:
-                    throw new ArgumentException("Action '" + action + "' does not require an ID");
+                    throw new ArgumentException($"Action '{action}' does not require an ID", nameof(action));
                 default:
                     throw new ArgumentOutOfRangeException(nameof(action));
             }
@@ -64,7 +66,7 @@ namespace KP.GmailClient.Builders
         /// <returns></returns>
         protected void SetRequestAction(Enum action)
         {
-            RequestAction requestAction = ParseEnumValue<RequestAction>(action);
+            RequestAction requestAction = action.ParseEnumValue<RequestAction>();
             switch (requestAction)
             {
                 case RequestAction.Send:
@@ -84,7 +86,7 @@ namespace KP.GmailClient.Builders
                 case RequestAction.Modify:
                 case RequestAction.Trash:
                 case RequestAction.Untrash:
-                    throw new ArgumentException("Action '" + action + "' requires an ID");
+                    throw new ArgumentException($"Action \'{action}\' requires an ID", nameof(action));
                 default:
                     throw new ArgumentOutOfRangeException(nameof(action));
             }
@@ -93,20 +95,12 @@ namespace KP.GmailClient.Builders
         protected void SetFormat(Enum format)
         {
             // Validate the passed argument
-            Format f = ParseEnumValue<Format>(format);
+            Format f = format.ParseEnumValue<Format>();
 
             if (f != Format.Full)// Full is default
-                SetField("format", f);
-        }
-
-        private static T ParseEnumValue<T>(Enum action) where T : struct, IConvertible // = enum
-        {
-            string value = action.ToString();
-
-            if (!Enum.IsDefined(typeof(T), value))
-                throw new InvalidEnumArgumentException(string.Concat("'", value, "' not valid"), Convert.ToInt32(action), action.GetType());
-
-            return (T)Enum.Parse(typeof(T), value);
+            {
+                SetParameter("format", f);
+            }
         }
 
         /// <summary>
@@ -114,7 +108,7 @@ namespace KP.GmailClient.Builders
         /// </summary>
         /// <param name="key">The key of the field</param>
         /// <param name="values">Zero or more nullable values.</param>
-        protected void SetField(string key, params object[] values)
+        protected void SetParameter(string key, params object[] values)
         {
             // Remove null values from collection
             List<object> nonNullValues = values
@@ -126,13 +120,13 @@ namespace KP.GmailClient.Builders
                 return;
             }
 
-            FieldsDictionary[key] = new List<object>(nonNullValues);
+            ParametersDictionary[key] = new List<object>(nonNullValues);
         }
 
         public virtual string Build()
         {
-            var encodedValues = FieldsDictionary
-                .SelectMany(d => d.Value, (d, value) => new { d.Key, Value = value.ToString() })
+            var encodedValues = ParametersDictionary
+                .SelectMany(kvp => kvp.Value, (d, value) => new { d.Key, Value = value.ToString() })
                 .Select(kvp => string.Concat(kvp.Key, "=", HttpUtility.UrlEncode(kvp.Value)))
                 .ToList();
 

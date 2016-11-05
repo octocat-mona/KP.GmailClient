@@ -40,7 +40,7 @@ namespace KP.GmailClient.Builders
 
         public MessageQueryStringBuilder SetThreadId(string threadId)
         {
-            SetField("threadId", threadId);
+            SetParameter("threadId", threadId);
             return this;
         }
 
@@ -83,7 +83,7 @@ namespace KP.GmailClient.Builders
                     sb.Append(string.Join(",", otherFields));
                 }
 
-                SetField("fields", sb.ToString());
+                SetParameter("fields", sb.ToString());
             };
 
             return this;
@@ -97,7 +97,7 @@ namespace KP.GmailClient.Builders
         public MessageQueryStringBuilder SetMaxResults(ushort maxResults)
         {
             if (maxResults != ushort.MaxValue && maxResults != 0)
-                SetField("maxResults", maxResults);
+                SetParameter("maxResults", maxResults);
 
             return this;
         }
@@ -109,7 +109,7 @@ namespace KP.GmailClient.Builders
         public MessageQueryStringBuilder SetIncludeSpamAndTrash(bool includeSpamAndTrash = false)
         {
             if (includeSpamAndTrash)// false is default, no need to include
-                SetField("includeSpamTrash", "true");
+                SetParameter("includeSpamTrash", "true");
 
             return this;
         }
@@ -123,7 +123,7 @@ namespace KP.GmailClient.Builders
         {
             if (labelIds.Any())
             {
-                SetField("labelIds", labelIds);
+                SetParameter("labelIds", labelIds);
             }
 
             return this;
@@ -140,7 +140,7 @@ namespace KP.GmailClient.Builders
             // Required:
             SetFormat(MessageFormat.Metadata);
 
-            SetField("metadataHeaders", metaData);
+            SetParameter("metadataHeaders", metaData);
             return this;
         }
 
@@ -152,7 +152,7 @@ namespace KP.GmailClient.Builders
         /// <returns></returns>
         public MessageQueryStringBuilder SetQuery(string query)
         {
-            SetField("q", query);
+            SetParameter("q", query);
             return this;
         }
 
@@ -163,7 +163,7 @@ namespace KP.GmailClient.Builders
         /// <returns></returns>
         public MessageQueryStringBuilder SetPageToken(string pageToken)
         {
-            SetField("pageToken", pageToken);
+            SetParameter("pageToken", pageToken);
             return this;
         }
 

@@ -17,23 +17,23 @@ namespace KP.GmailClient
         /// <summary>
         /// Service to get, create, update and delete emails.
         /// </summary>
-        public MessageService Messages { get; private set; }
+        public MessageService Messages { get; }
         /// <summary>
         /// Service to get, create, update and delete email drafts.
         /// </summary>
-        public DraftService Drafts { get; private set; }
+        public DraftService Drafts { get; }
         /// <summary>
         /// Service to get, create, update and delete email labels.
         /// </summary>
-        public LabelService Labels { get; private set; }
+        public LabelService Labels { get; }
         /// <summary>
         /// Service for getting email threads.
         /// </summary>
-        public ThreadService Threads { get; private set; }
+        public ThreadService Threads { get; }
         /// <summary>
         /// Service for getting the history of emails.
         /// </summary>
-        public HistoryService History { get; private set; }
+        public HistoryService History { get; }
 
         /// <summary>
         /// Access to all Gmail services.

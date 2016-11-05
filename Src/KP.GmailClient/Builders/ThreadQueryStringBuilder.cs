@@ -53,7 +53,7 @@ namespace KP.GmailClient.Builders
                 throw new ArgumentException("Collection can't be empty", nameof(headers));
 
             SetFormat(ThreadFormat.Metadata);
-            SetField("metadataHeaders", headers);
+            SetParameter("metadataHeaders", headers);
 
             return this;
         }
@@ -65,7 +65,7 @@ namespace KP.GmailClient.Builders
         public ThreadQueryStringBuilder SetIncludeSpamAndTrash(bool includeSpamAndTrash = false)
         {
             if (includeSpamAndTrash)// false is default, no need to include
-                SetField("includeSpamTrash", "true");
+                SetParameter("includeSpamTrash", "true");
 
             return this;
         }
@@ -78,7 +78,7 @@ namespace KP.GmailClient.Builders
         public ThreadQueryStringBuilder SetLabelIds(params string[] labelIds)
         {
             if (labelIds.Any())
-                SetField("labelIds", labelIds);
+                SetParameter("labelIds", labelIds);
 
             return this;
         }
@@ -91,7 +91,7 @@ namespace KP.GmailClient.Builders
         public ThreadQueryStringBuilder SetMaxResults(ushort maxResults)
         {
             if (maxResults != ushort.MaxValue && maxResults != 0)
-                SetField("maxResults", maxResults);
+                SetParameter("maxResults", maxResults);
 
             return this;
         }
@@ -103,7 +103,7 @@ namespace KP.GmailClient.Builders
         /// <returns></returns>
         public ThreadQueryStringBuilder SetPageToken(string pageToken)
         {
-            SetField("pageToken", pageToken);
+            SetParameter("pageToken", pageToken);
             return this;
         }
 
@@ -115,7 +115,7 @@ namespace KP.GmailClient.Builders
         /// <returns></returns>
         public ThreadQueryStringBuilder SetQuery(string query)
         {
-            SetField("q", query);
+            SetParameter("q", query);
             return this;
         }
     }

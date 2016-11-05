@@ -8,7 +8,7 @@ namespace KP.GmailClient.Builders
         public UploadQueryStringBuilder SetUploadType(UploadType uploadType)
         {
             string uploadTypeString = uploadType.GetAttribute<StringValueAttribute, UploadType>().Text;
-            SetField("uploadType", uploadTypeString);
+            SetParameter("uploadType", uploadTypeString);
             return this;
         }
     }

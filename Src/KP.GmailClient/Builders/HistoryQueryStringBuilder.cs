@@ -18,7 +18,7 @@ namespace KP.GmailClient.Builders
         /// <returns></returns>
         public HistoryQueryStringBuilder SetLabelId(string labelId)
         {
-            SetField("labelId", labelId);
+            SetParameter("labelId", labelId);
             return this;
         }
 
@@ -31,7 +31,7 @@ namespace KP.GmailClient.Builders
         {
             // Only set when value is not 'default' (like '0' or MaxValue)
             if (maxResults != uint.MaxValue && maxResults != 0)
-                SetField("maxResults", maxResults);
+                SetParameter("maxResults", maxResults);
 
             return this;
         }
@@ -43,7 +43,7 @@ namespace KP.GmailClient.Builders
         /// <returns></returns>
         public HistoryQueryStringBuilder SetPageToken(string pageToken)
         {
-            SetField("pageToken", pageToken);
+            SetParameter("pageToken", pageToken);
             return this;
         }
 
@@ -60,13 +60,13 @@ namespace KP.GmailClient.Builders
         /// <returns></returns>
         public HistoryQueryStringBuilder SetStartHistoryId(ulong startHistoryId)
         {
-            SetField(StarthistoryidName, startHistoryId);
+            SetParameter(StarthistoryidName, startHistoryId);
             return this;
         }
 
         public override string Build()
         {
-            if (!FieldsDictionary.ContainsKey(StarthistoryidName))
+            if (!ParametersDictionary.ContainsKey(StarthistoryidName))
                 throw new Exception(string.Concat("Required ID ", StarthistoryidName, " not set"));
 
             return base.Build();
