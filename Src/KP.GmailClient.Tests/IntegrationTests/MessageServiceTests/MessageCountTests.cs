@@ -27,7 +27,7 @@ namespace KP.GmailClient.Tests.IntegrationTests.MessageServiceTests
             Action action = () => _service.CountAsync().Wait();
 
             // Assert
-            action.ShouldNotThrow();
+            action.Should().NotThrow();
         }
 
         [Fact]

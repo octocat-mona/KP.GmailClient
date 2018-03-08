@@ -35,7 +35,7 @@ namespace KP.GmailClient.Tests.IntegrationTests.MessageServiceTests
 
             // Assert
             _helper.Add(sentMessage);
-            sentMessage.LabelIds.ShouldAllBeEquivalentTo(labels);
+            sentMessage.LabelIds.Should().BeEquivalentTo(labels);
         }
 
         public void Dispose()

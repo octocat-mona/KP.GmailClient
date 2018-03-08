@@ -31,7 +31,7 @@ namespace KP.GmailClient.Tests.IntegrationTests.DraftServiceTests
             Func<Task> action = async () => createdDraft = await _helper.CreateAsync(draft);
 
             // Assert
-            action.ShouldNotThrow();
+            action.Should().NotThrow();
             createdDraft.Should().NotBeNull();
         }
 

@@ -17,7 +17,7 @@ namespace KP.GmailClient.Tests.UnitTests.SerializationTests
             Action action = () => JsonConvert.SerializeObject(msg);
 
             // Assert
-            action.ShouldNotThrow();
+            action.Should().NotThrow();
         }
     }
 }

@@ -19,7 +19,7 @@ namespace KP.GmailClient.Tests.UnitTests.ExtensionTests
             string scopeString = scopes.ToScopeString();
 
             // Assert
-            scopeString.ShouldBeEquivalentTo(readOnlyScope);
+            scopeString.Should().BeEquivalentTo(readOnlyScope);
         }
 
         [Fact]
@@ -42,7 +42,7 @@ namespace KP.GmailClient.Tests.UnitTests.ExtensionTests
 
             // Assert
             var parsedScopeList = scopeString.Split(' ').ToList();
-            parsedScopeList.ShouldAllBeEquivalentTo(scopeList);
+            parsedScopeList.Should().BeEquivalentTo(scopeList);
         }
     }
 }

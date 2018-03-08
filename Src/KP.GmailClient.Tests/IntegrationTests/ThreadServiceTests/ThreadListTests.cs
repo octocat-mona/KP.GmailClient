@@ -25,7 +25,7 @@ namespace KP.GmailClient.Tests.IntegrationTests.ThreadServiceTests
             Func<Task> action = async () => await _service.ListIdsAsync();
 
             // Assert
-            action.ShouldNotThrow();
+            action.Should().NotThrow();
         }
 
         //[Fact] TODO: implement
@@ -35,7 +35,7 @@ namespace KP.GmailClient.Tests.IntegrationTests.ThreadServiceTests
             Func<Task> action = async () => await _service.ListAsync();
 
             // Assert
-            action.ShouldNotThrow();
+            action.Should().NotThrow();
         }
 
         public void Dispose()

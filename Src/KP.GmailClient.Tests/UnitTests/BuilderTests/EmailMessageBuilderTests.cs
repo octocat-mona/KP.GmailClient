@@ -57,12 +57,12 @@ namespace KP.GmailClient.Tests.UnitTests.BuilderTests
             string contentTypeString = headers["Content-Type"];
             var contentType = new ContentType(contentTypeString);
 
-            to.ShouldBeEquivalentTo(To);
-            subject.ShouldBeEquivalentTo(Subject);
+            to.Should().BeEquivalentTo(To);
+            subject.Should().BeEquivalentTo(Subject);
 
             // Charset is 'utf-8' with Mono
             contentType.CharSet.Should().BeOneOf("us-ascii", "utf-8");
-            contentType.MediaType.ShouldBeEquivalentTo(isBodyHtml ? MediaTypeNames.Text.Html : MediaTypeNames.Text.Plain);
+            contentType.MediaType.Should().BeEquivalentTo(isBodyHtml ? MediaTypeNames.Text.Html : MediaTypeNames.Text.Plain);
         }
     }
 }

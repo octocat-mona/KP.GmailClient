@@ -19,7 +19,7 @@ namespace KP.GmailClient.Tests.UnitTests.BuilderTests
                 .Build();
 
             // Assert
-            action.ShouldThrow<ArgumentException>();
+            action.Should().Throw<ArgumentException>();
         }
 
         [Fact]
@@ -55,7 +55,7 @@ namespace KP.GmailClient.Tests.UnitTests.BuilderTests
                 .Build();
 
             // Assert
-            action.ShouldThrow<ArgumentException>();
+            action.Should().Throw<ArgumentException>();
         }
 
         [Fact]
@@ -79,7 +79,7 @@ namespace KP.GmailClient.Tests.UnitTests.BuilderTests
                 .Build();
 
             // Assert
-            action.ShouldThrow<ArgumentException>();
+            action.Should().Throw<ArgumentException>();
         }
 
         [Fact]
@@ -104,7 +104,7 @@ namespace KP.GmailClient.Tests.UnitTests.BuilderTests
                 .Build();
 
             // Assert
-            action.ShouldThrow<ArgumentException>();
+            action.Should().Throw<ArgumentException>();
         }
     }
 }

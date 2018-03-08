@@ -33,7 +33,7 @@ namespace KP.GmailClient.Tests.IntegrationTests.DraftServiceTests
             Func<Task> action = async () => getDraft = await _service.GetAsync(createdDraft.Id);
 
             // Assert
-            action.ShouldNotThrow();
+            action.Should().NotThrow();
             getDraft.Id.Should().Be(createdDraft.Id);
         }
 

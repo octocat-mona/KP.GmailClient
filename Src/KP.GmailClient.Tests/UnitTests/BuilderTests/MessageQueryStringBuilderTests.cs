@@ -15,7 +15,7 @@ namespace KP.GmailClient.Tests.UnitTests.BuilderTests
                 .Build();
 
             // Assert
-            queryString.ShouldBeEquivalentTo("messages");
+            queryString.Should().BeEquivalentTo("messages");
         }
 
         [Fact]
@@ -27,7 +27,7 @@ namespace KP.GmailClient.Tests.UnitTests.BuilderTests
                 .Build();
 
             // Assert
-            queryString.ShouldBeEquivalentTo("messages");
+            queryString.Should().BeEquivalentTo("messages");
         }
     }
 }

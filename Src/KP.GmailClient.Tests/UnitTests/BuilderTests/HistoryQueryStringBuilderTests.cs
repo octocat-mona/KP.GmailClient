@@ -14,7 +14,7 @@ namespace KP.GmailClient.Tests.UnitTests.BuilderTests
             Action action = () => new HistoryQueryStringBuilder().Build();
 
             // Assert
-            action.ShouldThrow<Exception>();
+            action.Should().Throw<Exception>();
         }
     }
 }
