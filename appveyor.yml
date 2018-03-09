@@ -19,8 +19,6 @@ environment:
     secure: cNCxTFPHwW+vEpXB9EijRimBOqZ4zd2lWcKm05gmoLIH3rL8fQLurLMZvMPOustRPJB8jtq6u0PYAR1xkq5KowVVDmaYKFZmm/gzsdnS5qk=
   KP_GmailClient_EmailAddress:
     secure: XcKWCKghmWlD4tgz1tKnXXRg7YYH2cTsv3w/kMm/tYU=
-  NugetApiKey:
-    secure: L7Vp0jAqqqdmHdGulSr+S7Rc6GypRkYhns8GfUDRyBqvUSSUsGGVKy/9b3Er21JJ
 
 before_build:
 - nuget restore Src\KP.GmailClient.sln

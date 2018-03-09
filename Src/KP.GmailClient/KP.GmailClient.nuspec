@@ -9,7 +9,7 @@
 		<licenseUrl>https://raw.githubusercontent.com/kpstolk/KP.GmailClient/master/LICENSE.md</licenseUrl>
         <projectUrl>https://github.com/kpstolk/KP.GmailClient</projectUrl>
 		<!-- Icon thanks to Dtaf Alonso (http://dtafalonso.deviantart.com/) -->
-		<iconUrl>https://raw.githubusercontent.com/kpstolk/KP.GmailClient/master/Build/icon.png</iconUrl>
+		<iconUrl>https://raw.githubusercontent.com/kpstolk/KP.GmailClient/master/icon.png</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>$description$</description>
 		<tags>gmail google</tags>
