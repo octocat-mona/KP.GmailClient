@@ -1,4 +1,4 @@
-version: 0.1.{build}
+version: 1.0.0.{build}
 
 configuration:
 - Release
@@ -28,9 +28,12 @@ before_build:
 build:
   parallel: true
   verbosity: normal
+  publish_nuget: true
+  publish_nuget_symbols: true
 
-deploy_script:
-- ps: Build\Build.ps1 -configMode $Env:CONFIGURATION -cloneDir $Env:APPVEYOR_BUILD_FOLDER -nugetApiKey $Env:NugetApiKey
-
-artifacts:
-- path: Build\KP.GmailClient.*.nupkg
+deploy:
+- provider: NuGet
+  api_key:
+    secure: 0+KasU/ReqcTKVPDfXpA5lLegWh5dmXAYizx6aiWVDOTFzU29Dljc7AlfMiSekMf
+  on:
+    APPVEYOR_REPO_TAG: true
