@@ -13,11 +13,11 @@ namespace KP.GmailClient.Common
         /// <summary>
         /// The <see cref="HttpStatusCode"/> returned by Gmail
         /// </summary>
-        public HttpStatusCode StatusCode { get; private set; }
+        public HttpStatusCode StatusCode { get; }
         /// <summary>
         /// The errors returned by Gmail if any
         /// </summary>
-        public List<GmailError> Errors { get; private set; }
+        public List<GmailError> Errors { get; }
 
         internal GmailException(GmailErrorResponse errorResponse, Exception innerException)
             : base(ConstructMessage(errorResponse), innerException)
@@ -34,6 +34,7 @@ namespace KP.GmailClient.Common
         internal GmailException(HttpStatusCode statusCode, string message, Exception innerException)
             : base(ConstructMessage(statusCode, message), innerException)
         {
+            StatusCode = statusCode;
         }
 
         internal GmailException(HttpStatusCode statusCode, string message)

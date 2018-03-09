@@ -99,9 +99,8 @@ namespace KP.GmailClient
             var responseMessage = await _client.PostAsync(_accountCredential.TokenUri, new FormUrlEncodedContent(content), cancellationToken);
             if (!responseMessage.IsSuccessStatusCode)
             {
-                //TODO: parse error response
                 string contentString = await responseMessage.Content.ReadAsStringAsync();
-                GmailException ex = ErrorResponseParser.Parse(responseMessage.StatusCode, contentString);
+                GmailException ex = await ErrorResponseParser.ParseAsync(responseMessage.StatusCode, contentString);
                 throw ex;
             }
 

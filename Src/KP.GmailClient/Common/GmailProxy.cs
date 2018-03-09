@@ -101,13 +101,13 @@ namespace KP.GmailClient.Common
             if (!response.IsSuccessStatusCode)
             {
                 string contentString = await response.Content.ReadAsStringAsync();
-                GmailException ex = ErrorResponseParser.Parse(response.StatusCode, contentString);
+                GmailException ex = await ErrorResponseParser.ParseAsync(response.StatusCode, contentString);
                 throw ex;
             }
 
             using (Stream stream = await response.Content.ReadAsStreamAsync())
-            using (StreamReader streamReader = new StreamReader(stream))
-            using (JsonReader jsonReader = new JsonTextReader(streamReader))
+            using (var streamReader = new StreamReader(stream))
+            using (var jsonReader = new JsonTextReader(streamReader))
             {
                 return _jsonSerializer.Deserialize<T>(jsonReader);
             }

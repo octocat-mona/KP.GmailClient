@@ -102,6 +102,7 @@
     <Compile Include="UnitTests\BuilderTests\MessageQueryStringBuilderTests.cs" />
     <Compile Include="UnitTests\BuilderTests\ThreadQueryStringBuilderTests.cs" />
     <Compile Include="UnitTests\BuilderTests\LabelQueryStringBuilderTests.cs" />
+    <Compile Include="UnitTests\ErrorResponseParserTests.cs" />
     <Compile Include="UnitTests\ExtensionTests\Base64UrlStringTests.cs" />
     <Compile Include="UnitTests\ExtensionTests\GetAttributeTests.cs" />
     <Compile Include="UnitTests\ExtensionTests\ParseEnumValueTests.cs" />

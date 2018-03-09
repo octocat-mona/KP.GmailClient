@@ -35,21 +35,8 @@ namespace KP.GmailClient.Tests.IntegrationTests.ThreadServiceTests
             MessageThread thread = await _service.GetAsync(threadId);
 
             // Assert
-            thread.Should().NotBeNull();
-
             thread.Id.Should().NotBeNullOrWhiteSpace();
-            //thread.Snippet.ShouldNotBeNullOrEmpty();
         }
-
-        /*[Fact]
-        public void CanList()
-        {
-            // Act
-            List<Thread> threads = _service.List();
-
-            // Assert
-            Assert.NotNull(threads);
-        }*/
 
         [Fact]
         public async Task NonExistingThreadId_ReturnsNotFound()
