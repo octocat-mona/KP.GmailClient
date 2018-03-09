@@ -8,4 +8,4 @@ install:
 
 script:
   - xbuild /p:Configuration=Release Src/KP.GmailClient.sln /tv:14.0
-  - mono ./testrunner/xunit.runner.console.2.3.1/tools/xunit.console.exe ./Src/KP.GmailClient.Tests/bin/Release/KP.GmailClient.Tests.dll
+  - mono ./testrunner/xunit.runner.console.2.3.1/tools/net452/xunit.console.exe ./Src/KP.GmailClient.Tests/bin/Release/KP.GmailClient.Tests.dll
