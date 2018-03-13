@@ -3,7 +3,7 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/tqv09fs3fo9a37t0?svg=true)](https://ci.appveyor.com/project/KP/gmail-api)
 
 # KP.GmailClient
-This is an alternative client for the auto generated Google.Apis.Gmail.v1 Client Library.
+This is an alternative client for the auto generated [Google.Apis.Gmail.v1](https://www.nuget.org/packages/Google.Apis.Gmail.v1/) Client Library.
 
 - It's easy to use
 - Has added extension methods to make common tasks even more easier
@@ -11,11 +11,11 @@ This is an alternative client for the auto generated Google.Apis.Gmail.v1 Client
 - Did I mention easy?
 
 ## Prerequisites
-1. Create a new project in the Google Cloud Platform -> https://console.cloud.google.com/home/dashboard
-2. Enable the Gmail API.
-3. Create a service account for the project -> https://console.cloud.google.com/iam-admin/serviceaccounts/
-4. Create and download a new key as JSON file.
-5. (only for G Suite users) Go to the G Suite Admin console and select the scopes, more on that here https://developers.google.com/identity/protocols/OAuth2ServiceAccount#delegatingauthority
+1. Create a new project in the [Google Cloud Platform Console](https://console.cloud.google.com/home/dashboard)
+2. Enable the Gmail API
+3. Create a [service account](https://console.cloud.google.com/iam-admin/serviceaccounts/) for the project
+4. Create and download a new key as JSON file
+5. (only for G Suite users) Go to the G Suite Admin console and select the scopes ([more on that here](https://developers.google.com/identity/protocols/OAuth2ServiceAccount#delegatingauthority))
 
 ## Setup
 ``` csharp
@@ -25,7 +25,7 @@ string privateKey = SettingsManager.GetPrivateKey();
 string tokenUri = SettingsManager.GetTokenUri();
 string clientEmail = SettingsManager.GetClientEmail();
 string emailAddress = SettingsManager.GetEmailAddress();
-ServiceAccountCredential accountCredential = new ServiceAccountCredential
+var accountCredential = new ServiceAccountCredential
 {
     PrivateKey = privateKey,
     TokenUri = tokenUri,
