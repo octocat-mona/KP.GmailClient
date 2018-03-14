@@ -1,5 +1,5 @@
 version: 2.0.0.{build}
-
+image: Visual Studio 2017
 configuration:
 - Release
 
@@ -23,7 +23,8 @@ environment:
     secure: XcKWCKghmWlD4tgz1tKnXXRg7YYH2cTsv3w/kMm/tYU=
 
 before_build:
-- nuget restore KP.GmailClient.sln
+- cmd: dotnet --version
+- cmd: dotnet pack
 
 nuget:
   disable_publish_on_pr: true
@@ -31,8 +32,9 @@ nuget:
 build:
   parallel: true
   verbosity: normal
-  publish_nuget: true
-  publish_nuget_symbols: true
+
+artifacts:
+- path: '**\*.nupkg'
 
 deploy:
 - provider: NuGet
