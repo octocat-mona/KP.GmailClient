@@ -22,7 +22,7 @@ environment:
   KP_GmailClient_EmailAddress:
     secure: XcKWCKghmWlD4tgz1tKnXXRg7YYH2cTsv3w/kMm/tYU=
 
-before_build:
+after_build:
 - cmd: dotnet --version
 - cmd: dotnet pack
 
