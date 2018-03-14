@@ -1,5 +1,4 @@
 [![NuGet version (KP.GmailClient)](https://img.shields.io/nuget/v/KP.GmailClient.svg?style=flat-square)](https://www.nuget.org/packages/KP.GmailClient/)
-[![Build Status](https://travis-ci.org/kpstolk/KP.GmailClient.svg?branch=master)](https://travis-ci.org/kpstolk/KP.GmailClient)
 [![Build status](https://ci.appveyor.com/api/projects/status/tqv09fs3fo9a37t0?svg=true)](https://ci.appveyor.com/project/KP/gmail-api)
 
 # KP.GmailClient
@@ -8,6 +7,7 @@ This is an alternative client for the auto generated [Google.Apis.Gmail.v1](http
 - It's easy to use
 - Has added extension methods to make common tasks even more easier
 - Supports Async
+- Cross platform (.NET Standard library)
 - Did I mention easy?
 
 ## Prerequisites
