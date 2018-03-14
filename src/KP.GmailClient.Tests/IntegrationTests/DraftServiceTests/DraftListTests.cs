@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using FluentAssertions;
 using KP.GmailClient.Services;
 using KP.GmailClient.Services.Extensions;
@@ -30,7 +29,7 @@ namespace KP.GmailClient.Tests.IntegrationTests.DraftServiceTests
         public async Task CanList()
         {
             // Act
-            var drafts = (await _service.ListAsync()).ToList();
+            var drafts = await _service.ListAsync();
 
             // Assert
             drafts.Should().NotBeNull();
