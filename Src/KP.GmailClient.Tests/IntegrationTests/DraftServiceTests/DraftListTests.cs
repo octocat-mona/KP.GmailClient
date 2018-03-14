@@ -1,23 +1,19 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
-using KP.GmailClient.Common;
 using KP.GmailClient.Services;
 using KP.GmailClient.Services.Extensions;
 using Xunit;
 
 namespace KP.GmailClient.Tests.IntegrationTests.DraftServiceTests
 {
-    public class DraftListTests : IDisposable
+    public class DraftListTests
     {
         private readonly DraftService _service;
-        private readonly GmailProxy _proxy;
 
         public DraftListTests()
         {
-            _proxy = SettingsManager.GetGmailProxy();
-            _service = new DraftService(_proxy);
+            _service = new DraftService(SettingsManager.GmailProxy);
         }
 
         [Fact]
@@ -38,11 +34,6 @@ namespace KP.GmailClient.Tests.IntegrationTests.DraftServiceTests
 
             // Assert
             drafts.Should().NotBeNull();
-        }
-
-        public void Dispose()
-        {
-            _proxy.Dispose();
         }
     }
 }

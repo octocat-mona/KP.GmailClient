@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using FluentAssertions;
-using KP.GmailClient.Common;
 using KP.GmailClient.Models;
 using KP.GmailClient.Services;
 using KP.GmailClient.Services.Extensions;
@@ -14,12 +13,10 @@ namespace KP.GmailClient.Tests.IntegrationTests.MessageServiceTests
     {
         private readonly CleanupHelper<Message, Message> _helper;
         private readonly MessageService _service;
-        private readonly GmailProxy _proxy;
 
         public MessageSendTests()
         {
-            _proxy = SettingsManager.GetGmailProxy();
-            _service = new MessageService(_proxy);
+            _service = new MessageService(SettingsManager.GmailProxy);
             _helper = CleanupHelpers.GetMessageServiceCleanupHelper(_service);
         }
 
@@ -41,7 +38,6 @@ namespace KP.GmailClient.Tests.IntegrationTests.MessageServiceTests
         public void Dispose()
         {
             _helper?.Cleanup();
-            _proxy?.Dispose();
         }
     }
 }

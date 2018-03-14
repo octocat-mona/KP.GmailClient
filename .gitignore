@@ -320,4 +320,4 @@ ASALocalRun/
 *.binlog
 
 # Project specific files
-/Src/KP.GmailClient.Tests/App.private.config
+/src/KP.GmailClient.Tests/appsettings.Private.json

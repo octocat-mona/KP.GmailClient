@@ -1,21 +1,18 @@
 ﻿using System;
 using System.Threading.Tasks;
 using FluentAssertions;
-using KP.GmailClient.Common;
 using KP.GmailClient.Services;
 using KP.GmailClient.Services.Extensions;
 
 namespace KP.GmailClient.Tests.IntegrationTests.ThreadServiceTests
 {
-    public class ThreadListTests : IDisposable
+    public class ThreadListTests
     {
         private readonly ThreadService _service;
-        private readonly GmailProxy _proxy;
 
         public ThreadListTests()
         {
-            _proxy = SettingsManager.GetGmailProxy();
-            _service = new ThreadService(_proxy);
+            _service = new ThreadService(SettingsManager.GmailProxy);
         }
 
         //[Fact] TODO: implement
@@ -36,11 +33,6 @@ namespace KP.GmailClient.Tests.IntegrationTests.ThreadServiceTests
 
             // Assert
             action.Should().NotThrow();
-        }
-
-        public void Dispose()
-        {
-            _proxy.Dispose();
         }
     }
 }

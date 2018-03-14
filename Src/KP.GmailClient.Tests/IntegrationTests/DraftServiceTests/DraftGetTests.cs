@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using FluentAssertions;
-using KP.GmailClient.Common;
 using KP.GmailClient.Models;
 using KP.GmailClient.Services;
 using Xunit;
@@ -12,12 +11,10 @@ namespace KP.GmailClient.Tests.IntegrationTests.DraftServiceTests
     {
         private readonly DraftService _service;
         private readonly CleanupHelper<Draft, Draft> _helper;
-        private readonly GmailProxy _proxy;
 
         public DraftGetTests()
         {
-            _proxy = SettingsManager.GetGmailProxy();
-            _service = new DraftService(_proxy);
+            _service = new DraftService(SettingsManager.GmailProxy);
             _helper = CleanupHelpers.GetDraftServiceCleanupHelper(_service);
         }
 
@@ -40,7 +37,6 @@ namespace KP.GmailClient.Tests.IntegrationTests.DraftServiceTests
         public void Dispose()
         {
             _helper?.Cleanup();
-            _proxy?.Dispose();
         }
     }
 }

@@ -8,15 +8,13 @@ using Xunit;
 
 namespace KP.GmailClient.Tests.IntegrationTests.HistoryServiceTests
 {
-    public class HistoryListTests : IDisposable
+    public class HistoryListTests
     {
         private readonly HistoryService _service;
-        private readonly GmailProxy _proxy;
 
         public HistoryListTests()
         {
-            _proxy = SettingsManager.GetGmailProxy();
-            _service = new HistoryService(_proxy);
+            _service = new HistoryService(SettingsManager.GmailProxy);
         }
 
         //[Fact]
@@ -35,11 +33,6 @@ namespace KP.GmailClient.Tests.IntegrationTests.HistoryServiceTests
             // Assert
             var ex = await Assert.ThrowsAsync<GmailException>(action);
             ex.StatusCode.Should().Be(HttpStatusCode.NotFound);//TODO: currently returns 400
-        }
-
-        public void Dispose()
-        {
-            _proxy.Dispose();
         }
     }
 }

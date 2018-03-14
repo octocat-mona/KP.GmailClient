@@ -9,17 +9,15 @@ using Xunit;
 
 namespace KP.GmailClient.Tests.IntegrationTests.AttachmentServiceTests
 {
-    public class AttachmentGetTests : IDisposable
+    public class AttachmentGetTests
     {
         private readonly AttachmentService _service;
         private readonly DraftService _draftService;
-        private readonly GmailProxy _proxy;
 
         public AttachmentGetTests()
         {
-            _proxy = SettingsManager.GetGmailProxy();
-            _service = new AttachmentService(_proxy);
-            _draftService = new DraftService(_proxy);
+            _service = new AttachmentService(SettingsManager.GmailProxy);
+            _draftService = new DraftService(SettingsManager.GmailProxy);
         }
 
         //[Fact]
@@ -36,11 +34,6 @@ namespace KP.GmailClient.Tests.IntegrationTests.AttachmentServiceTests
             // Assert
             var ex = await Assert.ThrowsAsync<GmailException>(action);
             ex.StatusCode.Should().Be(HttpStatusCode.NotFound);
-        }
-
-        public void Dispose()
-        {
-            _proxy.Dispose();
         }
     }
 }

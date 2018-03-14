@@ -10,15 +10,13 @@ using Xunit;
 
 namespace KP.GmailClient.Tests.IntegrationTests.LabelServiceTests
 {
-    public class LabelGetTests : IDisposable
+    public class LabelGetTests
     {
         private readonly LabelService _service;
-        private readonly GmailProxy _proxy;
 
         public LabelGetTests()
         {
-            _proxy = SettingsManager.GetGmailProxy();
-            _service = new LabelService(_proxy);
+            _service = new LabelService(SettingsManager.GmailProxy);
         }
 
         [Fact]
@@ -50,11 +48,6 @@ namespace KP.GmailClient.Tests.IntegrationTests.LabelServiceTests
             // Assert
             var ex = await Assert.ThrowsAsync<GmailException>(action);
             ex.StatusCode.Should().Be(HttpStatusCode.NotFound);
-        }
-
-        public void Dispose()
-        {
-            _proxy.Dispose();
         }
     }
 }

@@ -1,16 +1,18 @@
-version: 1.0.0.{build}
+version: 1.0.1.{build}
 
 configuration:
 - Release
 
 platform: Any CPU
 
-assembly_info:
+dotnet_csproj:
   patch: true
-  file: '**\AssemblyInfo.*'
+  file: '**\*.csproj'
+  version: '{version}'
+  package_version: '{version}'
   assembly_version: '{version}'
-  assembly_file_version: '{version}'
-  assembly_informational_version: '{version}'
+  file_version: '{version}'
+  informational_version: '{version}'
 
 environment:
   KP_GmailClient_PrivateKey:
@@ -21,7 +23,10 @@ environment:
     secure: XcKWCKghmWlD4tgz1tKnXXRg7YYH2cTsv3w/kMm/tYU=
 
 before_build:
-- nuget restore Src\KP.GmailClient.sln
+- nuget restore src\KP.GmailClient.sln
+
+nuget:
+  disable_publish_on_pr: true
 
 build:
   parallel: true

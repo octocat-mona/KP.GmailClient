@@ -8,7 +8,7 @@ namespace KP.GmailClient.Tests.IntegrationTests
         public void HasSettingsConfigured()
         {
             // Assert
-            SettingsManager.GetGmailProxy();
+            var proxy = SettingsManager.GmailProxy;
         }
     }
 }

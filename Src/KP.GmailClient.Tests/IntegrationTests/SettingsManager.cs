@@ -1,14 +1,28 @@
 ﻿using System;
-using System.Configuration;
+using System.IO;
 using System.Text;
 using KP.GmailClient.Common;
 using KP.GmailClient.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace KP.GmailClient.Tests.IntegrationTests
 {
     internal class SettingsManager
     {
+        private static readonly IConfigurationRoot ConfigurationRoot;
         private const string SettingsPrefix = "KP_GmailClient_";
+        public static GmailProxy GmailProxy { get; }
+
+        static SettingsManager()
+        {
+            ConfigurationRoot = new ConfigurationBuilder()
+                 .SetBasePath(Directory.GetCurrentDirectory())
+                 .AddJsonFile("appsettings.json", false)
+                 .AddJsonFile("appsettings.Private.json", true)
+                 .Build();
+
+            GmailProxy = GetGmailProxy();
+        }
 
         public static string GetPrivateKey()
         {
@@ -32,13 +46,13 @@ namespace KP.GmailClient.Tests.IntegrationTests
             return GetSetting($"{SettingsPrefix}EmailAddress");
         }
 
-        public static GmailProxy GetGmailProxy()
+        private static GmailProxy GetGmailProxy()
         {
             string privateKey = GetPrivateKey();
             string tokenUri = GetTokenUri();
             string clientEmail = GetClientEmail();
             string emailAddress = GetEmailAddress();
-            ServiceAccountCredential accountCredential = new ServiceAccountCredential
+            var accountCredential = new ServiceAccountCredential
             {
                 PrivateKey = privateKey,
                 TokenUri = tokenUri,
@@ -53,7 +67,7 @@ namespace KP.GmailClient.Tests.IntegrationTests
         private static string GetSetting(string key)
         {
             // Environment variables are used on Travis CI and AppVeyor
-            string value = Environment.GetEnvironmentVariable(key) ?? ConfigurationManager.AppSettings[key];
+            string value = Environment.GetEnvironmentVariable(key) ?? ConfigurationRoot[key];
             if (value == null)
             {
                 throw new Exception($"Key '{key}' has not been set in neither the environment variables or config file.");

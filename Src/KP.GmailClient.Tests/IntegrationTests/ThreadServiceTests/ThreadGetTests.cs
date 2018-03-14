@@ -11,17 +11,15 @@ using Xunit;
 
 namespace KP.GmailClient.Tests.IntegrationTests.ThreadServiceTests
 {
-    public class ThreadGetTests : IDisposable
+    public class ThreadGetTests
     {
         private readonly ThreadService _service;
         private readonly MessageService _messageService;
-        private readonly GmailProxy _proxy;
 
         public ThreadGetTests()
         {
-            _proxy = SettingsManager.GetGmailProxy();
-            _service = new ThreadService(_proxy);
-            _messageService = new MessageService(_proxy);
+            _service = new ThreadService(SettingsManager.GmailProxy);
+            _messageService = new MessageService(SettingsManager.GmailProxy);
         }
 
         [Fact]
@@ -50,11 +48,6 @@ namespace KP.GmailClient.Tests.IntegrationTests.ThreadServiceTests
             // Assert
             var ex = await Assert.ThrowsAsync<GmailException>(action);
             ex.StatusCode.Should().Be(HttpStatusCode.NotFound);
-        }
-
-        public void Dispose()
-        {
-            _proxy.Dispose();
         }
     }
 }
