@@ -26,7 +26,7 @@ namespace KP.GmailClient.Tests.IntegrationTests.DraftServiceTests
             ids.Should().NotBeNull();
         }
 
-        [Fact(Skip = "Fails on Mono")]
+        [Fact]
         public async Task CanList()
         {
             // Act

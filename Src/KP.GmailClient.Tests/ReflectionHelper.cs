@@ -23,8 +23,10 @@ namespace KP.GmailClient.Tests
         public static T GetStaticFieldValue<T>(Type objecType, string fieldName)
         {
             FieldInfo field = objecType.GetField(fieldName, Flags);
-            if (ReferenceEquals(field, null))
+            if (field == null)
+            {
                 throw new Exception();
+            }
 
             return (T)field.GetValue(null);
         }
@@ -38,8 +40,10 @@ namespace KP.GmailClient.Tests
         private static FieldInfo GetFieldName<T>(object objectInstance, string fieldName)
         {
             FieldInfo field = objectInstance.GetType().GetField(fieldName, Flags);
-            if (ReferenceEquals(field, null))
+            if (field == null)
+            {
                 throw new Exception($"Could not find field with name '{fieldName}'");
+            }
             return field;
         }
 

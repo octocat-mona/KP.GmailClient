@@ -18,19 +18,17 @@ namespace KP.GmailClient.Tests.IntegrationTests.DraftServiceTests
             _helper = CleanupHelpers.GetDraftServiceCleanupHelper(_service);
         }
 
-        [Fact(Skip = "Fails on Mono")]
+        [Fact]
         public async Task CanGet()
         {
             // Arrange
             Draft draft = Samples.DraftSample;
             Draft createdDraft = await _helper.CreateAsync(draft);
-            Draft getDraft = null;
 
             // Act
-            Func<Task> action = async () => getDraft = await _service.GetAsync(createdDraft.Id);
+            Draft getDraft = await _service.GetAsync(createdDraft.Id);
 
             // Assert
-            action.Should().NotThrow();
             getDraft.Id.Should().Be(createdDraft.Id);
         }
 

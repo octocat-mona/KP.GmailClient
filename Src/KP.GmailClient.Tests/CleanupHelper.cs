@@ -30,11 +30,6 @@ namespace KP.GmailClient.Tests
             _createdItems.Add(item);
         }
 
-        /*public void Remove(T item)
-        {
-            _createdItems.Remove(item);
-        }*/
-
         public void Cleanup()
         {
             var deleteTasks = _createdItems.Select(async item => await _deleteFunc(item));

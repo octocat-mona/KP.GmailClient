@@ -7,7 +7,7 @@ namespace KP.GmailClient.Tests.UnitTests.ExtensionTests
 {
     public class GetAttributeTests
     {
-        public const string AttributeText = "Text";
+        internal const string AttributeText = "Text";
 
         [Fact]
         public void CanGetGetAttribute()

@@ -1,4 +1,4 @@
-version: 1.0.1.{build}
+version: 2.0.0.{build}
 
 configuration:
 - Release
@@ -23,7 +23,7 @@ environment:
     secure: XcKWCKghmWlD4tgz1tKnXXRg7YYH2cTsv3w/kMm/tYU=
 
 before_build:
-- nuget restore src\KP.GmailClient.sln
+- nuget restore KP.GmailClient.sln
 
 nuget:
   disable_publish_on_pr: true

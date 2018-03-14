@@ -21,7 +21,7 @@ namespace KP.GmailClient.Tests.IntegrationTests.LabelServiceTests
             _helper = new CleanupHelper<Label, CreateLabelInput>(createAction, deleteAction);
         }
 
-        [Fact(Skip = "Fails on Mono")]
+        [Fact]
         public async Task CanUpdate()
         {
             // Arrange

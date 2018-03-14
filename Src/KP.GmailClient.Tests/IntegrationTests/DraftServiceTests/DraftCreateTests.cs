@@ -18,17 +18,15 @@ namespace KP.GmailClient.Tests.IntegrationTests.DraftServiceTests
         }
 
         [Fact]
-        public void CanCreate()
+        public async Task CanCreate()
         {
             // Arrange
             Draft draft = Samples.DraftSample;
-            Draft createdDraft = null;
 
             // Act
-            Func<Task> action = async () => createdDraft = await _helper.CreateAsync(draft);
+            Draft createdDraft = await _helper.CreateAsync(draft);
 
             // Assert
-            action.Should().NotThrow();
             createdDraft.Should().NotBeNull();
         }
 

@@ -13,25 +13,16 @@ namespace KP.GmailClient.Models
         /// </summary>
         public HistoryList()
         {
-            Messages = new List<Message>(0);
+            Histories = new List<History>(0);
             NextPageToken = string.Empty;
         }
 
         /// <summary>
-        /// List with messages, with only the ID and/or ThreadID set.
+        /// List of history records.
+        /// Any messages contained in the response will typically only have id and threadId fields populated.
         /// </summary>
-        [JsonProperty("messages")]
-        public List<Message> Messages { get; set; }
-
-        [JsonProperty("messagesAdded[message]")]
-        public List<Message> MessagesAdded { get; set; }
-
-        [JsonProperty("messagesDeleted[message]")]
-        public List<Message> MessagesDeleted { get; set; }
-
-        //TODO:
-        //labelsAdded
-        //labelsRemoved
+        [JsonProperty("history")]
+        public List<History> Histories { get; set; }
 
         /// <summary>
         /// The mailbox sequence ID.
@@ -46,12 +37,12 @@ namespace KP.GmailClient.Models
         public string NextPageToken { get; set; }
 
         /// <summary>
-        /// A string with the values of the properties from this <see cref="HistoryList"/>
+        /// A string with the values of the properties from this <see cref="HistoryList"/>.
         /// </summary>
         /// <returns>A string</returns>
         public override string ToString()
         {
-            return string.Concat("# Messages: ", Messages.Count, ", NextPageToken: ", NextPageToken, ", History ID: ", HistoryId);
+            return string.Concat("# Messages: ", Histories.Count, ", NextPageToken: ", NextPageToken, ", History ID: ", HistoryId);
         }
     }
 }

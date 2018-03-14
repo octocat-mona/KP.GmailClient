@@ -6,16 +6,16 @@ namespace KP.GmailClient.Tests.UnitTests.ExtensionTests
 {
     public class Base64UrlStringTests
     {
-        const string TestText = "1234567890-=~!@#$%^&*()_+'\\";
+        private const string TestText = "1234567890-=~!@#$%^&*()_+'\\";
 
         [Fact]
-        public void CanEncodeDecode()
+        public void CanEncode()
         {
             // Act
             string encoded = TestText.ToBase64UrlString();
-            string decoded = encoded.FromBase64UrlString();
 
             // Assert
+            string decoded = encoded.FromBase64UrlString();
             decoded.Should().Be(TestText);
         }
 

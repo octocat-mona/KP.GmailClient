@@ -42,7 +42,7 @@ namespace KP.GmailClient.Services
             string queryString = new LabelQueryStringBuilder()
                 .Build();
 
-            return await _proxy.Get<IList<Label>>(queryString, new ParseOptions { Path = "labels" });
+            return await _proxy.Get<IList<Label>>(queryString, new ParseOptions("labels"));
         }
 
         /// <summary>

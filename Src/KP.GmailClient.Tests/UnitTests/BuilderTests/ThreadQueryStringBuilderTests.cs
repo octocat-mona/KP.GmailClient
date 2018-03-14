@@ -35,12 +35,11 @@ namespace KP.GmailClient.Tests.UnitTests.BuilderTests
                 .SetMetadataHeaders(new[] { "header1" })
                 .Build();
 
-            // Arrange
+            // Assert
             queryString = queryString.Substring(queryString.IndexOf('?'));
             var collection = HttpUtility.ParseQueryString(queryString);
             string value = collection["format"];
 
-            // Assert
             value.Should().Be(ThreadFormat.Metadata.ToString());
         }
 

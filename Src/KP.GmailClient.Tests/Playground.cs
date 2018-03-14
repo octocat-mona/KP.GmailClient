@@ -27,13 +27,13 @@ namespace KP.GmailClient.Tests
                 ClientEmail = clientEmail
             };
 
+            // Or use from downloaded JSON file directly
+            const string path = "C:\\Users\\Me\\Documents\\Gmail-Project.json";
+            var initializer = GmailClientInitializer.Initialize(path, scopes);
+            var client2 = new GmailClient(initializer, emailAddress);
+
             using (var client = new GmailClient(accountCredential, emailAddress, scopes))
             {
-                /*// Or use from downloaded JSON file directly
-                const string path = "C:\\Users\\Me\\Documents\\Gmail-Project.json";
-                var initializer = GmailClientInitializer.Initialize(path, scopes);
-                client = new GmailClient(initializer, emailAddress);*/
-
                 // ----------------------
                 // --- USAGE EXAMPLES ---
                 // ----------------------

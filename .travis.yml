@@ -3,9 +3,9 @@ mono: latest
 solution: src/KP.GmailClient.sln
 
 install:
-  - nuget restore src/KP.GmailClient.sln
+  - nuget restore KP.GmailClient.sln
   - nuget install xunit.runner.console -Version 2.3.1 -OutputDirectory testrunner
 
 script:
-  - xbuild /p:Configuration=Release src/KP.GmailClient.sln /tv:14.0
+  - xbuild /p:Configuration=Release KP.GmailClient.sln /tv:14.0
   - mono ./testrunner/xunit.runner.console.2.3.1/tools/net452/xunit.console.exe ./src/KP.GmailClient.Tests/bin/Release/KP.GmailClient.Tests.dll

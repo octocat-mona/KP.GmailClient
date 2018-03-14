@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using FluentAssertions;
+using Xunit;
 
 namespace KP.GmailClient.Tests.IntegrationTests
 {
@@ -7,8 +8,11 @@ namespace KP.GmailClient.Tests.IntegrationTests
         [Fact]
         public void HasSettingsConfigured()
         {
-            // Assert
+            // Act
             var proxy = SettingsManager.GmailProxy;
+
+            // Assert
+            proxy.Should().NotBeNull();
         }
     }
 }
