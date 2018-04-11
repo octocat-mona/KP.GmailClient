@@ -16,8 +16,8 @@
 
   <ItemGroup>
     <PackageReference Include="jose-jwt" Version="2.4.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
-    <PackageReference Include="NJsonSchema" Version="9.10.34" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="NJsonSchema" Version="9.10.42" />
   </ItemGroup>
 
   <!-- Conditionally obtain references for the .NET Framework 4.5 target -->
