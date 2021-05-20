@@ -30,7 +30,7 @@ namespace KP.GmailClient.Tests.UnitTests
             // Arrange
             const string content = "[]";
             const HttpStatusCode statusCode = HttpStatusCode.SeeOther;
-            var ex = new GmailException(statusCode, content);
+            var ex = new GmailApiException(statusCode, content);
 
             // Act
             var exception = await ErrorResponseParser.ParseAsync(statusCode, content);

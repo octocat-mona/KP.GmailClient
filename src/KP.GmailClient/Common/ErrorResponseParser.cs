@@ -20,20 +20,20 @@ namespace KP.GmailClient.Common
         /// <param name="statusCode"></param>
         /// <param name="content"></param>
         /// <returns></returns>
-        public static async Task<GmailException> ParseAsync(HttpStatusCode statusCode, string content)
+        public static async Task<GmailApiException> ParseAsync(HttpStatusCode statusCode, string content)
         {
             var schema = await GetJsonSchema.Value;
             // Return just the StatusCode and content in case the response is not an Gmail API error
             var errors = new JsonSchemaValidator().Validate(content, schema);
             if (errors.Any())
             {
-                return new GmailException(statusCode, content);
+                return new GmailApiException(statusCode, content);
             }
 
             JObject jObject = JObject.Parse(content);
             JToken errorContent = jObject.SelectToken("error", false);
             GmailErrorResponse errorResponse = errorContent.ToObject<GmailErrorResponse>();
-            return new GmailException(errorResponse);
+            return new GmailApiException(errorResponse);
         }
 
         private const string JsonSchemaString = @"

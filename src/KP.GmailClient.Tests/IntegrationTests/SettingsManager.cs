@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
-using System.Text;
+using KP.GmailClient.Authentication.TokenClients;
+using KP.GmailClient.Authentication.TokenStores;
 using KP.GmailClient.Common;
 using KP.GmailClient.Models;
 using Microsoft.Extensions.Configuration;
@@ -24,49 +25,33 @@ namespace KP.GmailClient.Tests.IntegrationTests
             GmailProxy = GetGmailProxy();
         }
 
-        public static string GetPrivateKey()
-        {
-            string base64String = GetSetting($"{SettingsPrefix}PrivateKey");
-            byte[] bytes = Convert.FromBase64String(base64String);
-            return Encoding.UTF8.GetString(bytes);
-        }
+        public static string GetTokenUri() => GetSetting($"{SettingsPrefix}TokenUri");
 
-        public static string GetTokenUri()
-        {
-            return GetSetting($"{SettingsPrefix}TokenUri");
-        }
+        public static string GetClientId() => GetSetting($"{SettingsPrefix}ClientId");
 
-        public static string GetClientEmail()
-        {
-            return GetSetting($"{SettingsPrefix}ClientEmail");
-        }
+        public static string GetClientSecret() => GetSetting($"{SettingsPrefix}ClientSecret");
 
-        public static string GetEmailAddress()
-        {
-            return GetSetting($"{SettingsPrefix}EmailAddress");
-        }
+        public static string GetRefreshToken() => GetSetting($"{SettingsPrefix}RefreshToken");
+
+        public static string GetEmailAddress() => GetSetting($"{SettingsPrefix}EmailAddress");
 
         private static GmailProxy GetGmailProxy()
         {
-            string privateKey = GetPrivateKey();
-            string tokenUri = GetTokenUri();
-            string clientEmail = GetClientEmail();
-            string emailAddress = GetEmailAddress();
-            var accountCredential = new ServiceAccountCredential
+            var credentials = new OAuth2ClientCredentials
             {
-                PrivateKey = privateKey,
-                TokenUri = tokenUri,
-                ClientEmail = clientEmail
+                TokenUri = GetTokenUri(),
+                ClientId = GetClientId(),
+                ClientSecret = GetClientSecret()
             };
 
-            //TODO: get GmailClient.ConvertToScopes using reflection in ReflectionHelper
-            string scope = GmailHelper.GetGmailScopesField("ModifyScope");
-            return new GmailProxy(new AuthorizationDelegatingHandler(accountCredential, emailAddress, scope));
+            var tokenClient = new TokenClient(credentials);
+            var tokenStore = new InMemoryTokenStore(GetRefreshToken());
+            return new GmailProxy(new AuthorizationDelegatingHandler(tokenClient, tokenStore));
         }
 
         private static string GetSetting(string key)
         {
-            // Environment variables are used on Travis CI and AppVeyor
+            // Environment variables are used on AppVeyor
             string value = Environment.GetEnvironmentVariable(key) ?? ConfigurationRoot[key];
             if (value == null)
             {

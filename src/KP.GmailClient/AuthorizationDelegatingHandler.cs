@@ -1,118 +1,65 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net;
+﻿using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
-using Jose;
-using KP.GmailClient.Common;
-using KP.GmailClient.Models;
-using Newtonsoft.Json;
+using KP.GmailClient.Authentication.TokenClients;
+using KP.GmailClient.Authentication.TokenStores;
+using KP.GmailClient.Extensions;
 
 namespace KP.GmailClient
 {
     internal class AuthorizationDelegatingHandler : DelegatingHandler
     {
+        private readonly ITokenClient _tokenClient;
+        private readonly ITokenStore _tokenStore;
         private readonly SemaphoreSlim _semaphoreSlim = new SemaphoreSlim(1, 1);
-        private readonly HttpClient _client;
-        private readonly JsonSerializer _jsonSerializer = new JsonSerializer();
-        private readonly ServiceAccountCredential _accountCredential;
-        private readonly string _emailAddress;
-        private readonly string _scopes;
-        private OAuth2Token _token;
 
-        public AuthorizationDelegatingHandler(ServiceAccountCredential accountCredential, string emailAddress, string scopes)
+        public AuthorizationDelegatingHandler(ITokenClient tokenClient, ITokenStore tokenStore)
         {
-            _accountCredential = accountCredential;
-            _emailAddress = emailAddress;
-            _scopes = scopes;
-            _client = new HttpClient(new HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate });
+            _tokenClient = tokenClient;
+            _tokenStore = tokenStore;
         }
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            var token = await GetTokenSynchronized(cancellationToken, true);
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
-            var responseMessage = await base.SendAsync(request, cancellationToken);
-            if (responseMessage.StatusCode != HttpStatusCode.Unauthorized)
+            async Task<HttpResponseMessage> SendRequestAsync()
             {
-                return responseMessage;
+                string token = await GetTokenSynchronized(cancellationToken);
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                return await base.SendAsync(request, cancellationToken);
             }
 
-            // Request returned 401, try once again with new token
-            token = await GetTokenSynchronized(cancellationToken, false);
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            return await base.SendAsync(request, cancellationToken);
+            var responseMessage = await SendRequestAsync();
+            if (responseMessage.StatusCode == HttpStatusCode.Unauthorized)
+            {
+                // Request returned 401, try once again with new token
+                return await SendRequestAsync();
+            }
+
+            return responseMessage;
         }
 
-        private async Task<string> GetTokenSynchronized(CancellationToken cancellationToken, bool useExpiryCheck)
+        private async Task<string> GetTokenSynchronized(CancellationToken cancellationToken)
         {
             try
             {
                 await _semaphoreSlim.WaitAsync(cancellationToken);
-                return await GetTokenAsync(cancellationToken, useExpiryCheck);
+
+                var existingToken = await _tokenStore.GetTokenAsync();
+                if (!existingToken.IsExpired())
+                {
+                    return existingToken.AccessToken;
+                }
+
+                var token = await _tokenClient.GetTokenAsync(existingToken.RefreshToken, cancellationToken);
+                await _tokenStore.StoreTokenAsync(token);
+                return token.AccessToken;
             }
             finally
             {
                 _semaphoreSlim.Release();
             }
-        }
-
-        /// <summary>
-        /// Get an access token. Will return an valid existing token or retrieves a new one if expired.
-        /// Note that the token could still be invalid when revoked remotely or because of clock skew for example.
-        /// </summary>
-        /// <param name="cancellationToken"></param>
-        /// <param name="useExpiryCheck">True to return an existing token if not expired, false to force retrieval of new token</param>
-        /// <returns>An access token</returns>
-        private async Task<string> GetTokenAsync(CancellationToken cancellationToken, bool useExpiryCheck)
-        {
-            // Use access token if still valid
-            if (useExpiryCheck && _token != null && DateTime.UtcNow < _token.ExpirationDate)
-            {
-                return _token.AccessToken;
-            }
-
-            // Access token not valid (anymore), request new one
-            var rsaCryptoServiceProvider = Opensslkey.GetRsaFromPemKey(_accountCredential.PrivateKey);
-
-            var payload = new Dictionary<string, object>
-            {
-                { "iss", _accountCredential.ClientEmail },
-                { "scope", _scopes },
-                { "aud", _accountCredential.TokenUri },
-                { "sub", _emailAddress },
-                { "iat", DateTime.UtcNow.ToUnixTime() },
-                { "exp", DateTime.UtcNow.AddHours(1).ToUnixTime() }
-            };
-
-            string jwt = JWT.Encode(payload, rsaCryptoServiceProvider, JwsAlgorithm.RS256);
-            var content = new Dictionary<string, string>
-            {
-                { "assertion", jwt },
-                { "grant_type", "urn:ietf:params:oauth:grant-type:jwt-bearer" }
-            };
-
-            var responseMessage = await _client.PostAsync(_accountCredential.TokenUri, new FormUrlEncodedContent(content), cancellationToken);
-            if (!responseMessage.IsSuccessStatusCode)
-            {
-                string contentString = await responseMessage.Content.ReadAsStringAsync();
-                GmailException ex = await ErrorResponseParser.ParseAsync(responseMessage.StatusCode, contentString);
-                throw ex;
-            }
-
-            using (var stream = await responseMessage.Content.ReadAsStreamAsync())
-            using (var streamReader = new StreamReader(stream))
-            using (var jsonTextReader = new JsonTextReader(streamReader))
-            {
-                _token = _jsonSerializer.Deserialize<OAuth2Token>(jsonTextReader);
-            }
-
-            _token.ExpirationDate = DateTime.UtcNow.AddSeconds(_token.ExpiresIn);
-            return _token.AccessToken;
         }
 
         protected override void Dispose(bool disposing)

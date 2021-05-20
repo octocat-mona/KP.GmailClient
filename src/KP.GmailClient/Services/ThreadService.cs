@@ -6,9 +6,7 @@ using KP.GmailClient.Models;
 
 namespace KP.GmailClient.Services
 {
-    /// <summary>
-    /// Service for getting email threads.
-    /// </summary>
+    /// <summary>Service for getting email threads.</summary>
     public class ThreadService
     {
         private readonly GmailProxy _proxy;
@@ -18,9 +16,7 @@ namespace KP.GmailClient.Services
             _proxy = proxy;
         }
 
-        /// <summary>
-        /// Gets the specified thread.
-        /// </summary>
+        /// <summary>Gets the specified thread.</summary>
         /// <param name="id">The ID of the thread to retrieve.</param>
         /// <returns></returns>
         public async Task<MessageThread> GetAsync(string id)
@@ -32,9 +28,7 @@ namespace KP.GmailClient.Services
             return await _proxy.Get<MessageThread>(queryString);
         }
 
-        /// <summary>
-        /// Lists the thread IDs.
-        /// </summary>
+        /// <summary>Lists the thread IDs.</summary>
         /// <param name="query">Only return threads matching the specified query.
         /// Supports the same query format as the Gmail search box. For example, "from:someuser@example.com rfc822msgid: is:unread".</param>
         /// <param name="maxResults">Maximum number of threads to return</param>
@@ -56,7 +50,8 @@ namespace KP.GmailClient.Services
         }
 
         /// <summary>
-        /// Immediately and permanently deletes the specified thread. WARNING: This operation cannot be undone. Prefer threads.trash instead.
+        /// Immediately and permanently deletes the specified thread.
+        /// WARNING: This operation cannot be undone. Prefer threads.trash instead.
         /// </summary>
         /// <param name="id">ID of the Thread to delete.</param>
         /// <returns></returns>
@@ -69,9 +64,7 @@ namespace KP.GmailClient.Services
             await _proxy.Delete(queryString);
         }
 
-        /// <summary>
-        /// Modifies the labels applied to the thread. This applies to all messages in the thread.
-        /// </summary>
+        /// <summary>Modifies the labels applied to the thread. This applies to all messages in the thread.</summary>
         /// <param name="id">The ID of the thread to modify</param>
         /// <param name="input">The input to modify a thread</param>
         /// <returns></returns>
@@ -84,9 +77,7 @@ namespace KP.GmailClient.Services
             return await _proxy.Post<MessageThread>(queryString, input);
         }
 
-        /// <summary>
-        /// Moves the specified thread to the trash.
-        /// </summary>
+        /// <summary>Moves the specified thread to the trash.</summary>
         /// <param name="id">The ID of the thread to Trash</param>
         /// <returns></returns>
         public async Task<MessageThread> TrashAsync(string id)
@@ -98,9 +89,7 @@ namespace KP.GmailClient.Services
             return await _proxy.Post<MessageThread>(queryString);
         }
 
-        /// <summary>
-        /// Removes the specified thread from the trash.
-        /// </summary>
+        /// <summary>Removes the specified thread from the trash.</summary>
         /// <param name="id">The ID of the thread to remove from Trash</param>
         /// <returns></returns>
         public async Task<MessageThread> UntrashAsync(string id)

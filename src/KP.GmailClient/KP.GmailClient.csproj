@@ -15,7 +15,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="jose-jwt" Version="2.4.0" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="NJsonSchema" Version="9.10.42" />
   </ItemGroup>

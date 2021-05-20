@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using KP.GmailClient.Common;
-using KP.GmailClient.Models.Extensions;
+using KP.GmailClient.Extensions;
 using Newtonsoft.Json;
 
 namespace KP.GmailClient.Models

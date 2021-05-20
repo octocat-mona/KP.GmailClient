@@ -46,7 +46,7 @@ namespace KP.GmailClient.Tests.IntegrationTests.LabelServiceTests
             Func<Task> action = async () => await _service.GetAsync(Guid.NewGuid().ToString("N"));
 
             // Assert
-            var ex = await Assert.ThrowsAsync<GmailException>(action);
+            var ex = await Assert.ThrowsAsync<GmailApiException>(action);
             ex.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
     }

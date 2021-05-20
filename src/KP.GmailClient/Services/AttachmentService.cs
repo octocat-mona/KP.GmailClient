@@ -5,9 +5,7 @@ using KP.GmailClient.Models;
 
 namespace KP.GmailClient.Services
 {
-    /// <summary>
-    /// Service for getting email attachments.
-    /// </summary>
+    /// <summary>Service for getting email attachments.</summary>
     public class AttachmentService
     {
         private readonly GmailProxy _proxy;
@@ -17,9 +15,7 @@ namespace KP.GmailClient.Services
             _proxy = proxy;
         }
 
-        /// <summary>
-        /// Gets the specified message attachment.
-        /// </summary>
+        /// <summary>Gets the specified message attachment.</summary>
         /// <param name="messageId">The ID of the message containing the attachment</param>
         /// <param name="id">The ID of the attachment</param>
         /// <returns></returns>

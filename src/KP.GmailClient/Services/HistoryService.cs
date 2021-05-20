@@ -5,9 +5,7 @@ using KP.GmailClient.Models;
 
 namespace KP.GmailClient.Services
 {
-    /// <summary>
-    /// Service for getting the history of emails.
-    /// </summary>
+    /// <summary>Service for getting the history of emails.</summary>
     public class HistoryService
     {
         private readonly GmailProxy _proxy;
@@ -17,9 +15,7 @@ namespace KP.GmailClient.Services
             _proxy = proxy;
         }
 
-        /// <summary>
-        /// Lists the history of all changes to the given mailbox. History results are returned in chronological order (increasing historyId).
-        /// </summary>
+        /// <summary>Lists the history of all changes to the given mailbox. History results are returned in chronological order (increasing historyId).</summary>
         /// <param name="startHistoryId">Returns history records after the specified startHistoryId</param>
         /// <param name="labelId">Only return messages with a label matching the ID</param>
         /// <param name="pageToken">Page token to retrieve a specific page of results in the list</param>

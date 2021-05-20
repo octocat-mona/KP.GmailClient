@@ -5,16 +5,14 @@ using KP.GmailClient.Builders;
 using KP.GmailClient.Common;
 using KP.GmailClient.Models;
 
-namespace KP.GmailClient.Services.Extensions
+namespace KP.GmailClient.Services
 {
     /// <summary>
     /// Extensions for <see cref="MessageService"/>.
     /// </summary>
     public static class MessageServiceExtensions
     {
-        /// <summary>
-        /// Get the number of estimated messages of the specified label.
-        /// </summary>
+        /// <summary>Get the number of estimated messages of the specified label.</summary>
         /// <param name="service">Gmail API service instance</param>
         /// <param name="labelIds">Only return messages with labels that match all of the specified label IDs</param>
         /// <returns>The number of messages</returns>
@@ -23,9 +21,7 @@ namespace KP.GmailClient.Services.Extensions
             return (await service.ListIdsAsync(labelIds: labelIds)).ResultSizeEstimate;
         }
 
-        /// <summary>
-        /// Get the number of estimated messages in the user's inbox.
-        /// </summary>
+        /// <summary>Get the number of estimated messages in the user's inbox.</summary>
         /// <param name="service">Gmail API service instance</param>
         /// <returns>The number of messages</returns>
         public static async Task<uint> CountAsync(this MessageService service)
@@ -33,9 +29,7 @@ namespace KP.GmailClient.Services.Extensions
             return await CountAsync(service, Label.Inbox);
         }
 
-        /// <summary>
-        /// Lists the message IDs of the user's inbox.
-        /// </summary>
+        /// <summary>Lists the message IDs of the user's inbox.</summary>
         /// <param name="service">Gmail API service instance</param>
         /// <returns>A <see cref="MessageList"/> instance</returns>
         public static async Task<MessageList> ListIdsAsync(this MessageService service)
@@ -43,9 +37,7 @@ namespace KP.GmailClient.Services.Extensions
             return await service.ListIdsAsync(labelIds: Label.Inbox);
         }
 
-        /// <summary>
-        /// Lists the messages of the user's inbox.
-        /// </summary>
+        /// <summary>Lists the messages of the user's inbox.</summary>
         /// <param name="service">Gmail API service instance</param>
         /// <returns>A list of Messages</returns>
         public static async Task<IList<Message>> ListAsync(this MessageService service)
@@ -53,9 +45,7 @@ namespace KP.GmailClient.Services.Extensions
             return await ListAsync(service, null, labelIds: Label.Inbox);
         }
 
-        /// <summary>
-        /// Lists the messages filtered with a query.
-        /// </summary>
+        /// <summary>Lists the messages filtered with a query.</summary>
         /// <param name="service">Gmail API service instance</param>
         /// <param name="query">Only return messages matching the specified query.
         /// Supports the same query format as the Gmail search box. For example, "from:someuser@example.com rfc822msgid: is:unread".</param>
@@ -71,9 +61,7 @@ namespace KP.GmailClient.Services.Extensions
             return (await Task.WhenAll(tasks)).ToList();
         }
 
-        /// <summary>
-        /// Lists the messages in the specified label.
-        /// </summary>
+        /// <summary>Lists the messages in the specified label.</summary>
         /// <param name="service">Gmail API service instance</param>
         /// <param name="labelId">Only return messages with the specified label ID</param>
         /// <param name="query">Only return messages matching the specified query.
@@ -89,9 +77,7 @@ namespace KP.GmailClient.Services.Extensions
             return (await Task.WhenAll(tasks)).ToList();
         }
 
-        /// <summary>
-        /// Lists the messages in the specified labels.
-        /// </summary>
+        /// <summary>Lists the messages in the specified labels.</summary>
         /// <param name="service">Gmail API service instance</param>
         /// <param name="labelIds">Only return messages with labels that match all of the specified label IDs</param>
         /// <param name="query">Only return messages matching the specified query.
@@ -107,9 +93,7 @@ namespace KP.GmailClient.Services.Extensions
             return (await Task.WhenAll(tasks)).ToList();
         }
 
-        /// <summary>
-        /// Sends the specified message to the recipients in the To, Cc, and Bcc headers.
-        /// </summary>
+        /// <summary>Sends the specified message to the recipients in the To, Cc, and Bcc headers.</summary>
         /// <param name="service">Gmail API service instance</param>
         /// <param name="toAddresses">One or more email addresses separated with a comma character (",").</param>
         /// <param name="subject">The subject line for this email message</param>

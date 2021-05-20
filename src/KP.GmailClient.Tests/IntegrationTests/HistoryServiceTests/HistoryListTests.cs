@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using KP.GmailClient.Common;
 using KP.GmailClient.Services;
-using KP.GmailClient.Services.Extensions;
 using Xunit;
 
 namespace KP.GmailClient.Tests.IntegrationTests.HistoryServiceTests
@@ -41,7 +40,7 @@ namespace KP.GmailClient.Tests.IntegrationTests.HistoryServiceTests
             Func<Task> action = async () => await _service.ListAsync(int.MaxValue);
 
             // Assert
-            var ex = await Assert.ThrowsAsync<GmailException>(action);
+            var ex = await Assert.ThrowsAsync<GmailApiException>(action);
             ex.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
     }

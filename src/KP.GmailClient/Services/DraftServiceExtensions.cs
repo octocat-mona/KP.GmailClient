@@ -4,16 +4,12 @@ using System.Threading.Tasks;
 using KP.GmailClient.Common;
 using KP.GmailClient.Models;
 
-namespace KP.GmailClient.Services.Extensions
+namespace KP.GmailClient.Services
 {
-    /// <summary>
-    /// Extensions for <see cref="DraftService"/>.
-    /// </summary>
+    /// <summary>Extensions for <see cref="DraftService"/>.</summary>
     public static class DraftServiceExtensions
     {
-        /// <summary>
-        /// Create a draft.
-        /// </summary>
+        /// <summary>Create a draft.</summary>
         /// <param name="service">Gmail API service instance</param>
         /// <param name="subject">The subject of the draft</param>
         /// <param name="body">The body of the draft</param>
@@ -37,9 +33,7 @@ namespace KP.GmailClient.Services.Extensions
             return await service.CreateAsync(draftInput);
         }
 
-        /// <summary>
-        /// Lists the drafts in the user's inbox.
-        /// </summary>
+        /// <summary>Lists the drafts in the user's inbox.</summary>
         /// <param name="service">Gmail API service instance</param>
         /// <returns>A list of Drafts</returns>
         public static async Task<IList<Draft>> ListAsync(this DraftService service)

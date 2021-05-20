@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using FluentAssertions;
 using KP.GmailClient.Services;
-using KP.GmailClient.Services.Extensions;
 
 namespace KP.GmailClient.Tests.IntegrationTests.ThreadServiceTests
 {

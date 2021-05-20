@@ -32,7 +32,7 @@ namespace KP.GmailClient.Tests.IntegrationTests.AttachmentServiceTests
             Func<Task> action = async () => await _service.GetAsync(messageId, Guid.NewGuid().ToString("N"));
 
             // Assert
-            var ex = await Assert.ThrowsAsync<GmailException>(action);
+            var ex = await Assert.ThrowsAsync<GmailApiException>(action);
             ex.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
     }

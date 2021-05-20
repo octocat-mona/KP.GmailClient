@@ -10,14 +10,10 @@ using Newtonsoft.Json.Linq;
 
 namespace KP.GmailClient.Common
 {
-    /// <summary>
-    /// Handles requests to the Gmail service and parses the response.
-    /// </summary>
+    /// <summary>Handles requests to the Gmail service and parses the response.</summary>
     internal class GmailProxy : IDisposable
     {
-        /// <summary>
-        /// The URL to send requests to the Gmail API service
-        /// </summary>
+        /// <summary>The URL to send requests to the Gmail API service.</summary>
         public const string ApiBaseUrl = "https://www.googleapis.com/gmail/v1/users/";
         private static readonly HttpMethod HttpGet = new HttpMethod("GET");
         private static readonly HttpMethod HttpPost = new HttpMethod("POST");
@@ -26,11 +22,8 @@ namespace KP.GmailClient.Common
         private static readonly HttpMethod HttpDelete = new HttpMethod("DELETE");
 
         private readonly HttpClient _client;
-        private readonly JsonSerializer _jsonSerializer;
 
-        /// <summary>
-        /// Takes care of all I/O to Gmail.
-        /// </summary>
+        /// <summary>Takes care of all I/O to Gmail.</summary>
         /// <param name="handler">An optional handler to handle authentication or caching for example</param>
         internal GmailProxy(DelegatingHandler handler)
         {
@@ -51,7 +44,6 @@ namespace KP.GmailClient.Common
 
             // Set default (de)serializing for enums
             var stringEnumConverter = new StringEnumConverter { CamelCaseText = true };
-            _jsonSerializer = new JsonSerializer { Converters = { stringEnumConverter } };
             JsonConvert.DefaultSettings = () => new JsonSerializerSettings { Converters = { stringEnumConverter } };
         }
 
@@ -101,15 +93,13 @@ namespace KP.GmailClient.Common
             if (!response.IsSuccessStatusCode)
             {
                 string contentString = await response.Content.ReadAsStringAsync();
-                GmailException ex = await ErrorResponseParser.ParseAsync(response.StatusCode, contentString);
+                GmailApiException ex = await ErrorResponseParser.ParseAsync(response.StatusCode, contentString);
                 throw ex;
             }
 
             using (Stream stream = await response.Content.ReadAsStreamAsync())
-            using (var streamReader = new StreamReader(stream))
-            using (var jsonReader = new JsonTextReader(streamReader))
             {
-                return _jsonSerializer.Deserialize<T>(jsonReader);
+                return Serializer.Deserialize<T>(stream);
             }
         }
 
