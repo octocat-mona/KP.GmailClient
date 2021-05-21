@@ -6,13 +6,20 @@
     <Company />
     <Description>An easy to use Gmail client library</Description>
     <Copyright>Copyright © all times</Copyright>
-    <PackageLicenseUrl>https://raw.githubusercontent.com/kpstolk/KP.GmailClient/master/LICENSE.md</PackageLicenseUrl>
+    <PackageLicenseExpression>GPL-2.0-only</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/kpstolk/KP.GmailClient</PackageProjectUrl>
+    <PackageIcon>icon.png</PackageIcon>
     <PackageIconUrl>https://raw.githubusercontent.com/kpstolk/KP.GmailClient/master/icon.png</PackageIconUrl>
     <RepositoryUrl>https://github.com/kpstolk/KP.GmailClient</RepositoryUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>gmail google</PackageTags>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\icon.png" Pack="true" Visible="False" PackagePath="" />
+    <None Include="..\..\README.md" Pack="true" Visible="False" PackagePath=""/>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
