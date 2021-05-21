@@ -16,7 +16,6 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-    <PackageReference Include="NJsonSchema" Version="9.10.42" />
   </ItemGroup>
 
   <!-- Conditionally obtain references for the .NET Framework 4.5 target -->

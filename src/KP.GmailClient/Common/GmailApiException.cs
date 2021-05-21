@@ -39,12 +39,12 @@ namespace KP.GmailClient.Common
 
         private static string ConstructMessage(GmailErrorResponse errorResponse)
         {
-            return string.Concat(errorResponse.Code, ": ", errorResponse.Message);
+            return $"{errorResponse.Code}: {errorResponse.Message}";
         }
 
         private static string ConstructMessage(HttpStatusCode statusCode, string message)
         {
-            return string.Concat(statusCode, ":", message);
+            return $"{statusCode}: {message}";
         }
     }
 }

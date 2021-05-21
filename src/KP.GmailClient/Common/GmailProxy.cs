@@ -93,7 +93,7 @@ namespace KP.GmailClient.Common
             if (!response.IsSuccessStatusCode)
             {
                 string contentString = await response.Content.ReadAsStringAsync();
-                GmailApiException ex = await ErrorResponseParser.ParseAsync(response.StatusCode, contentString);
+                GmailApiException ex = ErrorResponseParser.Parse(response.StatusCode, contentString);
                 throw ex;
             }
 
