@@ -1,4 +1,4 @@
-version: 2.0.1.{build}
+version: 1.0.0.{build}
 image: Visual Studio 2019
 configuration:
 - Release
@@ -21,7 +21,10 @@ build_script:
 
     dotnet test src\KP.GmailClient.Tests\KP.GmailClient.Tests.csproj
 
-    dotnet pack src\KP.GmailClient\KP.GmailClient.csproj --configuration Release /p:Version=%APPVEYOR_BUILD_VERSION%
+    SET PACKAGE_VERSION=%APPVEYOR_BUILD_VERSION%
+    IF DEFINED APPVEYOR_REPO_TAG_NAME SET PACKAGE_VERSION=%APPVEYOR_REPO_TAG_NAME%
+
+    dotnet pack src\KP.GmailClient\KP.GmailClient.csproj --configuration Release /p:Version=%PACKAGE_VERSION%
 
 nuget:
   disable_publish_on_pr: true
