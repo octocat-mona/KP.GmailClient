@@ -22,6 +22,7 @@ build_script:
     dotnet test src\KP.GmailClient.Tests\KP.GmailClient.Tests.csproj
 
     SET PACKAGE_VERSION=%APPVEYOR_BUILD_VERSION%
+    
     IF DEFINED APPVEYOR_REPO_TAG_NAME SET PACKAGE_VERSION=%APPVEYOR_REPO_TAG_NAME%
 
     dotnet pack src\KP.GmailClient\KP.GmailClient.csproj --configuration Release /p:Version=%PACKAGE_VERSION%
