@@ -1,5 +1,5 @@
 ﻿using System;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace KP.GmailClient.Models
 {
@@ -7,26 +7,26 @@ namespace KP.GmailClient.Models
     public class OAuth2Token
     {
         /// <summary>A string representing an authorization issued to the client.</summary>
-        [JsonProperty("access_token")]
+        [JsonPropertyName("access_token")]
         public string AccessToken { get; set; }
 
         /// <summary>A credential used to obtain access tokens.</summary>
-        [JsonProperty("refresh_token")]
+        [JsonPropertyName("refresh_token")]
         public string RefreshToken { get; set; }
 
         /// <summary>
         /// Provides the client with the information required to successfully utilize the access token
         /// to make a protected resource request (along with type-specific attributes), for example: Bearer.
         /// </summary>
-        [JsonProperty("token_type")]
+        [JsonPropertyName("token_type")]
         public string TokenType { get; set; }
 
         /// <summary>The lifetime in seconds of the access token.</summary>
-        [JsonProperty("expires_in")]
+        [JsonPropertyName("expires_in")]
         public int ExpiresIn { get; set; }
 
         /// <summary>The expiration date of the access token.</summary>
-        [JsonProperty("expiry_date")]
+        [JsonPropertyName("expiry_date")]
         public DateTimeOffset ExpirationDate { get; set; }
 
         /// <summary>A string with the values of the properties from this <see cref="OAuth2Token"/>.</summary>

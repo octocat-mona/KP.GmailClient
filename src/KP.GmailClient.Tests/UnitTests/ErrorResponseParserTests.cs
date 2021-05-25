@@ -1,4 +1,7 @@
-﻿using System.Net;
+﻿using System.IO;
+using System.Net;
+using System.Text;
+using System.Threading.Tasks;
 using FluentAssertions;
 using KP.GmailClient.Common;
 using Xunit;
@@ -8,7 +11,7 @@ namespace KP.GmailClient.Tests.UnitTests
     public class ErrorResponseParserTests
     {
         [Fact]
-        public void CanParse()
+        public async Task CanParse()
         {
             // Arrange
             const HttpStatusCode errorCode = HttpStatusCode.Forbidden;
@@ -31,9 +34,10 @@ namespace KP.GmailClient.Tests.UnitTests
         ""message"": """ + mainMessage + @"""
     }
 }";
+            using var stream = new MemoryStream(Encoding.UTF8.GetBytes(content));
 
             // Act
-            var exception = ErrorResponseParser.Parse(HttpStatusCode.OK, content);
+            var exception = await ErrorResponseParser.ParseAsync(HttpStatusCode.OK, stream);
 
             // Assert
             exception.StatusCode.Should().Be(errorCode);
@@ -46,7 +50,7 @@ namespace KP.GmailClient.Tests.UnitTests
         }
 
         [Fact]
-        public void WithInvalidContent_ReturnsOriginalInput()
+        public async Task WithInvalidContent_ReturnsOriginalInput()
         {
             // Arrange
             const HttpStatusCode statusCode = HttpStatusCode.BadGateway;
@@ -59,17 +63,18 @@ namespace KP.GmailClient.Tests.UnitTests
                 ""message"": ""User Rate Limit Exceeded""
 ";
 
+            using var stream = new MemoryStream(Encoding.UTF8.GetBytes(content));
             var ex = new GmailApiException(statusCode, content);
 
             // Act
-            var exception = ErrorResponseParser.Parse(statusCode, content);
+            var exception = await ErrorResponseParser.ParseAsync(statusCode, stream);
 
             // Assert
             exception.Should().BeEquivalentTo(ex);
         }
 
         [Fact]
-        public void WithoutErrorRoot_ReturnsOriginalInput()
+        public async Task WithoutErrorRoot_ReturnsOriginalInput()
         {
             // Arrange
             const HttpStatusCode statusCode = HttpStatusCode.BadGateway;
@@ -85,25 +90,27 @@ namespace KP.GmailClient.Tests.UnitTests
     ""message"": ""User Rate Limit Exceeded""
 }";
 
+            using var stream = new MemoryStream(Encoding.UTF8.GetBytes(content));
             var ex = new GmailApiException(statusCode, content);
 
             // Act
-            var exception = ErrorResponseParser.Parse(statusCode, content);
+            var exception = await ErrorResponseParser.ParseAsync(statusCode, stream);
 
             // Assert
             exception.Should().BeEquivalentTo(ex);
         }
 
         [Fact]
-        public void WithInvalidJsonContent_ReturnsOriginalInput()
+        public async Task WithInvalidJsonContent_ReturnsOriginalInput()
         {
             // Arrange
             const string content = "{}";
             const HttpStatusCode statusCode = HttpStatusCode.BadGateway;
             var ex = new GmailApiException(statusCode, content);
+            using var stream = new MemoryStream(Encoding.UTF8.GetBytes(content));
 
             // Act
-            var exception = ErrorResponseParser.Parse(statusCode, content);
+            var exception = await ErrorResponseParser.ParseAsync(statusCode, stream);
 
             // Assert
             exception.Should().BeEquivalentTo(ex);

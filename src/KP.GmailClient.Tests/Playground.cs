@@ -28,7 +28,7 @@ namespace KP.GmailClient.Tests
         [Fact(Skip = "Manual test")]
         public async Task PlayAsync()
         {
-            var tokenClient = TokenClient.Create(ClientCredentialsFile);
+            var tokenClient = await TokenClient.CreateAsync(ClientCredentialsFile);
             var tokenStore = new FileTokenStore(TokenFile);
             using var client = new GmailClient(tokenClient, tokenStore);
 

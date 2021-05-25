@@ -1,11 +1,11 @@
-﻿using KP.GmailClient.Models;
-using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
+using KP.GmailClient.Models;
 
 namespace KP.GmailClient.Authentication.Dtos
 {
     internal class OAuth2ClientCredentialsWrapper
     {
-        [JsonProperty("installed")]
+        [JsonPropertyName("installed")]
         public OAuth2ClientCredentials Credentials { get; set; }
     }
 }

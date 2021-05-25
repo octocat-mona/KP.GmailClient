@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text.Json;
 using System.Threading.Tasks;
 using KP.GmailClient.Extensions;
 using KP.GmailClient.Models;
@@ -19,31 +20,34 @@ namespace KP.GmailClient.Authentication.TokenStores
             _tokenFile = tokenFile ?? throw new ArgumentNullException(nameof(tokenFile));
         }
 
-        public Task<OAuth2Token> GetTokenAsync()
+        public async Task<OAuth2Token> GetTokenAsync()
         {
             if (!_cachedToken.IsExpired())
             {
-                return Task.FromResult(_cachedToken);
+                return _cachedToken;
             }
 
             using (var stream = File.OpenRead(_tokenFile))
             {
-                _cachedToken = Serializer.Deserialize<OAuth2Token>(stream);
-                return Task.FromResult(_cachedToken);
+                _cachedToken = await JsonSerializer.DeserializeAsync<OAuth2Token>(stream);
+                return _cachedToken;
             }
         }
 
-        public Task StoreTokenAsync(OAuth2Token token)
+        public async Task StoreTokenAsync(OAuth2Token token)
         {
             // Only write to disk when one of the 2 tokens changed
             if (_cachedToken != null && _cachedToken.AccessToken == token.AccessToken && _cachedToken.RefreshToken == token.RefreshToken)
             {
-                return Task.FromResult(0);
+                return;
             }
 
-            Serializer.Serialize(_tokenFile, token);
+            using (var stream = File.OpenWrite(_tokenFile))
+            {
+                await JsonSerializer.SerializeAsync(stream, token);
+            }
+
             _cachedToken = token;
-            return Task.FromResult(0);
         }
     }
 }

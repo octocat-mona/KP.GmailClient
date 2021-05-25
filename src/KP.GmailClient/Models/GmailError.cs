@@ -1,24 +1,24 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace KP.GmailClient.Models
 {
     /// <summary>The details of a single error returned by Gmail.</summary>
     public class GmailError
     {
-        [JsonProperty("domain")]
+        [JsonPropertyName("domain")]
         public string Domain { get; set; }
 
-        [JsonProperty("reason")]
+        [JsonPropertyName("reason")]
         public string Reason { get; set; }
 
         /// <summary>The  message of the error.</summary>
-        [JsonProperty("message")]
+        [JsonPropertyName("message")]
         public string Message { get; set; }
 
-        [JsonProperty("location")]
+        [JsonPropertyName("location")]
         public string Location { get; set; }
 
-        [JsonProperty("locationType")]
+        [JsonPropertyName("locationType")]
         public string LocationType { get; set; }
 
         /// <summary>A string with the values of the properties from this <see cref="GmailError"/>.</summary>

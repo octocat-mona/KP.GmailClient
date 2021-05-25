@@ -1,44 +1,24 @@
 ﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace KP.GmailClient.Models
 {
-    /// <summary>
-    /// Contains a list of threads.
-    /// </summary>
+    /// <summary>Contains a list of threads.</summary>
     public class ThreadList
     {
-        /// <summary>
-        /// Contains a list of threads.
-        /// </summary>
-        public ThreadList()
-        {
-            Threads = new List<MessageThread>(0);
-            NextPageToken = string.Empty;
-        }
+        /// <summary>List with threads.</summary>
+        [JsonPropertyName("threads")]
+        public List<MessageThread> Threads { get; set; } = new List<MessageThread>(0);
 
-        /// <summary>
-        /// List with threads.
-        /// </summary>
-        [JsonProperty("threads")]
-        public List<MessageThread> Threads { get; set; }
-
-        /// <summary>
-        /// Token to retrieve the next page of results in the list.
-        /// </summary>
-        [JsonProperty("nextPageToken")]
+        /// <summary>Token to retrieve the next page of results in the list.</summary>
+        [JsonPropertyName("nextPageToken")]
         public string NextPageToken { get; set; }
 
-        /// <summary>
-        /// Estimated total number of results.
-        /// </summary>
-        [JsonProperty("resultSizeEstimate")]
+        /// <summary>Estimated total number of results.</summary>
+        [JsonPropertyName("resultSizeEstimate")]
         public uint ResultSizeEstimate { get; set; }
 
-        /// <summary>
-        /// A string with the values of the properties from this <see cref="ThreadList"/>
-        /// </summary>
-        /// <returns>A string</returns>
+        /// <summary>A string with the values of the properties from this <see cref="ThreadList"/></summary>
         public override string ToString()
         {
             return string.Concat("# Messages: ", Threads.Count, ", NextPageToken: ", NextPageToken, ", SizeEstimate: ", ResultSizeEstimate);

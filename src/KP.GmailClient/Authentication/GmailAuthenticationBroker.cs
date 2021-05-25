@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using KP.GmailClient.Authentication.Dtos;
 using KP.GmailClient.Authentication.TokenClients;
@@ -22,8 +24,12 @@ namespace KP.GmailClient.Authentication
         /// <returns></returns>
         public async Task<OAuth2Token> AuthenticateAsync(string clientCredentialsFile, GmailScopes scopes, TimeSpan timeout = default)
         {
-            var credentials = Serializer.Deserialize<OAuth2ClientCredentialsWrapper>(clientCredentialsFile)?.Credentials
+            OAuth2ClientCredentials credentials;
+            using (var stream = File.OpenRead(clientCredentialsFile))
+            {
+                credentials = (await JsonSerializer.DeserializeAsync<OAuth2ClientCredentialsWrapper>(stream))?.Credentials
                               ?? throw new ArgumentException("Invalid credentials file", nameof(clientCredentialsFile));
+            }
 
             int port = GetAvailablePort();
             string redirectUri = $"http://localhost:{port}/authorize/";

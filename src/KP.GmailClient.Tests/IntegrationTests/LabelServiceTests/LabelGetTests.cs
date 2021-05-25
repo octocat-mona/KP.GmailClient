@@ -30,16 +30,6 @@ namespace KP.GmailClient.Tests.IntegrationTests.LabelServiceTests
         }
 
         [Fact]
-        public async Task CanList()
-        {
-            // Act
-            IList<Label> labels = await _service.ListAsync();
-
-            // Assert
-            Assert.NotNull(labels);
-        }
-
-        [Fact]
         public async Task NonExistingLabel_ReturnsNotFound()
         {
             // Act

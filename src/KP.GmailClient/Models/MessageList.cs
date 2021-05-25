@@ -1,44 +1,24 @@
 ﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace KP.GmailClient.Models
 {
-    /// <summary>
-    /// Contains a list of messages.
-    /// </summary>
+    /// <summary>Contains a list of messages.</summary>
     public class MessageList
     {
-        /// <summary>
-        /// Contains a list of messages.
-        /// </summary>
-        public MessageList()
-        {
-            Messages = new List<Message>(0);
-            NextPageToken = string.Empty;
-        }
+        /// <summary>List with messages, with only the ID and/or ThreadID set.</summary>
+        [JsonPropertyName("messages")]
+        public List<Message> Messages { get; set; } = new List<Message>();
 
-        /// <summary>
-        /// List with messages, with only the ID and/or ThreadID set.
-        /// </summary>
-        [JsonProperty("messages")]
-        public List<Message> Messages { get; set; }
-
-        /// <summary>
-        /// Token to retrieve the next page of results in the list.
-        /// </summary>
-        [JsonProperty("nextPageToken")]
+        /// <summary>Token to retrieve the next page of results in the list.</summary>
+        [JsonPropertyName("nextPageToken")]
         public string NextPageToken { get; set; }
 
-        /// <summary>
-        /// Estimated total number of results.
-        /// </summary>
-        [JsonProperty("resultSizeEstimate")]
+        /// <summary>Estimated total number of results.</summary>
+        [JsonPropertyName("resultSizeEstimate")]
         public uint ResultSizeEstimate { get; set; }
 
-        /// <summary>
-        /// A string with the values of the properties from this <see cref="MessageList"/>
-        /// </summary>
-        /// <returns>A string</returns>
+        /// <summary>A string with the values of the properties from this <see cref="MessageList"/></summary>
         public override string ToString()
         {
             return string.Concat("# Messages: ", Messages.Count, ", NextPageToken: ", NextPageToken, ", SizeEstimate: ", ResultSizeEstimate);

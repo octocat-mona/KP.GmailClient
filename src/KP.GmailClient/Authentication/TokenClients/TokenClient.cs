@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using KP.GmailClient.Authentication.Dtos;
@@ -23,10 +25,15 @@ namespace KP.GmailClient.Authentication.TokenClients
 
         /// <summary></summary>
         /// <param name="clientCredentialsFile">The client credentials file as downloaded from the Google Cloud Console.</param>
-        public static TokenClient Create(string clientCredentialsFile)
+        public static async Task<TokenClient> CreateAsync(string clientCredentialsFile)
         {
-            var credentials = Serializer.Deserialize<OAuth2ClientCredentialsWrapper>(clientCredentialsFile).Credentials;
-            return new TokenClient(credentials);
+            using (var stream = File.OpenRead(clientCredentialsFile))
+            {
+                var credentials = (await JsonSerializer.DeserializeAsync<OAuth2ClientCredentialsWrapper>(stream))?.Credentials
+                                  ?? throw new ArgumentException("Invalid credentials file", nameof(clientCredentialsFile));
+
+                return new TokenClient(credentials);
+            }
         }
 
         public async Task<OAuth2Token> GetTokenAsync(string refreshToken, CancellationToken cancellationToken = default)
@@ -66,10 +73,13 @@ namespace KP.GmailClient.Authentication.TokenClients
             var response = await _httpClient.PostAsync(_credentials.TokenUri, new FormUrlEncodedContent(parameters), cancellationToken);
             response.EnsureSuccessStatusCode();
 
-            using var stream = await response.Content.ReadAsStreamAsync();
-            var token = Serializer.Deserialize<OAuth2Token>(stream);
-            token.ExpirationDate = DateTimeOffset.UtcNow.AddSeconds(token.ExpiresIn);
-            return token;
+            using (var stream = await response.Content.ReadAsStreamAsync())
+            {
+                var token = await JsonSerializer.DeserializeAsync<OAuth2Token>(stream, cancellationToken: cancellationToken)
+                    ?? throw new JsonException("Invalid JSON token response");
+                token.ExpirationDate = DateTimeOffset.UtcNow.AddSeconds(token.ExpiresIn);
+                return token;
+            }
         }
 
         public void Dispose()

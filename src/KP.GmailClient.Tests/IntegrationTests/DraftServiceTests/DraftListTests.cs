@@ -22,6 +22,7 @@ namespace KP.GmailClient.Tests.IntegrationTests.DraftServiceTests
 
             // Assert
             ids.Should().NotBeNull();
+            ids.Drafts.Should().NotBeNull();
         }
 
         [Fact]

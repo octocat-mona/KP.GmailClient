@@ -1,32 +1,16 @@
 using System.Collections.Generic;
 using KP.GmailClient.Common;
 using KP.GmailClient.Extensions;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace KP.GmailClient.Models
 {
-    /// <summary>
-    /// An email message.
-    /// </summary>
+    /// <summary>An email message.</summary>
     public class Message
     {
-        /// <summary>
-        /// An email message.
-        /// </summary>
-        public Message()
-        {
-            ThreadId = string.Empty;
-            Snippet = string.Empty;
-            Raw = string.Empty;
-            LabelIds = new List<string>(0);
-            Payload = new Payload();
-        }
-
-        /// <summary>
-        /// The immutable ID of the message.
-        /// </summary>
-        [JsonProperty("id")]
-        public string Id { get; internal set; }
+        /// <summary>The immutable ID of the message.</summary>
+        [JsonPropertyName("id")]
+        public string Id { get; set; }
 
         /// <summary>
         /// The ID of the thread the message belongs to. To add a message or draft to a thread, the following criteria must be met:
@@ -36,45 +20,35 @@ namespace KP.GmailClient.Models
         /// <item><description>3. The Subject headers must match.</description></item>
         /// </list>
         /// </summary>
-        [JsonProperty("threadId")]
-        public string ThreadId { get; internal set; }
+        [JsonPropertyName("threadId")]
+        public string ThreadId { get; set; }
 
-        /// <summary>
-        /// The ID of the last history record that modified this message.
-        /// </summary>
-        [JsonProperty("historyId")]
-        public ulong HistoryId { get; internal set; }
+        /// <summary>The ID of the last history record that modified this message.</summary>
+        [JsonPropertyName("historyId")]
+        public ulong HistoryId { get; set; }
 
-        /// <summary>
-        /// List of IDs of labels applied to this message.
-        /// </summary>
-        [JsonProperty("labelIds")]
-        public List<string> LabelIds { get; set; }
+        /// <summary>List of IDs of labels applied to this message.</summary>
+        [JsonPropertyName("labelIds")]
+        public List<string> LabelIds { get; set; } = new List<string>();
 
-        /// <summary>
-        /// A short part of the message text.
-        /// </summary>
-        [JsonProperty("snippet")]
+        /// <summary>A short part of the message text.</summary>
+        [JsonPropertyName("snippet")]
         public string Snippet { get; set; }
 
-        /// <summary>
-        /// The parsed email structure in the message parts.
-        /// </summary>
-        [JsonProperty("payload")]
-        public Payload Payload { get; internal set; }
+        /// <summary>The parsed email structure in the message parts.</summary>
+        [JsonPropertyName("payload")]
+        public Payload Payload { get; set; } = new Payload();
 
-        /// <summary>
-        /// Estimated size in bytes of the message.
-        /// </summary>
-        [JsonProperty("sizeEstimate")]
-        public int SizeEstimate { get; internal set; }
+        /// <summary>Estimated size in bytes of the message.</summary>
+        [JsonPropertyName("sizeEstimate")]
+        public int SizeEstimate { get; set; }
 
         /// <summary>
         /// The entire email message in an RFC 2822 formatted and base64url encoded string.
         /// Returned in <see cref="Services.MessageService.GetAsync"/> and <see cref="Services.DraftService.GetAsync"/> responses when the format=RAW parameter is supplied.
         /// </summary>
-        [JsonProperty("raw")]
-        public string Raw { get; private set; }
+        [JsonPropertyName("raw")]
+        public string Raw { get; set; }
 
         /// <summary>
         /// Get/set the entire email message decoded from the <see cref="Raw"/> RFC 2822 formatted and base64url encoded string.
@@ -87,40 +61,27 @@ namespace KP.GmailClient.Models
             set { Raw = value.ToBase64UrlString(); }
         }
 
-        /// <summary>
-        /// Get the 'Subject' header value.
-        /// </summary>
+        /// <summary>Get the 'Subject' header value.</summary>
         [JsonIgnore]
         public string Subject => Payload.GetHeaderValue(HeaderName.Subject);
 
-        /// <summary>
-        /// Get the 'From' header value.
-        /// </summary>
+        /// <summary>Get the 'From' header value.</summary>
         [JsonIgnore]
         public string From => Payload.GetHeaderValue(HeaderName.From);
 
-        /// <summary>
-        /// Get the 'To' header value.
-        /// </summary>
+        /// <summary>Get the 'To' header value.</summary>
         [JsonIgnore]
         public string To => Payload.GetHeaderValue(HeaderName.To);
 
-        /// <summary>
-        /// Get the body of the message in HTML
-        /// </summary>
+        /// <summary>Get the body of the message in HTML.</summary>
         [JsonIgnore]
         public string Html => Payload.GetBodyData(MimeType.TextHtml);
 
-        /// <summary>
-        /// Get the body of the message as plain text
-        /// </summary>
+        /// <summary>Get the body of the message as plain text.</summary>
         [JsonIgnore]
         public string PlainText => Payload.GetBodyData(MimeType.TextPlain);
 
-        /// <summary>
-        /// A string with the values of the properties from this <see cref="Message"/>
-        /// </summary>
-        /// <returns>A string</returns>
+        /// <summary>A string with the values of the properties from this <see cref="Message"/></summary>
         public override string ToString()
         {
             return string.Concat("ID: ", Id, ", ~Size: ", SizeEstimate, " bytes, # LabelIds: ", LabelIds.Count, ", Snippet: ", Snippet);

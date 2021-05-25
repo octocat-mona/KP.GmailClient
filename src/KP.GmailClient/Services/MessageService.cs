@@ -3,7 +3,6 @@ using KP.GmailClient.Builders;
 using KP.GmailClient.Common;
 using KP.GmailClient.Common.Enums;
 using KP.GmailClient.Models;
-using Newtonsoft.Json.Linq;
 
 namespace KP.GmailClient.Services
 {
@@ -111,7 +110,7 @@ namespace KP.GmailClient.Services
                //.SetUploadType(UploadType.Multipart) -> if none provided no attachments are send
                .Build();
 
-            return await _proxy.Post<Message>(queryString, JObject.FromObject(new { raw }));
+            return await _proxy.Post<Message>(queryString, new { raw });
         }
     }
 }

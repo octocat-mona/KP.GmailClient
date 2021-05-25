@@ -18,7 +18,7 @@ namespace KP.GmailClient.Common
         /// Convert <see cref="GmailScopes"/> to a by space separated string.
         /// </summary>
         /// <returns></returns>
-        public static string ToScopeString(this GmailScopes gmailScopes)
+        internal static string ToScopeString(this GmailScopes gmailScopes)
         {
             GmailScopes[] scopes = gmailScopes.GetFlagEnumValues();
             string[] scopeValueStrings = new string[scopes.Length];

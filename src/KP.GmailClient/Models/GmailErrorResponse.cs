@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Net;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace KP.GmailClient.Models
 {
@@ -8,15 +8,15 @@ namespace KP.GmailClient.Models
     public class GmailErrorResponse
     {
         /// <summary>The <see cref="HttpStatusCode"/> value.</summary>
-        [JsonProperty("code", Required = Required.Always)]
+        [JsonPropertyName("code")]
         public int Code { get; set; }
 
         /// <summary>The global message of the error(s).</summary>
-        [JsonProperty("message")]
+        [JsonPropertyName("message")]
         public string Message { get; set; }
 
         /// <summary>A list with <see cref="GmailError"/>.</summary>
-        [JsonProperty("errors")]
+        [JsonPropertyName("errors")]
         public List<GmailError> Errors { get; set; } = new List<GmailError>();
 
         /// <summary>A string with the values of the properties from this <see cref="GmailErrorResponse"/>.</summary>
