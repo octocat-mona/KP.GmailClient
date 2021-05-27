@@ -7,6 +7,7 @@ using System.Runtime.Serialization;
 using System.Globalization;
 using Macross.Json.Extensions;
 // ReSharper disable CheckNamespace
+#pragma warning disable 8632
 
 namespace System.Text.Json.Serialization
 {

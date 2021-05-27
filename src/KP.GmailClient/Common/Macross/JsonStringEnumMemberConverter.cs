@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.Serialization;
 // ReSharper disable CheckNamespace
+#pragma warning disable 8632
 
 namespace System.Text.Json.Serialization
 {

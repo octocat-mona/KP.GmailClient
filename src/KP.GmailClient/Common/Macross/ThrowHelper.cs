@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Text.Json;
 // ReSharper disable CheckNamespace
+#pragma warning disable 8632
 
 namespace Macross.Json.Extensions
 {

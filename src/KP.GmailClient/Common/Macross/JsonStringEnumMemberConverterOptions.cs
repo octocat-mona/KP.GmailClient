@@ -2,6 +2,8 @@
 // https://github.com/Macross-Software/core
 
 // ReSharper disable CheckNamespace
+#pragma warning disable 8632
+
 namespace System.Text.Json.Serialization
 {
     /// <summary>
