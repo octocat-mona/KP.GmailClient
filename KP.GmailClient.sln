@@ -1,11 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27428.2005
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KP.GmailClient", "src\KP.GmailClient\KP.GmailClient.csproj", "{8D71F65C-55B1-429E-A414-72419C100363}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KP.GmailClient.Tests", "src\KP.GmailClient.Tests\KP.GmailClient.Tests.csproj", "{41E2EE78-A32D-4B1A-9E69-63F4B5EECFD0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KP.GmailClient.Tests", "src\KP.GmailClient.Tests\KP.GmailClient.Tests.csproj", "{41E2EE78-A32D-4B1A-9E69-63F4B5EECFD0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5E41555F-10A3-4233-A9E4-16E06A5222E2}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
