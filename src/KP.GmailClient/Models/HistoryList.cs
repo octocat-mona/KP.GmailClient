@@ -15,7 +15,7 @@ namespace KP.GmailClient.Models
 
         /// <summary>The mailbox sequence ID.</summary>
         [JsonPropertyName("historyId")]
-        public ulong HistoryId { get; set; }
+        public string HistoryId { get; set; }
 
         /// <summary>Token to retrieve the next page of results in the list.</summary>
         [JsonPropertyName("nextPageToken")]

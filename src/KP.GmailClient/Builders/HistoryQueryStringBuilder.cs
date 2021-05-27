@@ -58,7 +58,7 @@ namespace KP.GmailClient.Builders
         /// </summary>
         /// <param name="startHistoryId"></param>
         /// <returns></returns>
-        public HistoryQueryStringBuilder SetStartHistoryId(ulong startHistoryId)
+        public HistoryQueryStringBuilder SetStartHistoryId(string startHistoryId)
         {
             SetParameter(StarthistoryidName, startHistoryId);
             return this;

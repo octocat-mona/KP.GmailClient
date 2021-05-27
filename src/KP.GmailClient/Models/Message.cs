@@ -25,7 +25,7 @@ namespace KP.GmailClient.Models
 
         /// <summary>The ID of the last history record that modified this message.</summary>
         [JsonPropertyName("historyId")]
-        public ulong HistoryId { get; set; }
+        public string HistoryId { get; set; }
 
         /// <summary>List of IDs of labels applied to this message.</summary>
         [JsonPropertyName("labelIds")]

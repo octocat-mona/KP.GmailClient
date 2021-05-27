@@ -21,7 +21,7 @@ namespace KP.GmailClient.Services
         /// <param name="pageToken">Page token to retrieve a specific page of results in the list</param>
         /// <param name="maxResults">The maximum number of history records to return. Use zero ('0') to use the default.</param>
         /// <returns></returns>
-        public async Task<HistoryList> ListAsync(ulong startHistoryId, string labelId = null, string pageToken = null, uint maxResults = 0)
+        public async Task<HistoryList> ListAsync(string startHistoryId, string labelId = null, string pageToken = null, uint maxResults = 0)
         {
             string queryString = new HistoryQueryStringBuilder()
                 .SetStartHistoryId(startHistoryId)

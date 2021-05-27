@@ -19,7 +19,7 @@ namespace KP.GmailClient.Models
 
         /// <summary>The ID of the mailbox's current history record.</summary>
         [JsonPropertyName("historyId")]
-        public ulong HistoryId { get; set; }
+        public string HistoryId { get; set; }
 
         /// <summary>A string with the values of the properties from this <see cref="Profile"/></summary>
         public override string ToString()

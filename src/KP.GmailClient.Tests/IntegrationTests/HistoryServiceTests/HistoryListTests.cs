@@ -37,7 +37,7 @@ namespace KP.GmailClient.Tests.IntegrationTests.HistoryServiceTests
         public async Task NonExistingId_ReturnsNotFound()
         {
             // Act
-            Func<Task> action = async () => await _service.ListAsync(int.MaxValue);
+            Func<Task> action = async () => await _service.ListAsync(int.MaxValue.ToString());
 
             // Assert
             var ex = await Assert.ThrowsAsync<GmailApiException>(action);

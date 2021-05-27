@@ -16,7 +16,7 @@ namespace KP.GmailClient.Models
 
         /// <summary>The ID of the last history record that modified this thread.</summary>
         [JsonPropertyName("historyId")]
-        public ulong HistoryId { get; set; }
+        public string HistoryId { get; set; }
 
         /// <summary>The list of messages in the thread.</summary>
         [JsonPropertyName("messages")]
