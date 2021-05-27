@@ -29,7 +29,7 @@ namespace KP.GmailClient.Models
 
         /// <summary>List of IDs of labels applied to this message.</summary>
         [JsonPropertyName("labelIds")]
-        public List<string> LabelIds { get; set; } = new List<string>();
+        public List<string> LabelIds { get; set; } = new();
 
         /// <summary>A short part of the message text.</summary>
         [JsonPropertyName("snippet")]
@@ -37,7 +37,7 @@ namespace KP.GmailClient.Models
 
         /// <summary>The parsed email structure in the message parts.</summary>
         [JsonPropertyName("payload")]
-        public Payload Payload { get; set; } = new Payload();
+        public Payload Payload { get; set; } = new();
 
         /// <summary>Estimated size in bytes of the message.</summary>
         [JsonPropertyName("sizeEstimate")]

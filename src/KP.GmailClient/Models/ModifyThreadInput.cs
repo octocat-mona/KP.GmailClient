@@ -8,10 +8,10 @@ namespace KP.GmailClient.Models
     {
         /// <summary>A list of IDs of labels to add to this thread.</summary>
         [JsonPropertyName("addLabelIds")]
-        public List<string> AddLabelIds { get; set; } = new List<string>();
+        public List<string> AddLabelIds { get; set; } = new();
 
         /// <summary>A list of IDs of labels to remove from this thread.</summary>
         [JsonPropertyName("removeLabelIds")]
-        public List<string> RemoveLabelIds { get; set; } = new List<string>();
+        public List<string> RemoveLabelIds { get; set; } = new();
     }
 }

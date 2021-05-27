@@ -9,7 +9,7 @@ namespace KP.GmailClient.Tests
     {
         private readonly Func<TParam, Task<T>> _createFunc;
         private readonly Func<T, Task> _deleteFunc;
-        private readonly List<T> _createdItems = new List<T>();
+        private readonly List<T> _createdItems = new();
 
         public CleanupHelper(Func<TParam, Task<T>> createFunc, Func<T, Task> deleteFunc)
         {

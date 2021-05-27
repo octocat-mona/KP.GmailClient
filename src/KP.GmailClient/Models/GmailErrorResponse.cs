@@ -17,7 +17,7 @@ namespace KP.GmailClient.Models
 
         /// <summary>A list with <see cref="GmailError"/>.</summary>
         [JsonPropertyName("errors")]
-        public List<GmailError> Errors { get; set; } = new List<GmailError>();
+        public List<GmailError> Errors { get; set; } = new();
 
         /// <summary>A string with the values of the properties from this <see cref="GmailErrorResponse"/>.</summary>
         public override string ToString()

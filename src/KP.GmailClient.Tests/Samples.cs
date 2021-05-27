@@ -10,7 +10,7 @@ namespace KP.GmailClient.Tests
         {
             get
             {
-                return new Draft
+                return new()
                 {
                     Message = new Message
                     {
@@ -25,7 +25,7 @@ namespace KP.GmailClient.Tests
         {
             get
             {
-                return new Message
+                return new()
                 {
                     Id = Guid.NewGuid().ToString(),
                     ThreadId = Guid.NewGuid().ToString(),
@@ -47,8 +47,8 @@ namespace KP.GmailClient.Tests
                         },
                         Headers = new List<Header>
                         {
-                            new Header{Name = "header1",Value = "Value 1"},
-                            new Header{Name = "header-2",Value = "Value-2"}
+                            new() {Name = "header1",Value = "Value 1"},
+                            new() {Name = "header-2",Value = "Value-2"}
                         }
                     }
                 };

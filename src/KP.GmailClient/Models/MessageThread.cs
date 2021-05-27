@@ -20,7 +20,7 @@ namespace KP.GmailClient.Models
 
         /// <summary>The list of messages in the thread.</summary>
         [JsonPropertyName("messages")]
-        public List<Message> Messages { get; set; } = new List<Message>();
+        public List<Message> Messages { get; set; } = new();
 
         /// <summary>A string with the values of the properties from this <see cref="MessageThread"/></summary>
         public override string ToString()

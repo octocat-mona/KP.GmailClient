@@ -13,7 +13,7 @@ namespace KP.GmailClient
     {
         private readonly ITokenClient _tokenClient;
         private readonly ITokenStore _tokenStore;
-        private readonly SemaphoreSlim _semaphoreSlim = new SemaphoreSlim(1, 1);
+        private readonly SemaphoreSlim _semaphoreSlim = new(1, 1);
 
         public AuthorizationDelegatingHandler(ITokenClient tokenClient, ITokenStore tokenStore)
         {

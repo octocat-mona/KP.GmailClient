@@ -11,7 +11,7 @@ namespace KP.GmailClient.Models
         /// For non- container MIME message part types, such as text/plain, this field is empty. For more information, see RFC 1521.
         /// </summary>
         [JsonPropertyName("parts")]
-        public List<PayloadBase> Parts { get; set; } = new List<PayloadBase>();
+        public List<PayloadBase> Parts { get; set; } = new();
 
         /// <summary>A string with the values of the properties from this <see cref="Payload"/></summary>
         public override string ToString()

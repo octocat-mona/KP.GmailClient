@@ -8,7 +8,7 @@ namespace KP.GmailClient.Models
     {
         /// <summary>List with messages, with only the ID and/or ThreadID set.</summary>
         [JsonPropertyName("messages")]
-        public List<Message> Messages { get; set; } = new List<Message>();
+        public List<Message> Messages { get; set; } = new();
 
         /// <summary>Token to retrieve the next page of results in the list.</summary>
         [JsonPropertyName("nextPageToken")]

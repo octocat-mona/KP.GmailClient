@@ -8,7 +8,7 @@ namespace KP.GmailClient.Models
     {
         /// <summary>List of drafts.</summary>
         [JsonPropertyName("drafts")]
-        public List<Draft> Drafts { get; set; } = new List<Draft>();
+        public List<Draft> Drafts { get; set; } = new();
 
         /// <summary>Token to retrieve the next page of results in the list.</summary>
         [JsonPropertyName("nextPageToken")]

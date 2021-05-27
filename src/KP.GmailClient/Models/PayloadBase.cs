@@ -24,11 +24,11 @@ namespace KP.GmailClient.Models
         /// it will contain the standard RFC 2822 email headers such as To, From, and Subject.
         /// </summary>
         [JsonPropertyName("headers")]
-        public List<Header> Headers { get; set; } = new List<Header>();
+        public List<Header> Headers { get; set; } = new();
 
         /// <summary>The message part body for this part, which may be empty for container MIME message parts.</summary>
         [JsonPropertyName("body")]
-        public Attachment Body { get; set; } = new Attachment();
+        public Attachment Body { get; set; } = new();
 
         /// <summary>Get the extension ('X-') headers</summary>
         [JsonIgnore]

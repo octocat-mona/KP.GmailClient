@@ -15,22 +15,22 @@ namespace KP.GmailClient.Models
         /// We recommend using the specific change-type fields instead of this.
         /// </summary>
         [JsonPropertyName("messages")]
-        public List<Message> Messages { get; set; } = new List<Message>();
+        public List<Message> Messages { get; set; } = new();
 
         /// <summary>Messages added to the mailbox in this history record.</summary>
         [JsonPropertyName("messagesAdded")]
-        public List<Message> AddedMessages { get; set; } = new List<Message>();
+        public List<Message> AddedMessages { get; set; } = new();
 
         /// <summary>Messages deleted (not Trashed) from the mailbox in this history record.</summary>
         [JsonPropertyName("messagesDeleted")]
-        public List<Message> DeletedMessages { get; set; } = new List<Message>();
+        public List<Message> DeletedMessages { get; set; } = new();
 
         /// <summary>Labels added to messages in this history record.</summary>
         [JsonPropertyName("labelsAdded")]
-        public List<Message> AddedLabels { get; set; } = new List<Message>();
+        public List<Message> AddedLabels { get; set; } = new();
 
         /// <summary>Labels removed from messages in this history record.</summary>
         [JsonPropertyName("labelsRemoved")]
-        public List<Message> RemovedLabels { get; set; } = new List<Message>();
+        public List<Message> RemovedLabels { get; set; } = new();
     }
 }

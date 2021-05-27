@@ -45,7 +45,7 @@ namespace KP.GmailClient.Tests.UnitTests.TokenStoreTests
 
         private static EnvironmentVariablesTokenStore CreateTokenStore()
         {
-            return new EnvironmentVariablesTokenStore
+            return new()
             {
                 AccessTokenKeyName = "access_token_" + Guid.NewGuid().ToString("N"),
                 RefreshTokenKeyName = "refresh_token_" + Guid.NewGuid().ToString("N"),

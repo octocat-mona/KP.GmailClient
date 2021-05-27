@@ -14,10 +14,10 @@ namespace KP.GmailClient.Common
     {
         /// <summary>The URL to send requests to the Gmail API service.</summary>
         public const string ApiBaseUrl = "https://www.googleapis.com/gmail/v1/users/";
-        private static readonly HttpMethod HttpGet = new HttpMethod("GET");
-        private static readonly HttpMethod HttpPost = new HttpMethod("POST");
-        private static readonly HttpMethod HttpPut = new HttpMethod("PUT");
-        private static readonly HttpMethod HttpPatch = new HttpMethod("PATCH");
+        private static readonly HttpMethod HttpGet = new("GET");
+        private static readonly HttpMethod HttpPost = new("POST");
+        private static readonly HttpMethod HttpPut = new("PUT");
+        private static readonly HttpMethod HttpPatch = new("PATCH");
 
         private readonly HttpClient _client;
 

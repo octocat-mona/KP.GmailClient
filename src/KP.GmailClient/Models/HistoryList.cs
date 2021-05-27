@@ -11,7 +11,7 @@ namespace KP.GmailClient.Models
         /// Any messages contained in the response will typically only have id and threadId fields populated.
         /// </summary>
         [JsonPropertyName("history")]
-        public List<History> Histories { get; set; } = new List<History>();
+        public List<History> Histories { get; set; } = new();
 
         /// <summary>The mailbox sequence ID.</summary>
         [JsonPropertyName("historyId")]
