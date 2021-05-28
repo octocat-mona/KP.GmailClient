@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using KP.GmailClient.Models;
 using KP.GmailClient.Services;
 
-namespace KP.GmailClient.Tests
+namespace KP.GmailClient.IntegrationTests
 {
     public class CleanupHelpers
     {

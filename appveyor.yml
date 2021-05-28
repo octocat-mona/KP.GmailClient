@@ -19,7 +19,7 @@ build_script:
 - cmd: >-
     dotnet --version
 
-    dotnet test src\KP.GmailClient.Tests\KP.GmailClient.Tests.csproj
+    dotnet test
 
     SET PACKAGE_VERSION=%APPVEYOR_BUILD_VERSION%
     

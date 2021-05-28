@@ -7,7 +7,7 @@ using KP.GmailClient.Models;
 using KP.GmailClient.Services;
 using Xunit;
 
-namespace KP.GmailClient.Tests
+namespace KP.GmailClient.IntegrationTests
 {
     public class Playground
     {
