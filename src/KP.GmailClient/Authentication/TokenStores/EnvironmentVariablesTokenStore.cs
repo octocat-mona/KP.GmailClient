@@ -17,6 +17,11 @@ namespace KP.GmailClient.Authentication.TokenStores
         public string RefreshTokenKeyName { get; set; } = "refresh_token";
         public string ExpiryDateTokenKeyName { get; set; } = "expiry_date";
 
+        /// <summary>Token store which stores the tokens as environment variables.</summary>
+        /// <param name="keyPrefix">
+        /// An optional prefix for the <see cref="AccessTokenKeyName"/>, <see cref="RefreshTokenKeyName"/> and <see cref="ExpiryDateTokenKeyName"/> variables.
+        /// </param>
+        /// <param name="target"></param>
         public EnvironmentVariablesTokenStore(string keyPrefix = "", EnvironmentVariableTarget target = EnvironmentVariableTarget.Process)
         {
             _keyPrefix = keyPrefix;
@@ -32,19 +37,19 @@ namespace KP.GmailClient.Authentication.TokenStores
 
             string GetVariable(string key)
             {
-                string variableName = $"{_keyPrefix}{key}";
-                string value = Environment.GetEnvironmentVariable(variableName, _target);
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    throw new Exception($"No environment variable found for key '{variableName}'");
-                }
-
-                return value;
+                return Environment.GetEnvironmentVariable($"{_keyPrefix}{key}", _target);
             }
 
             string refreshToken = GetVariable(RefreshTokenKeyName);
             string accessToken = GetVariable(AccessTokenKeyName);
             string expiryDate = GetVariable(ExpiryDateTokenKeyName);
+
+            if (string.IsNullOrWhiteSpace(refreshToken) && string.IsNullOrWhiteSpace(accessToken))
+            {
+                throw new Exception("No environment variables found for both refresh and access token");
+            }
+
+
             bool isValidDate = DateTimeOffset.TryParseExact(expiryDate, DateFormat, null, DateTimeStyles.None, out var date);
 
             _cachedToken = new OAuth2Token

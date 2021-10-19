@@ -31,7 +31,45 @@ namespace KP.GmailClient.UnitTests.TokenStoreTests
         }
 
         [Fact]
-        public async Task WithoutStoredToken_ThrowsException()
+        public async Task WithOnlyAccessToken_ReturnsOAuthToken()
+        {
+            // Arrange
+            var tokenStore = CreateTokenStore();
+            var storedToken = new OAuth2Token
+            {
+                AccessToken = Guid.NewGuid().ToString("N")
+            };
+
+            await tokenStore.StoreTokenAsync(storedToken);
+
+            // Act
+            var token = await tokenStore.GetTokenAsync();
+
+            // Assert
+            token.Should().BeEquivalentTo(storedToken);
+        }
+
+        [Fact]
+        public async Task WithOnlyRefreshToken_ReturnsOAuthToken()
+        {
+            // Arrange
+            var tokenStore = CreateTokenStore();
+            var storedToken = new OAuth2Token
+            {
+                RefreshToken = Guid.NewGuid().ToString("N"),
+            };
+
+            await tokenStore.StoreTokenAsync(storedToken);
+
+            // Act
+            var token = await tokenStore.GetTokenAsync();
+
+            // Assert
+            token.Should().BeEquivalentTo(storedToken);
+        }
+
+        [Fact]
+        public async Task WithoutStoredTokens_ThrowsException()
         {
             // Arrange
             var tokenStore = CreateTokenStore();
@@ -40,7 +78,8 @@ namespace KP.GmailClient.UnitTests.TokenStoreTests
             Task<OAuth2Token> GetToken() => tokenStore.GetTokenAsync();
 
             // Assert
-            await Assert.ThrowsAsync<Exception>(GetToken);
+            (await Assert.ThrowsAsync<Exception>(GetToken))
+                .Message.Should().StartWithEquivalent("No environment variables found");
         }
 
         private static EnvironmentVariablesTokenStore CreateTokenStore()
