@@ -57,7 +57,7 @@ namespace KP.GmailClient.Authentication
         }
 
         /// <summary>Wait for the response or timeout.</summary>
-        /// <exception cref="TimeoutException">When the <see cref="listenTask"/> timed out.</exception>
+        /// <exception cref="TimeoutException">When the listen task timed out.</exception>
         private async Task<AuthorizationResponse> GetResponse(Task<AuthorizationResponse> listenTask, TimeSpan timeout)
         {
             timeout = timeout == default ? DefaultTimeout : timeout;
