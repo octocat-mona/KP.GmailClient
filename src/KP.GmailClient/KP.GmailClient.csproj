@@ -16,6 +16,11 @@
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>1591</NoWarn>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Include="..\..\icon.png" Pack="true" Visible="False" PackagePath="" />
     <None Include="..\..\README.md" Pack="true" Visible="False" PackagePath="" />
