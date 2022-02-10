@@ -79,7 +79,7 @@ namespace KP.GmailClient.UnitTests.TokenStoreTests
 
             // Assert
             (await Assert.ThrowsAsync<Exception>(GetToken))
-                .Message.Should().StartWithEquivalent("No environment variables found");
+                .Message.Should().StartWith("No environment variables found");
         }
 
         private static EnvironmentVariablesTokenStore CreateTokenStore()

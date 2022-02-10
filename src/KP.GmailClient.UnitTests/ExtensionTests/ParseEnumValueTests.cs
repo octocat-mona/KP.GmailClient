@@ -19,7 +19,7 @@ namespace KP.GmailClient.UnitTests.ExtensionTests
             var action = actionEnum.ParseEnumValue<RequestAction>();
 
             // Assert
-            action.Should().BeEquivalentTo(RequestAction.Create);
+            action.Should().Be(RequestAction.Create);
         }
 
         [Fact]
@@ -49,7 +49,7 @@ namespace KP.GmailClient.UnitTests.ExtensionTests
             var action = labelAction.ParseEnumValue<RequestAction>();
 
             // Assert
-            action.Should().BeEquivalentTo(requestAction);
+            action.Should().Be(requestAction);
         }
     }
 }

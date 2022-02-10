@@ -21,7 +21,7 @@ namespace KP.GmailClient.IntegrationTests.ThreadServiceTests
             Func<Task> action = async () => await _service.ListIdsAsync();
 
             // Assert
-            action.Should().NotThrow();
+            action.Should().NotThrowAsync();
         }
 
         //[Fact] TODO: implement
@@ -31,7 +31,7 @@ namespace KP.GmailClient.IntegrationTests.ThreadServiceTests
             Func<Task> action = async () => await _service.ListAsync();
 
             // Assert
-            action.Should().NotThrow();
+            action.Should().NotThrowAsync();
         }
     }
 }

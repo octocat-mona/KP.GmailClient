@@ -23,7 +23,7 @@ namespace KP.GmailClient.IntegrationTests.MessageServiceTests
             Func<Task> action = async () => await _service.CountAsync();
 
             // Assert
-            action.Should().NotThrow();
+            action.Should().NotThrowAsync();
         }
 
         [Fact]
