@@ -71,7 +71,12 @@ namespace KP.GmailClient.Authentication.TokenClients
         private async Task<OAuth2Token> GetTokenAsync(Dictionary<string, string> parameters, CancellationToken cancellationToken)
         {
             var response = await _httpClient.PostAsync(_credentials.TokenUri, new FormUrlEncodedContent(parameters), cancellationToken);
-            response.EnsureSuccessStatusCode();
+
+            if (!response.IsSuccessStatusCode)
+            {
+                string content = await response.Content.ReadAsStringAsync();
+                throw new HttpRequestException(content);
+            }
 
             using (var stream = await response.Content.ReadAsStreamAsync())
             {
