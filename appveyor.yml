@@ -9,9 +9,9 @@ environment:
   KP_GmailClient_ClientId:
     secure: /mS9qokfGpnKGqfFzQgl6BiCZnuObDAtlivHhSvbp0MiB46cqlHw1m3pMPv+3SNcAgqzjxLQ1eATPTox064q0x9qjRfLGGSCa/aPjEWuGgk=
   KP_GmailClient_ClientSecret:
-    secure: Q3B/e+T+6Wo4EU7cfLsuo80arnNwtQkiTNyHNYSApOk=
+    secure: X5IcpMbNOrpElgqvlHpkRGsOO/6Q1DTiDLMJpkn0pTeWEueMJ6cY58GOOJHEOJ54
   KP_GmailClient_RefreshToken:
-    secure: zeDaXWgRuUue0cvOt/qBYoTnk8X5cbBuqMMWLIwSTdjqDEdCqdLxF3tILKhVfKM00bbJm7ZYZeO9cYH+8Z/Ywm8VGG16EA2YiqcehVVhvJRyoR1i1Z56KxJrefnFoGWTZ2UQa4URl3X9hdDB/2u+Sw==
+    secure: MWTsGuPKrgUYaHN5PutWYXoNJ1ci3BxRnT6f3xJvv/LiVKy3nVoXvBzaBfPEFPOKDeZ93eplbXMCrxVetuKZyqw6Tx/SVxrqlOpbLf/RMJf4EpHEfmJs0idV/4deEqaceuQg+kGET+n4ctDmVuEoTg==
   KP_GmailClient_EmailAddress:
     secure: XcKWCKghmWlD4tgz1tKnXXRg7YYH2cTsv3w/kMm/tYU=
 
