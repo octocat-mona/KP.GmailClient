@@ -12,6 +12,7 @@ namespace KP.GmailClient.Common
         /// <summary>Parses the <paramref name="stream"/> to an Gmail API error response.</summary>
         /// <param name="statusCode">The original HTTP status code included in the error when the content could not be parsed.</param>
         /// <param name="stream">Stream to read the content from, does not close the stream.</param>
+        /// <exception cref="GmailApiException">When Gmail returned an error.</exception>
         internal static async Task<GmailApiException> ParseAsync(HttpStatusCode statusCode, Stream stream)
         {
             async Task<GmailApiException> CreateFromRawContent()

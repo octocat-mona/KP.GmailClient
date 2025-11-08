@@ -101,7 +101,8 @@ namespace KP.GmailClient.Services
         /// <item><description>3. The Subject headers must match.</description></item>
         /// </list>
         /// </param>
-        /// <returns></returns>
+        /// <returns>The sent message.</returns>
+        /// <exception cref="GmailApiException">When Gmail returned an error.</exception>
         public async Task<Message> SendAsync(string raw, string threadId)
         {
             string queryString = new MessageQueryStringBuilder()
