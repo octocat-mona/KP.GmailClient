@@ -1,5 +1,5 @@
 ﻿using System;
-using FluentAssertions;
+using AwesomeAssertions;
 using KP.GmailClient.Extensions;
 using KP.GmailClient.Models;
 using Xunit;

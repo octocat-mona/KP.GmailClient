@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Web;
-using FluentAssertions;
+using AwesomeAssertions;
 using KP.GmailClient.Builders;
 using KP.GmailClient.Common.Enums;
 using Xunit;

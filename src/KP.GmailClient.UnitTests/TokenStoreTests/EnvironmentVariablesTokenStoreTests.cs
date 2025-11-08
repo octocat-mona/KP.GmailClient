@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using FluentAssertions;
+using AwesomeAssertions;
 using KP.GmailClient.Authentication.TokenStores;
 using KP.GmailClient.Models;
 using Xunit;

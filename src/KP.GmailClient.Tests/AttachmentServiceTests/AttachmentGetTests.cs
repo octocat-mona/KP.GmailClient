@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Threading.Tasks;
-using FluentAssertions;
+using AwesomeAssertions;
 using KP.GmailClient.Common;
 using KP.GmailClient.Models;
 using KP.GmailClient.Services;

@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using FluentAssertions;
+using AwesomeAssertions;
 using KP.GmailClient.Common;
 using KP.GmailClient.Services;
 using Xunit;
@@ -30,7 +30,7 @@ namespace KP.GmailClient.IntegrationTests.HistoryServiceTests
             var list = await _service.ListAsync(message.HistoryId);
 
             // Assert
-            list.Histories.Should().HaveCountGreaterOrEqualTo(1);
+            list.Histories.Should().HaveCountGreaterThanOrEqualTo(1);
         }
 
         [Fact]
