@@ -20,7 +20,17 @@ public class TokenClient : ITokenClient
     public TokenClient(OAuth2ClientCredentials credentials)
     {
         _credentials = credentials ?? throw new ArgumentNullException(nameof(credentials));
-        
+
+        if (string.IsNullOrWhiteSpace(credentials.ClientId))
+        {
+            throw new InvalidOperationException("Missing required client ID");
+        }
+
+        if (string.IsNullOrWhiteSpace(credentials.ClientSecret))
+        {
+            throw new InvalidOperationException("Missing required client secret");
+        }
+
         var httpClientHandler = new HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate };
         _httpClient = new HttpClient(httpClientHandler)
         {
