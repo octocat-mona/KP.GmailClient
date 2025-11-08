@@ -20,7 +20,12 @@ public class TokenClient : ITokenClient
     public TokenClient(OAuth2ClientCredentials credentials)
     {
         _credentials = credentials ?? throw new ArgumentNullException(nameof(credentials));
-        _httpClient = new HttpClient(new HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate });
+        
+        var httpClientHandler = new HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate };
+        _httpClient = new HttpClient(httpClientHandler)
+        {
+            DefaultRequestVersion = HttpVersion.Version20,
+        };
     }
 
     /// <summary></summary>
