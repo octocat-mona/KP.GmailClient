@@ -1,15 +1,14 @@
-namespace KP.GmailClient.Common.Enums
+namespace KP.GmailClient.Common.Enums;
+
+/// <summary>
+/// Actions available for email drafts.
+/// </summary>
+internal enum DraftRequestAction
 {
-    /// <summary>
-    /// Actions available for email drafts.
-    /// </summary>
-    internal enum DraftRequestAction
-    {
-        Create,
-        Delete,
-        List,
-        Update,
-        Get,
-        Patch
-    }
+    Create,
+    Delete,
+    List,
+    Update,
+    Get,
+    Patch
 }

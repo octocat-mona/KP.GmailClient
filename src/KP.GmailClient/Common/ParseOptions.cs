@@ -1,15 +1,14 @@
-﻿namespace KP.GmailClient.Common
-{
-    internal class ParseOptions
-    {
-        public ParseOptions(string path)
-        {
-            Path = path;
-        }
+﻿namespace KP.GmailClient.Common;
 
-        /// <summary>
-        /// A JPath expression.
-        /// </summary>
-        public string Path { get; set; }
+internal class ParseOptions
+{
+    public ParseOptions(string path)
+    {
+        Path = path;
     }
+
+    /// <summary>
+    /// A JPath expression.
+    /// </summary>
+    public string Path { get; set; }
 }

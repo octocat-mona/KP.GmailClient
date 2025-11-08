@@ -4,25 +4,24 @@ using KP.GmailClient.Models;
 using KP.GmailClient.Services;
 using Xunit;
 
-namespace KP.GmailClient.IntegrationTests.LabelServiceTests
+namespace KP.GmailClient.IntegrationTests.LabelServiceTests;
+
+public class LabelListTests
 {
-    public class LabelListTests
+    private readonly LabelService _service;
+
+    public LabelListTests()
     {
-        private readonly LabelService _service;
+        _service = new LabelService(SettingsManager.GmailProxy);
+    }
 
-        public LabelListTests()
-        {
-            _service = new LabelService(SettingsManager.GmailProxy);
-        }
+    [Fact]
+    public async Task CanList()
+    {
+        // Act
+        IList<Label> labels = await _service.ListAsync();
 
-        [Fact]
-        public async Task CanList()
-        {
-            // Act
-            IList<Label> labels = await _service.ListAsync();
-
-            // Assert
-            Assert.NotNull(labels);
-        }
+        // Assert
+        Assert.NotNull(labels);
     }
 }

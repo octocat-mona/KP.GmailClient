@@ -1,10 +1,9 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace KP.GmailClient.Models
+namespace KP.GmailClient.Models;
+
+internal class GmailErrorResponseWrapper
 {
-    internal class GmailErrorResponseWrapper
-    {
-        [JsonPropertyName("error")]
-        public GmailErrorResponse Error { get; set; }
-    }
+    [JsonPropertyName("error")]
+    public GmailErrorResponse Error { get; set; }
 }

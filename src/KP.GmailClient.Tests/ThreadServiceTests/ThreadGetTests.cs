@@ -8,45 +8,44 @@ using KP.GmailClient.Models;
 using KP.GmailClient.Services;
 using Xunit;
 
-namespace KP.GmailClient.IntegrationTests.ThreadServiceTests
+namespace KP.GmailClient.IntegrationTests.ThreadServiceTests;
+
+public class ThreadGetTests
 {
-    public class ThreadGetTests
+    private readonly ThreadService _service;
+    private readonly MessageService _messageService;
+
+    public ThreadGetTests()
     {
-        private readonly ThreadService _service;
-        private readonly MessageService _messageService;
+        _service = new ThreadService(SettingsManager.GmailProxy);
+        _messageService = new MessageService(SettingsManager.GmailProxy);
+    }
 
-        public ThreadGetTests()
-        {
-            _service = new ThreadService(SettingsManager.GmailProxy);
-            _messageService = new MessageService(SettingsManager.GmailProxy);
-        }
+    [Fact]
+    public async Task CanGet()
+    {
+        // Arrange
+        Message message = (await _messageService.ListByLabelAsync(Label.Sent)).First();
+        string threadId = message.ThreadId;
 
-        [Fact]
-        public async Task CanGet()
-        {
-            // Arrange
-            Message message = (await _messageService.ListByLabelAsync(Label.Sent)).First();
-            string threadId = message.ThreadId;
+        // Act
+        MessageThread thread = await _service.GetAsync(threadId);
 
-            // Act
-            MessageThread thread = await _service.GetAsync(threadId);
+        // Assert
+        thread.Id.Should().NotBeNullOrWhiteSpace();
+    }
 
-            // Assert
-            thread.Id.Should().NotBeNullOrWhiteSpace();
-        }
+    [Fact]
+    public async Task NonExistingThreadId_ReturnsNotFound()
+    {
+        // Arrange
+        const string id = "13c97ae7b72cb05e";
 
-        [Fact]
-        public async Task NonExistingThreadId_ReturnsNotFound()
-        {
-            // Arrange
-            const string id = "13c97ae7b72cb05e";
+        // Act
+        Func<Task> action = async () => await _service.GetAsync(id);
 
-            // Act
-            Func<Task> action = async () => await _service.GetAsync(id);
-
-            // Assert
-            var ex = await Assert.ThrowsAsync<GmailApiException>(action);
-            ex.StatusCode.Should().Be(HttpStatusCode.NotFound);
-        }
+        // Assert
+        var ex = await Assert.ThrowsAsync<GmailApiException>(action);
+        ex.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }
 }

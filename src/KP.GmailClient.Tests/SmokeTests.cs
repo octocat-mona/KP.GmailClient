@@ -1,18 +1,17 @@
 ﻿using AwesomeAssertions;
 using Xunit;
 
-namespace KP.GmailClient.IntegrationTests
-{
-    public class SmokeTests
-    {
-        [Fact]
-        public void HasSettingsConfigured()
-        {
-            // Act
-            var proxy = SettingsManager.GmailProxy;
+namespace KP.GmailClient.IntegrationTests;
 
-            // Assert
-            proxy.Should().NotBeNull();
-        }
+public class SmokeTests
+{
+    [Fact]
+    public void HasSettingsConfigured()
+    {
+        // Act
+        var proxy = SettingsManager.GmailProxy;
+
+        // Assert
+        proxy.Should().NotBeNull();
     }
 }

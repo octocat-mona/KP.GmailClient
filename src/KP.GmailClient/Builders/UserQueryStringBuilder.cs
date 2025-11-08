@@ -1,10 +1,9 @@
-﻿namespace KP.GmailClient.Builders
+﻿namespace KP.GmailClient.Builders;
+
+internal class UserQueryStringBuilder : QueryStringBuilder
 {
-    internal class UserQueryStringBuilder : QueryStringBuilder
+    public UserQueryStringBuilder()
     {
-        public UserQueryStringBuilder()
-        {
-            Path = "profile";
-        }
+        Path = "profile";
     }
 }

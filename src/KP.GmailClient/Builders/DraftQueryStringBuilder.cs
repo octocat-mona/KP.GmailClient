@@ -1,30 +1,29 @@
 ﻿using KP.GmailClient.Common.Enums;
 
-namespace KP.GmailClient.Builders
+namespace KP.GmailClient.Builders;
+
+internal class DraftQueryStringBuilder : UploadQueryStringBuilder
 {
-    internal class DraftQueryStringBuilder : UploadQueryStringBuilder
+    public DraftQueryStringBuilder()
     {
-        public DraftQueryStringBuilder()
-        {
-            Path = "drafts";
-        }
+        Path = "drafts";
+    }
 
-        public DraftQueryStringBuilder SetFormat(DraftFormat format)
-        {
-            base.SetFormat(format);
-            return this;
-        }
+    public DraftQueryStringBuilder SetFormat(DraftFormat format)
+    {
+        base.SetFormat(format);
+        return this;
+    }
 
-        public DraftQueryStringBuilder SetRequestAction(DraftRequestAction action, string id)
-        {
-            base.SetRequestAction(action, id);
-            return this;
-        }
+    public DraftQueryStringBuilder SetRequestAction(DraftRequestAction action, string id)
+    {
+        base.SetRequestAction(action, id);
+        return this;
+    }
 
-        public DraftQueryStringBuilder SetRequestAction(DraftRequestAction action)
-        {
-            base.SetRequestAction(action);
-            return this;
-        }
+    public DraftQueryStringBuilder SetRequestAction(DraftRequestAction action)
+    {
+        base.SetRequestAction(action);
+        return this;
     }
 }

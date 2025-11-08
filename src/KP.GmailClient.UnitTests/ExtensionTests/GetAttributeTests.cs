@@ -3,54 +3,53 @@ using AwesomeAssertions;
 using KP.GmailClient.Common;
 using Xunit;
 
-namespace KP.GmailClient.UnitTests.ExtensionTests
+namespace KP.GmailClient.UnitTests.ExtensionTests;
+
+public class GetAttributeTests
 {
-    public class GetAttributeTests
+    internal const string AttributeText = "Text";
+
+    [Fact]
+    public void CanGetGetAttribute()
     {
-        internal const string AttributeText = "Text";
+        // Arrange
+        const TestEnum test = TestEnum.ValueWithAttribute;
 
-        [Fact]
-        public void CanGetGetAttribute()
-        {
-            // Arrange
-            const TestEnum test = TestEnum.ValueWithAttribute;
+        // Act
+        TestAttribute attribute = test.GetAttribute<TestAttribute, TestEnum>();
 
-            // Act
-            TestAttribute attribute = test.GetAttribute<TestAttribute, TestEnum>();
-
-            // Assert
-            attribute.Text.Should().Be(AttributeText);
-        }
-
-        [Fact]
-        public void NoAttribute_ReturnsNull()
-        {
-            // Arrange
-            const TestEnum test = TestEnum.ValueWithoutAttribute;
-
-            // Act
-            TestAttribute attribute = test.GetAttribute<TestAttribute, TestEnum>();
-
-            // Assert
-            attribute.Should().BeNull();
-        }
+        // Assert
+        attribute.Text.Should().Be(AttributeText);
     }
 
-    public enum TestEnum
+    [Fact]
+    public void NoAttribute_ReturnsNull()
     {
-        [Test(GetAttributeTests.AttributeText)]
-        ValueWithAttribute,
+        // Arrange
+        const TestEnum test = TestEnum.ValueWithoutAttribute;
 
-        ValueWithoutAttribute
+        // Act
+        TestAttribute attribute = test.GetAttribute<TestAttribute, TestEnum>();
+
+        // Assert
+        attribute.Should().BeNull();
     }
+}
 
-    public class TestAttribute : Attribute
+public enum TestEnum
+{
+    [Test(GetAttributeTests.AttributeText)]
+    ValueWithAttribute,
+
+    ValueWithoutAttribute
+}
+
+public class TestAttribute : Attribute
+{
+    public string Text { get; set; }
+
+    public TestAttribute(string value)
     {
-        public string Text { get; set; }
-
-        public TestAttribute(string value)
-        {
-            Text = value;
-        }
+        Text = value;
     }
 }

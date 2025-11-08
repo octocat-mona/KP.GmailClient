@@ -3,18 +3,17 @@ using AwesomeAssertions;
 using KP.GmailClient.Builders;
 using Xunit;
 
-namespace KP.GmailClient.UnitTests.BuilderTests
-{
-    public class HistoryQueryStringBuilderTests
-    {
-        [Fact]
-        public void CannotBuild_WithoutHistoryId()
-        {
-            // Act
-            Action action = () => new HistoryQueryStringBuilder().Build();
+namespace KP.GmailClient.UnitTests.BuilderTests;
 
-            // Assert
-            action.Should().Throw<Exception>();
-        }
+public class HistoryQueryStringBuilderTests
+{
+    [Fact]
+    public void CannotBuild_WithoutHistoryId()
+    {
+        // Act
+        Action action = () => new HistoryQueryStringBuilder().Build();
+
+        // Assert
+        action.Should().Throw<Exception>();
     }
 }

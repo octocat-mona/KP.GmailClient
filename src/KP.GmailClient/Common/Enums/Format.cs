@@ -1,10 +1,9 @@
-﻿namespace KP.GmailClient.Common.Enums
+﻿namespace KP.GmailClient.Common.Enums;
+
+internal enum Format
 {
-    internal enum Format
-    {
-        Full,
-        Metadata,
-        Minimal,
-        Raw
-    }
+    Full,
+    Metadata,
+    Minimal,
+    Raw
 }

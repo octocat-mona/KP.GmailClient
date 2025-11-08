@@ -6,63 +6,62 @@ using AwesomeAssertions;
 using KP.GmailClient.Builders;
 using Xunit;
 
-namespace KP.GmailClient.UnitTests.BuilderTests
+namespace KP.GmailClient.UnitTests.BuilderTests;
+
+public class EmailMessageBuilderTests
 {
-    public class EmailMessageBuilderTests
+    private const string To = "to.first@domain.com, to.second@domain.com";
+    private const string Subject = "Test subject";
+
+    [Fact]
+    public void CanBuild()
     {
-        private const string To = "to.first@domain.com, to.second@domain.com";
-        private const string Subject = "Test subject";
+        // Act
+        string parsedMessage = new EmailMessageBuilder()
+            .AddTo(To)
+            .SetSubject(Subject)
+            .Build();
 
-        [Fact]
-        public void CanBuild()
-        {
-            // Act
-            string parsedMessage = new EmailMessageBuilder()
-                .AddTo(To)
-                .SetSubject(Subject)
-                .Build();
+        // Assert
+        AssertMessage(parsedMessage);
+    }
 
-            // Assert
-            AssertMessage(parsedMessage);
-        }
+    [Fact]
+    public void WithEmptyFields_AreNotIncluded()
+    {
+        // Arrange
+        var builder = new EmailMessageBuilder()
+            .AddTo(To)
+            .SetSubject(Subject);
 
-        [Fact]
-        public void WithEmptyFields_AreNotIncluded()
-        {
-            // Arrange
-            var builder = new EmailMessageBuilder()
-                .AddTo(To)
-                .SetSubject(Subject);
+        // Act
+        string parsedMessage = builder
+            .AddReplyTo("")
+            .AddCc("")
+            .AddBcc("")
+            .Build();
 
-            // Act
-            string parsedMessage = builder
-                .AddReplyTo("")
-                .AddCc("")
-                .AddBcc("")
-                .Build();
+        // Assert
+        AssertMessage(parsedMessage);
+    }
 
-            // Assert
-            AssertMessage(parsedMessage);
-        }
+    private static void AssertMessage(string parsedMessage, bool isBodyHtml = false)
+    {
+        string[] fields = parsedMessage.Split(new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+        Dictionary<string, string> headers = fields
+            .Select(field => field.Split(new[] { ": " }, StringSplitOptions.None))
+            .ToDictionary(strings => strings[0], strings => strings[1]);
 
-        private static void AssertMessage(string parsedMessage, bool isBodyHtml = false)
-        {
-            string[] fields = parsedMessage.Split(new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
-            Dictionary<string, string> headers = fields
-                .Select(field => field.Split(new[] { ": " }, StringSplitOptions.None))
-                .ToDictionary(strings => strings[0], strings => strings[1]);
+        string to = headers["To"];
+        string subject = headers["Subject"];
+        string contentTypeString = headers["Content-Type"];
+        var contentType = new ContentType(contentTypeString);
 
-            string to = headers["To"];
-            string subject = headers["Subject"];
-            string contentTypeString = headers["Content-Type"];
-            var contentType = new ContentType(contentTypeString);
+        to.Should().BeEquivalentTo(To);
+        subject.Should().BeEquivalentTo(Subject);
 
-            to.Should().BeEquivalentTo(To);
-            subject.Should().BeEquivalentTo(Subject);
-
-            // Charset is 'utf-8' with Mono
-            contentType.CharSet.Should().BeOneOf("us-ascii", "utf-8");
-            contentType.MediaType.Should().BeEquivalentTo(isBodyHtml ? MediaTypeNames.Text.Html : MediaTypeNames.Text.Plain);
-        }
+        // Charset is 'utf-8' with Mono
+        contentType.CharSet.Should().BeOneOf("us-ascii", "utf-8");
+        contentType.MediaType.Should().BeEquivalentTo(isBodyHtml ? MediaTypeNames.Text.Html : MediaTypeNames.Text.Plain);
     }
 }
