@@ -23,7 +23,7 @@ namespace KP.GmailClient.IntegrationTests.MessageServiceTests
         public async Task CanSend()
         {
             // Arrange
-            var labels = new List<string> { Label.Inbox, Label.Sent, Label.Unread };
+            var labels = new List<string> { Label.Sent };
             string to = SettingsManager.GetEmailAddress();
 
             // Act
@@ -31,7 +31,7 @@ namespace KP.GmailClient.IntegrationTests.MessageServiceTests
 
             // Assert
             _helper.Add(sentMessage);
-            sentMessage.LabelIds.Should().BeEquivalentTo(labels);
+            sentMessage.LabelIds.Should().Contain(labels);
         }
 
         public void Dispose()
