@@ -74,11 +74,11 @@ namespace KP.GmailClient.Authentication.TokenClients
 
             if (!response.IsSuccessStatusCode)
             {
-                string content = await response.Content.ReadAsStringAsync();
+                string content = await response.Content.ReadAsStringAsync(cancellationToken);
                 throw new HttpRequestException(content);
             }
 
-            using (var stream = await response.Content.ReadAsStreamAsync())
+            using (var stream = await response.Content.ReadAsStreamAsync(cancellationToken))
             {
                 var token = await JsonSerializer.DeserializeAsync<OAuth2Token>(stream, cancellationToken: cancellationToken)
                     ?? throw new JsonException("Invalid JSON token response");
