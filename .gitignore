@@ -321,3 +321,4 @@ ASALocalRun/
 
 # Project specific files
 /src/KP.GmailClient.Tests/appsettings.Private.json
+**/oauth_client_credentials.json
