@@ -11,7 +11,7 @@ environment:
   KP_GmailClient_ClientSecret:
     secure: X5IcpMbNOrpElgqvlHpkRGsOO/6Q1DTiDLMJpkn0pTeWEueMJ6cY58GOOJHEOJ54
   KP_GmailClient_RefreshToken:
-    secure: MWTsGuPKrgUYaHN5PutWYXoNJ1ci3BxRnT6f3xJvv/LiVKy3nVoXvBzaBfPEFPOKDeZ93eplbXMCrxVetuKZyqw6Tx/SVxrqlOpbLf/RMJf4EpHEfmJs0idV/4deEqaceuQg+kGET+n4ctDmVuEoTg==
+    secure: 92gjDDxL2mDpcZdPvEw1AiTnEURvx2MHKPPwf6hw79wEtqV7e4yRosm7xfw7zXB8+28xEg8zbyNV9bBpq1HYP1fLn2oQ0gJgnbR6DcQ9Rj3+P9mcbdn3kbw4UkPTEmz+F9HJazgQZPEUxlJweOAwbw==
   KP_GmailClient_EmailAddress:
     secure: XcKWCKghmWlD4tgz1tKnXXRg7YYH2cTsv3w/kMm/tYU=
 
@@ -38,6 +38,6 @@ artifacts:
 deploy:
 - provider: NuGet
   api_key:
-    secure: v4IiIiLsOKVIlH6hRmLpekJAFlP23uy7gYJmEvX7i5T/tnYTWDVAhlLK2sLQA55B
+    secure: rXW11e6wZQrnGF6oyaU4dGS0O5stKTifDMIL1WY6cI9FJvbpsiOT6sOLEoQsiGSR
   on:
     APPVEYOR_REPO_TAG: true

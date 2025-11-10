@@ -1,10 +1,9 @@
-﻿namespace KP.GmailClient.Builders
+﻿namespace KP.GmailClient.Builders;
+
+internal class AttachmentQueryStringBuilder : QueryStringBuilder
 {
-    internal class AttachmentQueryStringBuilder : QueryStringBuilder
+    public AttachmentQueryStringBuilder(string messageid, string id)
     {
-        public AttachmentQueryStringBuilder(string messageid, string id)
-        {
-            Path = string.Concat("messages/", messageid, "/attachments/" + id);
-        }
+        Path = string.Concat("messages/", messageid, "/attachments/" + id);
     }
 }

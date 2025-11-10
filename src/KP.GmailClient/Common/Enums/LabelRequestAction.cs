@@ -1,15 +1,14 @@
-namespace KP.GmailClient.Common.Enums
+namespace KP.GmailClient.Common.Enums;
+
+/// <summary>
+/// Actions available for email labels.
+/// </summary>
+internal enum LabelRequestAction
 {
-    /// <summary>
-    /// Actions available for email labels.
-    /// </summary>
-    internal enum LabelRequestAction
-    {
-        Create,
-        Delete,
-        List,
-        Update,
-        Get,
-        Patch
-    }
+    Create,
+    Delete,
+    List,
+    Update,
+    Get,
+    Patch
 }

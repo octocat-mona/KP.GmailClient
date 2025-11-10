@@ -4,113 +4,113 @@ using KP.GmailClient.Common;
 using KP.GmailClient.Common.Enums;
 using KP.GmailClient.Models;
 
-namespace KP.GmailClient.Services
+namespace KP.GmailClient.Services;
+
+/// <summary>Service to get, create, update and delete emails.</summary>
+public class MessageService
 {
-    /// <summary>Service to get, create, update and delete emails.</summary>
-    public class MessageService
+    private readonly GmailProxy _proxy;
+
+    /// <summary>Service for getting email attachments.</summary>
+    public AttachmentService Attachments { get; set; }
+
+    internal MessageService(GmailProxy proxy)
     {
-        private readonly GmailProxy _proxy;
+        _proxy = proxy;
+        Attachments = new AttachmentService(proxy);
+    }
 
-        /// <summary>Service for getting email attachments.</summary>
-        public AttachmentService Attachments { get; set; }
+    /// <summary>Lists the message IDs.</summary>
+    /// <param name="query">Only return messages matching the specified query.
+    /// Supports the same query format as the Gmail search box. For example, "from:someuser@example.com rfc822msgid: is:unread".</param>
+    /// <param name="maxResults">Maximum number of messages to return</param>
+    /// <param name="includeSpamAndTrash">Include messages from SPAM and TRASH in the results.</param>
+    /// <param name="labelIds">Only return messages with labels that match all of the specified label IDs</param>
+    /// <returns>A <see cref="MessageList"/> containing the message IDs</returns>
+    public async Task<MessageList> ListIdsAsync(string query = null, ushort maxResults = 0, bool includeSpamAndTrash = false, params string[] labelIds)
+    {
+        string queryString = new MessageQueryStringBuilder()
+            .SetRequestAction(MessageRequestAction.List)
+            .SetFields(MessageFields.Id | MessageFields.ResultSizeEstimate | MessageFields.NextPageToken)
+            .SetQuery(query)
+            .SetLabelIds(labelIds)
+            .SetMaxResults(maxResults)
+            .SetIncludeSpamAndTrash(includeSpamAndTrash)
+            .Build();
 
-        internal MessageService(GmailProxy proxy)
-        {
-            _proxy = proxy;
-            Attachments = new AttachmentService(proxy);
-        }
+        return await _proxy.Get<MessageList>(queryString);
+    }
 
-        /// <summary>Lists the message IDs.</summary>
-        /// <param name="query">Only return messages matching the specified query.
-        /// Supports the same query format as the Gmail search box. For example, "from:someuser@example.com rfc822msgid: is:unread".</param>
-        /// <param name="maxResults">Maximum number of messages to return</param>
-        /// <param name="includeSpamAndTrash">Include messages from SPAM and TRASH in the results.</param>
-        /// <param name="labelIds">Only return messages with labels that match all of the specified label IDs</param>
-        /// <returns>A <see cref="MessageList"/> containing the message IDs</returns>
-        public async Task<MessageList> ListIdsAsync(string query = null, ushort maxResults = 0, bool includeSpamAndTrash = false, params string[] labelIds)
-        {
-            string queryString = new MessageQueryStringBuilder()
-                .SetRequestAction(MessageRequestAction.List)
-                .SetFields(MessageFields.Id | MessageFields.ResultSizeEstimate | MessageFields.NextPageToken)
-                .SetQuery(query)
-                .SetLabelIds(labelIds)
-                .SetMaxResults(maxResults)
-                .SetIncludeSpamAndTrash(includeSpamAndTrash)
-                .Build();
+    /// <summary>Gets the specified message.</summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    public async Task<Message> GetAsync(string id)
+    {
+        string queryString = new MessageQueryStringBuilder()
+            .SetRequestAction(MessageRequestAction.Get, id)
+            .Build();
 
-            return await _proxy.Get<MessageList>(queryString);
-        }
+        return await _proxy.Get<Message>(queryString);
+    }
 
-        /// <summary>Gets the specified message.</summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public async Task<Message> GetAsync(string id)
-        {
-            string queryString = new MessageQueryStringBuilder()
-               .SetRequestAction(MessageRequestAction.Get, id)
-               .Build();
+    /// <summary>
+    /// Immediately and permanently deletes the specified message.
+    /// WARNING: This operation CANNOT be undone. Prefer messages.trash instead.
+    /// </summary>
+    public async Task DeleteAsync(string id)
+    {
+        string queryString = new MessageQueryStringBuilder()
+            .SetRequestAction(MessageRequestAction.Delete, id)
+            .Build();
 
-            return await _proxy.Get<Message>(queryString);
-        }
+        await _proxy.Delete(queryString);
+    }
 
-        /// <summary>
-        /// Immediately and permanently deletes the specified message.
-        /// WARNING: This operation CANNOT be undone. Prefer messages.trash instead.
-        /// </summary>
-        public async Task DeleteAsync(string id)
-        {
-            string queryString = new MessageQueryStringBuilder()
-               .SetRequestAction(MessageRequestAction.Delete, id)
-               .Build();
+    /// <summary>Moves the specified message to the trash.</summary>
+    /// <param name="id">The ID of the message to Trash.</param>
+    /// <returns></returns>
+    public async Task<Message> TrashAsync(string id)
+    {
+        string queryString = new MessageQueryStringBuilder()
+            .SetRequestAction(MessageRequestAction.Trash, id)
+            .Build();
 
-            await _proxy.Delete(queryString);
-        }
+        return await _proxy.Post<Message>(queryString);
+    }
 
-        /// <summary>Moves the specified message to the trash.</summary>
-        /// <param name="id">The ID of the message to Trash.</param>
-        /// <returns></returns>
-        public async Task<Message> TrashAsync(string id)
-        {
-            string queryString = new MessageQueryStringBuilder()
-                .SetRequestAction(MessageRequestAction.Trash, id)
-                .Build();
+    /// <summary>
+    /// Removes the specified message from the trash.
+    /// </summary>
+    /// <param name="id">The ID of the message to remove from Trash</param>
+    public async Task<Message> UnTrashAsync(string id)
+    {
+        string queryString = new MessageQueryStringBuilder()
+            .SetRequestAction(MessageRequestAction.Untrash, id)
+            .Build();
 
-            return await _proxy.Post<Message>(queryString);
-        }
+        return await _proxy.Post<Message>(queryString);
+    }
 
-        /// <summary>
-        /// Removes the specified message from the trash.
-        /// </summary>
-        /// <param name="id">The ID of the message to remove from Trash</param>
-        public async Task<Message> UnTrashAsync(string id)
-        {
-            string queryString = new MessageQueryStringBuilder()
-               .SetRequestAction(MessageRequestAction.Untrash, id)
-               .Build();
+    /// <summary>Sends the specified message to the recipients in the To, Cc, and Bcc headers.</summary>
+    /// <param name="raw">The entire email message in an RFC 2822 formatted and base64url encoded string.
+    /// Returned in <see cref="GetAsync"/> and <see cref="DraftService.GetAsync"/> responses when the format=RAW parameter is supplied.</param>
+    /// <param name="threadId">The ID of the thread the message belongs to. To add a message or draft to a thread, the following criteria must be met:
+    /// <list type="disc">
+    /// <item><description>1. The requested threadId must be specified on the <see cref="Message"/> or <see cref="Draft.Message"/> you supply with your request.</description></item>
+    /// <item><description>2. The References and In-Reply-To headers must be set in compliance with the RFC 2822 standard.</description></item>
+    /// <item><description>3. The Subject headers must match.</description></item>
+    /// </list>
+    /// </param>
+    /// <returns>The sent message.</returns>
+    /// <exception cref="GmailApiException">When Gmail returned an error.</exception>
+    public async Task<Message> SendAsync(string raw, string threadId)
+    {
+        string queryString = new MessageQueryStringBuilder()
+            .SetRequestAction(MessageRequestAction.Send)
+            .SetThreadId(threadId)
+            //.SetUploadType(UploadType.Multipart) -> if none provided no attachments are send
+            .Build();
 
-            return await _proxy.Post<Message>(queryString);
-        }
-
-        /// <summary>Sends the specified message to the recipients in the To, Cc, and Bcc headers.</summary>
-        /// <param name="raw">The entire email message in an RFC 2822 formatted and base64url encoded string.
-        /// Returned in <see cref="GetAsync"/> and <see cref="DraftService.GetAsync"/> responses when the format=RAW parameter is supplied.</param>
-        /// <param name="threadId">The ID of the thread the message belongs to. To add a message or draft to a thread, the following criteria must be met:
-        /// <list type="disc">
-        /// <item><description>1. The requested threadId must be specified on the <see cref="Message"/> or <see cref="Draft.Message"/> you supply with your request.</description></item>
-        /// <item><description>2. The References and In-Reply-To headers must be set in compliance with the RFC 2822 standard.</description></item>
-        /// <item><description>3. The Subject headers must match.</description></item>
-        /// </list>
-        /// </param>
-        /// <returns></returns>
-        public async Task<Message> SendAsync(string raw, string threadId)
-        {
-            string queryString = new MessageQueryStringBuilder()
-               .SetRequestAction(MessageRequestAction.Send)
-               .SetThreadId(threadId)
-               //.SetUploadType(UploadType.Multipart) -> if none provided no attachments are send
-               .Build();
-
-            return await _proxy.Post<Message>(queryString, new { raw });
-        }
+        return await _proxy.Post<Message>(queryString, new { raw });
     }
 }

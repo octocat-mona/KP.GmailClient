@@ -1,33 +1,32 @@
-﻿using FluentAssertions;
+﻿using AwesomeAssertions;
 using KP.GmailClient.Builders;
 using Xunit;
 
-namespace KP.GmailClient.UnitTests.BuilderTests
+namespace KP.GmailClient.UnitTests.BuilderTests;
+
+public class MessageQueryStringBuilderTests
 {
-    public class MessageQueryStringBuilderTests
+    [Fact]
+    public void WithEmptyThreadId_DoesNotIncludeThreadId()
     {
-        [Fact]
-        public void WithEmptyThreadId_DoesNotIncludeThreadId()
-        {
-            // Act
-            string queryString = new MessageQueryStringBuilder()
-                .SetThreadId("")
-                .Build();
+        // Act
+        string queryString = new MessageQueryStringBuilder()
+            .SetThreadId("")
+            .Build();
 
-            // Assert
-            queryString.Should().BeEquivalentTo("messages");
-        }
+        // Assert
+        queryString.Should().BeEquivalentTo("messages");
+    }
 
-        [Fact]
-        public void WithWhitespaceThreadId_DoesNotIncludeThreadId()
-        {
-            // Act
-            string queryString = new MessageQueryStringBuilder()
-                .SetThreadId("   ")
-                .Build();
+    [Fact]
+    public void WithWhitespaceThreadId_DoesNotIncludeThreadId()
+    {
+        // Act
+        string queryString = new MessageQueryStringBuilder()
+            .SetThreadId("   ")
+            .Build();
 
-            // Assert
-            queryString.Should().BeEquivalentTo("messages");
-        }
+        // Assert
+        queryString.Should().BeEquivalentTo("messages");
     }
 }

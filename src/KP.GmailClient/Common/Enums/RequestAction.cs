@@ -1,21 +1,20 @@
-namespace KP.GmailClient.Common.Enums
+namespace KP.GmailClient.Common.Enums;
+
+/// <summary>
+/// A list of all the available actions.
+/// </summary>
+internal enum RequestAction
 {
-    /// <summary>
-    /// A list of all the available actions.
-    /// </summary>
-    internal enum RequestAction
-    {
-        Delete,
-        Get,
-        Import,
-        Insert,
-        List,
-        Modify,
-        Patch,
-        Send,
-        Trash,
-        Untrash,
-        Update,
-        Create
-    }
+    Delete,
+    Get,
+    Import,
+    Insert,
+    List,
+    Modify,
+    Patch,
+    Send,
+    Trash,
+    Untrash,
+    Update,
+    Create
 }

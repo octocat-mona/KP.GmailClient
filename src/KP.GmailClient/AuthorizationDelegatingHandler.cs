@@ -7,65 +7,64 @@ using KP.GmailClient.Authentication.TokenClients;
 using KP.GmailClient.Authentication.TokenStores;
 using KP.GmailClient.Extensions;
 
-namespace KP.GmailClient
+namespace KP.GmailClient;
+
+internal class AuthorizationDelegatingHandler : DelegatingHandler
 {
-    internal class AuthorizationDelegatingHandler : DelegatingHandler
+    private readonly ITokenClient _tokenClient;
+    private readonly ITokenStore _tokenStore;
+    private readonly SemaphoreSlim _semaphoreSlim = new(1, 1);
+
+    public AuthorizationDelegatingHandler(ITokenClient tokenClient, ITokenStore tokenStore)
     {
-        private readonly ITokenClient _tokenClient;
-        private readonly ITokenStore _tokenStore;
-        private readonly SemaphoreSlim _semaphoreSlim = new(1, 1);
+        _tokenClient = tokenClient;
+        _tokenStore = tokenStore;
+    }
 
-        public AuthorizationDelegatingHandler(ITokenClient tokenClient, ITokenStore tokenStore)
+    protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+    {
+        async Task<HttpResponseMessage> SendRequestAsync()
         {
-            _tokenClient = tokenClient;
-            _tokenStore = tokenStore;
+            string token = await GetTokenSynchronized(cancellationToken);
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            return await base.SendAsync(request, cancellationToken);
         }
 
-        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        var responseMessage = await SendRequestAsync();
+        if (responseMessage.StatusCode == HttpStatusCode.Unauthorized)
         {
-            async Task<HttpResponseMessage> SendRequestAsync()
-            {
-                string token = await GetTokenSynchronized(cancellationToken);
-                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                return await base.SendAsync(request, cancellationToken);
-            }
-
-            var responseMessage = await SendRequestAsync();
-            if (responseMessage.StatusCode == HttpStatusCode.Unauthorized)
-            {
-                // Request returned 401, try once again with new token
-                return await SendRequestAsync();
-            }
-
-            return responseMessage;
+            // Request returned 401, try once again with new token
+            return await SendRequestAsync();
         }
 
-        private async Task<string> GetTokenSynchronized(CancellationToken cancellationToken)
+        return responseMessage;
+    }
+
+    private async Task<string> GetTokenSynchronized(CancellationToken cancellationToken)
+    {
+        try
         {
-            try
-            {
-                await _semaphoreSlim.WaitAsync(cancellationToken);
+            await _semaphoreSlim.WaitAsync(cancellationToken);
 
-                var existingToken = await _tokenStore.GetTokenAsync();
-                if (!existingToken.IsExpired())
-                {
-                    return existingToken.AccessToken;
-                }
-
-                var token = await _tokenClient.GetTokenAsync(existingToken.RefreshToken, cancellationToken);
-                await _tokenStore.StoreTokenAsync(token);
-                return token.AccessToken;
-            }
-            finally
+            var existingToken = await _tokenStore.GetTokenAsync();
+            if (!existingToken.IsExpired())
             {
-                _semaphoreSlim.Release();
+                return existingToken.AccessToken;
             }
+
+            var token = await _tokenClient.GetTokenAsync(existingToken.RefreshToken, cancellationToken);
+            await _tokenStore.StoreTokenAsync(token);
+            return token.AccessToken;
         }
-
-        protected override void Dispose(bool disposing)
+        finally
         {
-            _semaphoreSlim.Dispose();
-            base.Dispose(disposing);
+            _semaphoreSlim.Release();
         }
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+        _semaphoreSlim.Dispose();
+        base.Dispose(disposing);
     }
 }

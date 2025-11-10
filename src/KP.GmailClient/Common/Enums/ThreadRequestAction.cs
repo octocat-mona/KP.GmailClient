@@ -1,15 +1,14 @@
-namespace KP.GmailClient.Common.Enums
+namespace KP.GmailClient.Common.Enums;
+
+/// <summary>
+/// Actions available for email threads.
+/// </summary>
+internal enum ThreadRequestAction
 {
-    /// <summary>
-    /// Actions available for email threads.
-    /// </summary>
-    internal enum ThreadRequestAction
-    {
-        Delete,
-        Get,
-        List,
-        Modify,
-        Trash,
-        Untrash
-    }
+    Delete,
+    Get,
+    List,
+    Modify,
+    Trash,
+    Untrash
 }

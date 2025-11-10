@@ -1,15 +1,14 @@
 ﻿using KP.GmailClient.Common;
 using KP.GmailClient.Common.Enums;
 
-namespace KP.GmailClient.Builders
+namespace KP.GmailClient.Builders;
+
+internal abstract class UploadQueryStringBuilder : QueryStringBuilder
 {
-    internal abstract class UploadQueryStringBuilder : QueryStringBuilder
+    public UploadQueryStringBuilder SetUploadType(UploadType uploadType)
     {
-        public UploadQueryStringBuilder SetUploadType(UploadType uploadType)
-        {
-            string uploadTypeString = uploadType.GetAttribute<StringValueAttribute, UploadType>().Text;
-            SetParameter("uploadType", uploadTypeString);
-            return this;
-        }
+        string uploadTypeString = uploadType.GetAttribute<StringValueAttribute, UploadType>().Text;
+        SetParameter("uploadType", uploadTypeString);
+        return this;
     }
 }

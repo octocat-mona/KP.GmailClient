@@ -1,38 +1,37 @@
 ﻿using System.Threading.Tasks;
-using FluentAssertions;
+using AwesomeAssertions;
 using KP.GmailClient.Services;
 using Xunit;
 
-namespace KP.GmailClient.IntegrationTests.DraftServiceTests
+namespace KP.GmailClient.IntegrationTests.DraftServiceTests;
+
+public class DraftListTests
 {
-    public class DraftListTests
+    private readonly DraftService _service;
+
+    public DraftListTests()
     {
-        private readonly DraftService _service;
+        _service = new DraftService(SettingsManager.GmailProxy);
+    }
 
-        public DraftListTests()
-        {
-            _service = new DraftService(SettingsManager.GmailProxy);
-        }
+    [Fact]
+    public async Task CanListIds()
+    {
+        // Act
+        var ids = await _service.ListIdsAsync();
 
-        [Fact]
-        public async Task CanListIds()
-        {
-            // Act
-            var ids = await _service.ListIdsAsync();
+        // Assert
+        ids.Should().NotBeNull();
+        ids.Drafts.Should().NotBeNull();
+    }
 
-            // Assert
-            ids.Should().NotBeNull();
-            ids.Drafts.Should().NotBeNull();
-        }
+    [Fact]
+    public async Task CanList()
+    {
+        // Act
+        var drafts = await _service.ListAsync();
 
-        [Fact]
-        public async Task CanList()
-        {
-            // Act
-            var drafts = await _service.ListAsync();
-
-            // Assert
-            drafts.Should().NotBeNull();
-        }
+        // Assert
+        drafts.Should().NotBeNull();
     }
 }
