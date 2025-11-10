@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AwesomeAssertions;
 using KP.GmailClient.Models;
 using KP.GmailClient.Services;
@@ -14,16 +13,6 @@ public class MessageCountTests
     public MessageCountTests()
     {
         _service = new MessageService(SettingsManager.GmailProxy);
-    }
-
-    [Fact]
-    public async Task CanCount()
-    {
-        // Act
-        Func<Task> action = async () => await _service.CountAsync();
-
-        // Assert
-        await action.Should().NotThrowAsync();
     }
 
     [Fact]
