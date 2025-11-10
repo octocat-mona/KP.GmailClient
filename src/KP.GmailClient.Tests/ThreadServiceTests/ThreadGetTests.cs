@@ -25,7 +25,7 @@ public class ThreadGetTests
     public async Task CanGet()
     {
         // Arrange
-        Message message = (await _messageService.ListByLabelAsync(Label.Sent)).First();
+        Message message = (await _messageService.ListByLabelAsync(Label.Sent, maxResults: 1)).First();
         string threadId = message.ThreadId;
 
         // Act

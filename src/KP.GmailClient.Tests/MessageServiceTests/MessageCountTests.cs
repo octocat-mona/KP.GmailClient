@@ -17,23 +17,24 @@ public class MessageCountTests
     }
 
     [Fact]
-    public void CanCount()
+    public async Task CanCount()
     {
         // Act
         Func<Task> action = async () => await _service.CountAsync();
 
         // Assert
-        action.Should().NotThrowAsync();
+        await action.Should().NotThrowAsync();
     }
 
     [Fact]
     public async Task Count_ReturnsSameAs_InboxCount()
     {
         // Arrange
-        uint labelInboxCount = await _service.CountAsync(Label.Inbox);
+        const string label = Label.Inbox;
+        uint labelInboxCount = await _service.CountAsync(label);
 
         // Act
-        uint inboxCount = await _service.CountAsync(); // parameterless ctor should count the user's Inbox
+        uint inboxCount = await _service.CountAsync(label);
 
         // Assert
         inboxCount.Should().Be(labelInboxCount);

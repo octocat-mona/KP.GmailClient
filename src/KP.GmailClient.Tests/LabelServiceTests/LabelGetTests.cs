@@ -32,10 +32,10 @@ public class LabelGetTests
     public async Task NonExistingLabel_ReturnsNotFound()
     {
         // Act
-        Func<Task> action = async () => await _service.GetAsync(Guid.NewGuid().ToString("N"));
+        async Task Action() => await _service.GetAsync(Guid.NewGuid().ToString("N"));
 
         // Assert
-        var ex = await Assert.ThrowsAsync<GmailApiException>(action);
+        var ex = await Assert.ThrowsAsync<GmailApiException>(Action);
         ex.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }
 }

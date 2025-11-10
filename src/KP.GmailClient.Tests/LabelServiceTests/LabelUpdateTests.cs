@@ -16,9 +16,9 @@ public class LabelUpdateTests : IDisposable
     {
         _service = new LabelService(SettingsManager.GmailProxy);
 
-        Func<Label, Task> deleteAction = label => _service.DeleteAsync(label.Id);
-        Func<CreateLabelInput, Task<Label>> createAction = async input => await _service.CreateAsync(input);
-        _helper = new CleanupHelper<Label, CreateLabelInput>(createAction, deleteAction);
+        Task DeleteAction(Label label) => _service.DeleteAsync(label.Id);
+        async Task<Label> CreateAction(CreateLabelInput input) => await _service.CreateAsync(input);
+        _helper = new CleanupHelper<Label, CreateLabelInput>(CreateAction, DeleteAction);
     }
 
     [Fact]
