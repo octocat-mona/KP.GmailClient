@@ -9,7 +9,7 @@ using Xunit;
 
 namespace KP.GmailClient.IntegrationTests;
 
-public class Playground
+public class Playground : IClassFixture<GlobalDelayFixture>
 {
     private const string ClientCredentialsFile = "oauth_client_credentials.json";
     private const string TokenFile = "token.json";

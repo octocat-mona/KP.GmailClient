@@ -83,8 +83,10 @@ internal class GmailProxy : IDisposable
         HttpResponseMessage response = await _client.SendAsync(request);
         await EnsureSuccessResponseAsync(response);
 
-        using Stream stream = await response.Content.ReadAsStreamAsync();
-        return await JsonSerializer.DeserializeAsync<T>(stream);
+        using (Stream stream = await response.Content.ReadAsStreamAsync())
+        {
+            return await JsonSerializer.DeserializeAsync<T>(stream);
+        }
     }
 
     private static async Task EnsureSuccessResponseAsync(HttpResponseMessage response)
@@ -94,9 +96,11 @@ internal class GmailProxy : IDisposable
             return;
         }
 
-        using Stream stream = await response.Content.ReadAsStreamAsync();
-        GmailApiException ex = await ErrorResponseParser.ParseAsync(response.StatusCode, stream);
-        throw ex;
+        using (Stream stream = await response.Content.ReadAsStreamAsync())
+        {
+            GmailApiException ex = await ErrorResponseParser.ParseAsync(response.StatusCode, stream);
+            throw ex;
+        }
     }
 
     public void Dispose()

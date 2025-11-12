@@ -8,7 +8,7 @@ using Xunit;
 
 namespace KP.GmailClient.IntegrationTests.MessageServiceTests;
 
-public class MessageSendTests : IDisposable
+public class MessageSendTests : IDisposable, IClassFixture<GlobalDelayFixture>
 {
     private readonly CleanupHelper<Message, Message> _helper;
     private readonly MessageService _service;

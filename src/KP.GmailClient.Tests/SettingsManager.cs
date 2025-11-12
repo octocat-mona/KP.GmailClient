@@ -12,7 +12,8 @@ internal class SettingsManager
 {
     private static readonly IConfigurationRoot ConfigurationRoot;
     private const string SettingsPrefix = "KP_GmailClient_";
-    public static GmailProxy GmailProxy { get; }
+
+    public static GmailProxy GmailProxy;
 
     static SettingsManager()
     {

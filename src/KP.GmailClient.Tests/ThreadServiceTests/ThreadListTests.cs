@@ -2,10 +2,11 @@
 using System.Threading.Tasks;
 using AwesomeAssertions;
 using KP.GmailClient.Services;
+using Xunit;
 
 namespace KP.GmailClient.IntegrationTests.ThreadServiceTests;
 
-public class ThreadListTests
+public class ThreadListTests : IClassFixture<GlobalDelayFixture>
 {
     private readonly ThreadService _service;
 

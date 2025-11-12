@@ -47,8 +47,10 @@ public static class MessageServiceExtensions
 
     /// <summary>Lists the messages filtered with a query.</summary>
     /// <param name="service">Gmail API service instance</param>
-    /// <param name="query">Only return messages matching the specified query.
-    /// Supports the same query format as the Gmail search box. For example, "from:someuser@example.com rfc822msgid: is:unread".</param>
+    /// <param name="query">
+    /// Only return messages matching the specified query.
+    /// Supports the same query format as the Gmail search box. For example, "from:someuser@example.com rfc822msgid: is:unread".
+    /// </param>
     /// <param name="maxResults">Maximum number of messages to return</param>
     /// <param name="includeSpamAndTrash">Include messages from SPAM and TRASH in the results.</param>
     /// <param name="labelIds">Only return messages with labels that match all of the specified label IDs</param>
@@ -57,7 +59,7 @@ public static class MessageServiceExtensions
     {
         var messageList = await service.ListIdsAsync(query, maxResults, includeSpamAndTrash, labelIds);
 
-        var tasks = messageList.Messages.Select(id => service.GetAsync(id.Id));// TODO: do one batch request?
+        var tasks = messageList.Messages.Select(id => service.GetAsync(id.Id)); // TODO: do one batch request?
         return (await Task.WhenAll(tasks)).ToList();
     }
 

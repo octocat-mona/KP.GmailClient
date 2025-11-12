@@ -9,7 +9,7 @@ using Xunit;
 
 namespace KP.GmailClient.IntegrationTests.AttachmentServiceTests;
 
-public class AttachmentGetTests
+public class AttachmentGetTests : IClassFixture<GlobalDelayFixture>
 {
     private readonly AttachmentService _service;
     private readonly DraftService _draftService;
@@ -24,15 +24,15 @@ public class AttachmentGetTests
     public async Task NonExistingAttachment_ReturnsNotFound()
     {
         // Arrange
-        Draft draft = new Draft();// TODO: create draft with attachment
+        Draft draft = new Draft(); // TODO: create draft with attachment
         Message message = (await _draftService.CreateAsync(draft)).Message;
         string messageId = message.Id;
 
         // Act
-        Func<Task> action = async () => await _service.GetAsync(messageId, Guid.NewGuid().ToString("N"));
+        async Task Action() => await _service.GetAsync(messageId, Guid.NewGuid().ToString("N"));
 
         // Assert
-        var ex = await Assert.ThrowsAsync<GmailApiException>(action);
+        var ex = await Assert.ThrowsAsync<GmailApiException>(Action);
         ex.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }
 }

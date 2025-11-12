@@ -6,7 +6,7 @@ using Xunit;
 
 namespace KP.GmailClient.IntegrationTests.LabelServiceTests;
 
-public class LabelListTests
+public class LabelListTests : IClassFixture<GlobalDelayFixture>
 {
     private readonly LabelService _service;
 

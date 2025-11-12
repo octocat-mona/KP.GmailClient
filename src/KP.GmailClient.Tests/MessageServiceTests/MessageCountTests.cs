@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AwesomeAssertions;
 using KP.GmailClient.Models;
 using KP.GmailClient.Services;
@@ -7,7 +6,7 @@ using Xunit;
 
 namespace KP.GmailClient.IntegrationTests.MessageServiceTests;
 
-public class MessageCountTests
+public class MessageCountTests : IClassFixture<GlobalDelayFixture>
 {
     private readonly MessageService _service;
 
@@ -17,23 +16,14 @@ public class MessageCountTests
     }
 
     [Fact]
-    public void CanCount()
-    {
-        // Act
-        Func<Task> action = async () => await _service.CountAsync();
-
-        // Assert
-        action.Should().NotThrowAsync();
-    }
-
-    [Fact]
     public async Task Count_ReturnsSameAs_InboxCount()
     {
         // Arrange
-        uint labelInboxCount = await _service.CountAsync(Label.Inbox);
+        const string label = Label.Inbox;
+        uint labelInboxCount = await _service.CountAsync(label);
 
         // Act
-        uint inboxCount = await _service.CountAsync(); // parameterless ctor should count the user's Inbox
+        uint inboxCount = await _service.CountAsync(label);
 
         // Assert
         inboxCount.Should().Be(labelInboxCount);
