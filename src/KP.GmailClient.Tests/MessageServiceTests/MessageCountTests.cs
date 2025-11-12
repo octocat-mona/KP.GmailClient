@@ -6,7 +6,7 @@ using Xunit;
 
 namespace KP.GmailClient.IntegrationTests.MessageServiceTests;
 
-public class MessageCountTests
+public class MessageCountTests : IClassFixture<GlobalDelayFixture>
 {
     private readonly MessageService _service;
 

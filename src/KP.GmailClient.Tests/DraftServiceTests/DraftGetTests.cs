@@ -7,7 +7,7 @@ using Xunit;
 
 namespace KP.GmailClient.IntegrationTests.DraftServiceTests;
 
-public class DraftGetTests : IDisposable
+public class DraftGetTests : IDisposable, IClassFixture<GlobalDelayFixture>
 {
     private readonly DraftService _service;
     private readonly CleanupHelper<Draft, Draft> _helper;

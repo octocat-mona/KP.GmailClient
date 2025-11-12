@@ -10,7 +10,7 @@ using Xunit;
 
 namespace KP.GmailClient.IntegrationTests.ThreadServiceTests;
 
-public class ThreadGetTests
+public class ThreadGetTests : IClassFixture<GlobalDelayFixture>
 {
     private readonly ThreadService _service;
     private readonly MessageService _messageService;

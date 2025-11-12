@@ -3,7 +3,7 @@ using Xunit;
 
 namespace KP.GmailClient.IntegrationTests;
 
-public class SmokeTests
+public class SmokeTests : IClassFixture<GlobalDelayFixture>
 {
     [Fact]
     public void HasSettingsConfigured()

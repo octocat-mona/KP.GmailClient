@@ -8,7 +8,7 @@ using Xunit;
 
 namespace KP.GmailClient.IntegrationTests.HistoryServiceTests;
 
-public class HistoryListTests
+public class HistoryListTests : IClassFixture<GlobalDelayFixture>
 {
     private readonly HistoryService _service;
     private readonly MessageService _messageService;

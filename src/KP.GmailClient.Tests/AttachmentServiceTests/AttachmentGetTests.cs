@@ -9,7 +9,7 @@ using Xunit;
 
 namespace KP.GmailClient.IntegrationTests.AttachmentServiceTests;
 
-public class AttachmentGetTests
+public class AttachmentGetTests : IClassFixture<GlobalDelayFixture>
 {
     private readonly AttachmentService _service;
     private readonly DraftService _draftService;

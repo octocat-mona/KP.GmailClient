@@ -6,7 +6,7 @@ using Xunit;
 
 namespace KP.GmailClient.IntegrationTests.LabelServiceTests;
 
-public class LabelUpdateTests : IDisposable
+public class LabelUpdateTests : IDisposable, IClassFixture<GlobalDelayFixture>
 {
     private const string TestLabel = "Testing/";
     private readonly LabelService _service;

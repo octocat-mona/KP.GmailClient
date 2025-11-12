@@ -5,7 +5,7 @@ using Xunit;
 
 namespace KP.GmailClient.IntegrationTests.DraftServiceTests;
 
-public class DraftListTests
+public class DraftListTests : IClassFixture<GlobalDelayFixture>
 {
     private readonly DraftService _service;
 
