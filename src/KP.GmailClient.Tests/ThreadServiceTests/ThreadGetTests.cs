@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using AwesomeAssertions;
@@ -42,10 +41,10 @@ public class ThreadGetTests : IClassFixture<GlobalDelayFixture>
         const string id = "13c97ae7b72cb05e";
 
         // Act
-        Func<Task> action = async () => await _service.GetAsync(id);
+        async Task Action() => await _service.GetAsync(id);
 
         // Assert
-        var ex = await Assert.ThrowsAsync<GmailApiException>(action);
+        var ex = await Assert.ThrowsAsync<GmailApiException>(Action);
         ex.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }
 }
